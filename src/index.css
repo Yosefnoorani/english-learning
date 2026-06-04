@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ── Dark mode via data-theme attribute ──────────────────────── */
+@variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ── CSS tokens ─────────────────────────────────────────────── */
+:root {
+  --surface:      #f8fafc;
+  --surface-elev: #ffffff;
+  --text:         #0f172a;
+  --text-muted:   #64748b;
+  --border:       #e2e8f0;
+  --primary:      #6366f1;
+  --success:      #10b981;
+  --danger:       #f43f5e;
+  --warn:         #f59e0b;
+}
+
+[data-theme="dark"] {
+  --surface:      #0f172a;
+  --surface-elev: #1e293b;
+  --text:         #f1f5f9;
+  --text-muted:   #94a3b8;
+  --border:       #334155;
+  --primary:      #818cf8;
+  --success:      #34d399;
+  --danger:       #fb7185;
+  --warn:         #fbbf24;
+}
+
+/* ── Base reset ─────────────────────────────────────────────── */
+@layer base {
+  * { box-sizing: border-box; }
+
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100svh;
+  }
+
+  /* Uniform focus ring */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+}
+
+/* ── Flip card ──────────────────────────────────────────────── */
+.flip-card { perspective: 1000px; }
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped { transform: rotateY(180deg); }
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back { transform: rotateY(180deg); }
+
+/* ── Bottom sheet slide-up ──────────────────────────────────── */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.slide-up { animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* ── Slide-in from right ────────────────────────────────────── */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.slide-in-right { animation: slideInRight 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* ── Slide-in from left ─────────────────────────────────────── */
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+.slide-in-left { animation: slideInLeft 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* ── Fade in ────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn 0.2s ease forwards; }
+
+/* ── Word chip transitions ──────────────────────────────────── */
+.word-chip {
+  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+  min-height: 44px;
+}
+
+.word-chip:active { transform: scale(0.95); }
+
+/* ── Reduced-motion overrides ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .flip-card-inner { transition: none; }
+  .slide-up,
+  .slide-in-right,
+  .slide-in-left { animation: none; }
+  .fade-in { animation: none; opacity: 1; transform: none; }
+  .word-chip { transition: none; }
+  body { transition: none; }
+}
+
+/* Honour manual override in store (reduced-motion class on <html>) */
+html.motion-reduce .flip-card-inner { transition: none; }
+html.motion-reduce .slide-up,
+html.motion-reduce .slide-in-right,
+html.motion-reduce .slide-in-left { animation: none; }
+html.motion-reduce .fade-in { animation: none; opacity: 1; transform: none; }
+
+/* ── Dark mode surface overrides (for components using bg-white) */
+[data-theme="dark"] .bg-white     { background-color: var(--surface-elev); }
+[data-theme="dark"] .bg-slate-50  { background-color: #1e293b; }
+[data-theme="dark"] .bg-slate-100 { background-color: #0f172a; }
+[data-theme="dark"] .text-slate-800 { color: #f1f5f9; }
+[data-theme="dark"] .text-slate-700 { color: #e2e8f0; }
+[data-theme="dark"] .text-slate-600 { color: #cbd5e1; }
+[data-theme="dark"] .text-slate-500 { color: #94a3b8; }
+[data-theme="dark"] .text-slate-400 { color: #64748b; }
+[data-theme="dark"] .border-slate-200 { border-color: #334155; }
+[data-theme="dark"] .shadow-lg,
+[data-theme="dark"] .shadow-md,
+[data-theme="dark"] .shadow-sm { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }

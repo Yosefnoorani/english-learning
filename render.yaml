@@ -1,0 +1,7 @@
+# Render Blueprint — Static Site (no sleep; Cron-job.io not needed)
+services:
+  - type: web
+    name: english-learning
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
