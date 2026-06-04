@@ -22,25 +22,27 @@ npm run preview
 
 ### GitHub
 
-1. Create a repository on GitHub (e.g. `english-learning`).
-2. Push this project:
+Repository: **https://github.com/Yosefnoorani/english-learning**
 
 ```bash
-git remote add origin https://github.com/YOUR_USER/english-learning.git
-git branch -M main
 git push -u origin main
 ```
 
+Or run `scripts/deploy-github.ps1` after `gh auth login` (account **Yosefnoorani** / **yosefnoorani@gmail.com**).
+
 ### Render (Static Site)
 
-1. [dashboard.render.com](https://dashboard.render.com) → **New** → **Static Site** (or **Blueprint** if using `render.yaml`).
-2. Connect the GitHub repo.
-3. Settings (auto-filled by `render.yaml` if using Blueprint):
-   - **Build Command:** `npm install && npm run build`
-   - **Publish Directory:** `dist`
-4. No environment variables required for local-only mode.
+Sign in to [dashboard.render.com](https://dashboard.render.com) with **yosefnoorani@gmail.com** (same Google account as GitHub).
 
-**Cron-job.io:** Not needed for Static Sites (they do not sleep). Use a ping only if you deploy as a Web Service instead.
+1. **New** → **Static Site** → connect **Yosefnoorani/english-learning**.
+2. Branch: `main`
+3. **Build Command:** `npm install && npm run build`
+4. **Publish Directory:** `dist`
+5. Deploy. No environment variables for local-only mode.
+
+Or use **New Blueprint** and point at the repo — [`render.yaml`](render.yaml) sets the same values.
+
+**Cron-job.io:** Not needed for Static Sites (they do not sleep). Skip Cron unless you use a Web Service.
 
 ### Optional: Supabase
 
