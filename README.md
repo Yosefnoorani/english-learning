@@ -2,7 +2,9 @@
 
 Vite + React app for English practice (local content + browser `localStorage`).
 
-**Deploy account:** Use **yosefnoorani@gmail.com** for GitHub, [Render](https://dashboard.render.com), and Cron-job.io (Cron is optional for Static Sites).
+**Deploy account:** Use **yosefnoorani@gmail.com** for GitHub, [Render](https://dashboard.render.com), and Cron-job.io.
+
+**Quick links:** see [DEPLOY.md](DEPLOY.md) · automated setup: `.\scripts\setup-render-and-cron.ps1` (needs API keys).
 
 ## Local development
 
