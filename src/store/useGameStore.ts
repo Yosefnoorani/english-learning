@@ -367,13 +367,14 @@ export const useGameStore = create<GameState>()(
         const gradingResult = gradeAnswer(item, answer)
         const isCorrect = gradingResult.isCorrect
 
-        const result: AnswerResult & { userAnswer: string } = {
+        const result: AnswerResult & { userAnswer: string; explanation?: string } = {
           isCorrect,
           correctAnswer: item.data.correct_answer,
           item,
           userAnswer: answer,
           errorMarks: gradingResult.errors,
           similarity: gradingResult.similarity,
+          explanation: gradingResult.explanation,
         }
 
         if (phase === 'placement') {
@@ -392,8 +393,7 @@ export const useGameStore = create<GameState>()(
             placementAnswered: newAnswered,
             placementRatingSum: newSum,
             lastResult: result,
-            showFeedback: !isCorrect,
-            currentIndex: isCorrect ? currentIndex + 1 : currentIndex,
+            showFeedback: true,
           })
           return
         }
@@ -483,7 +483,7 @@ export const useGameStore = create<GameState>()(
         set({
           triggerHint,
           lastResult: result,
-          showFeedback: !isCorrect,
+          showFeedback: true,
           showSessionSummary: isCorrect && sessionDone,
           sessionAnswered: newSessionAnswered,
           sessionCorrect: newSessionCorrect,
@@ -497,10 +497,6 @@ export const useGameStore = create<GameState>()(
         })
 
         get().saveResumeSnapshot()
-
-        if (isCorrect && !sessionDone) {
-          await get().nextQuestion()
-        }
       },
 
       nextQuestion: async () => {
@@ -568,7 +564,9 @@ export const useGameStore = create<GameState>()(
       },
 
       dismissFeedback: () => {
+        const { showSessionSummary } = get()
         set({ showFeedback: false })
+        if (showSessionSummary) return
         get().nextQuestion()
       },
 
@@ -648,14 +646,19 @@ export const selectTierProgress = (s: GameState): { current: number; target: num
   target: getPromotionTarget(s.hadRecentMistakeAtTier),
 })
 
-export const selectSkillMastery = (s: GameState): Array<{ skill: SkillId; mastery: number; total: number }> =>
-  (Object.entries(s.skillStats) as [SkillId, SkillStats][])
+export function getSkillMastery(
+  skillStats: Record<SkillId, SkillStats>,
+): Array<{ skill: SkillId; mastery: number; total: number }> {
+  return (Object.entries(skillStats) as [SkillId, SkillStats][])
     .map(([skill, stats]) => ({
       skill,
       mastery: stats.correct + stats.wrong > 0 ? stats.correct / (stats.correct + stats.wrong) : -1,
       total: stats.correct + stats.wrong,
     }))
     .sort((a, b) => a.mastery - b.mastery)
+}
+
+export const selectSkillMastery = (s: GameState) => getSkillMastery(s.skillStats)
 
 export const selectDueCount = (s: GameState): number =>
   s.mistakeQueue.filter((e) => !e.mastered && e.nextDueAt <= Date.now()).length

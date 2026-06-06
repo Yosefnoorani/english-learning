@@ -216,7 +216,7 @@ export default function App() {
         <FeedbackDrawer result={lastResult} onNext={dismissFeedback} />
       )}
 
-      {showSessionSummary && (
+      {showSessionSummary && !showFeedback && (
         <SessionSummary
           onContinue={() => continueSession()}
           onDone={dismissSessionSummary}

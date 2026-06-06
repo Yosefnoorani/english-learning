@@ -1,6 +1,6 @@
 import { Flame, Settings } from 'lucide-react'
-import { useShallow } from 'zustand/react/shallow'
-import { useGameStore, selectLevelLabel, selectTierProgress } from '@/store/useGameStore'
+import { useGameStore, selectLevelLabel } from '@/store/useGameStore'
+import { getPromotionTarget } from '@/services/adaptiveProgressionService'
 import { ProgressRing } from '@/components/ui/ProgressRing'
 
 interface TopBarProps {
@@ -11,14 +11,16 @@ export function TopBar({ onOpenSettings }: TopBarProps) {
   const userState = useGameStore((s) => s.userState)
   const phase = useGameStore((s) => s.phase)
   const currentTier = useGameStore((s) => s.currentTier)
+  const tierCorrectStreak = useGameStore((s) => s.tierCorrectStreak)
+  const hadRecentMistakeAtTier = useGameStore((s) => s.hadRecentMistakeAtTier)
   const levelLabel = useGameStore(selectLevelLabel)
-  const tierProgress = useGameStore(useShallow(selectTierProgress))
 
   const goalPercent = Math.round(
     (userState.dailyGoalProgress / userState.dailyGoalTarget) * 100,
   )
 
-  const tierPercent = Math.round((tierProgress.current / tierProgress.target) * 100)
+  const tierTarget = getPromotionTarget(hadRecentMistakeAtTier)
+  const tierPercent = Math.round((tierCorrectStreak / tierTarget) * 100)
 
   if (phase === 'placement') return null
 
@@ -36,7 +38,7 @@ export function TopBar({ onOpenSettings }: TopBarProps) {
               />
             </div>
             <span className="text-[10px] text-slate-400 whitespace-nowrap">
-              {tierProgress.current}/{tierProgress.target} · T{currentTier}
+              {tierCorrectStreak}/{tierTarget} · T{currentTier}
             </span>
           </div>
         </div>

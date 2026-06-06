@@ -14,6 +14,8 @@ interface FeedbackDrawerProps {
 }
 
 const OPEN_ANSWER_TYPES = new Set(['sentence_builder', 'translation_he_en', 'listening_dictation'])
+const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', 'verb_conjugation'])
+const KEYBOARD_DISMISS_DELAY_MS = 400
 
 function DiffDisplay({ tokens }: { tokens: DiffToken[] }) {
   if (tokens.length === 0) return null
@@ -43,8 +45,16 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   const skillLabel = SKILL_LABELS[item.skill] ?? item.skill
 
   const userAnswer = (result as AnswerResult & { userAnswer?: string }).userAnswer ?? ''
+  const explanation = (result as AnswerResult & { explanation?: string }).explanation
   const showDiff = !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
   const diffTokens = showDiff ? buildDiffTokens(item, userAnswer) : []
+  const showUserChoice =
+    !isCorrect &&
+    CHOICE_ANSWER_TYPES.has(item.type) &&
+    userAnswer &&
+    !['__skip__', '__wrong__', '__correct__'].includes(userAnswer)
+  const showNearMiss =
+    isCorrect && explanation && explanation !== 'Correct!' && !explanation.startsWith('Well done')
 
   const staticFeedback = useMemo(() => {
     if (isCorrect) return null
@@ -68,8 +78,15 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const openedAt = useRef(Date.now())
+  useEffect(() => {
+    openedAt.current = Date.now()
+  }, [result])
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (e.repeat) return
+      if (Date.now() - openedAt.current < KEYBOARD_DISMISS_DELAY_MS) return
       if (e.key === 'Enter' || e.key === 'Escape') {
         e.preventDefault()
         onNext()
@@ -77,7 +94,7 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [onNext])
+  }, [onNext, result])
 
   const handleRef = useRef<HTMLDivElement>(null)
   const touchStartY = useRef<number>(0)
@@ -99,14 +116,14 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/20 z-30 md:hidden" onClick={onNext} aria-hidden="true" />
+      <div className="fixed inset-0 bg-black/30 z-40 md:hidden" onClick={onNext} aria-hidden="true" />
 
       <div
         role="dialog"
         aria-live="polite"
         aria-label={isCorrect ? 'Correct answer' : 'Incorrect answer'}
         className={`
-          fixed z-40 slide-up
+          fixed z-50 slide-up
           bottom-0 left-0 right-0
           md:bottom-auto md:top-0 md:right-0 md:left-auto md:h-full md:w-[22rem]
           ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/60' : 'bg-white dark:bg-slate-900'}
@@ -147,10 +164,23 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             </span>
           </div>
 
+          {showUserChoice && (
+            <div className="rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-4">
+              <p className="text-xs font-semibold text-rose-500 uppercase tracking-wide mb-1">Your answer</p>
+              <p className="text-base font-semibold text-rose-800 dark:text-rose-200">{userAnswer}</p>
+            </div>
+          )}
+
           {!isCorrect && showDiff && diffTokens.length > 0 && (
             <div className="rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">What you wrote</p>
               <DiffDisplay tokens={diffTokens} />
+            </div>
+          )}
+
+          {showNearMiss && (
+            <div className="rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4">
+              <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">{explanation}</p>
             </div>
           )}
 

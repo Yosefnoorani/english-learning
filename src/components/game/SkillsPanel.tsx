@@ -1,6 +1,6 @@
+import { useMemo } from 'react'
 import { X, TrendingUp, TrendingDown, Minus } from 'lucide-react'
-import { useShallow } from 'zustand/react/shallow'
-import { useGameStore, selectSkillMastery } from '@/store/useGameStore'
+import { useGameStore, getSkillMastery } from '@/store/useGameStore'
 import { SKILL_LABELS } from '@/types/game'
 import type { SkillId } from '@/types/game'
 
@@ -33,8 +33,8 @@ function MasteryBar({ mastery }: { mastery: number }) {
 }
 
 export function SkillsPanel({ onClose }: SkillsPanelProps) {
-  const masteryData = useGameStore(useShallow(selectSkillMastery))
   const skillStats = useGameStore((s) => s.skillStats)
+  const masteryData = useMemo(() => getSkillMastery(skillStats), [skillStats])
 
   // Show all skills that have been seen + all with data
   const practisedSkills = masteryData.filter((d) => d.total > 0)
