@@ -1,4 +1,5 @@
 import { Flame, Settings } from 'lucide-react'
+import { useShallow } from 'zustand/react/shallow'
 import { useGameStore, selectLevelLabel, selectTierProgress } from '@/store/useGameStore'
 import { ProgressRing } from '@/components/ui/ProgressRing'
 
@@ -11,7 +12,7 @@ export function TopBar({ onOpenSettings }: TopBarProps) {
   const phase = useGameStore((s) => s.phase)
   const currentTier = useGameStore((s) => s.currentTier)
   const levelLabel = useGameStore(selectLevelLabel)
-  const tierProgress = useGameStore(selectTierProgress)
+  const tierProgress = useGameStore(useShallow(selectTierProgress))
 
   const goalPercent = Math.round(
     (userState.dailyGoalProgress / userState.dailyGoalTarget) * 100,
