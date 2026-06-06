@@ -660,5 +660,7 @@ export function getSkillMastery(
 
 export const selectSkillMastery = (s: GameState) => getSkillMastery(s.skillStats)
 
-export const selectDueCount = (s: GameState): number =>
-  s.mistakeQueue.filter((e) => !e.mastered && e.nextDueAt <= Date.now()).length
+/** Pure helper — do not call Date.now() inside a Zustand selector (breaks React 19 getSnapshot). */
+export function getDueCount(queue: MistakeEntry[], now = Date.now()): number {
+  return queue.filter((e) => !e.mastered && e.nextDueAt <= now).length
+}

@@ -8,16 +8,18 @@ interface TopBarProps {
 }
 
 export function TopBar({ onOpenSettings }: TopBarProps) {
-  const userState = useGameStore((s) => s.userState)
+  const dailyGoalProgress = useGameStore((s) => s.userState.dailyGoalProgress)
+  const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
+  const streak = useGameStore((s) => s.userState.streak)
+  const streakFreezes = useGameStore((s) => s.userState.streakFreezes)
+  const score = useGameStore((s) => s.userState.score)
   const phase = useGameStore((s) => s.phase)
   const currentTier = useGameStore((s) => s.currentTier)
   const tierCorrectStreak = useGameStore((s) => s.tierCorrectStreak)
   const hadRecentMistakeAtTier = useGameStore((s) => s.hadRecentMistakeAtTier)
   const levelLabel = useGameStore(selectLevelLabel)
 
-  const goalPercent = Math.round(
-    (userState.dailyGoalProgress / userState.dailyGoalTarget) * 100,
-  )
+  const goalPercent = Math.round((dailyGoalProgress / dailyGoalTarget) * 100)
 
   const tierTarget = getPromotionTarget(hadRecentMistakeAtTier)
   const tierPercent = Math.round((tierCorrectStreak / tierTarget) * 100)
@@ -46,10 +48,10 @@ export function TopBar({ onOpenSettings }: TopBarProps) {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 bg-orange-50 dark:bg-orange-950/40 rounded-xl px-3 py-1.5">
             <Flame size={16} className="text-orange-500 flex-shrink-0" />
-            <span className="text-sm font-bold text-orange-600 dark:text-orange-400">{userState.streak}</span>
-            {userState.streakFreezes > 0 && (
-              <span className="text-[10px] text-orange-400" title={`${userState.streakFreezes} streak freeze${userState.streakFreezes > 1 ? 's' : ''}`}>
-                {'🧊'.repeat(Math.min(userState.streakFreezes, 3))}
+            <span className="text-sm font-bold text-orange-600 dark:text-orange-400">{streak}</span>
+            {streakFreezes > 0 && (
+              <span className="text-[10px] text-orange-400" title={`${streakFreezes} streak freeze${streakFreezes > 1 ? 's' : ''}`}>
+                {'🧊'.repeat(Math.min(streakFreezes, 3))}
               </span>
             )}
           </div>
@@ -64,7 +66,7 @@ export function TopBar({ onOpenSettings }: TopBarProps) {
         <div className="flex items-center gap-2">
           <div className="flex flex-col items-end min-w-0">
             <span className="text-[10px] text-slate-400 leading-none">Score</span>
-            <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{userState.score}</span>
+            <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{score}</span>
           </div>
           <button
             onClick={onOpenSettings}

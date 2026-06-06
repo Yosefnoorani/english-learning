@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { BookOpen, BarChart2, ClipboardList, Library, Settings, Flame, Target } from 'lucide-react'
-import { useGameStore, selectLevelLabel, selectDueCount } from '@/store/useGameStore'
+import { useMemo } from 'react'
+import { useGameStore, selectLevelLabel, getDueCount } from '@/store/useGameStore'
 
 type NavView = 'practice' | 'skills' | 'journal' | 'resources' | 'settings'
 
@@ -10,13 +11,15 @@ interface SideNavProps {
 }
 
 export function SideNav({ activeView, onNavigate }: SideNavProps) {
-  const userState = useGameStore((s) => s.userState)
+  const dailyGoalProgress = useGameStore((s) => s.userState.dailyGoalProgress)
+  const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
+  const streak = useGameStore((s) => s.userState.streak)
+  const score = useGameStore((s) => s.userState.score)
+  const mistakeQueue = useGameStore((s) => s.mistakeQueue)
   const levelLabel = useGameStore(selectLevelLabel)
-  const dueCount = useGameStore(selectDueCount)
+  const dueCount = useMemo(() => getDueCount(mistakeQueue), [mistakeQueue])
 
-  const goalPercent = Math.round(
-    (userState.dailyGoalProgress / userState.dailyGoalTarget) * 100,
-  )
+  const goalPercent = Math.round((dailyGoalProgress / dailyGoalTarget) * 100)
 
   const navItems: { id: NavView; icon: ReactNode; label: string; badge?: number }[] = [
     { id: 'practice', icon: <BookOpen size={20} />, label: 'Practice' },
@@ -71,7 +74,7 @@ export function SideNav({ activeView, onNavigate }: SideNavProps) {
       <div className="px-4 py-4 border-t border-slate-100 dark:border-slate-800">
         <div className="flex items-center justify-between text-xs text-slate-400 mb-3">
           <span>Daily goal</span>
-          <span className="font-semibold text-emerald-600">{userState.dailyGoalProgress}/{userState.dailyGoalTarget}</span>
+          <span className="font-semibold text-emerald-600">{dailyGoalProgress}/{dailyGoalTarget}</span>
         </div>
         <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 mb-3">
           <div
@@ -82,11 +85,11 @@ export function SideNav({ activeView, onNavigate }: SideNavProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <Flame size={14} className="text-orange-500" />
-            <span className="text-xs font-bold text-orange-600 dark:text-orange-400">{userState.streak} day streak</span>
+            <span className="text-xs font-bold text-orange-600 dark:text-orange-400">{streak} day streak</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Target size={14} className="text-slate-400" />
-            <span className="text-xs text-slate-400">{userState.score} pts</span>
+            <span className="text-xs text-slate-400">{score} pts</span>
           </div>
         </div>
       </div>

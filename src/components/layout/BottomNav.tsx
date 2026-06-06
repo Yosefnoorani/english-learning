@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { BookOpen, BarChart2, ClipboardList, Library } from 'lucide-react'
-import { useGameStore, selectDueCount } from '@/store/useGameStore'
+import { useGameStore, getDueCount } from '@/store/useGameStore'
 
 type NavView = 'practice' | 'skills' | 'journal' | 'resources' | 'settings'
 
@@ -11,7 +11,8 @@ interface BottomNavProps {
 
 export function BottomNav({ activeView, onNavigate }: BottomNavProps) {
   const phase = useGameStore((s) => s.phase)
-  const dueCount = useGameStore(selectDueCount)
+  const mistakeQueue = useGameStore((s) => s.mistakeQueue)
+  const dueCount = useMemo(() => getDueCount(mistakeQueue), [mistakeQueue])
 
   if (phase === 'placement') return null
 

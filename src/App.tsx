@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useGameStore, selectCurrentItem, selectLevelLabel } from '@/store/useGameStore'
+import { useStoreHydrated } from '@/hooks/useStoreHydrated'
 import { loadContent, getAllContent } from '@/services/contentService'
 import { loadFeedback } from '@/services/feedbackService'
 import type { NavView } from '@/types/game'
@@ -64,6 +65,7 @@ export default function App() {
   )
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const storeHydrated = useStoreHydrated()
 
   useEffect(() => {
     Promise.all([loadContent(), loadFeedback()])
@@ -109,7 +111,7 @@ export default function App() {
     setActiveView('practice')
   }
 
-  if (!contentReady || isLoading) {
+  if (!storeHydrated || !contentReady || isLoading) {
     if (contentError) {
       return (
         <div className="min-h-svh flex items-center justify-center p-8 text-center text-rose-600">

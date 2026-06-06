@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Zap, RotateCcw, BarChart2, BookOpen, Clock, Sparkles } from 'lucide-react'
-import { useGameStore, selectLevelLabel, selectDueCount } from '@/store/useGameStore'
+import { useGameStore, selectLevelLabel, getDueCount } from '@/store/useGameStore'
 import { DailyLesson } from '@/components/game/DailyLesson'
 import { AddContentPanel } from '@/components/game/AddContentPanel'
 import { getContentById } from '@/services/contentService'
@@ -21,18 +21,20 @@ const SESSION_LABELS: Record<SessionMode, { label: string; questions: number; co
 
 export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeScreenProps) {
   const [showAddContent, setShowAddContent] = useState(false)
-  const userState = useGameStore((s) => s.userState)
+  const rating = useGameStore((s) => s.userState.rating)
+  const score = useGameStore((s) => s.userState.score)
   const skillStats = useGameStore((s) => s.skillStats)
   const mistakeQueue = useGameStore((s) => s.mistakeQueue)
   const sessionMode = useGameStore((s) => s.sessionMode)
   const setSessionMode = useGameStore((s) => s.setSessionMode)
   const continueSession = useGameStore((s) => s.continueSession)
   const levelLabel = useGameStore(selectLevelLabel)
-  const dueCount = useGameStore(selectDueCount)
+  const dueCount = useMemo(() => getDueCount(mistakeQueue), [mistakeQueue])
+  const now = useMemo(() => Date.now(), [mistakeQueue])
 
   // Top 3 due mistakes
   const dueMistakes = [...mistakeQueue]
-    .filter((e) => !e.mastered && e.nextDueAt <= Date.now())
+    .filter((e) => !e.mastered && e.nextDueAt <= now)
     .sort((a, b) => a.nextDueAt - b.nextDueAt)
     .slice(0, 3)
     .map((e) => getContentById(e.contentId))
@@ -50,7 +52,7 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
             <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">You're all caught up! 🎉</h1>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            {levelLabel} · {userState.score} points total
+            {levelLabel} · {score} points total
           </p>
         </div>
 
@@ -94,7 +96,7 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
         {/* Today's lesson */}
         <div className="flex flex-col gap-2">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Focus lesson</p>
-          <DailyLesson skillStats={skillStats} rating={userState.rating} onStartLesson={onStartLesson} />
+          <DailyLesson skillStats={skillStats} rating={rating} onStartLesson={onStartLesson} />
         </div>
 
         {showAddContent && (

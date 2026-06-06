@@ -9,7 +9,9 @@ interface SessionSummaryProps {
 export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
   const sessionAnswered = useGameStore((s) => s.sessionAnswered)
   const sessionCorrect = useGameStore((s) => s.sessionCorrect)
-  const userState = useGameStore((s) => s.userState)
+  const dailyGoalProgress = useGameStore((s) => s.userState.dailyGoalProgress)
+  const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
+  const streak = useGameStore((s) => s.userState.streak)
   const levelLabel = useGameStore(selectLevelLabel)
   const sessionMode = useGameStore((s) => s.sessionMode)
 
@@ -31,7 +33,7 @@ export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
               {passed ? 'Session complete!' : 'Keep it up!'}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              {levelLabel} · {userState.streak} day streak
+              {levelLabel} · {streak} day streak
             </p>
           </div>
 
@@ -60,13 +62,13 @@ export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
             <div className="flex justify-between text-xs text-slate-400">
               <span>Daily goal</span>
               <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                {userState.dailyGoalProgress}/{userState.dailyGoalTarget}
+                {dailyGoalProgress}/{dailyGoalTarget}
               </span>
             </div>
             <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
               <div
                 className="bg-emerald-500 h-2.5 rounded-full transition-all duration-700"
-                style={{ width: `${Math.min(100, Math.round((userState.dailyGoalProgress / userState.dailyGoalTarget) * 100))}%` }}
+                style={{ width: `${Math.min(100, Math.round((dailyGoalProgress / dailyGoalTarget) * 100))}%` }}
               />
             </div>
           </div>
