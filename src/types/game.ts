@@ -71,6 +71,22 @@ export type QuestionType =
 
 export type GamePhase = 'placement' | 'gameplay' | 'review'
 
+export type NavView = 'practice' | 'skills' | 'journal' | 'resources'
+
+export interface ResumeSnapshot {
+  bufferIds: string[]
+  currentIndex: number
+  sessionAnswered: number
+  sessionCorrect: number
+  mistakeReviewMode: boolean
+}
+
+export interface MistakeExplanation {
+  shortExplanation: string
+  rule: string
+  example: string
+}
+
 // ── Comprehension sub-question ──────────────────────────────
 export interface ComprehensionQuestion {
   q: string
@@ -143,6 +159,12 @@ export interface MistakeEntry {
   failedAt: number
   nextDueAt: number
   failCount: number
+  consecutiveCorrect: number
+  mastered: boolean
+  lastUserAnswer?: string
+  inSessionRequeueAt?: number
+  questionsUntilRequeue?: number
+  cachedExplanation?: MistakeExplanation
 }
 
 // ── Telemetry ───────────────────────────────────────────────

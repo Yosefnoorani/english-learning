@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import { CheckCircle2, XCircle, BookOpen } from 'lucide-react'
 import type { AnswerResult } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
@@ -6,6 +6,7 @@ import { SpeakButton } from '@/components/ui/SpeakButton'
 import { buildDiffTokens, type DiffToken } from '@/services/gradingService'
 import { useGameStore } from '@/store/useGameStore'
 import { playCorrect, playWrong, vibrateCorrect, vibrateWrong } from '@/services/soundService'
+import { getMistakeFeedback } from '@/services/feedbackService'
 
 interface FeedbackDrawerProps {
   result: AnswerResult
@@ -45,7 +46,16 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   const showDiff = !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
   const diffTokens = showDiff ? buildDiffTokens(item, userAnswer) : []
 
-  // Sound + haptic on mount
+  const staticFeedback = useMemo(() => {
+    if (isCorrect) return null
+    return getMistakeFeedback(item, userAnswer, {
+      isCorrect: result.isCorrect,
+      similarity: result.similarity ?? 0,
+      errors: result.errorMarks ?? [],
+      explanation: '',
+    })
+  }, [isCorrect, item, userAnswer, result])
+
   useEffect(() => {
     if (sounds) {
       if (isCorrect) playCorrect()
@@ -58,7 +68,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Keyboard: Enter advances, Esc dismisses
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === 'Escape') {
@@ -70,7 +79,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
     return () => window.removeEventListener('keydown', handler)
   }, [onNext])
 
-  // Swipe-to-dismiss on the handle bar
   const handleRef = useRef<HTMLDivElement>(null)
   const touchStartY = useRef<number>(0)
   const [swipeOffset, setSwipeOffset] = useState(0)
@@ -85,22 +93,14 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   }
 
   function onTouchEnd() {
-    if (swipeOffset > 80) {
-      onNext()
-    }
+    if (swipeOffset > 80) onNext()
     setSwipeOffset(0)
   }
 
   return (
     <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/20 z-30 md:hidden"
-        onClick={onNext}
-        aria-hidden="true"
-      />
+      <div className="fixed inset-0 bg-black/20 z-30 md:hidden" onClick={onNext} aria-hidden="true" />
 
-      {/* Drawer */}
       <div
         role="dialog"
         aria-live="polite"
@@ -109,16 +109,12 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
           fixed z-40 slide-up
           bottom-0 left-0 right-0
           md:bottom-auto md:top-0 md:right-0 md:left-auto md:h-full md:w-[22rem]
-          ${isCorrect
-            ? 'bg-emerald-50 dark:bg-emerald-950/60'
-            : 'bg-white dark:bg-slate-900'
-          }
+          ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/60' : 'bg-white dark:bg-slate-900'}
           rounded-t-3xl md:rounded-none md:rounded-l-3xl shadow-2xl
         `}
         style={{ transform: swipeOffset > 0 ? `translateY(${swipeOffset}px)` : undefined, transition: swipeOffset > 0 ? 'none' : undefined }}
       >
         <div className="flex flex-col h-full max-h-[85svh] md:max-h-full p-6 gap-5 overflow-y-auto">
-          {/* Handle bar — swipe target */}
           <div
             ref={handleRef}
             onTouchStart={onTouchStart}
@@ -128,7 +124,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             aria-hidden="true"
           />
 
-          {/* Status header */}
           <div className="flex items-center gap-3">
             {isCorrect ? (
               <CheckCircle2 size={28} className="text-emerald-500 flex-shrink-0" />
@@ -145,7 +140,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             </div>
           </div>
 
-          {/* Skill badge */}
           <div className="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-800 rounded-xl px-3 py-2">
             <BookOpen size={14} className="text-indigo-400 flex-shrink-0" />
             <span className="text-xs text-indigo-600 dark:text-indigo-300 font-semibold">
@@ -153,23 +147,13 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             </span>
           </div>
 
-          {/* Word diff */}
           {!isCorrect && showDiff && diffTokens.length > 0 && (
             <div className="rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">What you wrote</p>
               <DiffDisplay tokens={diffTokens} />
-              <div className="mt-2 flex gap-3 text-xs text-slate-400">
-                <span className="flex items-center gap-1">
-                  <span className="inline-block w-3 h-3 rounded bg-rose-100 dark:bg-rose-900/40" /> wrong/extra
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="inline-block w-3 h-3 rounded bg-emerald-100 dark:bg-emerald-900/40" /> missing
-                </span>
-              </div>
             </div>
           )}
 
-          {/* Correct answer */}
           <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Correct answer</span>
@@ -182,33 +166,23 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             <p className="text-xs text-slate-400">{item.data.context_translation}</p>
           </div>
 
-          {/* Alternate answers */}
-          {!isCorrect && item.data.alternate_answers && item.data.alternate_answers.length > 0 && (
-            <div className="rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Also accepted</p>
-              {item.data.alternate_answers.map((alt) => (
-                <p key={alt} className="text-sm text-slate-600 dark:text-slate-300 italic">"{alt}"</p>
-              ))}
+          {!isCorrect && staticFeedback && (
+            <div className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-2">
+              <p className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">
+                למה טעית?
+              </p>
+              <p className="text-sm text-violet-900 dark:text-violet-100 leading-relaxed" dir="rtl">
+                {staticFeedback.shortExplanation}
+              </p>
+              <p className="text-xs text-violet-700 dark:text-violet-300 leading-relaxed" dir="rtl">
+                <strong>כלל: </strong>{staticFeedback.rule}
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 italic">
+                {staticFeedback.example}
+              </p>
             </div>
           )}
 
-          {/* Grammar tip */}
-          {!isCorrect && item.data.grammar_hint && (
-            <div className="rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4">
-              <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide mb-1">Grammar tip</p>
-              <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">{item.data.grammar_hint}</p>
-            </div>
-          )}
-
-          {/* Common mistake */}
-          {!isCorrect && item.data.common_mistake && !item.data.grammar_hint && (
-            <div className="rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4">
-              <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide mb-1">Common mistake</p>
-              <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">{item.data.common_mistake}</p>
-            </div>
-          )}
-
-          {/* Translation */}
           {item.data.translation && (
             <div className="rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Translation</p>
@@ -218,7 +192,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
 
           <div className="flex-1 hidden md:block" />
 
-          {/* CTA */}
           <button
             onClick={onNext}
             autoFocus
@@ -229,7 +202,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             }`}
           >
             Got it, next!
-            <span className="ml-2 text-xs opacity-60 hidden md:inline">(Enter)</span>
           </button>
         </div>
       </div>

@@ -1,0 +1,2629 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-06",
+  "items": [
+    {
+      "id": "p1",
+      "type": "placement_test",
+      "difficulty": 420,
+      "skill": "past_simple",
+      "tags": [
+        "placement"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "She ___ a great film last weekend.",
+        "context_translation": "היא ___ סרט נהדר בסוף השבוע שעבר.",
+        "options": [
+          "watched",
+          "has watched",
+          "was watching",
+          "watches"
+        ],
+        "correct_answer": "watched",
+        "grammar_hint": "\"Last weekend\" is a finished past time — use Past Simple."
+      }
+    },
+    {
+      "id": "p2",
+      "type": "placement_test",
+      "difficulty": 500,
+      "skill": "present_perfect",
+      "tags": [
+        "placement"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "I ___ to Paris three times.",
+        "context_translation": "נסעתי לפריז שלוש פעמים.",
+        "options": [
+          "have been",
+          "went",
+          "was",
+          "am going"
+        ],
+        "correct_answer": "have been",
+        "grammar_hint": "\"Three times\" as an experience uses Present Perfect."
+      }
+    },
+    {
+      "id": "p3",
+      "type": "placement_test",
+      "difficulty": 580,
+      "skill": "conditionals",
+      "tags": [
+        "placement"
+      ],
+      "data": {
+        "question_text": "Which sentence is grammatically correct?",
+        "context_sentence": "If she ___ harder, she would pass the exam.",
+        "context_translation": "אם היא ___ קשה יותר, היא הייתה עוברת את הבחינה.",
+        "options": [
+          "studied",
+          "studies",
+          "would study",
+          "will study"
+        ],
+        "correct_answer": "studied",
+        "grammar_hint": "Second conditional: If + past simple…"
+      }
+    },
+    {
+      "id": "p4",
+      "type": "placement_test",
+      "difficulty": 640,
+      "skill": "passive_voice",
+      "tags": [
+        "placement"
+      ],
+      "data": {
+        "question_text": "Choose the passive voice form:",
+        "context_sentence": "The email ___ to all employees by the HR manager.",
+        "context_translation": "האימייל ___ לכל העובדים על ידי מנהל משאבי אנוש.",
+        "options": [
+          "was sent",
+          "sent",
+          "has sent",
+          "is sending"
+        ],
+        "correct_answer": "was sent",
+        "grammar_hint": "Past passive: was/were + past participle."
+      }
+    },
+    {
+      "id": "p5",
+      "type": "placement_test",
+      "difficulty": 700,
+      "skill": "relative_clauses",
+      "tags": [
+        "placement"
+      ],
+      "data": {
+        "question_text": "Select the correct relative pronoun:",
+        "context_sentence": "The professor ___ lectures I attended won a Nobel Prize.",
+        "context_translation": "הפרופסור ___ הרצאות נכחתי בהן זכה בפרס נובל.",
+        "options": [
+          "whose",
+          "who",
+          "which",
+          "that"
+        ],
+        "correct_answer": "whose",
+        "grammar_hint": "\"Whose\" expresses possession — the professor's lectures."
+      }
+    },
+    {
+      "id": "v1",
+      "type": "vocabulary",
+      "difficulty": 420,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "adjectives",
+        "beginner"
+      ],
+      "data": {
+        "word": "Melancholy",
+        "translation": "עצבות עמוקה / נוסטלגיה עצובה",
+        "context_sentence": "She felt a deep melancholy as she looked at old family photographs.",
+        "context_translation": "היא חשה עצבות עמוקה כשהסתכלה על תמונות ישנות של המשפחה.",
+        "correct_answer": "Melancholy",
+        "common_mistake": "Do not confuse with \"sadness\" — melancholy implies a reflective, lingering quality."
+      }
+    },
+    {
+      "id": "v2",
+      "type": "vocabulary",
+      "difficulty": 460,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Apprehensive",
+        "translation": "חרד / מודאג לקראת משהו עתידי",
+        "context_sentence": "He was apprehensive about the job interview, barely sleeping the night before.",
+        "context_translation": "הוא היה חרד לקראת ראיון העבודה וכמעט לא ישן בלילה שלפני.",
+        "correct_answer": "Apprehensive",
+        "common_mistake": "\"Apprehensive\" is about anticipating something bad — not the same as generally anxious."
+      }
+    },
+    {
+      "id": "v3",
+      "type": "vocabulary",
+      "difficulty": 510,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "adjectives",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Exhilarated",
+        "translation": "מלא התלהבות / אקסטזה של שמחה",
+        "context_sentence": "The crowd was exhilarated when the team scored the winning goal in extra time.",
+        "context_translation": "הקהל היה מלא התלהבות כשהקבוצה כבשה שער הניצחון בהארכה.",
+        "correct_answer": "Exhilarated",
+        "common_mistake": "Stronger than \"excited\" — implies a rush of energy and elation."
+      }
+    },
+    {
+      "id": "v4",
+      "type": "vocabulary",
+      "difficulty": 560,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Ambivalent",
+        "translation": "אמביוולנטי / בעל רגשות מעורבים",
+        "context_sentence": "She felt ambivalent about moving abroad — excited for the opportunity but sad to leave her family.",
+        "context_translation": "היא חשה בעלת רגשות מעורבים לגבי המעבר לחו\"ל — נרגשת מהאפשרות אך עצובה לעזוב את משפחתה.",
+        "correct_answer": "Ambivalent",
+        "common_mistake": "Does not mean \"indifferent\" — it means having BOTH positive and negative feelings simultaneously."
+      }
+    },
+    {
+      "id": "v5",
+      "type": "vocabulary",
+      "difficulty": 480,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "nouns",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Diligent",
+        "translation": "חרוץ / שקדן",
+        "context_sentence": "The diligent student reviewed her notes every evening without fail.",
+        "context_translation": "הסטודנטית החרוצה עברה על הערותיה כל ערב ללא יוצא מן הכלל.",
+        "correct_answer": "Diligent",
+        "common_mistake": "Diligent emphasises careful, persistent effort — not just being \"hard-working\"."
+      }
+    },
+    {
+      "id": "v6",
+      "type": "vocabulary",
+      "difficulty": 520,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "nouns"
+      ],
+      "data": {
+        "word": "Leverage",
+        "translation": "מינוף / להשתמש ביתרון",
+        "context_sentence": "The startup decided to leverage its social media following to attract new investors.",
+        "context_translation": "הסטארט-אפ החליט למנף את כמות העוקבים שלו ברשתות החברתיות כדי למשוך משקיעים חדשים.",
+        "correct_answer": "Leverage",
+        "common_mistake": "As a verb: \"to leverage\" means to use something to maximum advantage."
+      }
+    },
+    {
+      "id": "v7",
+      "type": "vocabulary",
+      "difficulty": 570,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Stringent",
+        "translation": "מחמיר / נוקשה (לגבי כללים)",
+        "context_sentence": "The new data privacy law introduced stringent requirements for all online businesses.",
+        "context_translation": "חוק פרטיות הנתונים החדש הכניס דרישות מחמירות לכל עסקי האינטרנט.",
+        "correct_answer": "Stringent",
+        "common_mistake": "Describes rules/conditions that are strict and difficult to satisfy."
+      }
+    },
+    {
+      "id": "v8",
+      "type": "vocabulary",
+      "difficulty": 620,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "verbs",
+        "advanced"
+      ],
+      "data": {
+        "word": "Mitigate",
+        "translation": "להפחית / למתן (סיכון או נזק)",
+        "context_sentence": "The company implemented new safeguards to mitigate the risk of a data breach.",
+        "context_translation": "החברה יישמה אמצעי הגנה חדשים כדי להפחית את הסיכון לפרצת נתונים.",
+        "correct_answer": "Mitigate",
+        "common_mistake": "\"Mitigate\" means to lessen severity — do not confuse with \"eliminate\"."
+      }
+    },
+    {
+      "id": "v9",
+      "type": "vocabulary",
+      "difficulty": 430,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "nouns",
+        "beginner"
+      ],
+      "data": {
+        "word": "Itinerary",
+        "translation": "מסלול / לוח זמנים של טיול",
+        "context_sentence": "The travel agent sent a detailed itinerary listing every hotel, flight, and excursion.",
+        "context_translation": "סוכן הנסיעות שלח מסלול מפורט המפרט כל מלון, טיסה וטיול.",
+        "correct_answer": "Itinerary",
+        "common_mistake": "Pronounced /ɪˈtɪn.ər.ər.i/ — five syllables. Often misspelled."
+      }
+    },
+    {
+      "id": "v10",
+      "type": "vocabulary",
+      "difficulty": 490,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Scenic",
+        "translation": "ציורי / בעל נוף יפה",
+        "context_sentence": "They chose the scenic coastal route even though it added two hours to the drive.",
+        "context_translation": "הם בחרו במסלול החוף הציורי למרות שהוסיף שעתיים לנסיעה.",
+        "correct_answer": "Scenic",
+        "common_mistake": "\"Scenic\" relates to beautiful natural or landscape views — not decorations inside a place."
+      }
+    },
+    {
+      "id": "v11",
+      "type": "vocabulary",
+      "difficulty": 540,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "nouns"
+      ],
+      "data": {
+        "word": "Layover",
+        "translation": "עצירת ביניים (בשדה תעופה)",
+        "context_sentence": "Their flight to Tokyo included a six-hour layover in Dubai.",
+        "context_translation": "הטיסה שלהם לטוקיו כללה עצירת ביניים של שש שעות בדובאי.",
+        "correct_answer": "Layover",
+        "common_mistake": "In British English this is often called a \"stopover\". Both are correct."
+      }
+    },
+    {
+      "id": "v12",
+      "type": "vocabulary",
+      "difficulty": 500,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "nouns"
+      ],
+      "data": {
+        "word": "Algorithm",
+        "translation": "אלגוריתם / רצף הוראות לפתרון בעיה",
+        "context_sentence": "The streaming platform uses an algorithm to recommend shows based on your viewing history.",
+        "context_translation": "פלטפורמת הסטרימינג משתמשת באלגוריתם להמלצת תוכניות על בסיס היסטוריית הצפייה שלך.",
+        "correct_answer": "Algorithm",
+        "common_mistake": "Often mispronounced: /ˈæl.ɡə.rɪ.ðəm/ — stress on the first syllable."
+      }
+    },
+    {
+      "id": "v13",
+      "type": "vocabulary",
+      "difficulty": 550,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "nouns",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Encryption",
+        "translation": "הצפנה",
+        "context_sentence": "End-to-end encryption ensures that only the sender and recipient can read the messages.",
+        "context_translation": "הצפנה מקצה לקצה מבטיחה שרק השולח והנמען יכולים לקרוא את ההודעות.",
+        "correct_answer": "Encryption",
+        "common_mistake": "Do not confuse \"encrypt\" (verb) with \"encode\" — encryption specifically implies security."
+      }
+    },
+    {
+      "id": "v14",
+      "type": "vocabulary",
+      "difficulty": 640,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "adjectives",
+        "advanced"
+      ],
+      "data": {
+        "word": "Obsolete",
+        "translation": "מיושן / שאינו בשימוש עוד",
+        "context_sentence": "With the rapid pace of innovation, many skills can become obsolete within a decade.",
+        "context_translation": "עם קצב החדשנות המהיר, מיומנויות רבות יכולות להפוך למיושנות תוך עשור.",
+        "correct_answer": "Obsolete",
+        "common_mistake": "\"Obsolete\" means no longer in use, not just old — something old but still used is \"dated\" or \"vintage\"."
+      }
+    },
+    {
+      "id": "v15",
+      "type": "vocabulary",
+      "difficulty": 530,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "nouns"
+      ],
+      "data": {
+        "word": "Biodiversity",
+        "translation": "מגוון ביולוגי",
+        "context_sentence": "Tropical rainforests contain the greatest biodiversity of any ecosystem on Earth.",
+        "context_translation": "יערות הגשם הטרופיים מכילים את המגוון הביולוגי הגדול ביותר מכל מערכת אקולוגית בכדור הארץ.",
+        "correct_answer": "Biodiversity",
+        "common_mistake": "Refers to variety of species, not just quantity. A rainforest and a fish farm may both have many organisms but only one has true biodiversity."
+      }
+    },
+    {
+      "id": "v16",
+      "type": "vocabulary",
+      "difficulty": 580,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Sustainable",
+        "translation": "בר-קיימא",
+        "context_sentence": "The local government launched a sustainable transport initiative to reduce carbon emissions.",
+        "context_translation": "הממשל המקומי השיק יוזמת תחבורה בת-קיימא להפחתת פליטות פחמן.",
+        "correct_answer": "Sustainable",
+        "common_mistake": "\"Sustainable\" means able to be maintained long-term without depleting resources — stronger than just \"eco-friendly\"."
+      }
+    },
+    {
+      "id": "v17",
+      "type": "vocabulary",
+      "difficulty": 590,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "nouns"
+      ],
+      "data": {
+        "word": "Hypothesis",
+        "translation": "השערה / הנחת עבודה",
+        "context_sentence": "Before beginning the experiment, the researcher stated a clear hypothesis that she intended to test.",
+        "context_translation": "לפני תחילת הניסוי, הציגה החוקרת השערה ברורה שבכוונתה לבדוק.",
+        "correct_answer": "Hypothesis",
+        "common_mistake": "A hypothesis is a testable prediction, not yet proven. Once proven, it may become a theory."
+      }
+    },
+    {
+      "id": "v18",
+      "type": "vocabulary",
+      "difficulty": 610,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "nouns",
+        "advanced"
+      ],
+      "data": {
+        "word": "Ambiguity",
+        "translation": "עמימות / חוסר בהירות",
+        "context_sentence": "The contract was full of ambiguity, making it hard to determine each party's responsibilities.",
+        "context_translation": "החוזה היה מלא עמימות, מה שהקשה לקבוע את אחריות כל צד.",
+        "correct_answer": "Ambiguity",
+        "common_mistake": "\"Ambiguity\" is a noun. The adjective is \"ambiguous.\" The adverb is \"ambiguously.\""
+      }
+    },
+    {
+      "id": "v19",
+      "type": "vocabulary",
+      "difficulty": 650,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "verbs",
+        "advanced"
+      ],
+      "data": {
+        "word": "Corroborate",
+        "translation": "לאשר / לחזק (ראיות)",
+        "context_sentence": "The second witness came forward to corroborate the original testimony given in court.",
+        "context_translation": "העד השני התייצב כדי לאשר את העדות המקורית שניתנה בבית המשפט.",
+        "correct_answer": "Corroborate",
+        "common_mistake": "\"Corroborate\" specifically means to confirm evidence already presented — stronger than \"support.\""
+      }
+    },
+    {
+      "id": "v20",
+      "type": "vocabulary",
+      "difficulty": 470,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms",
+        "beginner"
+      ],
+      "data": {
+        "word": "Bite the bullet",
+        "translation": "לנשוך את הכדור — לעשות משהו כואב אך הכרחי",
+        "context_sentence": "I hate going to the dentist, but I decided to bite the bullet and make an appointment.",
+        "context_translation": "אני שונא ללכת לרופא שיניים, אבל החלטתי \"לנשוך את הכדור\" ולקבוע תור.",
+        "correct_answer": "Bite the bullet",
+        "common_mistake": "Do not use this idiom for physical pain alone — it specifically means accepting something unpleasant because it is necessary."
+      }
+    },
+    {
+      "id": "v21",
+      "type": "vocabulary",
+      "difficulty": 510,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms"
+      ],
+      "data": {
+        "word": "Burn bridges",
+        "translation": "לשרוף גשרים — לקצץ קשרים בצורה שלא ניתן לחזור",
+        "context_sentence": "She left the company on bad terms, effectively burning bridges with most of her former colleagues.",
+        "context_translation": "היא עזבה את החברה בתנאים רעים, ובעצם שרפה גשרים עם רוב עמיתיה לשעבר.",
+        "correct_answer": "Burn bridges",
+        "common_mistake": "Usually used as a warning: \"don't burn your bridges\" — implying you may need those contacts later."
+      }
+    },
+    {
+      "id": "v22",
+      "type": "vocabulary",
+      "difficulty": 560,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms",
+        "intermediate"
+      ],
+      "data": {
+        "word": "On the fence",
+        "translation": "על הגדר — לא להחליט לאיזה צד לעמוד",
+        "context_sentence": "Many voters were on the fence about the new policy until the details were published.",
+        "context_translation": "מצביעים רבים לא החליטו לגבי המדיניות החדשה עד שהפרטים פורסמו.",
+        "correct_answer": "On the fence",
+        "common_mistake": "Means undecided between two clear options — different from \"confused\" (which implies lack of understanding)."
+      }
+    },
+    {
+      "id": "v23",
+      "type": "vocabulary",
+      "difficulty": 600,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms",
+        "advanced"
+      ],
+      "data": {
+        "word": "Spill the beans",
+        "translation": "לשפוך את השעועית — לגלות סוד בטעות",
+        "context_sentence": "He accidentally spilled the beans about the surprise party when he mentioned it to her sister.",
+        "context_translation": "הוא בטעות גילה את הסוד על מסיבת ההפתעה כשציין זאת בפני אחותה.",
+        "correct_answer": "Spill the beans",
+        "common_mistake": "Always implies accidental disclosure of secret information. The \"spilling\" is unintentional."
+      }
+    },
+    {
+      "id": "v24",
+      "type": "vocabulary",
+      "difficulty": 530,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "adjectives",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Serene",
+        "translation": "שליו / שקט ורגוע",
+        "context_sentence": "The lake at dawn was completely serene, with no wind to disturb the surface.",
+        "context_translation": "האגם בשחר היה שליו לחלוטין, ללא רוח שתפריע לפני המים.",
+        "correct_answer": "Serene",
+        "common_mistake": "\"Serene\" implies peaceful calm, often of a place or a person's expression — more poetic than just \"quiet.\""
+      }
+    },
+    {
+      "id": "v25",
+      "type": "vocabulary",
+      "difficulty": 580,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "social",
+        "verbs",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Persuade",
+        "translation": "לשכנע",
+        "context_sentence": "He tried to persuade his manager to approve the new project proposal by presenting solid data.",
+        "context_translation": "הוא ניסה לשכנע את מנהלו לאשר את הצעת הפרויקט החדשה על ידי הצגת נתונים מוצקים.",
+        "correct_answer": "Persuade",
+        "common_mistake": "\"Persuade\" requires someone to actually change their mind. \"Try to persuade\" does not guarantee success. Contrast with \"convince.\""
+      }
+    },
+    {
+      "id": "v26",
+      "type": "vocabulary",
+      "difficulty": 460,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Pragmatic",
+        "translation": "פרגמטי / מעשי",
+        "context_sentence": "A pragmatic leader focuses on what works in practice, not just what sounds good in theory.",
+        "context_translation": "מנהיג פרגמטי מתמקד במה שעובד בפועל, לא רק במה שנשמע טוב בתיאוריה.",
+        "correct_answer": "Pragmatic",
+        "common_mistake": "\"Pragmatic\" is about practical outcomes — not cold or uncaring, just realistic."
+      }
+    },
+    {
+      "id": "v27",
+      "type": "vocabulary",
+      "difficulty": 670,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "adjectives",
+        "advanced"
+      ],
+      "data": {
+        "word": "Paradoxical",
+        "translation": "פרדוקסלי / סותר את עצמו",
+        "context_sentence": "It is paradoxical that the more choices we have, the less satisfied we often feel with our decisions.",
+        "context_translation": "זה פרדוקסלי שככל שיש לנו יותר אפשרויות, לעתים קרובות אנו מרגישים פחות מרוצים מהחלטותינו.",
+        "correct_answer": "Paradoxical",
+        "common_mistake": "A paradox appears self-contradictory but may still be true — do not confuse with \"ironic.\""
+      }
+    },
+    {
+      "id": "v28",
+      "type": "vocabulary",
+      "difficulty": 500,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "nouns"
+      ],
+      "data": {
+        "word": "Accommodation",
+        "translation": "לינה / מקום מגורים זמני",
+        "context_sentence": "We booked our accommodation well in advance to get the best price during peak season.",
+        "context_translation": "הזמנו את הלינה מראש כדי לקבל את המחיר הטוב ביותר בעונת השיא.",
+        "correct_answer": "Accommodation",
+        "common_mistake": "Note the spelling: double \"c\" and double \"m\". Common misspelling: \"acommodation\"."
+      }
+    },
+    {
+      "id": "v29",
+      "type": "vocabulary",
+      "difficulty": 440,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "adjectives"
+      ],
+      "data": {
+        "word": "Overwhelmed",
+        "translation": "מוצף / שקוע יותר מדי",
+        "context_sentence": "She felt overwhelmed by the sheer number of emails waiting in her inbox on Monday morning.",
+        "context_translation": "היא הרגישה מוצפת מכמות האימיילים שהמתינו בתיבת הדואר שלה בבוקר יום שני.",
+        "correct_answer": "Overwhelmed",
+        "common_mistake": "\"Overwhelmed\" can be used for both negative situations (stress) and positive ones (overwhelmed with joy)."
+      }
+    },
+    {
+      "id": "v30",
+      "type": "vocabulary",
+      "difficulty": 620,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "nouns",
+        "advanced"
+      ],
+      "data": {
+        "word": "Accountability",
+        "translation": "אחריותיות / מחויבות לתוצאות",
+        "context_sentence": "The new manager introduced a culture of accountability where every team member owned their results.",
+        "context_translation": "המנהל החדש הכניס תרבות של אחריותיות שבה כל חבר צוות היה אחראי לתוצאותיו.",
+        "correct_answer": "Accountability",
+        "common_mistake": "\"Accountability\" means being answerable for outcomes, not just being responsible for tasks."
+      }
+    },
+    {
+      "id": "g1",
+      "type": "grammar_choice",
+      "difficulty": 450,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct verb form:",
+        "context_sentence": "She ___ in London for five years.",
+        "context_translation": "היא ___ בלונדון כבר חמש שנים.",
+        "options": [
+          "has lived",
+          "is living",
+          "lived",
+          "was living"
+        ],
+        "correct_answer": "has lived",
+        "grammar_hint": "Use Present Perfect (\"has/have + past participle\") for actions that started in the past and continue to the present. \"For five years\" signals duration up to now.",
+        "common_mistake": "Do not use Past Simple here — \"She lived in London for five years\" implies she no longer does."
+      }
+    },
+    {
+      "id": "g2",
+      "type": "grammar_choice",
+      "difficulty": 490,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect"
+      ],
+      "data": {
+        "question_text": "Which sentence is correct?",
+        "context_sentence": "They ___ the project yet.",
+        "context_translation": "הם ___ את הפרויקט עדיין.",
+        "options": [
+          "haven't finished",
+          "didn't finish",
+          "don't finish",
+          "weren't finishing"
+        ],
+        "correct_answer": "haven't finished",
+        "grammar_hint": "\"Yet\" is a signal word for the Present Perfect when used in negatives and questions. It means \"up to now.\"",
+        "common_mistake": "\"Didn't finish yet\" is wrong — \"yet\" requires Present Perfect in standard British/American English."
+      }
+    },
+    {
+      "id": "g3",
+      "type": "grammar_choice",
+      "difficulty": 530,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Select the best option:",
+        "context_sentence": "This is the most interesting book I ___ in years.",
+        "context_translation": "זה הספר המעניין ביותר שאני ___ בשנים.",
+        "options": [
+          "have read",
+          "read",
+          "was reading",
+          "am reading"
+        ],
+        "correct_answer": "have read",
+        "grammar_hint": "After superlatives (\"most interesting\", \"best\", \"worst\"), use the Present Perfect to describe a personal experience.",
+        "common_mistake": "With superlatives comparing experiences, Present Perfect is standard, not Past Simple."
+      }
+    },
+    {
+      "id": "g4",
+      "type": "grammar_choice",
+      "difficulty": 420,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "She ___ her keys when she left the house.",
+        "context_translation": "היא ___ את המפתחות שלה כשיצאה מהבית.",
+        "options": [
+          "forgot",
+          "has forgotten",
+          "was forgetting",
+          "forget"
+        ],
+        "correct_answer": "forgot",
+        "grammar_hint": "Use Past Simple for a completed action at a specific moment in the past. \"When she left\" anchors the action to a point in time.",
+        "common_mistake": "\"When\" followed by a past action usually calls for Past Simple, not Present Perfect."
+      }
+    },
+    {
+      "id": "g5",
+      "type": "grammar_choice",
+      "difficulty": 460,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple"
+      ],
+      "data": {
+        "question_text": "Fill in the blank:",
+        "context_sentence": "Last summer, we ___ in a small cabin by the lake for two weeks.",
+        "context_translation": "בקיץ שעבר, ___ בצריף קטן ליד האגם במשך שבועיים.",
+        "options": [
+          "stayed",
+          "have stayed",
+          "were staying",
+          "stay"
+        ],
+        "correct_answer": "stayed",
+        "grammar_hint": "\"Last summer\" is a finished time period — use Past Simple. Time phrases like \"yesterday\", \"last year\", \"in 2020\" always go with Past Simple.",
+        "common_mistake": "Never use Present Perfect with a specific finished time expression like \"last summer.\""
+      }
+    },
+    {
+      "id": "g6",
+      "type": "grammar_choice",
+      "difficulty": 500,
+      "skill": "conditionals",
+      "tags": [
+        "conditionals",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Which option correctly completes the sentence?",
+        "context_sentence": "If I ___ more time, I would travel the world.",
+        "context_translation": "אם היה לי יותר זמן, הייתי מטייל בעולם.",
+        "options": [
+          "had",
+          "have",
+          "will have",
+          "would have"
+        ],
+        "correct_answer": "had",
+        "grammar_hint": "Second Conditional (hypothetical/unreal present): \"If + past simple, would + base verb.\" Use \"had\" here — it signals this is imaginary, not real.",
+        "common_mistake": "Never use \"would\" in the if-clause: NOT \"If I would have time.\""
+      }
+    },
+    {
+      "id": "g7",
+      "type": "grammar_choice",
+      "difficulty": 560,
+      "skill": "conditionals",
+      "tags": [
+        "conditionals",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Choose the correct third conditional:",
+        "context_sentence": "If she ___ the warning, she would have avoided the accident.",
+        "context_translation": "אם היא ___ את האזהרה, היא הייתה נמנעת מהתאונה.",
+        "options": [
+          "had heeded",
+          "heeded",
+          "would heed",
+          "has heeded"
+        ],
+        "correct_answer": "had heeded",
+        "grammar_hint": "Third Conditional (unreal past): \"If + past perfect, would have + past participle.\" The action cannot be changed now.",
+        "common_mistake": "Do not mix up tenses: the if-clause needs \"had + past participle\", the result needs \"would have + past participle.\""
+      }
+    },
+    {
+      "id": "g8",
+      "type": "grammar_choice",
+      "difficulty": 540,
+      "skill": "conditionals",
+      "tags": [
+        "conditionals",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Which is the first conditional?",
+        "context_sentence": "If you ___ hard enough, you will pass the exam.",
+        "context_translation": "אם תתאמן ___ מספיק קשה, תעבור את הבחינה.",
+        "options": [
+          "study",
+          "studied",
+          "will study",
+          "would study"
+        ],
+        "correct_answer": "study",
+        "grammar_hint": "First Conditional (real/possible future): \"If + present simple, will + base verb.\" The situation is possible.",
+        "common_mistake": "Do NOT use \"will\" in the if-clause of first conditionals: NOT \"If you will study.\""
+      }
+    },
+    {
+      "id": "g9",
+      "type": "grammar_choice",
+      "difficulty": 550,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Select the grammatically correct option:",
+        "context_sentence": "The annual report ___ by the finance team last week.",
+        "context_translation": "הדוח השנתי ___ על ידי צוות הכספים בשבוע שעבר.",
+        "options": [
+          "was prepared",
+          "prepared",
+          "has been prepared",
+          "is prepared"
+        ],
+        "correct_answer": "was prepared",
+        "grammar_hint": "Passive voice in past simple: \"was/were + past participle.\" The phrase \"last week\" confirms we need a past tense.",
+        "common_mistake": "\"Has been prepared\" would mean the action was recently completed with a present-time relevance — \"last week\" rules this out."
+      }
+    },
+    {
+      "id": "g10",
+      "type": "grammar_choice",
+      "difficulty": 590,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Choose the correct passive form:",
+        "context_sentence": "A new hospital ___ in the city centre by the end of next year.",
+        "context_translation": "בית חולים חדש ___ במרכז העיר עד סוף השנה הבאה.",
+        "options": [
+          "will have been built",
+          "will build",
+          "will be built",
+          "is being built"
+        ],
+        "correct_answer": "will be built",
+        "grammar_hint": "Future passive: \"will be + past participle.\" Use for an action that will happen to the subject in the future.",
+        "common_mistake": "\"Will have been built\" (future perfect passive) would be needed only if you specify a deadline by which it must be complete. Here the phrase \"by the end of next year\" indicates a simple planned future event."
+      }
+    },
+    {
+      "id": "g11",
+      "type": "grammar_choice",
+      "difficulty": 440,
+      "skill": "articles",
+      "tags": [
+        "articles",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Which article best fills the gap?",
+        "context_sentence": "She is ___ honest person who always tells the truth.",
+        "context_translation": "היא ___ אדם ישר שתמיד אומר את האמת.",
+        "options": [
+          "an",
+          "a",
+          "the",
+          "no article needed"
+        ],
+        "correct_answer": "an",
+        "grammar_hint": "Use \"an\" before words beginning with a vowel SOUND. \"Honest\" starts with a silent \"h,\" so it sounds like it starts with \"o\" — use \"an.\"",
+        "common_mistake": "The rule is about the SOUND, not the spelling. \"A uniform\" is correct because /juːnɪfɔːm/ starts with a \"y\" sound."
+      }
+    },
+    {
+      "id": "g12",
+      "type": "grammar_choice",
+      "difficulty": 480,
+      "skill": "articles",
+      "tags": [
+        "articles"
+      ],
+      "data": {
+        "question_text": "Choose the correct article (or no article):",
+        "context_sentence": "___ money does not guarantee happiness.",
+        "context_translation": "___ כסף אינו מבטיח אושר.",
+        "options": [
+          "no article",
+          "The",
+          "A",
+          "An"
+        ],
+        "correct_answer": "no article",
+        "grammar_hint": "When talking about something in general (uncountable nouns like \"money\", \"love\", \"happiness\"), use no article.",
+        "common_mistake": "\"The money\" would refer to specific money already mentioned. No article means \"money in general.\""
+      }
+    },
+    {
+      "id": "g13",
+      "type": "grammar_choice",
+      "difficulty": 520,
+      "skill": "articles",
+      "tags": [
+        "articles",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Select the correct sentence:",
+        "context_sentence": "We visited ___ Eiffel Tower during our trip to Paris.",
+        "context_translation": "ביקרנו ב ___ מגדל אייפל במהלך הטיול שלנו בפריז.",
+        "options": [
+          "the",
+          "a",
+          "an",
+          "no article"
+        ],
+        "correct_answer": "the",
+        "grammar_hint": "Use \"the\" with unique landmarks and specific places. There is only one Eiffel Tower, so it is already specific.",
+        "common_mistake": "\"A Eiffel Tower\" is wrong — use \"the\" for famous, unique places."
+      }
+    },
+    {
+      "id": "g14",
+      "type": "grammar_choice",
+      "difficulty": 470,
+      "skill": "modal_verbs",
+      "tags": [
+        "modals",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the best modal verb:",
+        "context_sentence": "You ___ wear a helmet when cycling — it is the law.",
+        "context_translation": "אתה ___ לחבוש קסדה בזמן רכיבה על אופניים — זה חוק.",
+        "options": [
+          "must",
+          "should",
+          "might",
+          "could"
+        ],
+        "correct_answer": "must",
+        "grammar_hint": "\"Must\" expresses a legal or strong external obligation. \"Should\" is a recommendation. When there is a law, use \"must.\"",
+        "common_mistake": "\"Should\" is advisory. \"Must\" is obligatory. If you break the law, \"must\" was the right choice."
+      }
+    },
+    {
+      "id": "g15",
+      "type": "grammar_choice",
+      "difficulty": 540,
+      "skill": "modal_verbs",
+      "tags": [
+        "modals",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Choose the best modal for this context:",
+        "context_sentence": "She ___ be at home — her car is in the driveway.",
+        "context_translation": "היא ___ להיות בבית — המכונית שלה בחניה.",
+        "options": [
+          "must",
+          "should",
+          "will",
+          "would"
+        ],
+        "correct_answer": "must",
+        "grammar_hint": "\"Must\" is also used for logical deductions based on evidence. The car in the driveway is the evidence.",
+        "common_mistake": "\"Should\" implies expectation based on schedule. \"Must\" implies deduction from evidence — completely different meanings."
+      }
+    },
+    {
+      "id": "g16",
+      "type": "grammar_choice",
+      "difficulty": 610,
+      "skill": "modal_verbs",
+      "tags": [
+        "modals",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Which sentence expresses a past ability?",
+        "context_sentence": "When he was young, he ___ run a marathon without stopping.",
+        "context_translation": "כשהיה צעיר, הוא ___ לרוץ מרתון ללא עצירה.",
+        "options": [
+          "could",
+          "would",
+          "must have",
+          "should have"
+        ],
+        "correct_answer": "could",
+        "grammar_hint": "\"Could\" expresses past ability (what someone was able to do). \"Would\" refers to past habits. \"Must have\" is a past deduction.",
+        "common_mistake": "\"Would run a marathon\" implies habitual action — he did it regularly. \"Could run\" means he had the ability (even once)."
+      }
+    },
+    {
+      "id": "g17",
+      "type": "grammar_choice",
+      "difficulty": 430,
+      "skill": "prepositions",
+      "tags": [
+        "prepositions",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct preposition:",
+        "context_sentence": "The meeting is scheduled ___ Monday at 9 a.m.",
+        "context_translation": "הישיבה מתוכננת ___ יום שני בשעה 9 בבוקר.",
+        "options": [
+          "on",
+          "at",
+          "in",
+          "by"
+        ],
+        "correct_answer": "on",
+        "grammar_hint": "Use \"on\" for days of the week (on Monday), dates (on 5th March), and specific days (on New Year's Day).",
+        "common_mistake": "\"At\" is for clock times, \"in\" is for months/years/seasons. \"On\" is for days."
+      }
+    },
+    {
+      "id": "g18",
+      "type": "grammar_choice",
+      "difficulty": 500,
+      "skill": "prepositions",
+      "tags": [
+        "prepositions"
+      ],
+      "data": {
+        "question_text": "Select the correct preposition:",
+        "context_sentence": "She has been working ___ this company since 2019.",
+        "context_translation": "היא עובדת ב ___ חברה זו מאז 2019.",
+        "options": [
+          "for",
+          "at",
+          "to",
+          "with"
+        ],
+        "correct_answer": "for",
+        "grammar_hint": "Use \"for\" to describe how long something has continued. Use \"at\" or \"with\" to describe where you work.",
+        "common_mistake": "\"Working at this company\" is also possible, but the blank precedes \"this company\" here, not a time duration, so \"for\" fits the sentence."
+      }
+    },
+    {
+      "id": "g19",
+      "type": "grammar_choice",
+      "difficulty": 510,
+      "skill": "phrasal_verbs",
+      "tags": [
+        "phrasal-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Choose the phrasal verb that fits the context:",
+        "context_sentence": "He could not ___ the difficult maths problem no matter how hard he tried.",
+        "context_translation": "הוא לא הצליח ___ את בעיית המתמטיקה הקשה לא משנה כמה קשה ניסה.",
+        "options": [
+          "figure out",
+          "look up",
+          "put off",
+          "give in"
+        ],
+        "correct_answer": "figure out",
+        "grammar_hint": "\"Figure out\" = to understand or solve something. \"Look up\" = to search for information. \"Put off\" = to delay. \"Give in\" = to surrender.",
+        "common_mistake": "\"Figure out\" is separable: \"figure it out\" is also correct."
+      }
+    },
+    {
+      "id": "g20",
+      "type": "grammar_choice",
+      "difficulty": 570,
+      "skill": "phrasal_verbs",
+      "tags": [
+        "phrasal-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Which phrasal verb means \"to cancel a plan\"?",
+        "context_sentence": "We had to ___ the outdoor concert because of the heavy rain.",
+        "context_translation": "נאלצנו ___ את הקונצרט בחוץ בגלל הגשם הכבד.",
+        "options": [
+          "call off",
+          "call up",
+          "put on",
+          "get through"
+        ],
+        "correct_answer": "call off",
+        "grammar_hint": "\"Call off\" means to cancel an event. \"Call up\" = to phone someone. \"Put on\" = to wear or organize.",
+        "common_mistake": "\"Cancel\" and \"call off\" are interchangeable, but \"call off\" is more informal."
+      }
+    },
+    {
+      "id": "g21",
+      "type": "grammar_choice",
+      "difficulty": 440,
+      "skill": "comparison",
+      "tags": [
+        "comparison",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct comparative:",
+        "context_sentence": "The new office building is ___ than the old one.",
+        "context_translation": "בניין המשרדים החדש ___ מהישן.",
+        "options": [
+          "more modern",
+          "moderner",
+          "most modern",
+          "much modern"
+        ],
+        "correct_answer": "more modern",
+        "grammar_hint": "For adjectives with two or more syllables, use \"more + adjective\" for comparatives, not \"-er\".",
+        "common_mistake": "\"Moderner\" is not a word. Three-syllable adjectives always use \"more/most.\""
+      }
+    },
+    {
+      "id": "g22",
+      "type": "grammar_choice",
+      "difficulty": 520,
+      "skill": "comparison",
+      "tags": [
+        "comparison",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Select the correct sentence:",
+        "context_sentence": "This is ___ meal I have ever tasted.",
+        "context_translation": "זה ___ ארוחה שטעמתי אי פעם.",
+        "options": [
+          "the most delicious",
+          "the more delicious",
+          "most delicious",
+          "the deliciouser"
+        ],
+        "correct_answer": "the most delicious",
+        "grammar_hint": "Superlatives need \"the\" before them: \"the most + adjective\" or \"the + adjective + -est\". Never \"the more\" for superlatives.",
+        "common_mistake": "Always include \"the\" before a superlative when referring to a specific instance."
+      }
+    },
+    {
+      "id": "g23",
+      "type": "grammar_choice",
+      "difficulty": 560,
+      "skill": "relative_clauses",
+      "tags": [
+        "relative-clauses",
+        "intermediate"
+      ],
+      "data": {
+        "question_text": "Which relative pronoun is correct?",
+        "context_sentence": "The scientist ___ discovered penicillin changed medicine forever.",
+        "context_translation": "המדען ___ גילה את הפניצילין שינה את הרפואה לנצח.",
+        "options": [
+          "who",
+          "which",
+          "whose",
+          "whom"
+        ],
+        "correct_answer": "who",
+        "grammar_hint": "Use \"who\" for people as the subject of the relative clause. Use \"which\" for things. Use \"whose\" for possession.",
+        "common_mistake": "\"Which\" is for things, not people. Always use \"who\" or \"whom\" when the antecedent is a person."
+      }
+    },
+    {
+      "id": "g24",
+      "type": "grammar_choice",
+      "difficulty": 620,
+      "skill": "relative_clauses",
+      "tags": [
+        "relative-clauses",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Choose the correct relative pronoun:",
+        "context_sentence": "The report, ___ findings were surprising, was published last month.",
+        "context_translation": "הדו\"ח, ___ ממצאיו היו מפתיעים, פורסם בחודש שעבר.",
+        "options": [
+          "whose",
+          "which",
+          "who",
+          "that"
+        ],
+        "correct_answer": "whose",
+        "grammar_hint": "\"Whose\" shows possession. The report has/owns the findings. \"The report whose findings\" = \"the findings of the report.\"",
+        "common_mistake": "\"Which findings\" would make it an additional clause, not possessive. \"Whose\" is the possessive relative pronoun for both people and things."
+      }
+    },
+    {
+      "id": "g25",
+      "type": "grammar_choice",
+      "difficulty": 600,
+      "skill": "reported_speech",
+      "tags": [
+        "reported-speech",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Convert to reported speech. He said: \"I will finish the report tomorrow.\"",
+        "context_sentence": "He said that he ___ the report the following day.",
+        "context_translation": "הוא אמר שהוא ___ את הדו\"ח למחרת.",
+        "options": [
+          "would finish",
+          "will finish",
+          "finished",
+          "had finished"
+        ],
+        "correct_answer": "would finish",
+        "grammar_hint": "In reported speech, \"will\" shifts back to \"would.\" Time references also shift: \"tomorrow\" becomes \"the following day.\"",
+        "common_mistake": "\"Will\" is direct speech. In reported speech after a past verb (\"said\"), always shift \"will\" → \"would.\""
+      }
+    },
+    {
+      "id": "g26",
+      "type": "grammar_choice",
+      "difficulty": 410,
+      "skill": "present_continuous",
+      "tags": [
+        "tenses",
+        "present-continuous",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct tense:",
+        "context_sentence": "Right now, the engineers ___ the software for the new feature.",
+        "context_translation": "כרגע, המהנדסים ___ את התוכנה לתכונה החדשה.",
+        "options": [
+          "are testing",
+          "test",
+          "have tested",
+          "tested"
+        ],
+        "correct_answer": "are testing",
+        "grammar_hint": "\"Right now\" signals an action happening at this exact moment — use Present Continuous (am/is/are + -ing).",
+        "common_mistake": "Present Simple (\"test\") describes general habits. Present Continuous describes what is happening at this moment."
+      }
+    },
+    {
+      "id": "s1",
+      "type": "sentence_builder",
+      "difficulty": 420,
+      "skill": "sentence_structure",
+      "tags": [
+        "daily-life",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Arrange the words to form a morning routine sentence.",
+        "context_translation": "סדר את המילים ליצירת משפט על שגרת בוקר.",
+        "correct_answer": "Every morning I drink a cup of coffee before work",
+        "word_chips": [
+          "Every",
+          "morning",
+          "I",
+          "drink",
+          "a",
+          "cup",
+          "of",
+          "coffee",
+          "before",
+          "work"
+        ],
+        "common_mistake": "Remember: subject (I) comes before the verb (drink) in declarative sentences."
+      }
+    },
+    {
+      "id": "s2",
+      "type": "sentence_builder",
+      "difficulty": 450,
+      "skill": "future_going_to",
+      "tags": [
+        "travel",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence about confirmed travel plans.",
+        "context_translation": "בנה משפט על תוכניות נסיעה מאושרות.",
+        "correct_answer": "We are planning to visit Japan next summer",
+        "word_chips": [
+          "We",
+          "are",
+          "planning",
+          "to",
+          "visit",
+          "Japan",
+          "next",
+          "summer"
+        ],
+        "common_mistake": "\"Planning to\" expresses a firm, already-arranged intention — similar in meaning to \"going to.\""
+      }
+    },
+    {
+      "id": "s3",
+      "type": "sentence_builder",
+      "difficulty": 500,
+      "skill": "passive_voice",
+      "tags": [
+        "work",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a passive-voice sentence about a rescheduled meeting.",
+        "context_translation": "בנה משפט בגוף סביל על ישיבה שנדחתה.",
+        "correct_answer": "The meeting has been rescheduled to Thursday afternoon",
+        "word_chips": [
+          "The",
+          "meeting",
+          "has",
+          "been",
+          "rescheduled",
+          "to",
+          "Thursday",
+          "afternoon"
+        ],
+        "common_mistake": "Present perfect passive: \"has/have been + past participle.\" Note: \"rescheduled TO\" not \"rescheduled FOR.\""
+      }
+    },
+    {
+      "id": "s4",
+      "type": "sentence_builder",
+      "difficulty": 540,
+      "skill": "conditionals",
+      "tags": [
+        "work",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a first conditional sentence about finishing work on time.",
+        "context_translation": "בנה משפט תנאי ראשון על סיום עבודה בזמן.",
+        "correct_answer": "If you submit the report by noon we will review it today",
+        "word_chips": [
+          "If",
+          "you",
+          "submit",
+          "the",
+          "report",
+          "by",
+          "noon",
+          "we",
+          "will",
+          "review",
+          "it",
+          "today"
+        ],
+        "common_mistake": "First conditional: \"If + present simple, will + base verb.\" No comma is needed when the main clause comes first."
+      }
+    },
+    {
+      "id": "s5",
+      "type": "sentence_builder",
+      "difficulty": 580,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence about the effects of climate change.",
+        "context_translation": "בנה משפט על השפעות שינויי האקלים.",
+        "correct_answer": "Scientists warn that rising temperatures will affect ecosystems worldwide",
+        "word_chips": [
+          "Scientists",
+          "warn",
+          "that",
+          "rising",
+          "temperatures",
+          "will",
+          "affect",
+          "ecosystems",
+          "worldwide"
+        ],
+        "common_mistake": "Notice \"affect\" (verb) vs \"effect\" (noun). \"Rising temperatures will affect ecosystems\" — affect is the action verb here."
+      }
+    },
+    {
+      "id": "s6",
+      "type": "sentence_builder",
+      "difficulty": 620,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence about the global impact of artificial intelligence.",
+        "context_translation": "בנה משפט על ההשפעה הגלובלית של בינה מלאכותית.",
+        "correct_answer": "Artificial intelligence is transforming the way businesses operate globally",
+        "word_chips": [
+          "Artificial",
+          "intelligence",
+          "is",
+          "transforming",
+          "the",
+          "way",
+          "businesses",
+          "operate",
+          "globally"
+        ],
+        "common_mistake": "\"The way businesses operate\" is a noun phrase, not a relative clause. No \"that\" or \"which\" is needed here."
+      }
+    },
+    {
+      "id": "s7",
+      "type": "sentence_builder",
+      "difficulty": 460,
+      "skill": "present_perfect",
+      "tags": [
+        "experience",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a present perfect sentence about travel experience.",
+        "context_translation": "בנה משפט בהווה מושלם על ניסיון טיול.",
+        "correct_answer": "I have never been to South America but I hope to go someday",
+        "word_chips": [
+          "I",
+          "have",
+          "never",
+          "been",
+          "to",
+          "South",
+          "America",
+          "but",
+          "I",
+          "hope",
+          "to",
+          "go",
+          "someday"
+        ],
+        "common_mistake": "\"Never\" is placed between \"have\" and the past participle. \"Have been to\" means visited — \"have gone to\" means went and is still there."
+      }
+    },
+    {
+      "id": "s8",
+      "type": "sentence_builder",
+      "difficulty": 500,
+      "skill": "past_simple",
+      "tags": [
+        "daily-life",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a past simple narrative sentence.",
+        "context_translation": "בנה משפט עבר פשוט נרטיבי.",
+        "correct_answer": "She woke up early checked her phone and then made breakfast",
+        "word_chips": [
+          "She",
+          "woke",
+          "up",
+          "early",
+          "checked",
+          "her",
+          "phone",
+          "and",
+          "then",
+          "made",
+          "breakfast"
+        ],
+        "common_mistake": "Past simple with a sequence of actions: use commas for longer lists. \"Woke up\" is an irregular verb — not \"waked up.\""
+      }
+    },
+    {
+      "id": "s9",
+      "type": "sentence_builder",
+      "difficulty": 560,
+      "skill": "relative_clauses",
+      "tags": [
+        "description",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence with a defining relative clause.",
+        "context_translation": "בנה משפט עם פסוקית שם עצם מגדירה.",
+        "correct_answer": "The colleague who helped me with the project received a promotion",
+        "word_chips": [
+          "The",
+          "colleague",
+          "who",
+          "helped",
+          "me",
+          "with",
+          "the",
+          "project",
+          "received",
+          "a",
+          "promotion"
+        ],
+        "common_mistake": "Defining relative clauses have no commas — they identify which person/thing you mean."
+      }
+    },
+    {
+      "id": "s10",
+      "type": "sentence_builder",
+      "difficulty": 640,
+      "skill": "reported_speech",
+      "tags": [
+        "communication",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "Build a reported speech sentence.",
+        "context_translation": "בנה משפט בדיבור עקיף.",
+        "correct_answer": "The manager told the team that the deadline would be moved to Friday",
+        "word_chips": [
+          "The",
+          "manager",
+          "told",
+          "the",
+          "team",
+          "that",
+          "the",
+          "deadline",
+          "would",
+          "be",
+          "moved",
+          "to",
+          "Friday"
+        ],
+        "common_mistake": "\"Will\" changes to \"would\" in reported speech. \"The deadline will be moved\" → \"the deadline would be moved.\""
+      }
+    },
+    {
+      "id": "s11",
+      "type": "sentence_builder",
+      "difficulty": 480,
+      "skill": "modal_verbs",
+      "tags": [
+        "advice",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence giving strong advice.",
+        "context_translation": "בנה משפט שנותן עצה חזקה.",
+        "correct_answer": "You should drink at least eight glasses of water every day",
+        "word_chips": [
+          "You",
+          "should",
+          "drink",
+          "at",
+          "least",
+          "eight",
+          "glasses",
+          "of",
+          "water",
+          "every",
+          "day"
+        ],
+        "common_mistake": "\"Should\" for advice is followed by the base infinitive (not \"to drink\"). Example: \"should drink\" not \"should to drink.\""
+      }
+    },
+    {
+      "id": "s12",
+      "type": "sentence_builder",
+      "difficulty": 520,
+      "skill": "comparison",
+      "tags": [
+        "comparison",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a superlative sentence about a city.",
+        "context_translation": "בנה משפט עם תואר השוואה עליון על עיר.",
+        "correct_answer": "Tokyo is one of the most densely populated cities in the world",
+        "word_chips": [
+          "Tokyo",
+          "is",
+          "one",
+          "of",
+          "the",
+          "most",
+          "densely",
+          "populated",
+          "cities",
+          "in",
+          "the",
+          "world"
+        ],
+        "common_mistake": "\"One of the most…\" requires a plural noun (cities, not city). Always: \"one of the most + plural noun.\""
+      }
+    },
+    {
+      "id": "t1",
+      "type": "translation_he_en",
+      "difficulty": 400,
+      "skill": "present_simple",
+      "tags": [
+        "daily-life",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "אני הולך לעבודה כל יום בשעה שמונה בבוקר.",
+        "context_translation": "I go to work every day at eight in the morning.",
+        "correct_answer": "I go to work every day at eight in the morning.",
+        "alternate_answers": [
+          "I go to work every day at 8 in the morning.",
+          "Every day I go to work at eight in the morning.",
+          "I go to work at eight every morning."
+        ],
+        "common_mistake": "Present Simple for routines. Do not use \"I am going\" — that is for actions happening right now."
+      }
+    },
+    {
+      "id": "t2",
+      "type": "translation_he_en",
+      "difficulty": 430,
+      "skill": "past_simple",
+      "tags": [
+        "past",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "אמש הלכנו למסעדה איטלקית וזמנו פסטה.",
+        "context_translation": "Last night we went to an Italian restaurant and ordered pasta.",
+        "correct_answer": "Last night we went to an Italian restaurant and ordered pasta.",
+        "alternate_answers": [
+          "We went to an Italian restaurant last night and ordered pasta.",
+          "Last night, we went to an Italian restaurant and ordered pasta."
+        ],
+        "common_mistake": "\"Went\" and \"ordered\" are both Past Simple irregular/regular verbs. Remember \"go → went.\""
+      }
+    },
+    {
+      "id": "t3",
+      "type": "translation_he_en",
+      "difficulty": 460,
+      "skill": "present_perfect",
+      "tags": [
+        "experience",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "מעולם לא ביקרתי ביפן, אבל מאוד רוצה ללכת.",
+        "context_translation": "I have never been to Japan, but I really want to go.",
+        "correct_answer": "I have never been to Japan, but I really want to go.",
+        "alternate_answers": [
+          "I've never been to Japan, but I really want to go.",
+          "I have never visited Japan, but I really want to go."
+        ],
+        "common_mistake": "\"Never been to\" is Present Perfect for experience. Do not use \"I never went to Japan\" — that requires a time reference."
+      }
+    },
+    {
+      "id": "t4",
+      "type": "translation_he_en",
+      "difficulty": 490,
+      "skill": "conditionals",
+      "tags": [
+        "hypothetical",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "אם היה לי יותר זמן, הייתי לומד גיטרה.",
+        "context_translation": "If I had more time, I would learn to play the guitar.",
+        "correct_answer": "If I had more time, I would learn to play the guitar.",
+        "alternate_answers": [
+          "If I had more time, I would learn guitar.",
+          "I would learn to play the guitar if I had more time."
+        ],
+        "common_mistake": "Second conditional: \"If + past simple, would + base verb.\" This describes a hypothetical, not a real situation."
+      }
+    },
+    {
+      "id": "t5",
+      "type": "translation_he_en",
+      "difficulty": 510,
+      "skill": "passive_voice",
+      "tags": [
+        "formal",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "הדוח נכתב על ידי שלושה חוקרים ופורסם בחודש שעבר.",
+        "context_translation": "The report was written by three researchers and published last month.",
+        "correct_answer": "The report was written by three researchers and published last month.",
+        "alternate_answers": [
+          "The report was written by three researchers and was published last month."
+        ],
+        "common_mistake": "Passive voice: \"was written by.\" In sequences, you can drop the second \"was\": \"written and published.\""
+      }
+    },
+    {
+      "id": "t6",
+      "type": "translation_he_en",
+      "difficulty": 530,
+      "skill": "modal_verbs",
+      "tags": [
+        "obligation",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "אתה חייב לסיים את הפרויקט לפני הדדליין, אחרת הלקוח יבטל את ההזמנה.",
+        "context_translation": "You must finish the project before the deadline, or the client will cancel the order.",
+        "correct_answer": "You must finish the project before the deadline, or the client will cancel the order.",
+        "alternate_answers": [
+          "You have to finish the project before the deadline, or the client will cancel the order.",
+          "You need to finish the project before the deadline, otherwise the client will cancel the order."
+        ],
+        "common_mistake": "\"Must\" and \"have to\" both express obligation, but \"must\" comes from the speaker, while \"have to\" is an external rule."
+      }
+    },
+    {
+      "id": "t7",
+      "type": "translation_he_en",
+      "difficulty": 550,
+      "skill": "present_perfect",
+      "tags": [
+        "news",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "החברה הכריזה היום שהיא גייסה עשרים מיליון דולר ממשקיעים חדשים.",
+        "context_translation": "The company announced today that it has raised twenty million dollars from new investors.",
+        "correct_answer": "The company announced today that it has raised twenty million dollars from new investors.",
+        "alternate_answers": [
+          "Today, the company announced that it has raised $20 million from new investors.",
+          "The company announced today that it has raised $20 million from new investors."
+        ],
+        "common_mistake": "Mix of Past Simple (announced — completed announcement) and Present Perfect (has raised — recent result). Both are correct in this sentence."
+      }
+    },
+    {
+      "id": "t8",
+      "type": "translation_he_en",
+      "difficulty": 570,
+      "skill": "relative_clauses",
+      "tags": [
+        "description",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "הספר שקראתי בשבוע שעבר היה המרתק ביותר שקראתי השנה.",
+        "context_translation": "The book I read last week was the most fascinating one I have read this year.",
+        "correct_answer": "The book I read last week was the most fascinating one I have read this year.",
+        "alternate_answers": [
+          "The book that I read last week was the most fascinating one I have read this year.",
+          "The book which I read last week was the most fascinating I have read this year."
+        ],
+        "common_mistake": "When the relative pronoun is the object, it can be omitted: \"the book I read\" is correct without \"that.\""
+      }
+    },
+    {
+      "id": "t9",
+      "type": "translation_he_en",
+      "difficulty": 600,
+      "skill": "reported_speech",
+      "tags": [
+        "communication",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "הוא אמר שהוא לא יכול לבוא לפגישה כי הוא חולה.",
+        "context_translation": "He said that he could not come to the meeting because he was sick.",
+        "correct_answer": "He said that he could not come to the meeting because he was sick.",
+        "alternate_answers": [
+          "He said he couldn't come to the meeting because he was sick.",
+          "He said he could not attend the meeting as he was ill."
+        ],
+        "common_mistake": "\"Can\" shifts to \"could\" in reported speech. \"Is\" (present) shifts to \"was\" (past) after a past reporting verb."
+      }
+    },
+    {
+      "id": "t10",
+      "type": "translation_he_en",
+      "difficulty": 620,
+      "skill": "conditionals",
+      "tags": [
+        "unreal-past",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "אם הייתי יודע על ההנחה, הייתי קונה את הכרטיסים מוקדם יותר.",
+        "context_translation": "If I had known about the discount, I would have bought the tickets earlier.",
+        "correct_answer": "If I had known about the discount, I would have bought the tickets earlier.",
+        "alternate_answers": [
+          "Had I known about the discount, I would have bought the tickets earlier."
+        ],
+        "common_mistake": "Third conditional (unreal past): \"If + past perfect, would have + past participle.\" The situation cannot be changed — it is too late."
+      }
+    },
+    {
+      "id": "t11",
+      "type": "translation_he_en",
+      "difficulty": 640,
+      "skill": "phrasal_verbs",
+      "tags": [
+        "work",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "הצוות מצא פתרון לבעיה אחרי שעות של דיון.",
+        "context_translation": "The team came up with a solution after hours of discussion.",
+        "correct_answer": "The team came up with a solution after hours of discussion.",
+        "alternate_answers": [
+          "After hours of discussion, the team came up with a solution.",
+          "The team found a solution after hours of discussion."
+        ],
+        "common_mistake": "\"Come up with\" is a three-word phrasal verb meaning to devise or think of something. It is inseparable."
+      }
+    },
+    {
+      "id": "t12",
+      "type": "translation_he_en",
+      "difficulty": 470,
+      "skill": "articles",
+      "tags": [
+        "daily-life",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "ראיתי כלב ברחוב. הכלב היה גדול מאוד.",
+        "context_translation": "I saw a dog in the street. The dog was very large.",
+        "correct_answer": "I saw a dog in the street. The dog was very large.",
+        "alternate_answers": [
+          "I saw a dog on the street. The dog was very large."
+        ],
+        "common_mistake": "First mention: \"a dog\" (unknown/new). Second mention: \"the dog\" (already known to both speaker and listener)."
+      }
+    },
+    {
+      "id": "t13",
+      "type": "translation_he_en",
+      "difficulty": 520,
+      "skill": "prepositions",
+      "tags": [
+        "description",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "הספריה ממוקמת בין בית הספר לתחנת הרכבת.",
+        "context_translation": "The library is located between the school and the train station.",
+        "correct_answer": "The library is located between the school and the train station.",
+        "alternate_answers": [
+          "The library is situated between the school and the train station.",
+          "The library is between the school and the train station."
+        ],
+        "common_mistake": "\"Between\" is used for two specific things. \"Among\" is for three or more unspecified things."
+      }
+    },
+    {
+      "id": "t14",
+      "type": "translation_he_en",
+      "difficulty": 560,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "חשוב לשמור על איזון בין עבודה לחיים פרטיים כדי למנוע שחיקה.",
+        "context_translation": "It is important to maintain a work-life balance in order to prevent burnout.",
+        "correct_answer": "It is important to maintain a work-life balance in order to prevent burnout.",
+        "alternate_answers": [
+          "It is important to maintain work-life balance to prevent burnout.",
+          "Maintaining a work-life balance is important to avoid burnout."
+        ],
+        "common_mistake": "\"Burnout\" is a single compound noun meaning exhaustion from overwork. \"Prevent\" means to stop before it happens; \"avoid\" means to keep away from."
+      }
+    },
+    {
+      "id": "t15",
+      "type": "translation_he_en",
+      "difficulty": 590,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "המחקר הוכיח שקיים קשר משמעותי בין שינה מספקת לביצועים קוגניטיביים.",
+        "context_translation": "The study demonstrated a significant correlation between adequate sleep and cognitive performance.",
+        "correct_answer": "The study demonstrated a significant correlation between adequate sleep and cognitive performance.",
+        "alternate_answers": [
+          "The research demonstrated a significant correlation between adequate sleep and cognitive performance.",
+          "The study showed a significant correlation between sufficient sleep and cognitive performance."
+        ],
+        "common_mistake": "\"Correlation\" means a statistical relationship, not necessarily causation. \"Demonstrated\" is more formal than \"showed.\""
+      }
+    },
+    {
+      "id": "l1",
+      "type": "listening_dictation",
+      "difficulty": 400,
+      "skill": "sentence_structure",
+      "tags": [
+        "daily-life",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "The sun rises in the east and sets in the west.",
+        "context_translation": "השמש עולה במזרח ושוקעת במערב.",
+        "correct_answer": "The sun rises in the east and sets in the west.",
+        "audio_only": true,
+        "common_mistake": "Pay attention to \"rises\" (not \"rise\") — third person singular needs the -s suffix."
+      }
+    },
+    {
+      "id": "l2",
+      "type": "listening_dictation",
+      "difficulty": 420,
+      "skill": "past_simple",
+      "tags": [
+        "past",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Yesterday she called her parents and told them the good news.",
+        "context_translation": "אתמול היא התקשרה להוריה וסיפרה להם את הבשורה הטובה.",
+        "correct_answer": "Yesterday she called her parents and told them the good news.",
+        "audio_only": true,
+        "common_mistake": "\"Called\" and \"told\" are both regular past forms. Note \"told\" is irregular: tell → told."
+      }
+    },
+    {
+      "id": "l3",
+      "type": "listening_dictation",
+      "difficulty": 450,
+      "skill": "present_perfect",
+      "tags": [
+        "experience",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Have you ever tried sushi? It is one of the most popular dishes in Japan.",
+        "context_translation": "האם ניסית אי פעם סושי? זהו אחד המאכלים הפופולריים ביותר ביפן.",
+        "correct_answer": "Have you ever tried sushi? It is one of the most popular dishes in Japan.",
+        "audio_only": true,
+        "common_mistake": "\"Ever\" in questions with Present Perfect means \"at any time in your life.\" Note \"dishes\" (plural) not \"dish.\""
+      }
+    },
+    {
+      "id": "l4",
+      "type": "listening_dictation",
+      "difficulty": 480,
+      "skill": "conditionals",
+      "tags": [
+        "hypothetical",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "If it rains tomorrow, we will cancel the outdoor barbecue.",
+        "context_translation": "אם ירד גשם מחר, נבטל את המנגל בחוץ.",
+        "correct_answer": "If it rains tomorrow, we will cancel the outdoor barbecue.",
+        "audio_only": true,
+        "common_mistake": "First conditional: present tense after \"if\", future after the comma. \"Barbecue\" is often misspelled as \"barbeque.\""
+      }
+    },
+    {
+      "id": "l5",
+      "type": "listening_dictation",
+      "difficulty": 510,
+      "skill": "passive_voice",
+      "tags": [
+        "formal",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "The new policy was introduced by the government to reduce pollution.",
+        "context_translation": "המדיניות החדשה הוכנסה על ידי הממשלה כדי להפחית זיהום.",
+        "correct_answer": "The new policy was introduced by the government to reduce pollution.",
+        "audio_only": true,
+        "common_mistake": "\"Was introduced\" is passive past simple. \"By the government\" is the agent — it tells us who performed the action."
+      }
+    },
+    {
+      "id": "l6",
+      "type": "listening_dictation",
+      "difficulty": 540,
+      "skill": "modal_verbs",
+      "tags": [
+        "obligation",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Passengers should arrive at the airport at least two hours before departure.",
+        "context_translation": "נוסעים צריכים להגיע לשדה התעופה לפחות שעתיים לפני היציאה.",
+        "correct_answer": "Passengers should arrive at the airport at least two hours before departure.",
+        "audio_only": true,
+        "common_mistake": "\"Departure\" is a noun (not \"depart\"). \"At least\" means a minimum — could be more."
+      }
+    },
+    {
+      "id": "l7",
+      "type": "listening_dictation",
+      "difficulty": 570,
+      "skill": "relative_clauses",
+      "tags": [
+        "description",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "The software engineer who designed the app won a prestigious award.",
+        "context_translation": "מהנדס התוכנה שתכנן את האפליקציה זכה בפרס יוקרתי.",
+        "correct_answer": "The software engineer who designed the app won a prestigious award.",
+        "audio_only": true,
+        "common_mistake": "\"Prestigious\" is often mispronounced. Stress: pres-TI-gious. \"Won\" is past simple of \"win.\""
+      }
+    },
+    {
+      "id": "l8",
+      "type": "listening_dictation",
+      "difficulty": 600,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "The board of directors voted unanimously to approve the merger with the rival company.",
+        "context_translation": "מועצת המנהלים הצביעה פה אחד לאישור המיזוג עם החברה המתחרה.",
+        "correct_answer": "The board of directors voted unanimously to approve the merger with the rival company.",
+        "audio_only": true,
+        "common_mistake": "\"Unanimously\" means everyone agreed. \"Merger\" (noun) is the act of combining two companies — \"merge\" is the verb."
+      }
+    },
+    {
+      "id": "l9",
+      "type": "listening_dictation",
+      "difficulty": 630,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "The researchers hypothesised that increased screen time negatively affects concentration.",
+        "context_translation": "החוקרים הניחו שזמן מסך מוגבר משפיע לרעה על הריכוז.",
+        "correct_answer": "The researchers hypothesised that increased screen time negatively affects concentration.",
+        "audio_only": true,
+        "common_mistake": "British spelling: \"hypothesised.\" American spelling: \"hypothesized.\" \"Affects\" (verb) not \"effects\" (noun)."
+      }
+    },
+    {
+      "id": "l10",
+      "type": "listening_dictation",
+      "difficulty": 470,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Could you please tell me where the nearest bus stop is?",
+        "context_translation": "האם תוכל בבקשה להגיד לי איפה תחנת האוטובוס הקרובה ביותר?",
+        "correct_answer": "Could you please tell me where the nearest bus stop is?",
+        "audio_only": true,
+        "common_mistake": "Polite indirect question: the word order reverses — \"where the nearest bus stop IS\" not \"where IS the nearest bus stop.\""
+      }
+    },
+    {
+      "id": "c1",
+      "type": "verb_conjugation",
+      "difficulty": 380,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "go",
+        "target_tense": "Past Simple",
+        "target_person": "she / he / it",
+        "context_sentence": "Yesterday, she ___ to the market.",
+        "context_translation": "אתמול, היא ___ לשוק.",
+        "correct_answer": "went",
+        "common_mistake": "\"Go\" is irregular. Past Simple: go → went. Never \"goed.\""
+      }
+    },
+    {
+      "id": "c2",
+      "type": "verb_conjugation",
+      "difficulty": 390,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "buy",
+        "target_tense": "Past Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ a new car last month.",
+        "context_translation": "הם ___ מכונית חדשה בחודש שעבר.",
+        "correct_answer": "bought",
+        "common_mistake": "\"Buy\" is irregular. Past Simple: buy → bought. Rhymes with \"thought\" and \"caught.\""
+      }
+    },
+    {
+      "id": "c3",
+      "type": "verb_conjugation",
+      "difficulty": 400,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "write",
+        "target_tense": "Past Simple",
+        "target_person": "I",
+        "context_sentence": "I ___ a letter to my friend.",
+        "context_translation": "כתבתי מכתב לחברי.",
+        "correct_answer": "wrote",
+        "common_mistake": "\"Write\" is irregular: write → wrote → written. Past Simple is \"wrote\" (no \"d\" or \"ed\")."
+      }
+    },
+    {
+      "id": "c4",
+      "type": "verb_conjugation",
+      "difficulty": 410,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "take",
+        "target_tense": "Past Simple",
+        "target_person": "we",
+        "context_sentence": "We ___ the train to the city centre.",
+        "context_translation": "לקחנו את הרכבת למרכז העיר.",
+        "correct_answer": "took",
+        "common_mistake": "\"Take\" is irregular: take → took → taken. Past Simple is \"took.\""
+      }
+    },
+    {
+      "id": "c5",
+      "type": "verb_conjugation",
+      "difficulty": 430,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "speak",
+        "target_tense": "Past Simple",
+        "target_person": "he",
+        "context_sentence": "He ___ to the manager about the problem.",
+        "context_translation": "הוא ___ עם המנהל על הבעיה.",
+        "correct_answer": "spoke",
+        "common_mistake": "\"Speak\" is irregular: speak → spoke → spoken. Do not say \"speaked.\""
+      }
+    },
+    {
+      "id": "c6",
+      "type": "verb_conjugation",
+      "difficulty": 450,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "see",
+        "target_tense": "Present Perfect",
+        "target_person": "I",
+        "context_sentence": "I ___ that film three times already.",
+        "context_translation": "כבר ___ את הסרט הזה שלוש פעמים.",
+        "correct_answer": "have seen",
+        "common_mistake": "\"See\" irregular past participle: see → saw → seen. Present Perfect: have/has + seen."
+      }
+    },
+    {
+      "id": "c7",
+      "type": "verb_conjugation",
+      "difficulty": 470,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect"
+      ],
+      "data": {
+        "verb_base": "eat",
+        "target_tense": "Present Perfect",
+        "target_person": "she",
+        "context_sentence": "She ___ sushi many times — she loves Japanese food.",
+        "context_translation": "היא ___ סושי הרבה פעמים — היא אוהבת אוכל יפני.",
+        "correct_answer": "has eaten",
+        "common_mistake": "\"Eat\" irregular: eat → ate → eaten. With \"she/he/it\" use \"has eaten\", not \"have eaten.\""
+      }
+    },
+    {
+      "id": "c8",
+      "type": "verb_conjugation",
+      "difficulty": 490,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "break",
+        "target_tense": "Present Perfect",
+        "target_person": "they",
+        "context_sentence": "They ___ the record for the fastest marathon time.",
+        "context_translation": "הם ___ את השיא לזמן המרתון המהיר ביותר.",
+        "correct_answer": "have broken",
+        "common_mistake": "\"Break\" irregular: break → broke → broken. Present Perfect uses \"broken\" (past participle), not \"broke.\""
+      }
+    },
+    {
+      "id": "c9",
+      "type": "verb_conjugation",
+      "difficulty": 360,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "study",
+        "target_tense": "Present Simple",
+        "target_person": "she / he / it",
+        "context_sentence": "She ___ English every evening.",
+        "context_translation": "היא ___ אנגלית כל ערב.",
+        "correct_answer": "studies",
+        "common_mistake": "Verbs ending in consonant + y: change \"y\" to \"i\" and add \"-es\". study → studies, carry → carries."
+      }
+    },
+    {
+      "id": "c10",
+      "type": "verb_conjugation",
+      "difficulty": 370,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "watch",
+        "target_tense": "Present Simple",
+        "target_person": "he",
+        "context_sentence": "He ___ the news every morning before breakfast.",
+        "context_translation": "הוא ___ חדשות כל בוקר לפני ארוחת הבוקר.",
+        "correct_answer": "watches",
+        "common_mistake": "Verbs ending in -ch, -sh, -x, -ss, -o add \"-es\": watch → watches, finish → finishes."
+      }
+    },
+    {
+      "id": "c11",
+      "type": "verb_conjugation",
+      "difficulty": 440,
+      "skill": "future_will",
+      "tags": [
+        "future",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Future Simple (will)",
+        "target_person": "they",
+        "context_sentence": "The results ___ announced at the end of the week.",
+        "context_translation": "התוצאות ___ יוכרזו בסוף השבוע.",
+        "correct_answer": "will be",
+        "common_mistake": "This is passive future: \"will be + past participle (announced).\" Just conjugate \"be\" with \"will\" here."
+      }
+    },
+    {
+      "id": "c12",
+      "type": "verb_conjugation",
+      "difficulty": 460,
+      "skill": "future_going_to",
+      "tags": [
+        "future",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "travel",
+        "target_tense": "Future (going to)",
+        "target_person": "we",
+        "context_sentence": "We ___ to Argentina next spring.",
+        "context_translation": "אנחנו ___ לארגנטינה באביב הבא.",
+        "correct_answer": "are going to travel",
+        "common_mistake": "\"Going to\" + base verb. With \"we\": \"we are going to travel.\" Indicates a planned decision."
+      }
+    },
+    {
+      "id": "c13",
+      "type": "verb_conjugation",
+      "difficulty": 500,
+      "skill": "past_continuous",
+      "tags": [
+        "past-continuous",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "work",
+        "target_tense": "Past Continuous",
+        "target_person": "she",
+        "context_sentence": "She ___ on the presentation when the power cut off.",
+        "context_translation": "היא ___ על המצגת כשהחשמל נכבה.",
+        "correct_answer": "was working",
+        "common_mistake": "Past Continuous: was/were + verb-ing. Describes an ongoing past action interrupted by another event."
+      }
+    },
+    {
+      "id": "c14",
+      "type": "verb_conjugation",
+      "difficulty": 520,
+      "skill": "past_continuous",
+      "tags": [
+        "past-continuous",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "listen",
+        "target_tense": "Past Continuous",
+        "target_person": "they",
+        "context_sentence": "They ___ to music when I arrived.",
+        "context_translation": "הם ___ למוזיקה כשהגעתי.",
+        "correct_answer": "were listening",
+        "common_mistake": "With \"they/we/you\", use \"were + -ing\". With \"I/she/he/it\", use \"was + -ing.\""
+      }
+    },
+    {
+      "id": "c15",
+      "type": "verb_conjugation",
+      "difficulty": 390,
+      "skill": "present_continuous",
+      "tags": [
+        "present-continuous",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "run",
+        "target_tense": "Present Continuous",
+        "target_person": "he",
+        "context_sentence": "Look! He ___ towards the finish line.",
+        "context_translation": "תסתכל! הוא ___ לקראת קו הסיום.",
+        "correct_answer": "is running",
+        "common_mistake": "Double the final consonant before adding -ing for short vowel + consonant verbs: run → running, sit → sitting."
+      }
+    },
+    {
+      "id": "r1",
+      "type": "reading_comprehension",
+      "difficulty": 480,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "reading",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions below.",
+        "context_translation": "קרא את הקטע וענה על השאלות למטה.",
+        "correct_answer": "",
+        "passage": "The Amazon rainforest covers more than 5.5 million square kilometres and is often called \"the lungs of the Earth.\" It produces roughly 20% of the world's oxygen and is home to at least 10% of all species on the planet. Despite its importance, the Amazon faces serious threats. Every year, large areas are cleared for cattle farming and soy production. In 2020 alone, approximately 11,000 square kilometres of forest were destroyed — an area larger than Jamaica.\n\nScientists warn that if deforestation continues at its current rate, the Amazon could reach a \"tipping point\" within decades. Beyond this point, it would no longer generate enough rainfall to sustain itself and could gradually transform into dry savannah. This would not only devastate biodiversity but also accelerate global climate change.",
+        "comprehension_questions": [
+          {
+            "q": "Why is the Amazon rainforest called \"the lungs of the Earth\"?",
+            "options": [
+              "Because it absorbs carbon dioxide",
+              "Because it produces about 20% of the world's oxygen",
+              "Because it generates global rainfall",
+              "Because it covers 20% of the planet's surface"
+            ],
+            "answer": "Because it produces about 20% of the world's oxygen"
+          },
+          {
+            "q": "What does the \"tipping point\" mean in this context?",
+            "options": [
+              "The moment all species in the Amazon go extinct",
+              "A financial turning point for logging companies",
+              "The point at which the forest can no longer sustain itself",
+              "The highest point of the forest canopy"
+            ],
+            "answer": "The point at which the forest can no longer sustain itself"
+          },
+          {
+            "q": "According to the passage, what are TWO main causes of deforestation?",
+            "options": [
+              "Tourism and oil drilling",
+              "Cattle farming and soy production",
+              "Mining and urban expansion",
+              "Climate change and wildfires"
+            ],
+            "answer": "Cattle farming and soy production"
+          }
+        ],
+        "common_mistake": "Read carefully for specific details. \"The lungs\" refers to oxygen production, not CO₂ absorption."
+      }
+    },
+    {
+      "id": "r2",
+      "type": "reading_comprehension",
+      "difficulty": 520,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "reading",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions below.",
+        "context_translation": "קרא את הקטע וענה על השאלות למטה.",
+        "correct_answer": "",
+        "passage": "Artificial intelligence is no longer a distant concept from science fiction — it is already embedded in daily life. From the recommendation algorithm on a streaming platform to the spam filter in your email inbox, AI systems make hundreds of decisions on our behalf every day. Most of us interact with these systems without ever realising it.\n\nHowever, AI raises important ethical questions. One major concern is bias. If the data used to train an AI model contains historical prejudices, the model will likely reproduce those prejudices. For example, several hiring algorithms have been found to favour male candidates because they were trained on historical hiring data that predominantly featured men.\n\nAnother concern is transparency. Many AI systems are \"black boxes\" — their decision-making processes are so complex that even their creators cannot fully explain them. This creates challenges when systems make consequential decisions about loan applications, medical diagnoses, or parole hearings.",
+        "comprehension_questions": [
+          {
+            "q": "According to the passage, what is one reason AI systems can be biased?",
+            "options": [
+              "They are programmed by biased engineers",
+              "They are trained on data that contains historical prejudices",
+              "They lack sufficient computing power",
+              "They are designed to favour certain groups"
+            ],
+            "answer": "They are trained on data that contains historical prejudices"
+          },
+          {
+            "q": "What does the term \"black box\" mean in this passage?",
+            "options": [
+              "A piece of expensive AI hardware",
+              "A system that records flight data",
+              "An AI whose decision-making process cannot be fully explained",
+              "A secret government AI project"
+            ],
+            "answer": "An AI whose decision-making process cannot be fully explained"
+          },
+          {
+            "q": "Which of the following is NOT mentioned as a \"consequential decision\" made by AI?",
+            "options": [
+              "Loan applications",
+              "Medical diagnoses",
+              "Weather forecasting",
+              "Parole hearings"
+            ],
+            "answer": "Weather forecasting"
+          }
+        ],
+        "common_mistake": "Skim the passage first for the main idea, then re-read carefully to find specific details for each question."
+      }
+    },
+    {
+      "id": "r3",
+      "type": "reading_comprehension",
+      "difficulty": 560,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "reading",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions below.",
+        "context_translation": "קרא את הקטע וענה על השאלות למטה.",
+        "correct_answer": "",
+        "passage": "Remote work, once a perk reserved for a small minority of employees, has transformed into a mainstream working arrangement since the pandemic of 2020. Companies that once insisted on full-time office presence were forced to adapt almost overnight. Many discovered that productivity did not collapse as feared; in some cases, it actually improved.\n\nYet the shift has not been without friction. Junior employees often struggle most in remote environments, lacking the informal mentoring and spontaneous knowledge-sharing that occur naturally in an office. Meanwhile, the erosion of boundaries between work and personal life has contributed to higher rates of burnout among remote workers.\n\nAs companies now debate return-to-office policies, a hybrid model — combining remote and in-person work — has emerged as the most common compromise. Research suggests that two to three days of office presence per week is the arrangement most employees prefer, balancing flexibility with collaboration.",
+        "comprehension_questions": [
+          {
+            "q": "According to the passage, who struggled most with remote working?",
+            "options": [
+              "Senior managers",
+              "IT professionals",
+              "Junior employees",
+              "Remote-first companies"
+            ],
+            "answer": "Junior employees"
+          },
+          {
+            "q": "What does the passage say about productivity during the shift to remote work?",
+            "options": [
+              "It collapsed across all industries",
+              "It remained unchanged",
+              "It did not fall as feared and sometimes improved",
+              "It improved dramatically in all cases"
+            ],
+            "answer": "It did not fall as feared and sometimes improved"
+          },
+          {
+            "q": "What office arrangement does research suggest most employees prefer?",
+            "options": [
+              "Fully remote, with no office time",
+              "Full-time office presence",
+              "Two to three days of office work per week",
+              "One day of office work per month"
+            ],
+            "answer": "Two to three days of office work per week"
+          }
+        ],
+        "common_mistake": "Be careful with \"not without friction\" — this double negative means there WERE problems. Double negatives in English can be tricky."
+      }
+    },
+    {
+      "id": "r4",
+      "type": "reading_comprehension",
+      "difficulty": 610,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "science",
+        "reading",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions below.",
+        "context_translation": "קרא את הקטע וענה על השאלות למטה.",
+        "correct_answer": "",
+        "passage": "Sleep is far more than a period of rest. During sleep, the brain undergoes a remarkable cycle of consolidation, processing the day's experiences and transferring short-term memories into long-term storage. This process, known as memory consolidation, is one reason why sleep deprivation so dramatically impairs learning.\n\nA landmark 2019 study published in Nature demonstrated that a single night of poor sleep reduced the brain's ability to form new memories by nearly 40%. Participants who slept fewer than six hours showed measurable deterioration in both explicit memory (conscious recall of facts) and procedural memory (muscle memory for physical skills).\n\nThe study also highlighted the role of deep sleep, or slow-wave sleep, in emotional regulation. People deprived of this sleep stage showed significantly heightened emotional reactivity — reacting more intensely to negative stimuli than well-rested individuals. The authors concluded that prioritising sleep is not a luxury but a neurological necessity.",
+        "comprehension_questions": [
+          {
+            "q": "What happens to memories during sleep, according to the passage?",
+            "options": [
+              "They are erased to make room for new memories",
+              "Short-term memories are transferred to long-term storage",
+              "The brain creates entirely new memories from scratch",
+              "Emotional memories are deleted to reduce stress"
+            ],
+            "answer": "Short-term memories are transferred to long-term storage"
+          },
+          {
+            "q": "What was the key finding of the 2019 Nature study?",
+            "options": [
+              "Eight hours of sleep doubles memory capacity",
+              "One bad night reduced memory formation by nearly 40%",
+              "Deep sleep is the only type that affects learning",
+              "Sleep duration has no effect on emotional regulation"
+            ],
+            "answer": "One bad night reduced memory formation by nearly 40%"
+          },
+          {
+            "q": "What conclusion did the authors draw about sleep?",
+            "options": [
+              "It is a luxury that most people over-prioritise",
+              "It is a neurological necessity, not a luxury",
+              "It is only important for elderly individuals",
+              "It is less important than exercise for brain health"
+            ],
+            "answer": "It is a neurological necessity, not a luxury"
+          }
+        ],
+        "common_mistake": "Academic passages often contain complex noun phrases. Break them down: \"memory consolidation\" = the process of consolidating (making solid/permanent) memories."
+      }
+    },
+    {
+      "id": "r5",
+      "type": "reading_comprehension",
+      "difficulty": 440,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "culture",
+        "reading",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Read the short passage and answer the questions.",
+        "context_translation": "קרא את הקטע הקצר וענה על השאלות.",
+        "correct_answer": "",
+        "passage": "Japan is a country of fascinating contrasts. Modern skyscrapers stand next to ancient temples, and high-speed bullet trains connect cities where traditional tea ceremonies are still performed daily. Tourism in Japan has grown dramatically in recent decades, with millions of visitors arriving each year to experience the country's unique blend of old and new.\n\nOne of the most popular destinations is Kyoto, which served as Japan's imperial capital for more than a thousand years. Unlike Tokyo, which was largely rebuilt after World War II, Kyoto preserved much of its historical architecture. The city is home to over 1,600 Buddhist temples and 400 Shinto shrines, many of which are UNESCO World Heritage Sites.\n\nFor first-time visitors, learning a few basic Japanese phrases is highly recommended. Although English signage is common in major cities, locals greatly appreciate any effort to communicate in their language.",
+        "comprehension_questions": [
+          {
+            "q": "How is Kyoto different from Tokyo, according to the passage?",
+            "options": [
+              "Kyoto has more modern skyscrapers",
+              "Kyoto was the country's original capital and preserved its historical architecture",
+              "Kyoto has more international visitors than Tokyo",
+              "Kyoto has a larger population than Tokyo"
+            ],
+            "answer": "Kyoto was the country's original capital and preserved its historical architecture"
+          },
+          {
+            "q": "What does the passage recommend for first-time visitors to Japan?",
+            "options": [
+              "Visiting only Tokyo and Kyoto",
+              "Hiring a local guide",
+              "Learning a few basic Japanese phrases",
+              "Travelling by bullet train only"
+            ],
+            "answer": "Learning a few basic Japanese phrases"
+          }
+        ],
+        "common_mistake": "Pay attention to contrast words: \"unlike\" signals a comparison. \"Unlike Tokyo... Kyoto...\" means they are different in the described way."
+      }
+    }
+  ]
+}

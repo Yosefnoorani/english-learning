@@ -1,7 +1,7 @@
 import { CalendarDays, Zap } from 'lucide-react'
 import type { SkillId, SkillStats } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
-import { ALL_CONTENT } from '@/content/index'
+import { getAllContent } from '@/services/contentService'
 
 interface DailyLessonProps {
   skillStats: Record<SkillId, SkillStats>
@@ -28,7 +28,7 @@ export function getDailySkill(skillStats: Record<SkillId, SkillStats>, rating: n
 
   // Rotate through relevant skill list by difficulty/rating
   const relevantSkills = ALL_SKILL_IDS.filter((s) => {
-    const items = ALL_CONTENT.filter((i) => i.skill === s && i.type !== 'placement_test')
+    const items = getAllContent().filter((i) => i.skill === s && i.type !== 'placement_test')
     const avg = items.reduce((sum, i) => sum + i.difficulty, 0) / (items.length || 1)
     return Math.abs(avg - rating) < 150
   })
@@ -42,7 +42,7 @@ export function DailyLesson({ skillStats, rating, onStartLesson }: DailyLessonPr
   const skillName = SKILL_LABELS[todaySkill]
 
   // Count available items for this skill
-  const itemCount = ALL_CONTENT.filter(
+  const itemCount = getAllContent().filter(
     (i) => i.skill === todaySkill && i.type !== 'placement_test',
   ).length
 

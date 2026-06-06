@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-06",
+  "mistakeTypes": {
+    "wrong_choice": {
+      "shortExplanation_he": "בחרת באפשרות שגויה. קרא שוב את המשפט ושים לב לרמזי הזמן, לנושא ולמבנה.",
+      "rule_he": "בשאלות בחירה — סמן את המילה או הצורה שמתאימה להקשר המלא, לא רק למילה בודדת.",
+      "example_en": "Read the full sentence before choosing."
+    },
+    "wrong_word": {
+      "shortExplanation_he": "השתמשת במילה לא נכונה. השווה בין מה שכתבת לבין התשובה הנכונה.",
+      "rule_he": "בדוק משמעות, זמן (tense) והתאמה לנושא (subject-verb agreement).",
+      "example_en": "Compare each word with the model answer."
+    },
+    "missing_word": {
+      "shortExplanation_he": "חסרות מילים בתשובה שלך. ודא שהמשפט שלם.",
+      "rule_he": "במשפט באנגלית — אל תדלג על מילות קישור, פועל עזר, או מילות יחס.",
+      "example_en": "Include every essential word from the model sentence."
+    },
+    "extra_word": {
+      "shortExplanation_he": "הוספת מילים מיותרות. נסה משפט קצר ומדויק יותר.",
+      "rule_he": "הסר מילים שלא משנות את המשמעות או שמוסיפות טעות דקדוקית.",
+      "example_en": "Keep only the words needed for a correct sentence."
+    },
+    "word_order": {
+      "shortExplanation_he": "המילים נכונות אבל הסדר שגוי. באנגלית סדר המילים קובע את המשמעות.",
+      "rule_he": "מבנה בסיסי: Subject + Verb + Object. שים לב למיקום תארים ומילות זמן.",
+      "example_en": "She quickly finished the report."
+    },
+    "spelling": {
+      "shortExplanation_he": "כמעט נכון — טעות כתיב או צורה דומה. שים לב לאיות המדויק.",
+      "rule_he": "בדוק אותיות שקטות, כפילות אותיות, וסיומות של פעלים (-ed, -ing).",
+      "example_en": "Double-check verb endings and silent letters."
+    },
+    "empty_answer": {
+      "shortExplanation_he": "לא הזנת תשובה. נסה לנסח משהו — גם ניסיון חלקי עוזר ללמוד.",
+      "rule_he": "קרא את השאלה, חפש מילות מפתח, ובנה תשובה קצרה.",
+      "example_en": "Start with the main verb or keyword."
+    },
+    "partial_translation": {
+      "shortExplanation_he": "התרגום חלקי או לא מדויק. חסרה מילה, זמן שגוי, או ניסוח לא טבעי.",
+      "rule_he": "תרגם משמעות שלמה — לא מילה-במילה. שמור על זמן הפועל מהמשפט בעברית.",
+      "example_en": "Translate the full meaning, not word by word."
+    },
+    "dictation_gap": {
+      "shortExplanation_he": "שמיעה וכתיבה — יש פערים בין מה ששמעת למה שנכון. האזן שוב למילים החלשות.",
+      "rule_he": "שים לב לקישוריות (linking), להטיות (contractions) ולסיומות פעלים.",
+      "example_en": "Listen for contractions: he's, didn't, we're."
+    },
+    "wrong_conjugation": {
+      "shortExplanation_he": "צורת הפועל לא מתאימה לזמן או לגוף הנדרש.",
+      "rule_he": "זהה זמן (past/present/future) וגוף (I/you/he) לפני שבוחרים סיומת.",
+      "example_en": "She works · She worked · She has worked."
+    },
+    "reading_misread": {
+      "shortExplanation_he": "התשובה סותרת את המידע בקטע. חזור לפסקה הרלוונטית.",
+      "rule_he": "אל תנחש — מצא משפט מפתח בקטע שתומך בתשובה.",
+      "example_en": "Find the sentence in the passage that proves the answer."
+    },
+    "vocabulary_confusion": {
+      "shortExplanation_he": "בלבלת בין מילים דומות. שים לב להבדלי משמעות ורמת פורמליות.",
+      "rule_he": "למד כל מילה בהקשר משפט שלם — לא כרשימת תרגומים בודדים.",
+      "example_en": "Learn words in context, not in isolation."
+    }
+  },
+  "byQuestionType": {
+    "vocabulary": "vocabulary_confusion",
+    "grammar_choice": "wrong_choice",
+    "placement_test": "wrong_choice",
+    "sentence_builder": "word_order",
+    "translation_he_en": "partial_translation",
+    "listening_dictation": "dictation_gap",
+    "verb_conjugation": "wrong_conjugation",
+    "reading_comprehension": "reading_misread"
+  },
+  "bySkill": {
+    "present_simple": {
+      "rule_he": "Present Simple: הרגלים, עובדות, ולוחות זמנים. פועל בסיס + s/es בגוף שלישי יחיד.",
+      "example_en": "He works every day."
+    },
+    "present_continuous": {
+      "rule_he": "Present Continuous: am/is/are + V-ing — פעולה ברגע זה או זמנית.",
+      "example_en": "She is studying right now."
+    },
+    "past_simple": {
+      "rule_he": "Past Simple: פעולה שהסתיימה בזמן מוגדר. פועל רגיל + ed / צורת לא סדירה.",
+      "example_en": "They visited London last year."
+    },
+    "past_continuous": {
+      "rule_he": "Past Continuous: was/were + V-ing — רקע או פעולה מתמשכת בעבר.",
+      "example_en": "I was reading when you called."
+    },
+    "present_perfect": {
+      "rule_he": "Present Perfect: have/has + V3 — קשר לעכשיו, חוויה, או תוצאה.",
+      "example_en": "I have lived here for five years."
+    },
+    "past_perfect": {
+      "rule_he": "Past Perfect: had + V3 — פעולה שהתרחשה לפני אירוע אחר בעבר.",
+      "example_en": "She had left before I arrived."
+    },
+    "future_will": {
+      "rule_he": "Future with will: החלטות ספונטניות, תחזיות, הבטחות.",
+      "example_en": "I will help you tomorrow."
+    },
+    "future_going_to": {
+      "rule_he": "Going to: תוכניות וכוונות שכבר נקבעו.",
+      "example_en": "We are going to travel next month."
+    },
+    "conditionals": {
+      "rule_he": "Conditionals: If + זמן אחד → זמן אחר. Second: If + past → would.",
+      "example_en": "If I studied harder, I would pass."
+    },
+    "passive_voice": {
+      "rule_he": "Passive: be + V3 — הדגשת הפעולה, לא המבצע.",
+      "example_en": "The letter was sent yesterday."
+    },
+    "articles": {
+      "rule_he": "a/an לפני שם יחיד ספיר; the לספציפי; לעיתים אפס article.",
+      "example_en": "a book · the book · Ø information"
+    },
+    "prepositions": {
+      "rule_he": "מילות יחס נלמדות בצירופים (depend on, interested in).",
+      "example_en": "good at · afraid of · depend on"
+    },
+    "modal_verbs": {
+      "rule_he": "Modal + V1 (ללא to): can, must, should, might.",
+      "example_en": "You should rest."
+    },
+    "phrasal_verbs": {
+      "rule_he": "Phrasal verb = פועל + מילת יחס/הארה. המשמעות שונה מהפועל לבד.",
+      "example_en": "give up · look after · turn down"
+    },
+    "reported_speech": {
+      "rule_he": "Reported speech: הזזת זמנים אחורה (backshift) כשמדווחים על דברי אחר.",
+      "example_en": "He said (that) he was tired."
+    },
+    "relative_clauses": {
+      "rule_he": "who לאנשים, which לדברים, whose לבעלות, where למקום.",
+      "example_en": "The man who called is my uncle."
+    },
+    "comparison": {
+      "rule_he": "er/est לקצרים; more/most לארוכים; irregular: good→better→best.",
+      "example_en": "better · the best · more interesting"
+    },
+    "vocabulary_emotions": {
+      "rule_he": "מילות רגש שונות בעוצמה: sad ≠ devastated. בחר לפי ההקשר.",
+      "example_en": "anxious · frustrated · relieved"
+    },
+    "vocabulary_business": {
+      "rule_he": "אנגלית עסקית פורמלית — העדף מילים רשמיות (purchase, not buy).",
+      "example_en": "revenue · stakeholder · deadline"
+    },
+    "vocabulary_travel": {
+      "rule_he": "ביטויים שימושיים לנסיעות: booking, boarding pass, layover.",
+      "example_en": "check in · departure gate"
+    },
+    "vocabulary_technology": {
+      "rule_he": "מונחי טכנולוגיה: פועל + מילה (upload a file, install an app).",
+      "example_en": "back up · log in · update"
+    },
+    "vocabulary_environment": {
+      "rule_he": "אוצר מילים סביבתי: renewable, carbon footprint, sustainable.",
+      "example_en": "climate change · recycle"
+    },
+    "vocabulary_academic": {
+      "rule_he": "אקדמי: argue, evidence, furthermore — הימנע מסלנג.",
+      "example_en": "Furthermore, the data suggests…"
+    },
+    "vocabulary_idioms": {
+      "rule_he": "Idiom — משמעות צרובה, לא מילולית. למד כביטוי שלם.",
+      "example_en": "break the ice · piece of cake"
+    },
+    "sentence_structure": {
+      "rule_he": "בנה משפט: נושא + נשוא + משלים. שמור על סדר מילים טבעי.",
+      "example_en": "The team won the match yesterday."
+    }
+  }
+}

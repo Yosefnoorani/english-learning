@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { X, Sun, Moon, Monitor, Volume2, Target, AlertTriangle } from 'lucide-react'
+import { X, Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList } from 'lucide-react'
 import { useGameStore } from '@/store/useGameStore'
 import type { AppTheme, SessionMode } from '@/types/game'
+import { downloadContentJson } from '@/services/contentService'
 
 interface SettingsPanelProps {
   onClose: () => void
+  onShowOnboarding?: () => void
 }
 
 function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
@@ -28,7 +30,7 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: 
   )
 }
 
-export function SettingsPanel({ onClose }: SettingsPanelProps) {
+export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps) {
   const theme = useGameStore((s) => s.theme)
   const sessionMode = useGameStore((s) => s.sessionMode)
   const sounds = useGameStore((s) => s.sounds)
@@ -46,8 +48,14 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
   const setVoice = useGameStore((s) => s.setVoice)
   const setDailyGoalTarget = useGameStore((s) => s.setDailyGoalTarget)
   const resetProgress = useGameStore((s) => s.resetProgress)
+  const startPlacement = useGameStore((s) => s.startPlacement)
 
   const [confirmReset, setConfirmReset] = useState(false)
+
+  async function handleStartPlacement() {
+    onClose()
+    await startPlacement()
+  }
 
   const themeOptions: { id: AppTheme; label: string; icon: ReactNode }[] = [
     { id: 'light', label: 'Light', icon: <Sun size={16} /> },
@@ -204,6 +212,48 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
                   <span>Slow</span><span>Normal</span><span>Fast</span>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Learning tools */}
+          <section>
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Learning</h3>
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={handleStartPlacement}
+                className="w-full flex items-center gap-2 py-3 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-indigo-300 transition-colors min-h-[44px]"
+              >
+                <ClipboardList size={16} className="text-indigo-500" />
+                Run Placement Test
+              </button>
+              {onShowOnboarding && (
+                <button
+                  onClick={onShowOnboarding}
+                  className="w-full flex items-center gap-2 py-3 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-indigo-300 transition-colors min-h-[44px]"
+                >
+                  <BookOpen size={16} className="text-indigo-500" />
+                  Show intro tour
+                </button>
+              )}
+              <button
+                onClick={() => downloadContentJson()}
+                className="w-full flex items-center gap-2 py-3 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-emerald-300 transition-colors min-h-[44px]"
+              >
+                <Download size={16} className="text-emerald-500" />
+                Export content.json
+              </button>
+              <button
+                onClick={() => {
+                  const a = document.createElement('a')
+                  a.href = '/feedback.json'
+                  a.download = 'feedback.json'
+                  a.click()
+                }}
+                className="w-full flex items-center gap-2 py-3 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-violet-300 transition-colors min-h-[44px]"
+              >
+                <Download size={16} className="text-violet-500" />
+                Export feedback.json
+              </button>
             </div>
           </section>
 

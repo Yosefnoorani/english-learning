@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useGameStore, selectCurrentItem, selectLevelLabel } from '@/store/useGameStore'
+import { loadContent, getAllContent } from '@/services/contentService'
+import { loadFeedback } from '@/services/feedbackService'
+import type { NavView } from '@/types/game'
 import { AppShell } from '@/components/layout/AppShell'
 import { PlacementView } from '@/components/game/PlacementView'
 import { FlashcardView } from '@/components/game/FlashcardView'
@@ -17,12 +20,8 @@ import { SettingsPanel } from '@/components/game/SettingsPanel'
 import { OnboardingTour } from '@/components/game/OnboardingTour'
 import { SessionSummary } from '@/components/game/SessionSummary'
 import { HomeScreen } from '@/components/game/HomeScreen'
-import { ALL_CONTENT as allContent } from '@/content/index'
 import type { SkillId } from '@/types/game'
 
-type NavView = 'practice' | 'skills' | 'journal' | 'resources' | 'settings'
-
-// ── Loading skeleton ──────────────────────────────────────────
 function LoadingSkeleton() {
   return (
     <div className="min-h-svh bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
@@ -54,31 +53,28 @@ export default function App() {
   const showSessionSummary = useGameStore((s) => s.showSessionSummary)
   const dismissSessionSummary = useGameStore((s) => s.dismissSessionSummary)
   const continueSession = useGameStore((s) => s.continueSession)
-  const hasSeenOnboarding = useGameStore((s) => s.hasSeenOnboarding)
   const levelLabel = useGameStore(selectLevelLabel)
+  const activeView = useGameStore((s) => s.activeView)
+  const setActiveView = useGameStore((s) => s.setActiveView)
 
-  // Auto-mark as started if the user refreshed mid-placement (answers already recorded)
+  const [contentReady, setContentReady] = useState(false)
+  const [contentError, setContentError] = useState<string | null>(null)
   const [placementStarted, setPlacementStarted] = useState(
     () => useGameStore.getState().placementAnswered > 0,
   )
-  const [activeView, setActiveView] = useState<NavView>('practice')
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
 
-  const initRef = useRef(initGame)
-
   useEffect(() => {
-    initRef.current()
+    Promise.all([loadContent(), loadFeedback()])
+      .then(() => setContentReady(true))
+      .catch((e) => setContentError(e instanceof Error ? e.message : 'Failed to load content'))
   }, [])
 
-  // Show onboarding for first-timers once loading is done
   useEffect(() => {
-    if (!isLoading && !hasSeenOnboarding) {
-      setShowOnboarding(true)
-    }
-  }, [isLoading, hasSeenOnboarding])
+    if (contentReady) initGame()
+  }, [contentReady, initGame])
 
-  // Dynamic document title
   useEffect(() => {
     document.title = phase === 'placement'
       ? 'English Learning · Placement'
@@ -86,7 +82,7 @@ export default function App() {
   }, [phase, levelLabel])
 
   function startDailyLesson(skill: SkillId) {
-    const items = allContent.filter((i) => i.skill === skill && i.type !== 'placement_test')
+    const items = getAllContent().filter((i) => i.skill === skill && i.type !== 'placement_test')
     if (items.length > 0) {
       useGameStore.setState({
         questionBuffer: items.slice(0, 10),
@@ -97,10 +93,11 @@ export default function App() {
         sessionCorrect: 0,
         showSessionSummary: false,
       })
+      useGameStore.getState().saveResumeSnapshot()
     }
   }
 
-  function handleNavigate(view: NavView) {
+  function handleNavigate(view: NavView | 'settings') {
     if (view === 'settings') {
       setShowSettings(true)
     } else {
@@ -112,14 +109,22 @@ export default function App() {
     setActiveView('practice')
   }
 
-  if (isLoading) return <LoadingSkeleton />
+  if (!contentReady || isLoading) {
+    if (contentError) {
+      return (
+        <div className="min-h-svh flex items-center justify-center p-8 text-center text-rose-600">
+          {contentError}
+        </div>
+      )
+    }
+    return <LoadingSkeleton />
+  }
 
-  // ── Placement phase ─────────────────────────────────────────
   if (phase === 'placement') {
     return (
       <>
         {showOnboarding && (
-          <OnboardingTour onDone={() => setShowOnboarding(false)} />
+          <OnboardingTour onDone={() => { setShowOnboarding(false); useGameStore.getState().markOnboardingSeen() }} />
         )}
         <div
           className="min-h-svh bg-slate-50 dark:bg-slate-950 flex flex-col"
@@ -136,7 +141,6 @@ export default function App() {
     )
   }
 
-  // ── Main gameplay shell ─────────────────────────────────────
   return (
     <>
       <AppShell
@@ -148,7 +152,6 @@ export default function App() {
           className="flex-1 flex flex-col"
           style={{ paddingBottom: 'max(5rem, env(safe-area-inset-bottom))' }}
         >
-          {/* Practice tab */}
           {activeView === 'practice' && (
             item ? (
               <div className="flex flex-col gap-5 py-4 overflow-y-auto flex-1">
@@ -186,14 +189,12 @@ export default function App() {
             )
           )}
 
-          {/* Skills tab — inline on desktop, overlay on mobile */}
           {activeView === 'skills' && (
             <div className="flex-1 overflow-y-auto">
               <SkillsPanel onClose={closePanelToHome} />
             </div>
           )}
 
-          {/* Journal tab */}
           {activeView === 'journal' && (
             <div className="flex-1 overflow-y-auto">
               <MistakeJournal
@@ -203,7 +204,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Resources tab */}
           {activeView === 'resources' && (
             <div className="flex-1 overflow-y-auto">
               <ResourcesPanel levelLabel={levelLabel} onClose={closePanelToHome} />
@@ -212,7 +212,6 @@ export default function App() {
         </main>
       </AppShell>
 
-      {/* ── Global overlays ── */}
       {showFeedback && lastResult && (
         <FeedbackDrawer result={lastResult} onNext={dismissFeedback} />
       )}
@@ -225,7 +224,14 @@ export default function App() {
       )}
 
       {showSettings && (
-        <SettingsPanel onClose={() => setShowSettings(false)} />
+        <SettingsPanel
+          onClose={() => setShowSettings(false)}
+          onShowOnboarding={() => { setShowSettings(false); setShowOnboarding(true) }}
+        />
+      )}
+
+      {showOnboarding && (
+        <OnboardingTour onDone={() => { setShowOnboarding(false); useGameStore.getState().markOnboardingSeen() }} />
       )}
     </>
   )

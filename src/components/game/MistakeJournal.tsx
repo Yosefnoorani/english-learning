@@ -2,7 +2,7 @@ import { X, RotateCcw, Clock } from 'lucide-react'
 import { useGameStore } from '@/store/useGameStore'
 import { SKILL_LABELS } from '@/types/game'
 import type { SkillId } from '@/types/game'
-import { ALL_CONTENT } from '@/content/index'
+import { getContentById } from '@/services/contentService'
 
 interface MistakeJournalProps {
   onClose: () => void
@@ -22,7 +22,9 @@ export function MistakeJournal({ onClose, onPractise }: MistakeJournalProps) {
   const mistakeQueue = useGameStore((s) => s.mistakeQueue)
   const toggleMistakeReview = useGameStore((s) => s.toggleMistakeReview)
 
-  const entries = [...mistakeQueue].sort((a, b) => a.nextDueAt - b.nextDueAt)
+  const entries = [...mistakeQueue]
+    .filter((e) => !e.mastered)
+    .sort((a, b) => a.nextDueAt - b.nextDueAt)
   const dueNow = entries.filter((e) => e.nextDueAt <= Date.now())
 
   async function handleStartReview() {
@@ -71,7 +73,7 @@ export function MistakeJournal({ onClose, onPractise }: MistakeJournalProps) {
           ) : (
             <div className="flex flex-col gap-3">
               {entries.map((entry) => {
-                const item = ALL_CONTENT.find((c) => c.id === entry.contentId)
+                const item = getContentById(entry.contentId)
                 const isDue = entry.nextDueAt <= Date.now()
                 return (
                   <div
