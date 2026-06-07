@@ -69,6 +69,13 @@ export function getTierLabel(tier: number): string {
   return TIER_LABELS[tier] ?? `Tier ${tier}`
 }
 
+/** Tier used for question selection when user chooses to practice below their current level. */
+export function getEffectivePracticeTier(currentTier: number, practiceTierOffset: number): number {
+  const maxOffset = Math.max(0, currentTier - MIN_TIER)
+  const offset = Math.max(0, Math.min(maxOffset, practiceTierOffset))
+  return currentTier - offset
+}
+
 export function onCorrect(
   currentTier: number,
   tierCorrectStreak: number,

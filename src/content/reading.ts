@@ -239,4 +239,70 @@ For first-time visitors, learning a few basic Japanese phrases is highly recomme
       common_mistake: 'Pay attention to contrast words: "unlike" signals a comparison. "Unlike Tokyo... Kyoto..." means they are different in the described way.',
     },
   },
+  // ── Beginner (Tier 1) ─────────────────────────────────────
+  {
+    id: 'r6',
+    type: 'reading_comprehension',
+    difficulty: 360,
+    skill: 'vocabulary_travel',
+    tags: ['basics', 'reading', 'beginner'],
+    data: {
+      context_sentence: 'Read the short passage and answer the questions.',
+      context_translation: 'קרא את הקטע הקצר וענה על השאלות.',
+      correct_answer: '',
+      passage: `Tom is a student. He is twelve years old. He goes to school from Monday to Friday. His favourite subject is English. After school, he plays football with his friends in the park.`,
+      comprehension_questions: [
+        {
+          q: 'How old is Tom?',
+          options: ['Ten years old', 'Eleven years old', 'Twelve years old', 'Thirteen years old'],
+          answer: 'Twelve years old',
+        },
+        {
+          q: 'What is Tom\'s favourite subject?',
+          options: ['Maths', 'Science', 'English', 'History'],
+          answer: 'English',
+        },
+      ],
+      common_mistake: 'Look for exact words from the passage — "favourite subject is English" gives the answer directly.',
+    },
+  },
+  // ── Advanced (Tier 9–10) ────────────────────────────────────
+  {
+    id: 'r7',
+    type: 'reading_comprehension',
+    difficulty: 800,
+    skill: 'vocabulary_academic',
+    tags: ['academic', 'reading', 'advanced'],
+    data: {
+      context_sentence: 'Read the passage and answer the questions.',
+      context_translation: 'קרא את הקטע וענה על השאלות.',
+      correct_answer: '',
+      passage: `Cognitive dissonance, a concept introduced by Leon Festinger in 1957, describes the mental discomfort experienced when holding two or more contradictory beliefs simultaneously. When individuals encounter evidence that challenges their existing worldview, they often engage in motivated reasoning — selectively interpreting information to reduce psychological tension rather than updating their beliefs objectively.
+
+Research in behavioural economics has demonstrated that this tendency is not limited to political or religious contexts. Even highly educated professionals exhibit confirmation bias when evaluating data that threatens their professional identity. The implications for public policy are significant: presenting factual corrections alone may fail to change minds if those facts threaten deeply held self-concepts.`,
+      comprehension_questions: [
+        {
+          q: 'According to the passage, what is "motivated reasoning"?',
+          options: [
+            'Reasoning based on logical evidence alone',
+            'Selectively interpreting information to reduce psychological tension',
+            'Updating beliefs whenever new evidence appears',
+            'A form of reasoning unique to political contexts',
+          ],
+          answer: 'Selectively interpreting information to reduce psychological tension',
+        },
+        {
+          q: 'What does the passage suggest about presenting factual corrections?',
+          options: [
+            'They always change people\'s minds quickly',
+            'They may fail if facts threaten deeply held self-concepts',
+            'They are most effective among uneducated people',
+            'They work best in religious contexts only',
+          ],
+          answer: 'They may fail if facts threaten deeply held self-concepts',
+        },
+      ],
+      common_mistake: 'Academic passages often define terms in the same sentence — "motivated reasoning — selectively interpreting…" gives the definition.',
+    },
+  },
 ]

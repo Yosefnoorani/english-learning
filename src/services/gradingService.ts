@@ -165,8 +165,14 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
   const primaryAnswer = item.data.correct_answer
   const allAnswers = [primaryAnswer, ...(item.data.alternate_answers ?? [])]
 
-  // ── Exact / near-exact match (vocab, grammar_choice, conjugation) ─
-  if (type === 'vocabulary' || type === 'grammar_choice' || type === 'placement_test' || type === 'verb_conjugation') {
+  // ── Exact / near-exact match (vocab, grammar_choice, conjugation, spelling) ─
+  if (
+    type === 'vocabulary' ||
+    type === 'grammar_choice' ||
+    type === 'placement_test' ||
+    type === 'verb_conjugation' ||
+    type === 'word_spelling'
+  ) {
     const normInput = normalise(userInput)
     const isExact = allAnswers.some((a) => normalise(a) === normInput)
     if (isExact) {
@@ -189,6 +195,25 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
         similarity: bestSim,
         errors: [{ position: 0, type: 'wrong', expected: primaryAnswer, got: userInput }],
         explanation: buildConjugationExplanation(item, userInput),
+      }
+    }
+
+    if (type === 'word_spelling') {
+      const bestSim = Math.max(...allAnswers.map((a) => charSimilarity(a, userInput)))
+      const threshold = primaryAnswer.length >= 10 ? 0.88 : 0.9
+      if (bestSim >= threshold) {
+        return {
+          isCorrect: true,
+          similarity: bestSim,
+          errors: [],
+          explanation: `Almost perfect — minor typo accepted. The correct spelling is "${primaryAnswer}".`,
+        }
+      }
+      return {
+        isCorrect: false,
+        similarity: bestSim,
+        errors: [{ position: 0, type: 'wrong', expected: primaryAnswer, got: userInput }],
+        explanation: item.data.common_mistake ?? `The correct spelling is "${primaryAnswer}".`,
       }
     }
 

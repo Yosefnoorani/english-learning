@@ -1,7 +1,30 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-06",
+  "updatedAt": "2026-06-07",
   "items": [
+    {
+      "id": "p0",
+      "type": "placement_test",
+      "difficulty": 360,
+      "skill": "present_simple",
+      "tags": [
+        "placement",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "She ___ coffee every morning.",
+        "context_translation": "היא ___ קפה כל בוקר.",
+        "options": [
+          "drinks",
+          "drink",
+          "drinking",
+          "is drink"
+        ],
+        "correct_answer": "drinks",
+        "grammar_hint": "With he/she/it, add -s in Present Simple: \"She drinks.\""
+      }
+    },
     {
       "id": "p1",
       "type": "placement_test",
@@ -665,6 +688,168 @@
       }
     },
     {
+      "id": "v31",
+      "type": "vocabulary",
+      "difficulty": 350,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Hello",
+        "translation": "שלום",
+        "context_sentence": "Hello! My name is Tom.",
+        "context_translation": "שלום! קוראים לי טום.",
+        "correct_answer": "Hello",
+        "common_mistake": "Use \"Hello\" as a general greeting. \"Hi\" is informal but also correct in casual settings."
+      }
+    },
+    {
+      "id": "v32",
+      "type": "vocabulary",
+      "difficulty": 360,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Water",
+        "translation": "מים",
+        "context_sentence": "Can I have a glass of water, please?",
+        "context_translation": "אפשר לקבל כוס מים, בבקשה?",
+        "correct_answer": "Water",
+        "common_mistake": "\"Water\" is uncountable — say \"a glass of water\", not \"a water\"."
+      }
+    },
+    {
+      "id": "v33",
+      "type": "vocabulary",
+      "difficulty": 370,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Book",
+        "translation": "ספר",
+        "context_sentence": "I read a book every night before bed.",
+        "context_translation": "אני קורא ספר כל לילה לפני השינה.",
+        "correct_answer": "Book",
+        "common_mistake": "\"Read\" is pronounced /riːd/ (present) and /red/ (past) — same spelling, different sound."
+      }
+    },
+    {
+      "id": "v34",
+      "type": "vocabulary",
+      "difficulty": 380,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Happy",
+        "translation": "שמח / מאושר",
+        "context_sentence": "The children are happy because it is their birthday.",
+        "context_translation": "הילדים שמחים כי זה יום ההולדת שלהם.",
+        "correct_answer": "Happy",
+        "common_mistake": "Use \"happy\" with \"be\": \"I am happy\" — not \"I have happy\"."
+      }
+    },
+    {
+      "id": "v35",
+      "type": "vocabulary",
+      "difficulty": 390,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Friend",
+        "translation": "חבר / חברה",
+        "context_sentence": "She is my best friend from school.",
+        "context_translation": "היא החברה הכי טובה שלי מבית הספר.",
+        "correct_answer": "Friend",
+        "common_mistake": "\"Best friend\" is one person. For several close friends, say \"close friends\"."
+      }
+    },
+    {
+      "id": "v36",
+      "type": "vocabulary",
+      "difficulty": 760,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "word": "Ubiquitous",
+        "translation": "נמצא בכל מקום / שכיח מאוד",
+        "context_sentence": "Smartphones have become ubiquitous in modern society, appearing in nearly every public space.",
+        "context_translation": "סמארטפונים הפכו לנפוצים בכל מקום בחברה המודרנית, ומופיעים כמעט בכל מרחב ציבורי.",
+        "correct_answer": "Ubiquitous",
+        "common_mistake": "\"Ubiquitous\" means present everywhere — stronger than \"common\" or \"popular\"."
+      }
+    },
+    {
+      "id": "v37",
+      "type": "vocabulary",
+      "difficulty": 810,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "word": "Inscrutable",
+        "translation": "בלתי ניתן לפענוח / מסתורי",
+        "context_sentence": "The CEO maintained an inscrutable expression throughout the entire press conference.",
+        "context_translation": "מנכ\"ל החברה שמר על הבעה בלתי ניתנת לפענוח לאורך כל מסיבת העיתונות.",
+        "correct_answer": "Inscrutable",
+        "common_mistake": "\"Inscrutable\" describes something impossible to read or interpret — often a face or motive."
+      }
+    },
+    {
+      "id": "v38",
+      "type": "vocabulary",
+      "difficulty": 860,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "advanced",
+        "formal"
+      ],
+      "data": {
+        "word": "Ambivalent",
+        "translation": "מעורב רגשות / לא החלטי",
+        "context_sentence": "She felt ambivalent about accepting the promotion because it meant relocating abroad.",
+        "context_translation": "היא הרגישה מעורבת רגשות לגבי קבלת הקידום כי זה אומר מעבר לחו\"ל.",
+        "correct_answer": "Ambivalent",
+        "common_mistake": "\"Ambivalent\" means having mixed feelings — not the same as \"indifferent\" (no feelings at all)."
+      }
+    },
+    {
+      "id": "v39",
+      "type": "vocabulary",
+      "difficulty": 880,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "master"
+      ],
+      "data": {
+        "word": "Perspicacious",
+        "translation": "חד תבונה / בעל הבנה עמוקה",
+        "context_sentence": "The perspicacious analyst predicted the market downturn months before it occurred.",
+        "context_translation": "האנליסט החד-תבונה חזה את ירידת השוק חודשים לפני שהיא התרחשה.",
+        "correct_answer": "Perspicacious",
+        "common_mistake": "\"Perspicacious\" means keenly perceptive — do not confuse with \"perspicuous\" (clearly expressed)."
+      }
+    },
+    {
       "id": "g1",
       "type": "grammar_choice",
       "difficulty": 450,
@@ -1291,6 +1476,152 @@
       }
     },
     {
+      "id": "g27",
+      "type": "grammar_choice",
+      "difficulty": 350,
+      "skill": "present_simple",
+      "tags": [
+        "tenses",
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "I ___ English every day.",
+        "context_translation": "אני ___ אנגלית כל יום.",
+        "options": [
+          "study",
+          "studies",
+          "studying",
+          "am study"
+        ],
+        "correct_answer": "study",
+        "grammar_hint": "With \"I/you/we/they\", use the base verb in Present Simple: \"I study.\"",
+        "common_mistake": "\"Studies\" is for he/she/it. With \"I\", always use the base form."
+      }
+    },
+    {
+      "id": "g28",
+      "type": "grammar_choice",
+      "difficulty": 370,
+      "skill": "articles",
+      "tags": [
+        "articles",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct article:",
+        "context_sentence": "She is ___ teacher.",
+        "context_translation": "היא ___ מורה.",
+        "options": [
+          "a",
+          "an",
+          "the",
+          "-"
+        ],
+        "correct_answer": "a",
+        "grammar_hint": "Use \"a\" before consonant sounds and \"an\" before vowel sounds. \"Teacher\" starts with a consonant.",
+        "common_mistake": "\"An teacher\" is wrong — \"teacher\" begins with /t/, a consonant sound."
+      }
+    },
+    {
+      "id": "g29",
+      "type": "grammar_choice",
+      "difficulty": 390,
+      "skill": "present_simple",
+      "tags": [
+        "tenses",
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "They ___ in Tel Aviv.",
+        "context_translation": "הם ___ בתל אביב.",
+        "options": [
+          "live",
+          "lives",
+          "living",
+          "are live"
+        ],
+        "correct_answer": "live",
+        "grammar_hint": "With \"they/we/you/I\", Present Simple uses the base verb without -s.",
+        "common_mistake": "\"Lives\" is only for he/she/it: \"He lives\" but \"They live\"."
+      }
+    },
+    {
+      "id": "g30",
+      "type": "grammar_choice",
+      "difficulty": 780,
+      "skill": "conditionals",
+      "tags": [
+        "conditionals",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Choose the correct third conditional form:",
+        "context_sentence": "If the company ___ more aggressively, it would have captured the market.",
+        "context_translation": "אם החברה ___ באגרסיביות רבה יותר, היא הייתה כובשת את השוק.",
+        "options": [
+          "had invested",
+          "invested",
+          "would invest",
+          "has invested"
+        ],
+        "correct_answer": "had invested",
+        "grammar_hint": "Third conditional: If + past perfect, would have + past participle.",
+        "common_mistake": "Second conditional uses past simple; third conditional uses past perfect in the if-clause."
+      }
+    },
+    {
+      "id": "g31",
+      "type": "grammar_choice",
+      "difficulty": 830,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "advanced"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "The manuscript is believed ___ by a team of anonymous scholars.",
+        "context_translation": "מאמינים שהכתב יד ___ על ידי צוות של חוקרים אנונימיים.",
+        "options": [
+          "to have been written",
+          "to be written",
+          "having been written",
+          "was written"
+        ],
+        "correct_answer": "to have been written",
+        "grammar_hint": "After \"is believed\", use passive infinitive. For completed past action: \"to have been + past participle\".",
+        "common_mistake": "\"To be written\" suggests future or general; \"to have been written\" refers to a completed past action."
+      }
+    },
+    {
+      "id": "g32",
+      "type": "grammar_choice",
+      "difficulty": 880,
+      "skill": "relative_clauses",
+      "tags": [
+        "relative-clauses",
+        "master"
+      ],
+      "data": {
+        "question_text": "Choose the correct reduced relative clause:",
+        "context_sentence": "The documents ___ at the archive contain evidence of the transaction.",
+        "context_translation": "המסמכים ___ בארכיון מכילים ראיות לעסקה.",
+        "options": [
+          "stored",
+          "storing",
+          "which storing",
+          "were storing"
+        ],
+        "correct_answer": "stored",
+        "grammar_hint": "Reduced relative clause: past participle replaces \"which were + past participle\". \"Documents stored\" = \"documents which were stored\".",
+        "common_mistake": "\"Storing\" is active — documents do not store themselves. Use past participle \"stored\" for passive meaning."
+      }
+    },
+    {
       "id": "s1",
       "type": "sentence_builder",
       "difficulty": 420,
@@ -1634,6 +1965,162 @@
       }
     },
     {
+      "id": "s13",
+      "type": "sentence_builder",
+      "difficulty": 350,
+      "skill": "sentence_structure",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Arrange the words to make a simple greeting.",
+        "context_translation": "סדר את המילים ליצירת ברכה פשוטה.",
+        "correct_answer": "Hello my name is Anna",
+        "word_chips": [
+          "Hello",
+          "my",
+          "name",
+          "is",
+          "Anna"
+        ],
+        "common_mistake": "In English, names are capitalised: \"Anna\" not \"anna\"."
+      }
+    },
+    {
+      "id": "s14",
+      "type": "sentence_builder",
+      "difficulty": 370,
+      "skill": "present_simple",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a simple sentence about what you like.",
+        "context_translation": "בנה משפט פשוט על מה שאתה אוהב.",
+        "correct_answer": "I like apples and bananas",
+        "word_chips": [
+          "I",
+          "like",
+          "apples",
+          "and",
+          "bananas"
+        ],
+        "common_mistake": "After \"like\" use the base form of the verb or a noun: \"I like apples\" — no \"to\" needed."
+      }
+    },
+    {
+      "id": "s15",
+      "type": "sentence_builder",
+      "difficulty": 390,
+      "skill": "sentence_structure",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Arrange the words to describe going to school.",
+        "context_translation": "סדר את המילים לתיאור הליכה לבית הספר.",
+        "correct_answer": "We go to school every day",
+        "word_chips": [
+          "We",
+          "go",
+          "to",
+          "school",
+          "every",
+          "day"
+        ],
+        "common_mistake": "Use \"go to\" + place: \"go to school\" — not \"go in school\"."
+      }
+    },
+    {
+      "id": "s16",
+      "type": "sentence_builder",
+      "difficulty": 770,
+      "skill": "passive_voice",
+      "tags": [
+        "advanced",
+        "formal"
+      ],
+      "data": {
+        "context_sentence": "Build a formal passive sentence about a policy decision.",
+        "context_translation": "בנה משפט פסיבי רשמי על החלטת מדיניות.",
+        "correct_answer": "The new regulations were approved by the board after lengthy deliberation",
+        "word_chips": [
+          "The",
+          "new",
+          "regulations",
+          "were",
+          "approved",
+          "by",
+          "the",
+          "board",
+          "after",
+          "lengthy",
+          "deliberation"
+        ],
+        "common_mistake": "Passive voice: subject + was/were + past participle + by + agent."
+      }
+    },
+    {
+      "id": "s17",
+      "type": "sentence_builder",
+      "difficulty": 820,
+      "skill": "relative_clauses",
+      "tags": [
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence with a relative clause about a researcher.",
+        "context_translation": "בנה משפט עם משפט יחס על חוקר.",
+        "correct_answer": "The scientist whose groundbreaking research transformed the field received international acclaim",
+        "word_chips": [
+          "The",
+          "scientist",
+          "whose",
+          "groundbreaking",
+          "research",
+          "transformed",
+          "the",
+          "field",
+          "received",
+          "international",
+          "acclaim"
+        ],
+        "common_mistake": "\"Whose\" shows possession — the scientist owns the research."
+      }
+    },
+    {
+      "id": "s18",
+      "type": "sentence_builder",
+      "difficulty": 870,
+      "skill": "reported_speech",
+      "tags": [
+        "advanced",
+        "master"
+      ],
+      "data": {
+        "context_sentence": "Build a complex reported-speech sentence.",
+        "context_translation": "בנה משפט מורכב בדיבור מדווח.",
+        "correct_answer": "She insisted that the proposal had been rejected without proper consultation",
+        "word_chips": [
+          "She",
+          "insisted",
+          "that",
+          "the",
+          "proposal",
+          "had",
+          "been",
+          "rejected",
+          "without",
+          "proper",
+          "consultation"
+        ],
+        "common_mistake": "After \"insisted that\", shift tenses back: \"has been\" → \"had been\"."
+      }
+    },
+    {
       "id": "t1",
       "type": "translation_he_en",
       "difficulty": 400,
@@ -1932,6 +2419,123 @@
       }
     },
     {
+      "id": "t16",
+      "type": "translation_he_en",
+      "difficulty": 350,
+      "skill": "present_simple",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "אני גר בתל אביב.",
+        "context_translation": "I live in Tel Aviv.",
+        "correct_answer": "I live in Tel Aviv.",
+        "alternate_answers": [
+          "I live in Tel Aviv",
+          "I am living in Tel Aviv"
+        ],
+        "common_mistake": "Use Present Simple for permanent situations: \"I live in…\" not \"I am live in…\"."
+      }
+    },
+    {
+      "id": "t17",
+      "type": "translation_he_en",
+      "difficulty": 370,
+      "skill": "present_simple",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "היא אוהבת קפה.",
+        "context_translation": "She likes coffee.",
+        "correct_answer": "She likes coffee.",
+        "alternate_answers": [
+          "She likes coffee",
+          "She loves coffee"
+        ],
+        "common_mistake": "With he/she/it, add -s to the verb: \"She likes\" not \"She like\"."
+      }
+    },
+    {
+      "id": "t18",
+      "type": "translation_he_en",
+      "difficulty": 390,
+      "skill": "sentence_structure",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "איפה התחנה?",
+        "context_translation": "Where is the station?",
+        "correct_answer": "Where is the station?",
+        "alternate_answers": [
+          "Where is the station",
+          "Where's the station?"
+        ],
+        "common_mistake": "Question word order: Wh-word + is/are + subject. \"Where is the station?\" not \"Where the station is?\""
+      }
+    },
+    {
+      "id": "t19",
+      "type": "translation_he_en",
+      "difficulty": 770,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "המחקר מצביע על כך שהגורם המרכזי לירידה בפריון נובע ממחסור בשינה.",
+        "context_translation": "The research indicates that the primary factor in the decline in productivity stems from sleep deprivation.",
+        "correct_answer": "The research indicates that the primary factor in the decline in productivity stems from sleep deprivation.",
+        "alternate_answers": [
+          "The study indicates that the main factor in the decline in productivity stems from lack of sleep."
+        ],
+        "common_mistake": "\"Stems from\" means originates from — stronger than \"comes from\" in formal writing."
+      }
+    },
+    {
+      "id": "t20",
+      "type": "translation_he_en",
+      "difficulty": 840,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "החברה נאלצה לבטל את ההנפקה בשל תנודתיות בשוק ההון.",
+        "context_translation": "The company was compelled to cancel the offering due to volatility in the capital markets.",
+        "correct_answer": "The company was compelled to cancel the offering due to volatility in the capital markets.",
+        "alternate_answers": [
+          "The company was forced to cancel the offering due to volatility in the capital markets."
+        ],
+        "common_mistake": "\"Offering\" in finance means a public sale of shares — not a general \"offer\"."
+      }
+    },
+    {
+      "id": "t21",
+      "type": "translation_he_en",
+      "difficulty": 890,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "master"
+      ],
+      "data": {
+        "context_sentence": "התיאוריה, שעברה ביקורת נרחבת, מציעה הסבר חלופי לתופעה.",
+        "context_translation": "The theory, which has undergone extensive scrutiny, proposes an alternative explanation for the phenomenon.",
+        "correct_answer": "The theory, which has undergone extensive scrutiny, proposes an alternative explanation for the phenomenon.",
+        "alternate_answers": [
+          "The theory, which has been extensively scrutinised, offers an alternative explanation for the phenomenon."
+        ],
+        "common_mistake": "\"Undergone\" is the past participle of \"undergo\" — irregular verb: undergo → underwent → undergone."
+      }
+    },
+    {
       "id": "l1",
       "type": "listening_dictation",
       "difficulty": 400,
@@ -2099,6 +2703,91 @@
         "correct_answer": "Could you please tell me where the nearest bus stop is?",
         "audio_only": true,
         "common_mistake": "Polite indirect question: the word order reverses — \"where the nearest bus stop IS\" not \"where IS the nearest bus stop.\""
+      }
+    },
+    {
+      "id": "l11",
+      "type": "listening_dictation",
+      "difficulty": 350,
+      "skill": "sentence_structure",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Good morning. How are you?",
+        "context_translation": "בוקר טוב. מה שלומך?",
+        "correct_answer": "Good morning. How are you?",
+        "audio_only": true,
+        "common_mistake": "Capitalise \"Good morning\" — it starts a sentence."
+      }
+    },
+    {
+      "id": "l12",
+      "type": "listening_dictation",
+      "difficulty": 370,
+      "skill": "present_simple",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "I have two brothers and one sister.",
+        "context_translation": "יש לי שני אחים ואחות אחת.",
+        "correct_answer": "I have two brothers and one sister.",
+        "audio_only": true,
+        "common_mistake": "\"Brothers\" is plural. \"Sister\" is singular when there is only one."
+      }
+    },
+    {
+      "id": "l13",
+      "type": "listening_dictation",
+      "difficulty": 390,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "The shop is on the left side of the street.",
+        "context_translation": "החנות נמצאת בצד השמאלי של הרחוב.",
+        "correct_answer": "The shop is on the left side of the street.",
+        "audio_only": true,
+        "common_mistake": "Use \"on the left\" — not \"in the left\"."
+      }
+    },
+    {
+      "id": "l14",
+      "type": "listening_dictation",
+      "difficulty": 780,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "The empirical evidence contradicts the prevailing hypothesis put forward by earlier researchers.",
+        "context_translation": "הראיות האмпיריות סותרות את ההשערה השוררת שהוצעה על ידי חוקרים קודמים.",
+        "correct_answer": "The empirical evidence contradicts the prevailing hypothesis put forward by earlier researchers.",
+        "audio_only": true,
+        "common_mistake": "\"Put forward\" is a phrasal verb meaning proposed or suggested."
+      }
+    },
+    {
+      "id": "l15",
+      "type": "listening_dictation",
+      "difficulty": 850,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "Shareholders expressed concern that the restructuring would erode long-term shareholder value.",
+        "context_translation": "בעלי המניות הביעו דאגה שהארגון מחדש ישחיק את ערך המניות לטווח ארוך.",
+        "correct_answer": "Shareholders expressed concern that the restructuring would erode long-term shareholder value.",
+        "audio_only": true,
+        "common_mistake": "\"Erode\" means gradually weaken or reduce — often used for value, trust, or confidence."
       }
     },
     {
@@ -2386,6 +3075,101 @@
       }
     },
     {
+      "id": "c16",
+      "type": "verb_conjugation",
+      "difficulty": 350,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Present Simple",
+        "target_person": "I",
+        "context_sentence": "I ___ a student.",
+        "context_translation": "אני ___ תלמיד.",
+        "correct_answer": "am",
+        "common_mistake": "Use \"am\" with \"I\", \"is\" with he/she/it, \"are\" with you/we/they."
+      }
+    },
+    {
+      "id": "c17",
+      "type": "verb_conjugation",
+      "difficulty": 370,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "like",
+        "target_tense": "Present Simple",
+        "target_person": "she",
+        "context_sentence": "She ___ chocolate.",
+        "context_translation": "היא ___ שוקולד.",
+        "correct_answer": "likes",
+        "common_mistake": "Add -s for he/she/it in Present Simple: \"She likes\" not \"She like\"."
+      }
+    },
+    {
+      "id": "c18",
+      "type": "verb_conjugation",
+      "difficulty": 390,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "go",
+        "target_tense": "Present Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ to the park on Sundays.",
+        "context_translation": "הם ___ לפארק בימי ראשון.",
+        "correct_answer": "go",
+        "common_mistake": "With they/we/you/I, use the base verb: \"They go\" — no -s."
+      }
+    },
+    {
+      "id": "c19",
+      "type": "verb_conjugation",
+      "difficulty": 790,
+      "skill": "past_perfect",
+      "tags": [
+        "past-perfect",
+        "advanced"
+      ],
+      "data": {
+        "verb_base": "finish",
+        "target_tense": "Past Perfect",
+        "target_person": "they",
+        "context_sentence": "They ___ the project before the deadline was moved forward.",
+        "context_translation": "הם ___ את הפרויקט לפני שהדדליין הוקדם.",
+        "correct_answer": "had finished",
+        "common_mistake": "Past Perfect: had + past participle. Use when one past action happened before another."
+      }
+    },
+    {
+      "id": "c20",
+      "type": "verb_conjugation",
+      "difficulty": 860,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "advanced"
+      ],
+      "data": {
+        "verb_base": "consider",
+        "target_tense": "Present Perfect Passive",
+        "target_person": "it",
+        "context_sentence": "It ___ that the policy will be revised next quarter.",
+        "context_translation": "___ שהמדיניות תתוקן ברבעון הבא.",
+        "correct_answer": "is considered",
+        "common_mistake": "Passive reporting structure: \"It is considered that…\" = people consider that…"
+      }
+    },
+    {
       "id": "r1",
       "type": "reading_comprehension",
       "difficulty": 480,
@@ -2623,6 +3407,508 @@
           }
         ],
         "common_mistake": "Pay attention to contrast words: \"unlike\" signals a comparison. \"Unlike Tokyo... Kyoto...\" means they are different in the described way."
+      }
+    },
+    {
+      "id": "r6",
+      "type": "reading_comprehension",
+      "difficulty": 360,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "reading",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Read the short passage and answer the questions.",
+        "context_translation": "קרא את הקטע הקצר וענה על השאלות.",
+        "correct_answer": "",
+        "passage": "Tom is a student. He is twelve years old. He goes to school from Monday to Friday. His favourite subject is English. After school, he plays football with his friends in the park.",
+        "comprehension_questions": [
+          {
+            "q": "How old is Tom?",
+            "options": [
+              "Ten years old",
+              "Eleven years old",
+              "Twelve years old",
+              "Thirteen years old"
+            ],
+            "answer": "Twelve years old"
+          },
+          {
+            "q": "What is Tom's favourite subject?",
+            "options": [
+              "Maths",
+              "Science",
+              "English",
+              "History"
+            ],
+            "answer": "English"
+          }
+        ],
+        "common_mistake": "Look for exact words from the passage — \"favourite subject is English\" gives the answer directly."
+      }
+    },
+    {
+      "id": "r7",
+      "type": "reading_comprehension",
+      "difficulty": 800,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "reading",
+        "advanced"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions.",
+        "context_translation": "קרא את הקטע וענה על השאלות.",
+        "correct_answer": "",
+        "passage": "Cognitive dissonance, a concept introduced by Leon Festinger in 1957, describes the mental discomfort experienced when holding two or more contradictory beliefs simultaneously. When individuals encounter evidence that challenges their existing worldview, they often engage in motivated reasoning — selectively interpreting information to reduce psychological tension rather than updating their beliefs objectively.\n\nResearch in behavioural economics has demonstrated that this tendency is not limited to political or religious contexts. Even highly educated professionals exhibit confirmation bias when evaluating data that threatens their professional identity. The implications for public policy are significant: presenting factual corrections alone may fail to change minds if those facts threaten deeply held self-concepts.",
+        "comprehension_questions": [
+          {
+            "q": "According to the passage, what is \"motivated reasoning\"?",
+            "options": [
+              "Reasoning based on logical evidence alone",
+              "Selectively interpreting information to reduce psychological tension",
+              "Updating beliefs whenever new evidence appears",
+              "A form of reasoning unique to political contexts"
+            ],
+            "answer": "Selectively interpreting information to reduce psychological tension"
+          },
+          {
+            "q": "What does the passage suggest about presenting factual corrections?",
+            "options": [
+              "They always change people's minds quickly",
+              "They may fail if facts threaten deeply held self-concepts",
+              "They are most effective among uneducated people",
+              "They work best in religious contexts only"
+            ],
+            "answer": "They may fail if facts threaten deeply held self-concepts"
+          }
+        ],
+        "common_mistake": "Academic passages often define terms in the same sentence — \"motivated reasoning — selectively interpreting…\" gives the definition."
+      }
+    },
+    {
+      "id": "sp1",
+      "type": "word_spelling",
+      "difficulty": 520,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Separate",
+        "translation": "נפרד / להפריד",
+        "context_sentence": "Please keep the raw meat ___ from the vegetables.",
+        "context_translation": "אנא שמור על הבשר הנא על ___ מהירקות.",
+        "correct_answer": "Separate",
+        "alternate_answers": [
+          "separate"
+        ],
+        "common_mistake": "Remember: \"separate\" has \"a\" in the middle — not \"seperate\". Mnemonic: \"There is a rat in separate.\""
+      }
+    },
+    {
+      "id": "sp2",
+      "type": "word_spelling",
+      "difficulty": 530,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Necessary",
+        "translation": "הכרחי / נחוץ",
+        "context_sentence": "It is ___ to bring your passport to the airport.",
+        "context_translation": "___ להביא את הדרכון לשדה התעופה.",
+        "correct_answer": "Necessary",
+        "alternate_answers": [
+          "necessary"
+        ],
+        "common_mistake": "One \"c\", two \"s\"s: ne-ces-sary. Not \"neccessary\" or \"necesary\"."
+      }
+    },
+    {
+      "id": "sp3",
+      "type": "word_spelling",
+      "difficulty": 540,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Accommodation",
+        "translation": "לינה / מקום לינה",
+        "context_sentence": "We booked ___ near the city centre for three nights.",
+        "context_translation": "הזמנו ___ ליד מרכז העיר לשלוש לילות.",
+        "correct_answer": "Accommodation",
+        "alternate_answers": [
+          "accommodation"
+        ],
+        "common_mistake": "Double \"c\" and double \"m\": ac-com-mo-da-tion. British spelling uses one \"l\" in \"travelled\" but two \"m\"s here."
+      }
+    },
+    {
+      "id": "sp4",
+      "type": "word_spelling",
+      "difficulty": 550,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Occurrence",
+        "translation": "מקרה / התרחשות",
+        "context_sentence": "Power cuts are a rare ___ in this neighbourhood.",
+        "context_translation": "הפסקות חשמל הן ___ נדירה בשכונה הזו.",
+        "correct_answer": "Occurrence",
+        "alternate_answers": [
+          "occurrence"
+        ],
+        "common_mistake": "Double \"c\", double \"r\": oc-cur-rence. Not \"occurance\" or \"ocurence\"."
+      }
+    },
+    {
+      "id": "sp5",
+      "type": "word_spelling",
+      "difficulty": 560,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Independent",
+        "translation": "עצמאי",
+        "context_sentence": "She became financially ___ after starting her own business.",
+        "context_translation": "היא הפכה ___ כלכלית אחרי שהקימה עסק משלה.",
+        "correct_answer": "Independent",
+        "alternate_answers": [
+          "independent"
+        ],
+        "common_mistake": "Ends in \"-ent\", not \"-ant\": independ-ent. The noun is \"independence\"."
+      }
+    },
+    {
+      "id": "sp6",
+      "type": "word_spelling",
+      "difficulty": 570,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Environment",
+        "translation": "סביבה",
+        "context_sentence": "We must protect the natural ___ for future generations.",
+        "context_translation": "עלינו להגן על ה___ הטבעית לדורות הבאים.",
+        "correct_answer": "Environment",
+        "alternate_answers": [
+          "environment"
+        ],
+        "common_mistake": "n before m: en-vi-ron-ment. A very common error is \"enviroment\" (missing \"n\")."
+      }
+    },
+    {
+      "id": "sp7",
+      "type": "word_spelling",
+      "difficulty": 580,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Recommend",
+        "translation": "להמליץ",
+        "context_sentence": "I strongly ___ this book to anyone learning English.",
+        "context_translation": "אני ___ בחום את הספר הזה לכל מי שלומד אנגלית.",
+        "correct_answer": "Recommend",
+        "alternate_answers": [
+          "recommend"
+        ],
+        "common_mistake": "One \"c\", double \"m\": re-com-mend. Not \"reccomend\"."
+      }
+    },
+    {
+      "id": "sp8",
+      "type": "word_spelling",
+      "difficulty": 590,
+      "skill": "vocabulary_business",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Maintenance",
+        "translation": "תחזוקה",
+        "context_sentence": "Regular ___ of the equipment prevents costly breakdowns.",
+        "context_translation": "___ קבועה של הציוד מונעת תקלות יקרות.",
+        "correct_answer": "Maintenance",
+        "alternate_answers": [
+          "maintenance"
+        ],
+        "common_mistake": "Main-ten-ance — the \"ten\" is in the middle. Not \"maintainance\"."
+      }
+    },
+    {
+      "id": "sp9",
+      "type": "word_spelling",
+      "difficulty": 600,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Definitely",
+        "translation": "בהחלט / בוודאות",
+        "context_sentence": "I will ___ be at the meeting tomorrow morning.",
+        "context_translation": "אני ___ אהיה בפגישה מחר בבוקר.",
+        "correct_answer": "Definitely",
+        "alternate_answers": [
+          "definitely"
+        ],
+        "common_mistake": "Has \"finite\" inside: de-finite-ly. Never write \"definately\" or \"defiantly\" (different word)."
+      }
+    },
+    {
+      "id": "sp10",
+      "type": "word_spelling",
+      "difficulty": 610,
+      "skill": "vocabulary_business",
+      "tags": [
+        "spelling",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Privilege",
+        "translation": "זכות / פריבילגיה",
+        "context_sentence": "Access to this data is a ___ granted only to senior staff.",
+        "context_translation": "גישה לנתונים האלה היא ___ שניתנת רק לעובדים בכירים.",
+        "correct_answer": "Privilege",
+        "alternate_answers": [
+          "privilege"
+        ],
+        "common_mistake": "i before leg: priv-i-lege. Not \"priviledge\" (no \"d\")."
+      }
+    },
+    {
+      "id": "sp11",
+      "type": "word_spelling",
+      "difficulty": 660,
+      "skill": "vocabulary_business",
+      "tags": [
+        "spelling",
+        "advanced"
+      ],
+      "data": {
+        "word": "Bureaucracy",
+        "translation": "בירוקרטיה",
+        "context_sentence": "The project was delayed by excessive ___ in the approval process.",
+        "context_translation": "הפרויקט התעכב בגלל ___ מוגזמת בתהליך האישור.",
+        "correct_answer": "Bureaucracy",
+        "alternate_answers": [
+          "bureaucracy"
+        ],
+        "common_mistake": "French origin: bureau + cracy. The \"eau\" in bureau sounds like \"oh\"."
+      }
+    },
+    {
+      "id": "sp12",
+      "type": "word_spelling",
+      "difficulty": 680,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "advanced"
+      ],
+      "data": {
+        "word": "Conscientious",
+        "translation": "קפדן / יסודי",
+        "context_sentence": "She is a ___ worker who always checks her work twice.",
+        "context_translation": "היא עובדת ___ שתמיד בודקת את עבודתה פעמיים.",
+        "correct_answer": "Conscientious",
+        "alternate_answers": [
+          "conscientious"
+        ],
+        "common_mistake": "sci in the middle: con-sci-en-tious. Related to \"conscience\", not \"conscious\"."
+      }
+    },
+    {
+      "id": "sp13",
+      "type": "word_spelling",
+      "difficulty": 700,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "spelling",
+        "advanced"
+      ],
+      "data": {
+        "word": "Mediterranean",
+        "translation": "ים תיכוני / ים-תיכוני",
+        "context_sentence": "They spent their holiday on a ___ cruise.",
+        "context_translation": "הם בילו את החופשה שלהם בשייט ___ .",
+        "correct_answer": "Mediterranean",
+        "alternate_answers": [
+          "mediterranean"
+        ],
+        "common_mistake": "Double \"r\", double \"n\": Med-i-ter-ran-ean. Break it into syllables when spelling."
+      }
+    },
+    {
+      "id": "sp14",
+      "type": "word_spelling",
+      "difficulty": 720,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "spelling",
+        "advanced"
+      ],
+      "data": {
+        "word": "Mischievous",
+        "translation": "שובב / מציק",
+        "context_sentence": "The ___ child hid his sister's toys as a prank.",
+        "context_translation": "הילד ___ הסתיר את הצעצועים של אחותו כמתיחה.",
+        "correct_answer": "Mischievous",
+        "alternate_answers": [
+          "mischievous"
+        ],
+        "common_mistake": "Ends in \"-evous\", not \"-ious\": mis-chiev-ous. Do not add an extra \"i\" (not \"mischievious\")."
+      }
+    },
+    {
+      "id": "sp15",
+      "type": "word_spelling",
+      "difficulty": 740,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "advanced"
+      ],
+      "data": {
+        "word": "Pronunciation",
+        "translation": "הגייה",
+        "context_sentence": "Good ___ is essential for clear communication.",
+        "context_translation": "___ טובה חיונית לתקשורת ברורה.",
+        "correct_answer": "Pronunciation",
+        "alternate_answers": [
+          "pronunciation"
+        ],
+        "common_mistake": "Noun from \"pronounce\" — but spelled pro-nun-ci-a-tion (not \"pronounciation\")."
+      }
+    },
+    {
+      "id": "sp16",
+      "type": "word_spelling",
+      "difficulty": 760,
+      "skill": "vocabulary_business",
+      "tags": [
+        "spelling",
+        "advanced"
+      ],
+      "data": {
+        "word": "Hierarchy",
+        "translation": "היררכיה",
+        "context_sentence": "Decision-making follows a strict ___ in the organisation.",
+        "context_translation": "קבלת החלטות עוקבת אחר ___ קפדנית בארגון.",
+        "correct_answer": "Hierarchy",
+        "alternate_answers": [
+          "hierarchy"
+        ],
+        "common_mistake": "Ends in \"-archy\" (like monarchy): hi-er-ar-chy. Not \"heirarchy\"."
+      }
+    },
+    {
+      "id": "sp17",
+      "type": "word_spelling",
+      "difficulty": 820,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "master"
+      ],
+      "data": {
+        "word": "Onomatopoeia",
+        "translation": "מילה המחקה צליל",
+        "context_sentence": "Words like \"buzz\" and \"splash\" are examples of ___.",
+        "context_translation": "מילים כמו \"buzz\" ו-\"splash\" הן דוגמאות ל___.",
+        "correct_answer": "Onomatopoeia",
+        "alternate_answers": [
+          "onomatopoeia"
+        ],
+        "common_mistake": "o-e-i-a at the end: ono-mato-poe-ia. Say each syllable aloud while spelling."
+      }
+    },
+    {
+      "id": "sp18",
+      "type": "word_spelling",
+      "difficulty": 850,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "master"
+      ],
+      "data": {
+        "word": "Idiosyncrasy",
+        "translation": "ייחודיות / הרגל מיוחד",
+        "context_sentence": "Drinking tea at exactly four o'clock was one of his little ___.",
+        "context_translation": "שתיית תה בדיוק בארבע הייתה אחת מה___ הקטנות שלו.",
+        "correct_answer": "Idiosyncrasy",
+        "alternate_answers": [
+          "idiosyncrasy"
+        ],
+        "common_mistake": "Ends in \"-crasy\" (not \"-cracy\"): idio-syn-crasy. Plural: idiosyncrasies."
+      }
+    },
+    {
+      "id": "sp19",
+      "type": "word_spelling",
+      "difficulty": 870,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "master"
+      ],
+      "data": {
+        "word": "Supersede",
+        "translation": "להחליף / לגבור על",
+        "context_sentence": "The new software will ___ the outdated version next month.",
+        "context_translation": "התוכנה החדשה ___ את הגרסה המיושנת בחודש הבא.",
+        "correct_answer": "Supersede",
+        "alternate_answers": [
+          "supersede"
+        ],
+        "common_mistake": "Only one \"s\" and ends in \"-sede\" (not \"-cede\"): super-sede. Think \"super + sede\", not \"supercede\"."
+      }
+    },
+    {
+      "id": "sp20",
+      "type": "word_spelling",
+      "difficulty": 890,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "master"
+      ],
+      "data": {
+        "word": "Manoeuvre",
+        "translation": "תמרון / maneuvre",
+        "context_sentence": "The pilot had to perform a difficult ___ to avoid the storm.",
+        "context_translation": "הטייס נאלץ לבצע ___ קשה כדי להימנע מהסערה.",
+        "correct_answer": "Manoeuvre",
+        "alternate_answers": [
+          "manoeuvre",
+          "Maneuver",
+          "maneuver"
+        ],
+        "common_mistake": "British: manoeuvre (oeu). American: maneuver. Both are accepted here."
       }
     }
   ]

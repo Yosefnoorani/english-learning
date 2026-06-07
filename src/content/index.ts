@@ -6,9 +6,25 @@ import { TRANSLATION_ITEMS } from './translation'
 import { LISTENING_ITEMS } from './listening'
 import { CONJUGATION_ITEMS } from './conjugation'
 import { READING_ITEMS } from './reading'
+import { SPELLING_ITEMS } from './spelling'
 
 // Placement-test items — lightweight grammar_choice set
 const PLACEMENT_ITEMS: ContentItem[] = [
+  {
+    id: 'p0',
+    type: 'placement_test',
+    difficulty: 360,
+    skill: 'present_simple',
+    tags: ['placement', 'beginner'],
+    data: {
+      question_text: 'Choose the correct form:',
+      context_sentence: 'She ___ coffee every morning.',
+      context_translation: 'היא ___ קפה כל בוקר.',
+      options: ['drinks', 'drink', 'drinking', 'is drink'],
+      correct_answer: 'drinks',
+      grammar_hint: 'With he/she/it, add -s in Present Simple: "She drinks."',
+    },
+  },
   {
     id: 'p1',
     type: 'placement_test',
@@ -95,6 +111,7 @@ export const ALL_CONTENT: ContentItem[] = [
   ...LISTENING_ITEMS,
   ...CONJUGATION_ITEMS,
   ...READING_ITEMS,
+  ...SPELLING_ITEMS,
 ]
 
 export const PLACEMENT_CONTENT = PLACEMENT_ITEMS

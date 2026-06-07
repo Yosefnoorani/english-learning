@@ -68,6 +68,7 @@ export type QuestionType =
   | 'listening_dictation'
   | 'verb_conjugation'
   | 'reading_comprehension'
+  | 'word_spelling'
 
 export type GamePhase = 'placement' | 'gameplay' | 'review'
 

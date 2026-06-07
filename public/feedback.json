@@ -71,7 +71,8 @@
     "translation_he_en": "partial_translation",
     "listening_dictation": "dictation_gap",
     "verb_conjugation": "wrong_conjugation",
-    "reading_comprehension": "reading_misread"
+    "reading_comprehension": "reading_misread",
+    "word_spelling": "spelling"
   },
   "bySkill": {
     "present_simple": {

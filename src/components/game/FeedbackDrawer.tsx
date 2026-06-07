@@ -7,6 +7,7 @@ import { buildDiffTokens, type DiffToken } from '@/services/gradingService'
 import { useGameStore } from '@/store/useGameStore'
 import { playCorrect, playWrong, vibrateCorrect, vibrateWrong } from '@/services/soundService'
 import { getMistakeFeedback } from '@/services/feedbackService'
+import { BidiMixedText } from '@/utils/bidiText'
 
 interface FeedbackDrawerProps {
   result: AnswerResult
@@ -14,7 +15,7 @@ interface FeedbackDrawerProps {
 }
 
 const OPEN_ANSWER_TYPES = new Set(['sentence_builder', 'translation_he_en', 'listening_dictation'])
-const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', 'verb_conjugation'])
+const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', 'verb_conjugation', 'word_spelling'])
 const KEYBOARD_DISMISS_DELAY_MS = 400
 
 function DiffDisplay({ tokens }: { tokens: DiffToken[] }) {
@@ -198,16 +199,16 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
 
           {!isCorrect && staticFeedback && (
             <div className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-2">
-              <p className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">
+              <p className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide text-right" dir="rtl">
                 למה טעית?
               </p>
-              <p className="text-sm text-violet-900 dark:text-violet-100 leading-relaxed" dir="rtl">
-                {staticFeedback.shortExplanation}
+              <p className="text-sm text-violet-900 dark:text-violet-100 leading-relaxed text-right" dir="rtl">
+                <BidiMixedText text={staticFeedback.shortExplanation} />
               </p>
-              <p className="text-xs text-violet-700 dark:text-violet-300 leading-relaxed" dir="rtl">
-                <strong>כלל: </strong>{staticFeedback.rule}
+              <p className="text-xs text-violet-700 dark:text-violet-300 leading-relaxed text-right" dir="rtl">
+                <BidiMixedText text={staticFeedback.rule} prefix={<strong>כלל: </strong>} />
               </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 italic">
+              <p className="text-xs text-slate-600 dark:text-slate-400 italic" dir="ltr">
                 {staticFeedback.example}
               </p>
             </div>

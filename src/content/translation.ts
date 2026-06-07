@@ -252,4 +252,96 @@ export const TRANSLATION_ITEMS: ContentItem[] = [
       common_mistake: '"Correlation" means a statistical relationship, not necessarily causation. "Demonstrated" is more formal than "showed."',
     },
   },
+  // ── Beginner (Tier 1) ─────────────────────────────────────
+  {
+    id: 't16',
+    type: 'translation_he_en',
+    difficulty: 350,
+    skill: 'present_simple',
+    tags: ['basics', 'beginner'],
+    data: {
+      context_sentence: 'אני גר בתל אביב.',
+      context_translation: 'I live in Tel Aviv.',
+      correct_answer: 'I live in Tel Aviv.',
+      alternate_answers: ['I live in Tel Aviv', 'I am living in Tel Aviv'],
+      common_mistake: 'Use Present Simple for permanent situations: "I live in…" not "I am live in…".',
+    },
+  },
+  {
+    id: 't17',
+    type: 'translation_he_en',
+    difficulty: 370,
+    skill: 'present_simple',
+    tags: ['basics', 'beginner'],
+    data: {
+      context_sentence: 'היא אוהבת קפה.',
+      context_translation: 'She likes coffee.',
+      correct_answer: 'She likes coffee.',
+      alternate_answers: ['She likes coffee', 'She loves coffee'],
+      common_mistake: 'With he/she/it, add -s to the verb: "She likes" not "She like".',
+    },
+  },
+  {
+    id: 't18',
+    type: 'translation_he_en',
+    difficulty: 390,
+    skill: 'sentence_structure',
+    tags: ['basics', 'beginner'],
+    data: {
+      context_sentence: 'איפה התחנה?',
+      context_translation: 'Where is the station?',
+      correct_answer: 'Where is the station?',
+      alternate_answers: ['Where is the station', "Where's the station?"],
+      common_mistake: 'Question word order: Wh-word + is/are + subject. "Where is the station?" not "Where the station is?"',
+    },
+  },
+  // ── Advanced (Tier 9–10) ────────────────────────────────────
+  {
+    id: 't19',
+    type: 'translation_he_en',
+    difficulty: 770,
+    skill: 'vocabulary_academic',
+    tags: ['academic', 'advanced'],
+    data: {
+      context_sentence: 'המחקר מצביע על כך שהגורם המרכזי לירידה בפריון נובע ממחסור בשינה.',
+      context_translation: 'The research indicates that the primary factor in the decline in productivity stems from sleep deprivation.',
+      correct_answer: 'The research indicates that the primary factor in the decline in productivity stems from sleep deprivation.',
+      alternate_answers: [
+        'The study indicates that the main factor in the decline in productivity stems from lack of sleep.',
+      ],
+      common_mistake: '"Stems from" means originates from — stronger than "comes from" in formal writing.',
+    },
+  },
+  {
+    id: 't20',
+    type: 'translation_he_en',
+    difficulty: 840,
+    skill: 'vocabulary_business',
+    tags: ['business', 'advanced'],
+    data: {
+      context_sentence: 'החברה נאלצה לבטל את ההנפקה בשל תנודתיות בשוק ההון.',
+      context_translation: 'The company was compelled to cancel the offering due to volatility in the capital markets.',
+      correct_answer: 'The company was compelled to cancel the offering due to volatility in the capital markets.',
+      alternate_answers: [
+        'The company was forced to cancel the offering due to volatility in the capital markets.',
+      ],
+      common_mistake: '"Offering" in finance means a public sale of shares — not a general "offer".',
+    },
+  },
+  {
+    id: 't21',
+    type: 'translation_he_en',
+    difficulty: 890,
+    skill: 'vocabulary_academic',
+    tags: ['academic', 'master'],
+    data: {
+      context_sentence: 'התיאוריה, שעברה ביקורת נרחבת, מציעה הסבר חלופי לתופעה.',
+      context_translation: 'The theory, which has undergone extensive scrutiny, proposes an alternative explanation for the phenomenon.',
+      correct_answer: 'The theory, which has undergone extensive scrutiny, proposes an alternative explanation for the phenomenon.',
+      alternate_answers: [
+        'The theory, which has been extensively scrutinised, offers an alternative explanation for the phenomenon.',
+      ],
+      common_mistake: '"Undergone" is the past participle of "undergo" — irregular verb: undergo → underwent → undergone.',
+    },
+  },
 ]

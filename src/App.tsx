@@ -13,6 +13,7 @@ import { FeedbackDrawer } from '@/components/game/FeedbackDrawer'
 import { TranslationView } from '@/components/game/TranslationView'
 import { DictationView } from '@/components/game/DictationView'
 import { ConjugationView } from '@/components/game/ConjugationView'
+import { SpellingView } from '@/components/game/SpellingView'
 import { ReadingView } from '@/components/game/ReadingView'
 import { SkillsPanel } from '@/components/game/SkillsPanel'
 import { ResourcesPanel } from '@/components/game/ResourcesPanel'
@@ -177,6 +178,9 @@ export default function App() {
                 )}
                 {item.type === 'verb_conjugation' && (
                   <ConjugationView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
+                )}
+                {item.type === 'word_spelling' && (
+                  <SpellingView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
                 {item.type === 'reading_comprehension' && (
                   <ReadingView item={item} onAnswer={submitAnswer} showHint={triggerHint} />

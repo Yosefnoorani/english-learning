@@ -23,6 +23,7 @@ import {
   getPromotionTarget,
   getTierLabel,
   getRatingFromTier,
+  getEffectivePracticeTier,
   MIN_TIER,
 } from '@/services/adaptiveProgressionService'
 import {
@@ -74,6 +75,8 @@ interface GameState {
   hasCompletedSetup: boolean
   voiceLang: string
   voiceRate: number
+  /** How many tiers below currentTier to pull practice questions from (0 = current level). */
+  practiceTierOffset: number
 
   activeView: NavView
   resumeSnapshot: ResumeSnapshot | null
@@ -98,6 +101,7 @@ interface GameState {
   markOnboardingSeen: () => void
   setVoice: (lang: string, rate: number) => void
   setDailyGoalTarget: (n: number) => void
+  setPracticeTierOffset: (offset: number) => void
   resetProgress: () => void
   showOnboardingTour: () => void
 }
@@ -211,6 +215,7 @@ export const useGameStore = create<GameState>()(
       hasCompletedSetup: false,
       voiceLang: 'en-GB',
       voiceRate: 0.9,
+      practiceTierOffset: 0,
       activeView: 'practice',
       resumeSnapshot: null,
 
@@ -224,6 +229,12 @@ export const useGameStore = create<GameState>()(
       setVoice: (lang, rate) => set({ voiceLang: lang, voiceRate: rate }),
       setDailyGoalTarget: (n) =>
         set((s) => ({ userState: { ...s.userState, dailyGoalTarget: n } })),
+
+      setPracticeTierOffset: (offset) => {
+        const { currentTier } = get()
+        const maxOffset = Math.max(0, currentTier - MIN_TIER)
+        set({ practiceTierOffset: Math.max(0, Math.min(maxOffset, offset)) })
+      },
 
       setActiveView: (view) => {
         get().saveResumeSnapshot()
@@ -261,6 +272,7 @@ export const useGameStore = create<GameState>()(
           tierCorrectStreak: 0,
           tierWrongStreak: 0,
           hadRecentMistakeAtTier: false,
+          practiceTierOffset: 0,
           resumeSnapshot: null,
           activeView: 'practice',
         }),
@@ -271,8 +283,9 @@ export const useGameStore = create<GameState>()(
       },
 
       continueSession: async () => {
-        const { currentTier, skillStats, mistakeQueue } = get()
-        const items = await fetchQuestions(currentTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
+        const { currentTier, practiceTierOffset, skillStats, mistakeQueue } = get()
+        const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
+        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
         set({
           questionBuffer: items,
           currentIndex: 0,
@@ -340,8 +353,9 @@ export const useGameStore = create<GameState>()(
 
       completePlacement: async (finalRating: number) => {
         const tier = Math.min(10, Math.max(1, Math.floor((finalRating - 350) / 50) + 1))
-        const { skillStats, mistakeQueue } = get()
-        const items = await fetchQuestions(tier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
+        const { skillStats, mistakeQueue, practiceTierOffset } = get()
+        const practiceTier = getEffectivePracticeTier(tier, practiceTierOffset)
+        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
         set((s) => ({
           phase: 'gameplay',
           userState: { ...s.userState, rating: finalRating },
@@ -504,6 +518,7 @@ export const useGameStore = create<GameState>()(
           questionBuffer,
           currentIndex,
           currentTier,
+          practiceTierOffset,
           phase,
           skillStats,
           mistakeQueue,
@@ -542,7 +557,8 @@ export const useGameStore = create<GameState>()(
         }
 
         if (nextIndex >= questionBuffer.length - 3) {
-          const fresh = await fetchQuestions(currentTier, 'gameplay', BUFFER_SIZE, skillStats, newQueue)
+          const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
+          const fresh = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, newQueue)
           const existingIds = new Set(questionBuffer.map((q) => q.id))
           const newItems = fresh.filter((q) => !existingIds.has(q.id))
           set((s) => ({
@@ -571,10 +587,11 @@ export const useGameStore = create<GameState>()(
       },
 
       toggleMistakeReview: async () => {
-        const { mistakeReviewMode, currentTier } = get()
+        const { mistakeReviewMode, currentTier, practiceTierOffset } = get()
         if (mistakeReviewMode) {
           const { skillStats, mistakeQueue } = get()
-          const items = await fetchQuestions(currentTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
+          const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
+          const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
           set({ mistakeReviewMode: false, phase: 'gameplay', questionBuffer: items, currentIndex: 0 })
         } else {
           const items = await fetchReviewItems('anonymous')
@@ -592,7 +609,7 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'english-game-storage',
-      version: 2,
+      version: 3,
       migrate: (persisted: unknown) => {
         const s = persisted as Record<string, unknown>
         if (s.mistakeQueue && Array.isArray(s.mistakeQueue)) {
@@ -605,6 +622,7 @@ export const useGameStore = create<GameState>()(
         if (s.tierCorrectStreak === undefined) s.tierCorrectStreak = 0
         if (s.tierWrongStreak === undefined) s.tierWrongStreak = 0
         if (s.hadRecentMistakeAtTier === undefined) s.hadRecentMistakeAtTier = false
+        if (s.practiceTierOffset === undefined) s.practiceTierOffset = 0
         if (s.activeView === undefined) s.activeView = 'practice'
         return s
       },
@@ -626,6 +644,7 @@ export const useGameStore = create<GameState>()(
         tierCorrectStreak: state.tierCorrectStreak,
         tierWrongStreak: state.tierWrongStreak,
         hadRecentMistakeAtTier: state.hadRecentMistakeAtTier,
+        practiceTierOffset: state.practiceTierOffset,
         activeView: state.activeView,
         resumeSnapshot: state.resumeSnapshot,
       }),

@@ -1,8 +1,7 @@
-import { useMemo, useState } from 'react'
-import { Zap, RotateCcw, BarChart2, BookOpen, Clock, Sparkles } from 'lucide-react'
+import { useMemo } from 'react'
+import { Zap, RotateCcw, BarChart2, BookOpen, Clock } from 'lucide-react'
 import { useGameStore, selectLevelLabel, getDueCount } from '@/store/useGameStore'
 import { DailyLesson } from '@/components/game/DailyLesson'
-import { AddContentPanel } from '@/components/game/AddContentPanel'
 import { getContentById } from '@/services/contentService'
 import type { SkillId, SessionMode } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
@@ -20,7 +19,6 @@ const SESSION_LABELS: Record<SessionMode, { label: string; questions: number; co
 }
 
 export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeScreenProps) {
-  const [showAddContent, setShowAddContent] = useState(false)
   const rating = useGameStore((s) => s.userState.rating)
   const score = useGameStore((s) => s.userState.score)
   const skillStats = useGameStore((s) => s.skillStats)
@@ -84,24 +82,11 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
           </button>
         </div>
 
-        {/* Add content via Gemini */}
-        <button
-          onClick={() => setShowAddContent(true)}
-          className="w-full flex items-center justify-center gap-2 min-h-[48px] rounded-xl border-2 border-dashed border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 font-bold text-sm hover:bg-violet-100 dark:hover:bg-violet-950/50 transition-colors"
-        >
-          <Sparkles size={18} />
-          הוסף מילים ומשפטים חדשים
-        </button>
-
         {/* Today's lesson */}
         <div className="flex flex-col gap-2">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Focus lesson</p>
           <DailyLesson skillStats={skillStats} rating={rating} onStartLesson={onStartLesson} />
         </div>
-
-        {showAddContent && (
-          <AddContentPanel onClose={() => setShowAddContent(false)} />
-        )}
 
         {/* Due mistakes */}
         {dueCount > 0 && (
