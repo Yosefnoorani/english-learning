@@ -3,7 +3,7 @@ import { CheckCircle2, XCircle, BookOpen } from 'lucide-react'
 import type { AnswerResult } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
 import { SpeakButton } from '@/components/ui/SpeakButton'
-import { buildDiffTokens, type DiffToken } from '@/services/gradingService'
+import { buildAlignedDiff, type DiffToken } from '@/services/gradingService'
 import { useGameStore } from '@/store/useGameStore'
 import { playCorrect, playWrong, vibrateCorrect, vibrateWrong } from '@/services/soundService'
 import { getMistakeFeedback } from '@/services/feedbackService'
@@ -18,22 +18,94 @@ const OPEN_ANSWER_TYPES = new Set(['sentence_builder', 'translation_he_en', 'lis
 const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', 'verb_conjugation', 'word_spelling'])
 const KEYBOARD_DISMISS_DELAY_MS = 400
 
-function DiffDisplay({ tokens }: { tokens: DiffToken[] }) {
+function UserDiffDisplay({ tokens }: { tokens: DiffToken[] }) {
   if (tokens.length === 0) return null
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-1" dir="ltr">
       {tokens.map((tok, i) => {
         let cls = 'inline-block px-1.5 py-0.5 rounded text-sm font-medium '
-        if (tok.kind === 'correct') cls += 'text-slate-700 dark:text-slate-200'
-        else if (tok.kind === 'wrong') cls += 'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 line-through decoration-rose-400'
-        else if (tok.kind === 'extra') cls += 'bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400'
-        else if (tok.kind === 'missing') cls += 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
+        if (tok.kind === 'correct') cls += 'text-slate-500 dark:text-slate-400'
+        else if (tok.kind === 'wrong') cls += 'bg-rose-200 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200 line-through decoration-rose-500'
+        else if (tok.kind === 'extra') cls += 'bg-rose-200 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 underline decoration-rose-400 decoration-wavy'
+        else if (tok.kind === 'missing') cls += 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border border-dashed border-slate-300 dark:border-slate-600'
         return (
           <span key={i} className={cls}>
-            {tok.kind === 'missing' ? `[${tok.text}]` : tok.text}
+            {tok.kind === 'missing' ? '___' : tok.text}
           </span>
         )
       })}
+    </div>
+  )
+}
+
+function CorrectDiffDisplay({ tokens }: { tokens: DiffToken[] }) {
+  if (tokens.length === 0) return null
+  return (
+    <div className="flex flex-wrap gap-1" dir="ltr">
+      {tokens.map((tok, i) => {
+        let cls = 'inline-block px-1.5 py-0.5 rounded text-sm font-medium '
+        if (tok.kind === 'correct') cls += 'text-slate-600 dark:text-slate-300'
+        else cls += 'bg-emerald-200 dark:bg-emerald-900/60 text-emerald-900 dark:text-emerald-100 font-bold ring-1 ring-emerald-400/50'
+        return (
+          <span key={i} className={cls}>
+            {tok.text}
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
+function AnswerComparison({
+  userAnswer,
+  correctAnswer,
+  userTokens,
+  correctTokens,
+}: {
+  userAnswer: string
+  correctAnswer: string
+  userTokens?: DiffToken[]
+  correctTokens?: DiffToken[]
+}) {
+  const hasDiff = userTokens && correctTokens && userTokens.length > 0
+
+  return (
+    <div className="flex flex-col gap-3" dir="rtl">
+      <div className="rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 p-3">
+        <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mb-1.5">כתבת:</p>
+        {hasDiff ? (
+          <UserDiffDisplay tokens={userTokens} />
+        ) : (
+          <p className="text-sm font-medium text-rose-800 dark:text-rose-200" dir="ltr">
+            {userAnswer}
+          </p>
+        )}
+      </div>
+      <div className="flex justify-center text-slate-400 dark:text-slate-500" aria-hidden="true">
+        <span className="text-lg">↓</span>
+      </div>
+      <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 p-3">
+        <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1.5">התשובה הנכונה:</p>
+        {hasDiff ? (
+          <CorrectDiffDisplay tokens={correctTokens} />
+        ) : (
+          <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-100" dir="ltr">
+            {correctAnswer}
+          </p>
+        )}
+      </div>
+      {hasDiff && (
+        <div className="flex flex-wrap gap-3 text-[10px] text-slate-500 dark:text-slate-400 justify-center" dir="rtl">
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-3 h-3 rounded bg-rose-200 dark:bg-rose-900/60" />
+            שגוי / מיותר
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-3 h-3 rounded bg-emerald-200 dark:bg-emerald-900/60 ring-1 ring-emerald-400/50" />
+            התיקון הנדרש
+          </span>
+        </div>
+      )}
     </div>
   )
 }
@@ -48,12 +120,12 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   const userAnswer = (result as AnswerResult & { userAnswer?: string }).userAnswer ?? ''
   const explanation = (result as AnswerResult & { explanation?: string }).explanation
   const showDiff = !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
-  const diffTokens = showDiff ? buildDiffTokens(item, userAnswer) : []
-  const showUserChoice =
+  const alignedDiff = showDiff ? buildAlignedDiff(item, userAnswer) : { userTokens: [], correctTokens: [] }
+  const showAnswerComparison =
     !isCorrect &&
-    CHOICE_ANSWER_TYPES.has(item.type) &&
     userAnswer &&
-    !['__skip__', '__wrong__', '__correct__'].includes(userAnswer)
+    userAnswer !== '__skip__' &&
+    (OPEN_ANSWER_TYPES.has(item.type) || CHOICE_ANSWER_TYPES.has(item.type))
   const showNearMiss =
     isCorrect && explanation && explanation !== 'Correct!' && !explanation.startsWith('Well done')
 
@@ -165,20 +237,6 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             </span>
           </div>
 
-          {showUserChoice && (
-            <div className="rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-4">
-              <p className="text-xs font-semibold text-rose-500 uppercase tracking-wide mb-1">Your answer</p>
-              <p className="text-base font-semibold text-rose-800 dark:text-rose-200">{userAnswer}</p>
-            </div>
-          )}
-
-          {!isCorrect && showDiff && diffTokens.length > 0 && (
-            <div className="rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">What you wrote</p>
-              <DiffDisplay tokens={diffTokens} />
-            </div>
-          )}
-
           {showNearMiss && (
             <div className="rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4">
               <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">{explanation}</p>
@@ -198,13 +256,29 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
           </div>
 
           {!isCorrect && staticFeedback && (
-            <div className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-2">
+            <div className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-3">
               <p className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide text-right" dir="rtl">
                 למה טעית?
               </p>
-              <p className="text-sm text-violet-900 dark:text-violet-100 leading-relaxed text-right" dir="rtl">
-                <BidiMixedText text={staticFeedback.shortExplanation} />
-              </p>
+
+              {showAnswerComparison && (
+                <AnswerComparison
+                  userAnswer={userAnswer}
+                  correctAnswer={correctAnswer}
+                  userTokens={showDiff ? alignedDiff.userTokens : undefined}
+                  correctTokens={showDiff ? alignedDiff.correctTokens : undefined}
+                />
+              )}
+
+              {staticFeedback.sentenceWhy && (
+                <div className="rounded-lg bg-white/70 dark:bg-slate-900/50 border border-violet-200 dark:border-violet-700 p-3" dir="rtl">
+                  <p className="text-xs font-bold text-violet-700 dark:text-violet-300 mb-1">למה כך נכון?</p>
+                  <p className="text-sm text-violet-900 dark:text-violet-100 leading-relaxed text-right">
+                    <BidiMixedText text={staticFeedback.sentenceWhy} />
+                  </p>
+                </div>
+              )}
+
               <p className="text-xs text-violet-700 dark:text-violet-300 leading-relaxed text-right" dir="rtl">
                 <BidiMixedText text={staticFeedback.rule} prefix={<strong>כלל: </strong>} />
               </p>

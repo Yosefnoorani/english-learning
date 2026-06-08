@@ -183,7 +183,7 @@ export default function App() {
                   <SpellingView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
                 {item.type === 'reading_comprehension' && (
-                  <ReadingView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
+                  <ReadingView item={item} onAnswer={submitAnswer} onDismiss={dismissFeedback} showHint={triggerHint} />
                 )}
               </div>
             ) : (

@@ -318,6 +318,70 @@ export interface DiffToken {
   kind: 'correct' | 'wrong' | 'extra' | 'missing'
 }
 
+export interface AlignedDiff {
+  userTokens: DiffToken[]
+  correctTokens: DiffToken[]
+}
+
+export function buildAlignedDiff(item: ContentItem, userInput: string): AlignedDiff {
+  const userTokens = buildDiffTokens(item, userInput)
+  if (userTokens.length === 0) return { userTokens: [], correctTokens: [] }
+
+  const allAnswers = [item.data.correct_answer, ...(item.data.alternate_answers ?? [])]
+  const bestAnswer = allAnswers.reduce((best, ans) => {
+    const d = wordEditDistance(tokenise(ans), tokenise(userInput))
+    return d < wordEditDistance(tokenise(best), tokenise(userInput)) ? ans : best
+  }, allAnswers[0])
+
+  const expectedTokens = tokenise(bestAnswer)
+  const userToks = tokenise(userInput)
+
+  const m = expectedTokens.length
+  const n = userToks.length
+  const dp: number[][] = Array.from({ length: m + 1 }, (_, i) =>
+    Array.from({ length: n + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0)),
+  )
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (expectedTokens[i - 1] === userToks[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1]
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+      }
+    }
+  }
+
+  const pairs: Array<{ expected: string | null; got: string | null }> = []
+  let i = m
+  let j = n
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && expectedTokens[i - 1] === userToks[j - 1]) {
+      pairs.push({ expected: expectedTokens[i - 1], got: userToks[j - 1] })
+      i--; j--
+    } else if (j > 0 && (i === 0 || dp[i][j - 1] < dp[i - 1][j] && dp[i][j - 1] < dp[i - 1][j - 1])) {
+      pairs.push({ expected: null, got: userToks[j - 1] })
+      j--
+    } else if (i > 0 && (j === 0 || dp[i - 1][j] < dp[i][j - 1] && dp[i - 1][j] < dp[i - 1][j - 1])) {
+      pairs.push({ expected: expectedTokens[i - 1], got: null })
+      i--
+    } else {
+      pairs.push({ expected: expectedTokens[i - 1], got: userToks[j - 1] })
+      i--; j--
+    }
+  }
+  pairs.reverse()
+
+  const correctTokens: DiffToken[] = []
+  for (const { expected, got } of pairs) {
+    if (expected === null) continue
+    if (got === null) correctTokens.push({ text: expected, kind: 'missing' })
+    else if (expected === got) correctTokens.push({ text: expected, kind: 'correct' })
+    else correctTokens.push({ text: expected, kind: 'wrong' })
+  }
+
+  return { userTokens, correctTokens }
+}
+
 export function buildDiffTokens(item: ContentItem, userInput: string): DiffToken[] {
   if (userInput === '__skip__' || userInput === '__wrong__' || userInput === '__correct__') return []
 

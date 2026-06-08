@@ -30,8 +30,40 @@ interface SkillFeedbackSnippet {
 
 interface ResolvedFeedback {
   shortExplanation_he: string
+  sentenceWhy_he: string
   rule_he: string
   example_en: string
+}
+
+function buildErrorSummaryHe(errors: ErrorMark[]): string {
+  const wrong = errors
+    .filter((e) => e.type === 'wrong')
+    .map((e) => `"${e.got}" במקום "${e.expected}"`)
+    .join(', ')
+  const missing = errors
+    .filter((e) => e.type === 'missing')
+    .map((e) => `"${e.expected}"`)
+    .join(', ')
+  const extra = errors
+    .filter((e) => e.type === 'extra')
+    .map((e) => `"${e.got}"`)
+    .join(', ')
+
+  const parts: string[] = []
+  if (wrong) parts.push(`מילים שגויות: ${wrong}`)
+  if (missing) parts.push(`חסר: ${missing}`)
+  if (extra) parts.push(`מיותר: ${extra}`)
+  return parts.join(' · ')
+}
+
+function buildSentenceWhy(item: ContentItem, errors: ErrorMark[]): string {
+  const hint = item.data.grammar_hint ?? item.data.common_mistake
+  const errorSummary = buildErrorSummaryHe(errors)
+
+  if (hint && errorSummary) return `${errorSummary}. ${hint}`
+  if (hint) return hint
+  if (errorSummary) return errorSummary
+  return ''
 }
 
 interface FeedbackFile {
@@ -113,16 +145,21 @@ export function classifyMistake(
   return typeDefault
 }
 
-function buildItemSpecificExplanation(item: ContentItem, userAnswer: string): ResolvedFeedback | null {
-  const correct = item.data.correct_answer
+function buildItemSpecificExplanation(
+  item: ContentItem,
+  userAnswer: string,
+  errors: ErrorMark[],
+): ResolvedFeedback | null {
   const hint = item.data.grammar_hint ?? item.data.common_mistake
-  if (!hint) return null
+  const sentenceWhy = buildSentenceWhy(item, errors)
+  if (!hint && !sentenceWhy) return null
 
   return {
     shortExplanation_he: userAnswer.trim()
-      ? `התשובה הנכונה: "${correct}". כתבת: "${userAnswer}". ${hint}`
-      : `התשובה הנכונה: "${correct}". ${hint}`,
-    rule_he: hint,
+      ? 'השווה בין מה שכתבת לבין התשובה הנכונה למטה.'
+      : 'לא הזנת תשובה — עיין בתשובה הנכונה למטה.',
+    sentenceWhy_he: sentenceWhy,
+    rule_he: hint ?? sentenceWhy,
     example_en: item.data.context_sentence,
   }
 }
@@ -156,10 +193,8 @@ function buildFromTemplate(
     missingDetail,
   }
 
-  let shortExplanation = interpolate(template.shortExplanation_he, vars)
-  if (userAnswer.trim() && mistakeType !== 'empty_answer') {
-    shortExplanation = `כתבת: "${userAnswer}". התשובה הנכונה: "${item.data.correct_answer}". ${shortExplanation}`
-  }
+  const shortExplanation = interpolate(template.shortExplanation_he, vars)
+  const sentenceWhy = buildSentenceWhy(item, errors) || shortExplanation
 
   const rule = skillSnippet?.rule_he
     ? `${interpolate(template.rule_he, vars)} ${skillSnippet.rule_he}`
@@ -169,6 +204,7 @@ function buildFromTemplate(
 
   return {
     shortExplanation_he: shortExplanation,
+    sentenceWhy_he: sentenceWhy,
     rule_he: rule,
     example_en: example,
   }
@@ -182,7 +218,7 @@ export function resolveMistakeFeedback(
 ): ResolvedFeedback {
   const gradingResult = grading ?? gradeAnswer(item, userAnswer)
 
-  const itemSpecific = buildItemSpecificExplanation(item, userAnswer)
+  const itemSpecific = buildItemSpecificExplanation(item, userAnswer, gradingResult.errors)
   if (itemSpecific && (item.data.grammar_hint || item.data.common_mistake)) {
     const skillSnippet = feedbackData?.bySkill[item.skill]
     if (skillSnippet) {
@@ -196,8 +232,12 @@ export function resolveMistakeFeedback(
   }
 
   if (!feedbackData) {
+    const sentenceWhy =
+      buildSentenceWhy(item, gradingResult.errors) ||
+      `התשובה הנכונה היא "${item.data.correct_answer}".`
     return {
-      shortExplanation_he: `התשובה הנכונה היא "${item.data.correct_answer}".`,
+      shortExplanation_he: 'השווה בין מה שכתבת לבין התשובה הנכונה.',
+      sentenceWhy_he: sentenceWhy,
       rule_he: `שים לב לכללי ${SKILL_LABELS[item.skill] ?? item.skill}.`,
       example_en: item.data.context_sentence,
     }
@@ -216,6 +256,7 @@ export function getMistakeFeedback(
   const fb = resolveMistakeFeedback(item, userAnswer, grading)
   return {
     shortExplanation: fb.shortExplanation_he,
+    sentenceWhy: fb.sentenceWhy_he,
     rule: fb.rule_he,
     example: fb.example_en,
   }

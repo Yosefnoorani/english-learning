@@ -5,10 +5,11 @@ import type { ContentItem, ComprehensionQuestion } from '@/types/game'
 interface ReadingViewProps {
   item: ContentItem
   onAnswer: (answer: string) => void
+  onDismiss?: () => void
   showHint?: boolean
 }
 
-export function ReadingView({ item, onAnswer, showHint }: ReadingViewProps) {
+export function ReadingView({ item, onAnswer, onDismiss, showHint }: ReadingViewProps) {
   const [showTranslation, setShowTranslation] = useState(false)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
@@ -161,6 +162,15 @@ export function ReadingView({ item, onAnswer, showHint }: ReadingViewProps) {
             <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
               Try reading the passage again before moving on.
             </p>
+          )}
+          {onDismiss && (
+            <button
+              onClick={onDismiss}
+              autoFocus
+              className="w-full min-h-[52px] rounded-xl bg-teal-600 text-white font-bold text-base shadow-md active:bg-teal-700 hover:bg-teal-700 transition-colors focus-visible:ring-2 focus-visible:ring-teal-400"
+            >
+              Continue
+            </button>
           )}
         </div>
       </div>

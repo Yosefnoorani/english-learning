@@ -300,11 +300,7 @@ export const useGameStore = create<GameState>()(
         set({ isLoading: true })
         const state = get()
 
-        if (state.phase === 'placement' && state.hasCompletedSetup) {
-          set({ phase: 'gameplay' })
-        }
-
-        if (!state.hasCompletedSetup) {
+        if (!state.hasCompletedSetup && state.phase !== 'placement') {
           set({
             phase: 'gameplay',
             hasCompletedSetup: true,
@@ -396,13 +392,6 @@ export const useGameStore = create<GameState>()(
           const newAnswered = state.placementAnswered + 1
           const newSum = state.placementRatingSum + ratingContrib
 
-          if (newAnswered >= PLACEMENT_QUESTIONS) {
-            const finalRating = Math.round(newSum / PLACEMENT_QUESTIONS)
-            const clamped = Math.max(350, Math.min(900, finalRating))
-            await get().completePlacement(clamped)
-            return
-          }
-
           set({
             placementAnswered: newAnswered,
             placementRatingSum: newSum,
@@ -457,6 +446,7 @@ export const useGameStore = create<GameState>()(
         const sessionSize = SESSION_SIZES[sessionMode]
         const sessionDone = newSessionAnswered >= sessionSize
 
+        let tierChanged = false
         if (isCorrect) {
           const tierAction = tierOnCorrect(
             currentTier,
@@ -469,6 +459,7 @@ export const useGameStore = create<GameState>()(
           tierWrongStreak = tierAction.tierWrongStreak
           hadRecentMistakeAtTier = tierAction.hadRecentMistakeAtTier
           rating = tierAction.newRating
+          tierChanged = tierAction.promoted
           if (tierAction.promoted) {
             didLevelUp = true
             setTimeout(() => fireConfetti('levelup'), 100)
@@ -490,6 +481,7 @@ export const useGameStore = create<GameState>()(
           tierWrongStreak = tierAction.tierWrongStreak
           hadRecentMistakeAtTier = tierAction.hadRecentMistakeAtTier
           rating = tierAction.newRating
+          tierChanged = tierAction.demoted
           streak = 0
           triggerHint = true
         }
@@ -509,6 +501,21 @@ export const useGameStore = create<GameState>()(
           tierWrongStreak,
           hadRecentMistakeAtTier,
         })
+
+        if (tierChanged) {
+          const s = get()
+          const practiceTier = getEffectivePracticeTier(s.currentTier, s.practiceTierOffset)
+          const fresh = await fetchQuestions(
+            practiceTier,
+            'gameplay',
+            BUFFER_SIZE,
+            s.skillStats,
+            s.mistakeQueue,
+          )
+          const answeredIds = new Set(s.questionBuffer.slice(0, s.currentIndex + 1).map((q) => q.id))
+          const newItems = fresh.filter((q) => !answeredIds.has(q.id))
+          set({ questionBuffer: [...s.questionBuffer.slice(0, s.currentIndex + 1), ...newItems] })
+        }
 
         get().saveResumeSnapshot()
       },
@@ -580,10 +587,18 @@ export const useGameStore = create<GameState>()(
       },
 
       dismissFeedback: () => {
-        const { showSessionSummary } = get()
+        const { showSessionSummary, phase, placementAnswered, placementRatingSum } = get()
         set({ showFeedback: false })
         if (showSessionSummary) return
-        get().nextQuestion()
+
+        if (phase === 'placement' && placementAnswered >= PLACEMENT_QUESTIONS) {
+          const finalRating = Math.round(placementRatingSum / PLACEMENT_QUESTIONS)
+          const clamped = Math.max(350, Math.min(900, finalRating))
+          void get().completePlacement(clamped)
+          return
+        }
+
+        void get().nextQuestion()
       },
 
       toggleMistakeReview: async () => {

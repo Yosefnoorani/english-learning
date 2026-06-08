@@ -22,6 +22,7 @@ export interface FreeWritingResult {
 
 export interface MistakeExplanation {
   shortExplanation: string
+  sentenceWhy: string
   rule: string
   example: string
 }
@@ -97,6 +98,7 @@ function mockMistakeExplanation(
 ): MistakeExplanation {
   return {
     shortExplanation: `The correct answer is "${correct}".`,
+    sentenceWhy: `The correct answer is "${correct}".`,
     rule: `Review the rules for ${skill}.`,
     example: `Correct usage: "${correct}"`,
   }

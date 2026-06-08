@@ -83,7 +83,10 @@ export interface ResumeSnapshot {
 }
 
 export interface MistakeExplanation {
+  /** Brief mistake-category summary (no answer repetition) */
   shortExplanation: string
+  /** Why this specific sentence is phrased correctly */
+  sentenceWhy: string
   rule: string
   example: string
 }
