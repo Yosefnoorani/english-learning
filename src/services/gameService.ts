@@ -18,6 +18,7 @@ export async function fetchQuestions(
   limit = 15,
   skillStats?: Record<SkillId, SkillStats>,
   mistakeQueue?: MistakeEntry[],
+  excludeIds: string[] = [],
 ): Promise<ContentItem[]> {
   if (mode === 'placement') {
     return shuffle(getPlacementContent()).slice(0, 5)
@@ -35,7 +36,7 @@ export async function fetchQuestions(
       .limit(limit * 2)
 
     if (!error && data?.length) {
-      return skillBiasedSelect(data as ContentItem[], limit, skillStats, mistakeQueue, tier)
+      return skillBiasedSelect(data as ContentItem[], limit, skillStats, mistakeQueue, tier, excludeIds)
     }
     console.warn('[gameService] Supabase fetch failed, using local content', error)
   }
@@ -50,7 +51,7 @@ export async function fetchQuestions(
   )
   const pool = inBand.length >= 6 ? inBand : all.filter((i) => i.type !== 'placement_test')
 
-  return skillBiasedSelect(pool, limit, skillStats, mistakeQueue, tier)
+  return skillBiasedSelect(pool, limit, skillStats, mistakeQueue, tier, excludeIds)
 }
 
 export async function fetchReviewItems(_userId: string): Promise<ContentItem[]> {
@@ -72,16 +73,25 @@ export async function submitTelemetry(entry: TelemetryEntry): Promise<void> {
   })
 }
 
+const RECENT_EXCLUDE_CAP = 30
+
 function skillBiasedSelect(
   pool: ContentItem[],
   limit: number,
   skillStats?: Record<SkillId, SkillStats>,
   mistakeQueue?: MistakeEntry[],
   _tier?: number,
+  excludeIds: string[] = [],
 ): ContentItem[] {
   const allContent = getAllContent()
   const selected: ContentItem[] = []
   const usedIds = new Set<string>()
+  const recentExclude = new Set(excludeIds.slice(-RECENT_EXCLUDE_CAP))
+
+  let workingPool = pool.filter((item) => !recentExclude.has(item.id))
+  if (workingPool.length < limit) {
+    workingPool = pool
+  }
 
   if (mistakeQueue) {
     const requeueItems = getInSessionRequeueItems(mistakeQueue, allContent)
@@ -106,12 +116,12 @@ function skillBiasedSelect(
   if (skillStats) {
     const weakSkill = findWeakestSkill(skillStats)
     if (weakSkill) {
-      weakSkillItems = pool.filter((item) => item.skill === weakSkill && !usedIds.has(item.id))
+      weakSkillItems = workingPool.filter((item) => item.skill === weakSkill && !usedIds.has(item.id))
     }
   }
 
   const typeCount: Record<string, number> = {}
-  const remaining = shuffle(pool.filter((item) => !usedIds.has(item.id)))
+  const remaining = shuffle(workingPool.filter((item) => !usedIds.has(item.id)))
 
   while (selected.length < limit) {
     const useWeakSkill = weakSkillItems.length > 0 && Math.random() < 0.4

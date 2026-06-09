@@ -38,6 +38,7 @@ import { getAllContent } from '@/services/contentService'
 const PLACEMENT_QUESTIONS = 5
 const BUFFER_SIZE = 12
 const MAX_STREAK_FREEZES = 3
+const RECENT_CONTENT_MAX = 50
 const SESSION_SIZES: Record<SessionMode, number> = { quick: 5, standard: 10, deep: 20 }
 
 interface GameState {
@@ -77,6 +78,8 @@ interface GameState {
   voiceRate: number
   /** How many tiers below currentTier to pull practice questions from (0 = current level). */
   practiceTierOffset: number
+  /** Recently seen content IDs — reduces repetition across sessions. */
+  recentContentIds: string[]
 
   activeView: NavView
   resumeSnapshot: ResumeSnapshot | null
@@ -171,6 +174,11 @@ function migrateMistakeQueue(queue: MistakeEntry[]): MistakeEntry[] {
   }))
 }
 
+function trackRecentContentId(ids: string[], contentId: string): string[] {
+  const next = [...ids.filter((id) => id !== contentId), contentId]
+  return next.slice(-RECENT_CONTENT_MAX)
+}
+
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
@@ -216,6 +224,7 @@ export const useGameStore = create<GameState>()(
       voiceLang: 'en-GB',
       voiceRate: 0.9,
       practiceTierOffset: 0,
+      recentContentIds: [],
       activeView: 'practice',
       resumeSnapshot: null,
 
@@ -283,9 +292,9 @@ export const useGameStore = create<GameState>()(
       },
 
       continueSession: async () => {
-        const { currentTier, practiceTierOffset, skillStats, mistakeQueue } = get()
+        const { currentTier, practiceTierOffset, skillStats, mistakeQueue, recentContentIds } = get()
         const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
-        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
+        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
         set({
           questionBuffer: items,
           currentIndex: 0,
@@ -349,9 +358,9 @@ export const useGameStore = create<GameState>()(
 
       completePlacement: async (finalRating: number) => {
         const tier = Math.min(10, Math.max(1, Math.floor((finalRating - 350) / 50) + 1))
-        const { skillStats, mistakeQueue, practiceTierOffset } = get()
+        const { skillStats, mistakeQueue, practiceTierOffset, recentContentIds } = get()
         const practiceTier = getEffectivePracticeTier(tier, practiceTierOffset)
-        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
+        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
         set((s) => ({
           phase: 'gameplay',
           userState: { ...s.userState, rating: finalRating },
@@ -496,6 +505,7 @@ export const useGameStore = create<GameState>()(
           userState: { rating, streak, score, dailyGoalProgress, dailyGoalTarget, lastActiveDate, streakFreezes },
           skillStats: newSkillStats,
           mistakeQueue: newMistakeQueue,
+          recentContentIds: trackRecentContentId(state.recentContentIds, item.id),
           currentTier,
           tierCorrectStreak,
           tierWrongStreak,
@@ -511,6 +521,7 @@ export const useGameStore = create<GameState>()(
             BUFFER_SIZE,
             s.skillStats,
             s.mistakeQueue,
+            s.recentContentIds,
           )
           const answeredIds = new Set(s.questionBuffer.slice(0, s.currentIndex + 1).map((q) => q.id))
           const newItems = fresh.filter((q) => !answeredIds.has(q.id))
@@ -529,6 +540,7 @@ export const useGameStore = create<GameState>()(
           phase,
           skillStats,
           mistakeQueue,
+          recentContentIds,
         } = get()
         const currentItem = questionBuffer[currentIndex]
         const nextIndex = currentIndex + 1
@@ -565,7 +577,7 @@ export const useGameStore = create<GameState>()(
 
         if (nextIndex >= questionBuffer.length - 3) {
           const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
-          const fresh = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, newQueue)
+          const fresh = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, newQueue, recentContentIds)
           const existingIds = new Set(questionBuffer.map((q) => q.id))
           const newItems = fresh.filter((q) => !existingIds.has(q.id))
           set((s) => ({
@@ -604,9 +616,9 @@ export const useGameStore = create<GameState>()(
       toggleMistakeReview: async () => {
         const { mistakeReviewMode, currentTier, practiceTierOffset } = get()
         if (mistakeReviewMode) {
-          const { skillStats, mistakeQueue } = get()
+          const { skillStats, mistakeQueue, recentContentIds } = get()
           const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
-          const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue)
+          const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
           set({ mistakeReviewMode: false, phase: 'gameplay', questionBuffer: items, currentIndex: 0 })
         } else {
           const items = await fetchReviewItems('anonymous')
@@ -624,7 +636,7 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'english-game-storage',
-      version: 3,
+      version: 4,
       migrate: (persisted: unknown) => {
         const s = persisted as Record<string, unknown>
         if (s.mistakeQueue && Array.isArray(s.mistakeQueue)) {
@@ -638,6 +650,7 @@ export const useGameStore = create<GameState>()(
         if (s.tierWrongStreak === undefined) s.tierWrongStreak = 0
         if (s.hadRecentMistakeAtTier === undefined) s.hadRecentMistakeAtTier = false
         if (s.practiceTierOffset === undefined) s.practiceTierOffset = 0
+        if (s.recentContentIds === undefined) s.recentContentIds = []
         if (s.activeView === undefined) s.activeView = 'practice'
         return s
       },
@@ -660,6 +673,7 @@ export const useGameStore = create<GameState>()(
         tierWrongStreak: state.tierWrongStreak,
         hadRecentMistakeAtTier: state.hadRecentMistakeAtTier,
         practiceTierOffset: state.practiceTierOffset,
+        recentContentIds: state.recentContentIds,
         activeView: state.activeView,
         resumeSnapshot: state.resumeSnapshot,
       }),

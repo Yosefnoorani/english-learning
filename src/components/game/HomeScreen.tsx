@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Zap, RotateCcw, BarChart2, BookOpen, Clock } from 'lucide-react'
 import { useGameStore, selectLevelLabel, getDueCount } from '@/store/useGameStore'
 import { DailyLesson } from '@/components/game/DailyLesson'
+import { PracticePreview } from '@/components/game/PracticePreview'
 import { getContentById } from '@/services/contentService'
 import type { SkillId, SessionMode } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
@@ -81,6 +82,9 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
             Start {SESSION_LABELS[sessionMode].questions}-question session
           </button>
         </div>
+
+        {/* Words & sentences to practise */}
+        <PracticePreview />
 
         {/* Today's lesson */}
         <div className="flex flex-col gap-2">
