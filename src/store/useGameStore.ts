@@ -31,7 +31,7 @@ import {
   upsertMistakeOnCorrect,
   tickInSessionRequeue,
   clearRequeueAfterShown,
-  getInSessionRequeueItems,
+  pickNextRequeueItem,
 } from '@/services/mistakeMasteryService'
 import { getAllContent } from '@/services/contentService'
 
@@ -40,6 +40,7 @@ const BUFFER_SIZE = 12
 const MAX_STREAK_FREEZES = 3
 const RECENT_CONTENT_MAX = 50
 const SESSION_SIZES: Record<SessionMode, number> = { quick: 5, standard: 10, deep: 20 }
+const SESSION_MISTAKE_COOLDOWN = 8
 
 interface GameState {
   userState: UserState
@@ -83,6 +84,8 @@ interface GameState {
 
   activeView: NavView
   resumeSnapshot: ResumeSnapshot | null
+  /** IDs of mistake-queue items shown this session — used to enforce cooldown variety (not persisted). */
+  sessionRecentMistakeIds: string[]
 
   initGame: () => Promise<void>
   submitAnswer: (answer: string) => Promise<void>
@@ -227,6 +230,7 @@ export const useGameStore = create<GameState>()(
       recentContentIds: [],
       activeView: 'practice',
       resumeSnapshot: null,
+      sessionRecentMistakeIds: [],
 
       setTheme: (theme) => set({ theme }),
       setSessionMode: (mode) => set({ sessionMode: mode }),
@@ -301,6 +305,7 @@ export const useGameStore = create<GameState>()(
           showSessionSummary: false,
           sessionAnswered: 0,
           sessionCorrect: 0,
+          sessionRecentMistakeIds: [],
         })
         get().saveResumeSnapshot()
       },
@@ -541,6 +546,7 @@ export const useGameStore = create<GameState>()(
           skillStats,
           mistakeQueue,
           recentContentIds,
+          sessionRecentMistakeIds,
         } = get()
         const currentItem = questionBuffer[currentIndex]
         const nextIndex = currentIndex + 1
@@ -556,20 +562,29 @@ export const useGameStore = create<GameState>()(
           newQueue = clearRequeueAfterShown(newQueue, currentItem.id)
         }
 
-        const requeueItems = getInSessionRequeueItems(newQueue, getAllContent())
-        const requeueToInject = requeueItems.find(
-          (i) => !questionBuffer.slice(nextIndex).some((q) => q.id === i.id),
-        )
+        // Build an exclusion set: items already queued ahead + recently shown mistake items.
+        const aheadIds = new Set(questionBuffer.slice(nextIndex).map((q) => q.id))
+        const cooldownIds = new Set([...aheadIds, ...sessionRecentMistakeIds])
+
+        const requeueToInject = pickNextRequeueItem(newQueue, getAllContent(), cooldownIds)
 
         if (requeueToInject && nextIndex < questionBuffer.length) {
           const newBuffer = [...questionBuffer]
           newBuffer.splice(nextIndex, 0, requeueToInject)
+
+          // Track this mistake item in the session cooldown window.
+          const updatedCooldown = [
+            ...sessionRecentMistakeIds.filter((id) => id !== requeueToInject.id),
+            requeueToInject.id,
+          ].slice(-SESSION_MISTAKE_COOLDOWN)
+
           set({
             questionBuffer: newBuffer,
             currentIndex: nextIndex,
             showFeedback: false,
             triggerHint: false,
             mistakeQueue: newQueue,
+            sessionRecentMistakeIds: updatedCooldown,
           })
           get().saveResumeSnapshot()
           return
@@ -577,7 +592,10 @@ export const useGameStore = create<GameState>()(
 
         if (nextIndex >= questionBuffer.length - 3) {
           const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
-          const fresh = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, newQueue, recentContentIds)
+          // Include session mistake cooldown IDs in the exclude list so the buffer refill
+          // also avoids recently reviewed mistake items.
+          const excludeForFetch = [...new Set([...recentContentIds, ...sessionRecentMistakeIds])]
+          const fresh = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, newQueue, excludeForFetch)
           const existingIds = new Set(questionBuffer.map((q) => q.id))
           const newItems = fresh.filter((q) => !existingIds.has(q.id))
           set((s) => ({
@@ -619,7 +637,7 @@ export const useGameStore = create<GameState>()(
           const { skillStats, mistakeQueue, recentContentIds } = get()
           const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
           const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
-          set({ mistakeReviewMode: false, phase: 'gameplay', questionBuffer: items, currentIndex: 0 })
+          set({ mistakeReviewMode: false, phase: 'gameplay', questionBuffer: items, currentIndex: 0, sessionRecentMistakeIds: [] })
         } else {
           const items = await fetchReviewItems('anonymous')
           set({
@@ -629,6 +647,7 @@ export const useGameStore = create<GameState>()(
             currentIndex: 0,
             sessionAnswered: 0,
             sessionCorrect: 0,
+            sessionRecentMistakeIds: [],
           })
         }
         get().saveResumeSnapshot()

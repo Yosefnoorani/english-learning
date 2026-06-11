@@ -4,7 +4,7 @@ import { getAllContent, getPlacementContent } from './contentService'
 import { getDifficultyBand } from './adaptiveProgressionService'
 import {
   getDueMistakeItems,
-  getInSessionRequeueItems,
+  pickNextRequeueItem,
 } from './mistakeMasteryService'
 import type { TelemetryEntry } from '@/types/game'
 
@@ -94,18 +94,19 @@ function skillBiasedSelect(
   }
 
   if (mistakeQueue) {
-    const requeueItems = getInSessionRequeueItems(mistakeQueue, allContent)
-    for (const item of requeueItems.slice(0, Math.ceil(limit * 0.3))) {
-      if (!usedIds.has(item.id)) {
-        selected.push(item)
-        usedIds.add(item.id)
-      }
+    // At most 1 in-session requeue item — chosen via round-robin (oldest failedAt first)
+    // so the user sees variety across all failed words, not the same one repeatedly.
+    const requeueItem = pickNextRequeueItem(mistakeQueue, allContent, recentExclude)
+    if (requeueItem && !usedIds.has(requeueItem.id)) {
+      selected.push(requeueItem)
+      usedIds.add(requeueItem.id)
     }
 
+    // At most 1 SRS-due item on top of the requeue slot (keeps mistake density low).
     const dueItems = getDueMistakeItems(mistakeQueue, allContent)
     for (const item of dueItems) {
-      if (selected.length >= Math.ceil(limit * 0.3)) break
-      if (!usedIds.has(item.id)) {
+      if (selected.length >= 2) break
+      if (!usedIds.has(item.id) && !recentExclude.has(item.id)) {
         selected.push(item)
         usedIds.add(item.id)
       }

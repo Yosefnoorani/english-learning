@@ -1,6 +1,6 @@
 import type { ContentItem, MistakeEntry } from '@/types/game'
 
-export const IN_SESSION_REQUEUE_GAP = 3
+export const IN_SESSION_REQUEUE_GAP = 6
 export const MASTERY_CONSECUTIVE_CORRECT = 2
 
 const SRS_INTERVALS_MS = [
@@ -14,6 +14,13 @@ function nextSrsInterval(failCount: number): number {
   return SRS_INTERVALS_MS[idx]
 }
 
+/** Returns the in-session requeue gap for a given failCount.
+ *  Each repeated failure on the same item increases the gap, so the user
+ *  sees more variety before being tested on the same word again. */
+export function getInSessionRequeueGap(failCount: number): number {
+  return Math.min(12, IN_SESSION_REQUEUE_GAP + (failCount - 1) * 2)
+}
+
 export function createMistakeEntry(contentId: string, userAnswer?: string): MistakeEntry {
   const now = Date.now()
   return {
@@ -25,7 +32,7 @@ export function createMistakeEntry(contentId: string, userAnswer?: string): Mist
     mastered: false,
     lastUserAnswer: userAnswer,
     inSessionRequeueAt: now,
-    questionsUntilRequeue: IN_SESSION_REQUEUE_GAP,
+    questionsUntilRequeue: getInSessionRequeueGap(1),
   }
 }
 
@@ -48,7 +55,7 @@ export function upsertMistakeOnWrong(
       mastered: false,
       lastUserAnswer: userAnswer ?? existing.lastUserAnswer,
       inSessionRequeueAt: now,
-      questionsUntilRequeue: IN_SESSION_REQUEUE_GAP,
+      questionsUntilRequeue: getInSessionRequeueGap(failCount),
     }
     return [...queue.filter((e) => e.contentId !== contentId), updated]
   }
@@ -115,4 +122,32 @@ export function clearRequeueAfterShown(queue: MistakeEntry[], contentId: string)
       ? { ...e, inSessionRequeueAt: undefined, questionsUntilRequeue: undefined }
       : e,
   )
+}
+
+/**
+ * Pick the single best mistake item to inject next.
+ *
+ * - Only considers items with questionsUntilRequeue === 0 (ready to show).
+ * - Skips any ID present in excludeIds (buffer ahead + recent session mistakes).
+ * - Among the remaining candidates, picks the one that failed earliest (failedAt ASC),
+ *   which guarantees round-robin rotation across all failed words.
+ */
+export function pickNextRequeueItem(
+  queue: MistakeEntry[],
+  allContent: ContentItem[],
+  excludeIds: Set<string> = new Set(),
+): ContentItem | undefined {
+  const ready = queue.filter(
+    (e) => !e.mastered && e.questionsUntilRequeue === 0 && e.inSessionRequeueAt !== undefined && !excludeIds.has(e.contentId),
+  )
+  if (ready.length === 0) return undefined
+
+  ready.sort((a, b) => a.failedAt - b.failedAt)
+
+  const map = new Map(allContent.map((i) => [i.id, i]))
+  for (const entry of ready) {
+    const item = map.get(entry.contentId)
+    if (item) return item
+  }
+  return undefined
 }
