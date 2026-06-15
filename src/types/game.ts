@@ -69,6 +69,9 @@ export type QuestionType =
   | 'verb_conjugation'
   | 'reading_comprehension'
   | 'word_spelling'
+  | 'vocabulary_match'
+  | 'vocabulary_choice'
+  | 'word_scramble'
 
 export type GamePhase = 'placement' | 'gameplay' | 'review'
 
@@ -126,6 +129,10 @@ export interface ContentItemData {
   audio_only?: boolean
   /** Common learner mistake for this item — shown in feedback */
   common_mistake?: string
+  /** Pairs for vocabulary_match exercises */
+  match_pairs?: { en: string; he: string }[]
+  /** Scrambled letters for word_scramble (generated at runtime if omitted) */
+  scrambled_word?: string
 }
 
 // ── Content item ────────────────────────────────────────────

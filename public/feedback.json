@@ -72,7 +72,10 @@
     "listening_dictation": "dictation_gap",
     "verb_conjugation": "wrong_conjugation",
     "reading_comprehension": "reading_misread",
-    "word_spelling": "spelling"
+    "word_spelling": "spelling",
+    "vocabulary_match": "vocabulary_confusion",
+    "vocabulary_choice": "vocabulary_confusion",
+    "word_scramble": "spelling"
   },
   "bySkill": {
     "present_simple": {

@@ -171,7 +171,9 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
     type === 'grammar_choice' ||
     type === 'placement_test' ||
     type === 'verb_conjugation' ||
-    type === 'word_spelling'
+    type === 'word_spelling' ||
+    type === 'word_scramble' ||
+    type === 'vocabulary_choice'
   ) {
     const normInput = normalise(userInput)
     const isExact = allAnswers.some((a) => normalise(a) === normInput)
@@ -198,7 +200,7 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
       }
     }
 
-    if (type === 'word_spelling') {
+    if (type === 'word_spelling' || type === 'word_scramble') {
       const bestSim = Math.max(...allAnswers.map((a) => charSimilarity(a, userInput)))
       const threshold = primaryAnswer.length >= 10 ? 0.88 : 0.9
       if (bestSim >= threshold) {
@@ -206,7 +208,9 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
           isCorrect: true,
           similarity: bestSim,
           errors: [],
-          explanation: `Almost perfect — minor typo accepted. The correct spelling is "${primaryAnswer}".`,
+          explanation: type === 'word_scramble'
+            ? `Almost perfect — minor typo accepted. The correct word is "${primaryAnswer}".`
+            : `Almost perfect — minor typo accepted. The correct spelling is "${primaryAnswer}".`,
         }
       }
       return {
@@ -217,11 +221,54 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
       }
     }
 
+    if (type === 'vocabulary') {
+      const bestSim = Math.max(...allAnswers.map((a) => charSimilarity(a, userInput)))
+      const threshold = primaryAnswer.length >= 10 ? 0.88 : 0.9
+      if (bestSim >= threshold) {
+        return {
+          isCorrect: true,
+          similarity: bestSim,
+          errors: [],
+          explanation: `Almost perfect — minor typo accepted. The correct word is "${primaryAnswer}".`,
+        }
+      }
+    }
+
     return {
       isCorrect: false,
       similarity: charSimilarity(primaryAnswer, userInput),
       errors: [{ position: 0, type: 'wrong', expected: primaryAnswer, got: userInput }],
       explanation: buildSkillExplanation(item),
+    }
+  }
+
+  if (type === 'vocabulary_match') {
+    const expected = item.data.match_pairs ?? []
+    try {
+      const userPairs = JSON.parse(userInput) as { en: string; he: string }[]
+      const allCorrect =
+        userPairs.length === expected.length &&
+        expected.every((ep) =>
+          userPairs.some(
+            (up) => normalise(up.en) === normalise(ep.en) && up.he.trim() === ep.he.trim(),
+          ),
+        )
+      if (allCorrect) {
+        return { isCorrect: true, similarity: 1, errors: [], explanation: 'All pairs matched correctly!' }
+      }
+      return {
+        isCorrect: false,
+        similarity: 0,
+        errors: [],
+        explanation: 'Some pairs were incorrect. Review the word meanings and try again.',
+      }
+    } catch {
+      return {
+        isCorrect: false,
+        similarity: 0,
+        errors: [],
+        explanation: 'Could not grade your matches. Review the correct pairs below.',
+      }
     }
   }
 

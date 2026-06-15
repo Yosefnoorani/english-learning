@@ -4,17 +4,12 @@ import { SpeakButton } from '@/components/ui/SpeakButton'
 import type { ContentItem } from '@/types/game'
 import { useGameStore } from '@/store/useGameStore'
 import { useSpeech } from '@/hooks/useSpeech'
+import { maskWord, buildLetterHint } from '@/utils/wordHint'
 
 interface SpellingViewProps {
   item: ContentItem
   onAnswer: (answer: string) => void
   showHint?: boolean
-}
-
-function maskWord(sentence: string, word: string): string {
-  if (!word) return sentence
-  const blanks = '_'.repeat(Math.max(word.length, 4))
-  return sentence.replace(new RegExp(`\\b${word}\\b`, 'i'), blanks)
 }
 
 export function SpellingView({ item, onAnswer, showHint }: SpellingViewProps) {
@@ -49,9 +44,7 @@ export function SpellingView({ item, onAnswer, showHint }: SpellingViewProps) {
     if (e.key === 'Enter') { e.preventDefault(); handleSubmit() }
   }
 
-  const letterHint = showHint && targetWord
-    ? `${targetWord[0]}${'_'.repeat(Math.max(0, targetWord.length - 2))}${targetWord.length > 1 ? targetWord[targetWord.length - 1] : ''} (${targetWord.length} letters)`
-    : null
+  const letterHint = showHint && targetWord ? buildLetterHint(targetWord, 2) : null
 
   return (
     <div className="w-full max-w-xl mx-auto px-4 flex flex-col gap-5">

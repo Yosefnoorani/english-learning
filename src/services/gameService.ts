@@ -6,6 +6,7 @@ import {
   getDueMistakeItems,
   pickNextRequeueItem,
 } from './mistakeMasteryService'
+import { expandPoolWithVocabDerivatives } from './vocabDerivationService'
 import type { TelemetryEntry } from '@/types/game'
 
 /**
@@ -50,8 +51,9 @@ export async function fetchQuestions(
       item.type !== 'placement_test',
   )
   const pool = inBand.length >= 6 ? inBand : all.filter((i) => i.type !== 'placement_test')
+  const expandedPool = expandPoolWithVocabDerivatives(pool, getAllContent())
 
-  return skillBiasedSelect(pool, limit, skillStats, mistakeQueue, tier, excludeIds)
+  return skillBiasedSelect(expandedPool, limit, skillStats, mistakeQueue, tier, excludeIds)
 }
 
 export async function fetchReviewItems(_userId: string): Promise<ContentItem[]> {

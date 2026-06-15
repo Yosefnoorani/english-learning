@@ -1,6 +1,6 @@
 import { BookOpen } from 'lucide-react'
 import { useGameStore, selectCurrentItem } from '@/store/useGameStore'
-import { FlashcardView } from './FlashcardView'
+import { VocabRecallView } from './VocabRecallView'
 import { GrammarChoiceView } from './GrammarChoiceView'
 import { SentenceBuilder } from './SentenceBuilder'
 
@@ -33,7 +33,7 @@ export function PlacementView({ onStart, started }: PlacementViewProps) {
           </p>
         </div>
         <ul className="text-left space-y-2 w-full">
-          {['Vocabulary flashcards', 'Grammar challenges', 'Sentence building'].map((t) => (
+          {['Vocabulary recall', 'Grammar challenges', 'Sentence building'].map((t) => (
             <li key={t} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
               <span className="w-2 h-2 rounded-full bg-indigo-400 flex-shrink-0" />
               {t}
@@ -83,7 +83,7 @@ export function PlacementView({ onStart, started }: PlacementViewProps) {
         <GrammarChoiceView item={item} onAnswer={submitAnswer} />
       )}
       {item.type === 'vocabulary' && (
-        <FlashcardView item={item} onAnswer={submitAnswer} />
+        <VocabRecallView item={item} onAnswer={submitAnswer} />
       )}
       {item.type === 'sentence_builder' && (
         <SentenceBuilder item={item} onAnswer={submitAnswer} />

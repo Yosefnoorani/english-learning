@@ -2381,6 +2381,978 @@
       }
     },
     {
+      "id": "v125",
+      "type": "vocabulary",
+      "difficulty": 356,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Angry",
+        "translation": "כועס / כועסת",
+        "context_sentence": "He was angry because someone took his seat on the bus.",
+        "context_translation": "הוא כעס כי מישהו לקח את מקום הישיבה שלו באוטובוס.",
+        "correct_answer": "Angry",
+        "common_mistake": "Use \"angry with/at someone\" — not \"angry on someone\"."
+      }
+    },
+    {
+      "id": "v126",
+      "type": "vocabulary",
+      "difficulty": 362,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Scared",
+        "translation": "מפחד / מפוחד",
+        "context_sentence": "The little girl was scared of the dark.",
+        "context_translation": "הילדה הקטנה פחדה מהחושך.",
+        "correct_answer": "Scared",
+        "common_mistake": "\"Scared of\" something. \"Afraid of\" is similar — both are common."
+      }
+    },
+    {
+      "id": "v127",
+      "type": "vocabulary",
+      "difficulty": 368,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Lonely",
+        "translation": "בודד / בודדה",
+        "context_sentence": "She felt lonely after moving to a new city.",
+        "context_translation": "היא הרגישה בודדה אחרי שעברה לעיר חדשה.",
+        "correct_answer": "Lonely",
+        "common_mistake": "\"Lonely\" = feeling alone and sad. \"Alone\" just means without others."
+      }
+    },
+    {
+      "id": "v128",
+      "type": "vocabulary",
+      "difficulty": 374,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Bored",
+        "translation": "משועמם / משועממת",
+        "context_sentence": "The students were bored during the long lecture.",
+        "context_translation": "התלמידים השתעממו במהלך ההרצאה הארוכה.",
+        "correct_answer": "Bored",
+        "common_mistake": "\"Bored\" describes how you feel. \"Boring\" describes the thing that causes boredom."
+      }
+    },
+    {
+      "id": "v129",
+      "type": "vocabulary",
+      "difficulty": 355,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Job",
+        "translation": "עבודה / משרה",
+        "context_sentence": "She found a new job at a software company.",
+        "context_translation": "היא מצאה עבודה חדשה בחברת תוכנה.",
+        "correct_answer": "Job",
+        "common_mistake": "\"Job\" is countable: \"a job\". \"Work\" is often uncountable."
+      }
+    },
+    {
+      "id": "v130",
+      "type": "vocabulary",
+      "difficulty": 363,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Boss",
+        "translation": "בוס / מנהל",
+        "context_sentence": "My boss asked me to finish the report by Friday.",
+        "context_translation": "הבוס שלי ביקש ממני לסיים את הדוח עד יום שישי.",
+        "correct_answer": "Boss",
+        "common_mistake": "Informal but very common. Formal: \"manager\" or \"supervisor\"."
+      }
+    },
+    {
+      "id": "v131",
+      "type": "vocabulary",
+      "difficulty": 371,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Team",
+        "translation": "צוות",
+        "context_sentence": "Our team works well together on difficult projects.",
+        "context_translation": "הצוות שלנו עובד היטב יחד על פרויקטים קשים.",
+        "correct_answer": "Team",
+        "common_mistake": "Collective noun — \"the team is\" (US) or \"the team are\" (UK) both appear."
+      }
+    },
+    {
+      "id": "v132",
+      "type": "vocabulary",
+      "difficulty": 379,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Salary",
+        "translation": "שכר / משכורת",
+        "context_sentence": "He negotiated a higher salary after the successful project.",
+        "context_translation": "הוא ניהל משא ומתן על משכורת גבוהה יותר אחרי הפרויקט המוצלח.",
+        "correct_answer": "Salary",
+        "common_mistake": "\"Salary\" is usually monthly/yearly pay. \"Wage\" often means hourly pay."
+      }
+    },
+    {
+      "id": "v133",
+      "type": "vocabulary",
+      "difficulty": 354,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Computer",
+        "translation": "מחשב",
+        "context_sentence": "I use my computer to write emails and study English.",
+        "context_translation": "אני משתמש במחשב כדי לכתוב אימיילים וללמוד אנגלית.",
+        "correct_answer": "Computer",
+        "common_mistake": "Countable: \"a computer\" or \"computers\". Short form: \"PC\" (personal computer)."
+      }
+    },
+    {
+      "id": "v134",
+      "type": "vocabulary",
+      "difficulty": 361,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Phone",
+        "translation": "טלפון",
+        "context_sentence": "Please turn off your phone during the movie.",
+        "context_translation": "אנא כבו הטלפון במהלך הסרט.",
+        "correct_answer": "Phone",
+        "common_mistake": "\"Mobile phone\" or \"cell phone\" in the US. Israelis often say \"phone\" alone."
+      }
+    },
+    {
+      "id": "v135",
+      "type": "vocabulary",
+      "difficulty": 369,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Screen",
+        "translation": "מסך",
+        "context_sentence": "The screen on my laptop is cracked.",
+        "context_translation": "המסך של הלפטופ שלי שבור.",
+        "correct_answer": "Screen",
+        "common_mistake": "Not the same as \"monitor\" — a screen is any display surface."
+      }
+    },
+    {
+      "id": "v136",
+      "type": "vocabulary",
+      "difficulty": 377,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Keyboard",
+        "translation": "מקלדת",
+        "context_sentence": "She typed the essay quickly on her keyboard.",
+        "context_translation": "היא הקלידה את החיבור במהירות על המקלדת.",
+        "correct_answer": "Keyboard",
+        "common_mistake": "Hardware keyboard vs on-screen keyboard on phones."
+      }
+    },
+    {
+      "id": "v137",
+      "type": "vocabulary",
+      "difficulty": 353,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Sun",
+        "translation": "שמש",
+        "context_sentence": "The sun is shining brightly today.",
+        "context_translation": "השמש זורחת בבהירות היום.",
+        "correct_answer": "Sun",
+        "common_mistake": "Use \"the sun\" — we usually add \"the\" for this unique object."
+      }
+    },
+    {
+      "id": "v138",
+      "type": "vocabulary",
+      "difficulty": 360,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Rain",
+        "translation": "גשם",
+        "context_sentence": "We stayed inside because of the heavy rain.",
+        "context_translation": "נשארנו בפנים בגלל הגשם החזק.",
+        "correct_answer": "Rain",
+        "common_mistake": "\"Rain\" is uncountable. Say \"a lot of rain\", not \"many rains\"."
+      }
+    },
+    {
+      "id": "v139",
+      "type": "vocabulary",
+      "difficulty": 367,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Animal",
+        "translation": "חיה",
+        "context_sentence": "The children love watching animals at the zoo.",
+        "context_translation": "הילדים אוהבים לצפות בחיות בגן החיות.",
+        "correct_answer": "Animal",
+        "common_mistake": "Countable: \"an animal\", \"animals\". \"Wild animals\" live in nature."
+      }
+    },
+    {
+      "id": "v140",
+      "type": "vocabulary",
+      "difficulty": 376,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Plant",
+        "translation": "צמח",
+        "context_sentence": "She watered the plant every morning.",
+        "context_translation": "היא שפכה על הצמח כל בוקר.",
+        "correct_answer": "Plant",
+        "common_mistake": "As a verb, \"plant\" means to put seeds in soil."
+      }
+    },
+    {
+      "id": "v141",
+      "type": "vocabulary",
+      "difficulty": 357,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "School",
+        "translation": "בית ספר",
+        "context_sentence": "The children walk to school every morning.",
+        "context_translation": "הילדים הולכים לבית הספר כל בוקר.",
+        "correct_answer": "School",
+        "common_mistake": "\"Go to school\" (attend) vs \"go to the school\" (visit the building)."
+      }
+    },
+    {
+      "id": "v142",
+      "type": "vocabulary",
+      "difficulty": 364,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Teacher",
+        "translation": "מורה / מורה",
+        "context_sentence": "Our English teacher speaks slowly and clearly.",
+        "context_translation": "מורת האנגלית שלנו מדברת לאט וברור.",
+        "correct_answer": "Teacher",
+        "common_mistake": "Gender-neutral. \"Professor\" is for university level."
+      }
+    },
+    {
+      "id": "v143",
+      "type": "vocabulary",
+      "difficulty": 372,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Student",
+        "translation": "תלמיד / תלמידה",
+        "context_sentence": "Every student must bring a notebook to class.",
+        "context_translation": "כל תלמיד חייב להביא מחברת לשיעור.",
+        "correct_answer": "Student",
+        "common_mistake": "\"Pupil\" is used mainly for young children in UK English."
+      }
+    },
+    {
+      "id": "v144",
+      "type": "vocabulary",
+      "difficulty": 381,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Lesson",
+        "translation": "שיעור",
+        "context_sentence": "The lesson today is about irregular verbs.",
+        "context_translation": "השיעור היום עוסק בפעלים לא סדירים.",
+        "correct_answer": "Lesson",
+        "common_mistake": "Countable: \"a lesson\". \"Class\" can mean the same or the group of students."
+      }
+    },
+    {
+      "id": "v145",
+      "type": "vocabulary",
+      "difficulty": 358,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Good morning",
+        "translation": "בוקר טוב",
+        "context_sentence": "Good morning! Did you sleep well?",
+        "context_translation": "בוקר טוב! ישנת טוב?",
+        "correct_answer": "Good morning",
+        "common_mistake": "Use until around noon. After that: \"Good afternoon\" or \"Good evening\"."
+      }
+    },
+    {
+      "id": "v146",
+      "type": "vocabulary",
+      "difficulty": 366,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "How are you",
+        "translation": "מה שלומך / איך אתה",
+        "context_sentence": "Hi Tom, how are you today?",
+        "context_translation": "היי טום, מה שלומך היום?",
+        "correct_answer": "How are you",
+        "common_mistake": "Common reply: \"I'm fine, thanks.\" Not \"I'm good\" in very formal settings."
+      }
+    },
+    {
+      "id": "v147",
+      "type": "vocabulary",
+      "difficulty": 373,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Nice to meet you",
+        "translation": "נחמד להכירך / נעים להכיר",
+        "context_sentence": "Nice to meet you — I have heard a lot about your work.",
+        "context_translation": "נעים להכיר — שמעתי הרבה על העבודה שלך.",
+        "correct_answer": "Nice to meet you",
+        "common_mistake": "Reply: \"Nice to meet you too\" or \"You too.\""
+      }
+    },
+    {
+      "id": "v148",
+      "type": "vocabulary",
+      "difficulty": 382,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "See you later",
+        "translation": "נתראה / להתראות",
+        "context_sentence": "I have to go now — see you later!",
+        "context_translation": "אני חייב ללכת עכשיו — נתראה!",
+        "correct_answer": "See you later",
+        "common_mistake": "Informal farewell. Formal: \"Goodbye\" or \"Goodbye for now.\""
+      }
+    },
+    {
+      "id": "v149",
+      "type": "vocabulary",
+      "difficulty": 404,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Manager",
+        "translation": "מנהל",
+        "context_sentence": "The manager approved our request for extra budget.",
+        "context_translation": "המנהל אישר את בקשתנו לתקציב נוסף.",
+        "correct_answer": "Manager",
+        "common_mistake": "More formal than \"boss\". \"Manage\" is the verb."
+      }
+    },
+    {
+      "id": "v150",
+      "type": "vocabulary",
+      "difficulty": 411,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Report",
+        "translation": "דוח / לדווח",
+        "context_sentence": "Please send me the weekly report by email.",
+        "context_translation": "אנא שלח לי את הדוח השבועי באימייל.",
+        "correct_answer": "Report",
+        "common_mistake": "Noun: \"a report\". Verb: \"report a problem\" to someone."
+      }
+    },
+    {
+      "id": "v151",
+      "type": "vocabulary",
+      "difficulty": 419,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Meeting",
+        "translation": "פגישה / ישיבה",
+        "context_sentence": "We have a team meeting every Monday at nine.",
+        "context_translation": "יש לנו ישיבת צוות כל יום שני בשעה תשע.",
+        "correct_answer": "Meeting",
+        "common_mistake": "\"Have a meeting\" — not \"make a meeting\" (that sounds like arranging one)."
+      }
+    },
+    {
+      "id": "v152",
+      "type": "vocabulary",
+      "difficulty": 428,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Invoice",
+        "translation": "חשבונית",
+        "context_sentence": "The supplier sent an invoice for the office supplies.",
+        "context_translation": "הספק שלח חשבונית עבור ציוד המשרד.",
+        "correct_answer": "Invoice",
+        "common_mistake": "A bill for goods/services. \"Receipt\" confirms payment was made."
+      }
+    },
+    {
+      "id": "v153",
+      "type": "vocabulary",
+      "difficulty": 406,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Internet",
+        "translation": "אינטרנט",
+        "context_sentence": "The internet connection is slow in this building.",
+        "context_translation": "חיבור האינטרנט איטי בבניין הזה.",
+        "correct_answer": "Internet",
+        "common_mistake": "Usually no capital \"I\" in modern usage, but \"the internet\" with \"the\"."
+      }
+    },
+    {
+      "id": "v154",
+      "type": "vocabulary",
+      "difficulty": 414,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Website",
+        "translation": "אתר אינטרנט",
+        "context_sentence": "You can book tickets on the airline's website.",
+        "context_translation": "אפשר להזמין כרטיסים באתר האינטרנט של החברה.",
+        "correct_answer": "Website",
+        "common_mistake": "One word: \"website\". Old form \"web site\" is less common now."
+      }
+    },
+    {
+      "id": "v155",
+      "type": "vocabulary",
+      "difficulty": 421,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "App",
+        "translation": "אפליקציה",
+        "context_sentence": "I downloaded a new app to track my daily steps.",
+        "context_translation": "הורדתי אפליקציה חדשה לעקוב אחר הצעדים היומיים שלי.",
+        "correct_answer": "App",
+        "common_mistake": "Short for \"application\". Plural: \"apps\"."
+      }
+    },
+    {
+      "id": "v156",
+      "type": "vocabulary",
+      "difficulty": 432,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Email",
+        "translation": "אימייל / דואר אלקטרוני",
+        "context_sentence": "She sent an email to confirm the appointment.",
+        "context_translation": "היא שלחה אימייל כדי לאשר הפגישה.",
+        "correct_answer": "Email",
+        "common_mistake": "Can be noun or verb: \"email me\" = send an email."
+      }
+    },
+    {
+      "id": "v157",
+      "type": "vocabulary",
+      "difficulty": 407,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Climate",
+        "translation": "אקלים",
+        "context_sentence": "The climate in Israel is warm and dry in summer.",
+        "context_translation": "האקלים בישראל חם ויבש בקיץ.",
+        "correct_answer": "Climate",
+        "common_mistake": "\"Climate\" = long-term weather patterns. \"Weather\" = today's conditions."
+      }
+    },
+    {
+      "id": "v158",
+      "type": "vocabulary",
+      "difficulty": 416,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Nature",
+        "translation": "טבע",
+        "context_sentence": "They spent the weekend hiking in nature.",
+        "context_translation": "הם בילו את סוף השבוע בהליכה בטבע.",
+        "correct_answer": "Nature",
+        "common_mistake": "\"In nature\" = outdoors in natural settings. Uncountable."
+      }
+    },
+    {
+      "id": "v159",
+      "type": "vocabulary",
+      "difficulty": 424,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Forest",
+        "translation": "יער",
+        "context_sentence": "The forest was full of birds and tall pine trees.",
+        "context_translation": "היער היה מלא בציפורים ועצי אורן גבוהים.",
+        "correct_answer": "Forest",
+        "common_mistake": "Countable: \"a forest\", \"forests\". \"Wood\" can mean trees or material."
+      }
+    },
+    {
+      "id": "v160",
+      "type": "vocabulary",
+      "difficulty": 433,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Ocean",
+        "translation": "אוקיינוס / ים",
+        "context_sentence": "The ocean waves were calm at sunrise.",
+        "context_translation": "גלי האוקיינוס היו רגועים בזריחה.",
+        "correct_answer": "Ocean",
+        "common_mistake": "\"Ocean\" is larger than \"sea\". Both can mean salt water."
+      }
+    },
+    {
+      "id": "v161",
+      "type": "vocabulary",
+      "difficulty": 408,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Homework",
+        "translation": "שיעורי בית",
+        "context_sentence": "Finish your homework before you watch television.",
+        "context_translation": "סיים שיעורי הבית לפני שאתה צופה בטלוויזיה.",
+        "correct_answer": "Homework",
+        "common_mistake": "Uncountable — \"homework\", not \"homeworks\"."
+      }
+    },
+    {
+      "id": "v162",
+      "type": "vocabulary",
+      "difficulty": 417,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Exam",
+        "translation": "מבחן",
+        "context_sentence": "The final exam covers all topics from the semester.",
+        "context_translation": "המבחן הסופי מכסה את כל הנושאים מהסמסטר.",
+        "correct_answer": "Exam",
+        "common_mistake": "Also \"examination\" (formal). \"Test\" is similar and more common in US schools."
+      }
+    },
+    {
+      "id": "v163",
+      "type": "vocabulary",
+      "difficulty": 426,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Library",
+        "translation": "ספרייה",
+        "context_sentence": "I borrowed three books from the university library.",
+        "context_translation": "הלוואתי שלושה ספרים מהספרייה של האוניברסיטה.",
+        "correct_answer": "Library",
+        "common_mistake": "Place for books. \"Librarian\" is the person who works there."
+      }
+    },
+    {
+      "id": "v164",
+      "type": "vocabulary",
+      "difficulty": 436,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Research",
+        "translation": "מחקר",
+        "context_sentence": "The scientist spent years on research about marine life.",
+        "context_translation": "המדען השקיע שנים במחקר על חיים ימיים.",
+        "correct_answer": "Research",
+        "common_mistake": "Uncountable — \"do research\", not \"do a research\" (say \"a research project\")."
+      }
+    },
+    {
+      "id": "v165",
+      "type": "vocabulary",
+      "difficulty": 409,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "By the way",
+        "translation": "אגב",
+        "context_sentence": "By the way, did you remember to lock the door?",
+        "context_translation": "אגב, זכרת לנעול הדלת?",
+        "correct_answer": "By the way",
+        "common_mistake": "Used to add new information. Abbreviation in chat: \"BTW\"."
+      }
+    },
+    {
+      "id": "v166",
+      "type": "vocabulary",
+      "difficulty": 418,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Long time no see",
+        "translation": "כמה זמן לא נראה",
+        "context_sentence": "Long time no see — how have you been?",
+        "context_translation": "כמה זמן לא נראה — מה שלומך?",
+        "correct_answer": "Long time no see",
+        "common_mistake": "Informal greeting after not seeing someone for a while."
+      }
+    },
+    {
+      "id": "v167",
+      "type": "vocabulary",
+      "difficulty": 427,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Take it easy",
+        "translation": "תירגע / קח את זה בקלות",
+        "context_sentence": "You look stressed — take it easy and get some rest.",
+        "context_translation": "נראה לחוץ — תירגע וקח קצת מנוחה.",
+        "correct_answer": "Take it easy",
+        "common_mistake": "Means relax / don't worry. Also used as casual goodbye."
+      }
+    },
+    {
+      "id": "v168",
+      "type": "vocabulary",
+      "difficulty": 437,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Hang on",
+        "translation": "חכה רגע / תחזיק מעמד",
+        "context_sentence": "Hang on — I need to find my keys before we leave.",
+        "context_translation": "חכה רגע — אני צריך למצוא המפתחות לפני שאנחנו יוצאים.",
+        "correct_answer": "Hang on",
+        "common_mistake": "Informal: wait a moment. \"Hang in there\" = keep going despite difficulty."
+      }
+    },
+    {
+      "id": "v169",
+      "type": "vocabulary",
+      "difficulty": 455,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Database",
+        "translation": "מאגר נתונים",
+        "context_sentence": "The company stores customer data in a secure database.",
+        "context_translation": "החברה מאחסנת נתוני לקוחות במאגר נתונים מאובטח.",
+        "correct_answer": "Database",
+        "common_mistake": "One word. Stores structured data — not the same as a simple \"file\"."
+      }
+    },
+    {
+      "id": "v170",
+      "type": "vocabulary",
+      "difficulty": 458,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Ecosystem",
+        "translation": "מערכת אקולוגית",
+        "context_sentence": "Coral reefs are fragile ecosystems that support thousands of species.",
+        "context_translation": "שוניות אלמוגים הן מערכות אקולוגיות עדינות שתומכות באלפי מינים.",
+        "correct_answer": "Ecosystem",
+        "common_mistake": "Community of living things and their environment — interconnected."
+      }
+    },
+    {
+      "id": "v171",
+      "type": "vocabulary",
+      "difficulty": 462,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Theory",
+        "translation": "תיאוריה",
+        "context_sentence": "Darwin's theory of evolution changed biology forever.",
+        "context_translation": "תיאוריית האבולוציה של דארווין שינתה את הביולוגיה לנצח.",
+        "correct_answer": "Theory",
+        "common_mistake": "In science, a \"theory\" is well-supported — not just a guess."
+      }
+    },
+    {
+      "id": "v172",
+      "type": "vocabulary",
+      "difficulty": 466,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Cost an arm and a leg",
+        "translation": "עולה הון / מחיר מופקע",
+        "context_sentence": "That designer bag costs an arm and a leg.",
+        "context_translation": "התיק של המעצב עולה הון.",
+        "correct_answer": "Cost an arm and a leg",
+        "common_mistake": "Means very expensive — hyperbolic idiom, not literal."
+      }
+    },
+    {
+      "id": "v173",
+      "type": "vocabulary",
+      "difficulty": 525,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Sightseeing",
+        "translation": "סיורי / ביקור באטרקציות",
+        "context_sentence": "We spent the afternoon sightseeing in the old city.",
+        "context_translation": "בילינו את אחר הצהריים בסיורים בעיר העתיקה.",
+        "correct_answer": "Sightseeing",
+        "common_mistake": "One word, no hyphen. \"Go sightseeing\" — activity of visiting attractions."
+      }
+    },
+    {
+      "id": "v174",
+      "type": "vocabulary",
+      "difficulty": 535,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Anxious",
+        "translation": "חרד / חרדה",
+        "context_sentence": "He felt anxious before the job interview.",
+        "context_translation": "הוא הרגיש חרד לפני ראיון העבודה.",
+        "correct_answer": "Anxious",
+        "common_mistake": "\"Anxious about\" the future. Similar to \"nervous\" but often more persistent worry."
+      }
+    },
+    {
+      "id": "v175",
+      "type": "vocabulary",
+      "difficulty": 545,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Budget",
+        "translation": "תקציב",
+        "context_sentence": "The team stayed within budget for the marketing campaign.",
+        "context_translation": "הצוות נשאר בתוך התקציב עבור קמפיין השיווק.",
+        "correct_answer": "Budget",
+        "common_mistake": "Noun and verb: \"budget for\" expenses. \"Over budget\" = spent too much."
+      }
+    },
+    {
+      "id": "v176",
+      "type": "vocabulary",
+      "difficulty": 555,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Firewall",
+        "translation": "חומת אש (אבטחה)",
+        "context_sentence": "A firewall blocks unauthorised access to the company network.",
+        "context_translation": "חומת אש חוסמת גישה לא מורשית לרשת החברה.",
+        "correct_answer": "Firewall",
+        "common_mistake": "Cybersecurity barrier — hardware or software."
+      }
+    },
+    {
+      "id": "v177",
+      "type": "vocabulary",
+      "difficulty": 565,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Wildlife",
+        "translation": "חיות בר",
+        "context_sentence": "The national park protects local wildlife and native plants.",
+        "context_translation": "הפארק הלאומי מגן על חיות בר וצמחים מקומיים.",
+        "correct_answer": "Wildlife",
+        "common_mistake": "Uncountable — animals living in natural conditions."
+      }
+    },
+    {
+      "id": "v178",
+      "type": "vocabulary",
+      "difficulty": 575,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Citation",
+        "translation": "ציטוט / הפניה (במקור)",
+        "context_sentence": "Every citation in the paper must link to a reliable source.",
+        "context_translation": "כל ציטוט במאמר חייב להפנות למקור אמין.",
+        "correct_answer": "Citation",
+        "common_mistake": "Academic reference to a source. \"Quote\" is the actual words cited."
+      }
+    },
+    {
       "id": "g1",
       "type": "grammar_choice",
       "difficulty": 450,
@@ -4735,6 +5707,125 @@
       }
     },
     {
+      "id": "l16",
+      "type": "listening_dictation",
+      "difficulty": 360,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "I am happy because my friends came to visit.",
+        "context_translation": "אני שמח כי החברים שלי באו לבקר.",
+        "correct_answer": "I am happy because my friends came to visit.",
+        "audio_only": true,
+        "common_mistake": "Use \"I am happy\" — adjective with \"be\", not \"I have happy\"."
+      }
+    },
+    {
+      "id": "l17",
+      "type": "listening_dictation",
+      "difficulty": 375,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "My boss wants the report on his desk by noon.",
+        "context_translation": "הבוס שלי רוצה הדוח על השולחן שלו עד הצהריים.",
+        "correct_answer": "My boss wants the report on his desk by noon.",
+        "audio_only": true,
+        "common_mistake": "\"By noon\" = before twelve o'clock. \"On his desk\" = physical location."
+      }
+    },
+    {
+      "id": "l18",
+      "type": "listening_dictation",
+      "difficulty": 385,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Please restart your computer after you install the update.",
+        "context_translation": "אנא הפעל מחדש המחשב אחרי שאתה מתקין העדכון.",
+        "correct_answer": "Please restart your computer after you install the update.",
+        "audio_only": true,
+        "common_mistake": "\"Restart\" = turn off and on again. \"Reboot\" is similar."
+      }
+    },
+    {
+      "id": "l19",
+      "type": "listening_dictation",
+      "difficulty": 395,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "The rain stopped and the sun came out again.",
+        "context_translation": "הגשם הפסיק והשמש יצאה שוב.",
+        "correct_answer": "The rain stopped and the sun came out again.",
+        "audio_only": true,
+        "common_mistake": "\"The sun came out\" = clouds cleared and sun appeared."
+      }
+    },
+    {
+      "id": "l20",
+      "type": "listening_dictation",
+      "difficulty": 410,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "The teacher gave us homework for the weekend.",
+        "context_translation": "המורה נתן לנו שיעורי בית לסוף השבוע.",
+        "correct_answer": "The teacher gave us homework for the weekend.",
+        "audio_only": true,
+        "common_mistake": "\"Homework\" is uncountable — no \"homeworks\"."
+      }
+    },
+    {
+      "id": "l21",
+      "type": "listening_dictation",
+      "difficulty": 430,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Our flight was delayed because of bad weather.",
+        "context_translation": "הטיסה שלנו עוכבה בגלל מזג אוויר גרוע.",
+        "correct_answer": "Our flight was delayed because of bad weather.",
+        "audio_only": true,
+        "common_mistake": "\"Delayed\" = late. \"Cancelled\" = did not happen at all."
+      }
+    },
+    {
+      "id": "l22",
+      "type": "listening_dictation",
+      "difficulty": 470,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "By the way, did you remember to call your mother?",
+        "context_translation": "אגב, זכרת להתקשר לאמא שלך?",
+        "correct_answer": "By the way, did you remember to call your mother?",
+        "audio_only": true,
+        "common_mistake": "\"By the way\" introduces extra information — often at the start or end of a sentence."
+      }
+    },
+    {
       "id": "c1",
       "type": "verb_conjugation",
       "difficulty": 380,
@@ -5853,6 +6944,132 @@
           "maneuver"
         ],
         "common_mistake": "British: manoeuvre (oeu). American: maneuver. Both are accepted here."
+      }
+    },
+    {
+      "id": "sp21",
+      "type": "word_spelling",
+      "difficulty": 380,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "spelling",
+        "beginner"
+      ],
+      "data": {
+        "word": "Airport",
+        "translation": "שדה תעופה",
+        "context_sentence": "We arrived at the ___ two hours early.",
+        "context_translation": "הגענו ל___ שעתיים מוקדם.",
+        "correct_answer": "Airport",
+        "alternate_answers": [
+          "airport"
+        ],
+        "common_mistake": "One word: airport — not \"air port\"."
+      }
+    },
+    {
+      "id": "sp22",
+      "type": "word_spelling",
+      "difficulty": 395,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "spelling",
+        "beginner"
+      ],
+      "data": {
+        "word": "Happy",
+        "translation": "שמח / מאושר",
+        "context_sentence": "The children were ___ to see their grandparents.",
+        "context_translation": "הילדים היו ___ לראות את הסבא והסבתא.",
+        "correct_answer": "Happy",
+        "alternate_answers": [
+          "happy"
+        ],
+        "common_mistake": "Double \"p\" in happy — not \"hapy\"."
+      }
+    },
+    {
+      "id": "sp23",
+      "type": "word_spelling",
+      "difficulty": 410,
+      "skill": "vocabulary_business",
+      "tags": [
+        "spelling",
+        "beginner"
+      ],
+      "data": {
+        "word": "Meeting",
+        "translation": "פגישה / ישיבה",
+        "context_sentence": "The team has a ___ every Monday morning.",
+        "context_translation": "הצוות מקיים ___ כל יום שני בבוקר.",
+        "correct_answer": "Meeting",
+        "alternate_answers": [
+          "meeting"
+        ],
+        "common_mistake": "Double \"e\" in meeting — not \"meating\" (which means food)."
+      }
+    },
+    {
+      "id": "sp24",
+      "type": "word_spelling",
+      "difficulty": 425,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "spelling",
+        "beginner"
+      ],
+      "data": {
+        "word": "Password",
+        "translation": "סיסמה",
+        "context_sentence": "Never share your ___ with colleagues.",
+        "context_translation": "אל תשתף את ה___ שלך עם עמיתים לעבודה.",
+        "correct_answer": "Password",
+        "alternate_answers": [
+          "password"
+        ],
+        "common_mistake": "One word: password — not \"pass word\"."
+      }
+    },
+    {
+      "id": "sp25",
+      "type": "word_spelling",
+      "difficulty": 440,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "spelling",
+        "beginner"
+      ],
+      "data": {
+        "word": "Climate",
+        "translation": "אקלים",
+        "context_sentence": "The ___ in this region is hot and dry.",
+        "context_translation": "ה___ באזור הזה חם ויבש.",
+        "correct_answer": "Climate",
+        "alternate_answers": [
+          "climate"
+        ],
+        "common_mistake": "Not the same as \"weather\" — climate is long-term."
+      }
+    },
+    {
+      "id": "sp26",
+      "type": "word_spelling",
+      "difficulty": 455,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "spelling",
+        "beginner"
+      ],
+      "data": {
+        "word": "Library",
+        "translation": "ספרייה",
+        "context_sentence": "She borrowed two books from the university ___.",
+        "context_translation": "היא הלוותה שני ספרים מה___ של האוניברסיטה.",
+        "correct_answer": "Library",
+        "alternate_answers": [
+          "library"
+        ],
+        "common_mistake": "Ends in \"-ary\" — not \"libary\" (missing r)."
       }
     }
   ]

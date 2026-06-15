@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Volume2, RotateCw } from 'lucide-react'
+import { Volume2, RotateCw, HelpCircle, EyeOff } from 'lucide-react'
 import type { ContentItem } from '@/types/game'
 import { useSpeech } from '@/hooks/useSpeech'
 import { useGameStore } from '@/store/useGameStore'
@@ -17,6 +17,7 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
   const [submitted, setSubmitted] = useState(false)
   const [replaysLeft, setReplaysLeft] = useState(MAX_REPLAYS)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [hintRevealed, setHintRevealed] = useState(false)
   const voiceLang = useGameStore((s) => s.voiceLang)
   const voiceRate = useGameStore((s) => s.voiceRate)
   const { speak, stop } = useSpeech({ lang: voiceLang, rate: voiceRate * 0.85 }) // slightly slower for dictation
@@ -27,6 +28,7 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
     setSubmitted(false)
     setReplaysLeft(MAX_REPLAYS)
     setIsPlaying(false)
+    setHintRevealed(false)
 
     const timer = setTimeout(() => playAudio(), 400)
     return () => { clearTimeout(timer); stop() }
@@ -45,6 +47,18 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
   function handleReplay() {
     if (replaysLeft <= 0 || submitted || isPlaying) return
     playAudio()
+  }
+
+  function handleSkip() {
+    if (submitted) return
+    stop()
+    setSubmitted(true)
+    onAnswer('__skip__')
+  }
+
+  function handleHint() {
+    if (submitted) return
+    setHintRevealed(true)
   }
 
   function handleSubmit() {
@@ -97,15 +111,62 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
           <span>Replay {replaysLeft > 0 ? `(${replaysLeft} left)` : '(used up)'}</span>
         </div>
 
-        {/* Hint */}
-        {(replaysLeft <= 0 || showHint) && (
+        {/* Hint: Hebrew translation (manual or after mistake) */}
+        {(hintRevealed || showHint) && (
           <div className="w-full rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-3">
             <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide mb-1">
-              {showHint ? 'Hint' : 'Text (replays used up)'}
+              {hintRevealed ? 'Hint (Hebrew)' : 'Tip'}
             </p>
-            <p className="text-sm text-amber-800 dark:text-amber-200 italic">"{item.data.context_sentence}"</p>
+            {hintRevealed && (
+              <p className="text-sm text-amber-800 dark:text-amber-200 text-right leading-relaxed" dir="rtl">
+                {item.data.context_translation}
+              </p>
+            )}
+            {showHint && item.data.common_mistake && (
+              <p className="text-sm text-amber-700 dark:text-amber-200 leading-relaxed mt-1">
+                {item.data.common_mistake}
+              </p>
+            )}
           </div>
         )}
+
+        {/* English text only when replays exhausted (no manual hint yet) */}
+        {replaysLeft <= 0 && !hintRevealed && !showHint && (
+          <div className="w-full rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-3">
+            <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide mb-1">
+              Text (replays used up)
+            </p>
+            <p className="text-sm text-amber-800 dark:text-amber-200 italic">&ldquo;{item.data.context_sentence}&rdquo;</p>
+          </div>
+        )}
+      </div>
+
+      {/* Skip / Hint actions */}
+      <div className="flex gap-3">
+        <button
+          onClick={handleSkip}
+          disabled={submitted}
+          className={`flex items-center gap-2 px-4 min-h-[44px] rounded-xl font-semibold text-sm transition-all border-2 focus-visible:ring-2 focus-visible:ring-sky-400 ${
+            submitted
+              ? 'border-slate-200 dark:border-slate-600 text-slate-300 dark:text-slate-600 cursor-not-allowed'
+              : 'border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:border-sky-300 dark:hover:border-sky-600 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/30'
+          }`}
+        >
+          <EyeOff size={16} />
+          Skip
+        </button>
+        <button
+          onClick={handleHint}
+          disabled={submitted || hintRevealed}
+          className={`flex items-center gap-2 px-4 min-h-[44px] rounded-xl font-semibold text-sm transition-all border-2 focus-visible:ring-2 focus-visible:ring-amber-400 ${
+            submitted || hintRevealed
+              ? 'border-slate-200 dark:border-slate-600 text-slate-300 dark:text-slate-600 cursor-not-allowed'
+              : 'border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30'
+          }`}
+        >
+          <HelpCircle size={16} />
+          Hint
+        </button>
       </div>
 
       {/* Input */}

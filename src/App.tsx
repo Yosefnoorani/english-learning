@@ -6,7 +6,7 @@ import { loadFeedback } from '@/services/feedbackService'
 import type { NavView } from '@/types/game'
 import { AppShell } from '@/components/layout/AppShell'
 import { PlacementView } from '@/components/game/PlacementView'
-import { FlashcardView } from '@/components/game/FlashcardView'
+import { VocabRecallView } from '@/components/game/VocabRecallView'
 import { GrammarChoiceView } from '@/components/game/GrammarChoiceView'
 import { SentenceBuilder } from '@/components/game/SentenceBuilder'
 import { FeedbackDrawer } from '@/components/game/FeedbackDrawer'
@@ -14,6 +14,9 @@ import { TranslationView } from '@/components/game/TranslationView'
 import { DictationView } from '@/components/game/DictationView'
 import { ConjugationView } from '@/components/game/ConjugationView'
 import { SpellingView } from '@/components/game/SpellingView'
+import { MatchingPairsView } from '@/components/game/MatchingPairsView'
+import { VocabularyChoiceView } from '@/components/game/VocabularyChoiceView'
+import { WordScrambleView } from '@/components/game/WordScrambleView'
 import { ReadingView } from '@/components/game/ReadingView'
 import { SkillsPanel } from '@/components/game/SkillsPanel'
 import { ResourcesPanel } from '@/components/game/ResourcesPanel'
@@ -159,7 +162,7 @@ export default function App() {
             item ? (
               <div className="flex flex-col gap-5 py-4 overflow-y-auto flex-1">
                 {item.type === 'vocabulary' && (
-                  <FlashcardView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
+                  <VocabRecallView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
                 {item.type === 'grammar_choice' && (
                   <GrammarChoiceView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
@@ -181,6 +184,15 @@ export default function App() {
                 )}
                 {item.type === 'word_spelling' && (
                   <SpellingView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
+                )}
+                {item.type === 'vocabulary_match' && (
+                  <MatchingPairsView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
+                )}
+                {item.type === 'vocabulary_choice' && (
+                  <VocabularyChoiceView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
+                )}
+                {item.type === 'word_scramble' && (
+                  <WordScrambleView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
                 {item.type === 'reading_comprehension' && (
                   <ReadingView item={item} onAnswer={submitAnswer} onDismiss={dismissFeedback} showHint={triggerHint} />
