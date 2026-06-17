@@ -116,8 +116,12 @@ export function classifyMistake(
     return typeDefault
   }
 
+  if (item.type === 'vocabulary' || item.type === 'word_scramble') {
+    if (grading.similarity >= 0.5 && grading.similarity < 0.9) return 'spelling'
+    return typeDefault
+  }
+
   if (
-    item.type === 'vocabulary' ||
     item.type === 'grammar_choice' ||
     item.type === 'placement_test' ||
     item.type === 'reading_comprehension'

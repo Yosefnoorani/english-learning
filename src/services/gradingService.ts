@@ -370,6 +370,96 @@ export interface AlignedDiff {
   correctTokens: DiffToken[]
 }
 
+function charMatches(a: string, b: string): boolean {
+  return a.toLowerCase() === b.toLowerCase()
+}
+
+function groupCharDiffTokens(chars: Array<{ text: string; kind: DiffToken['kind'] }>): DiffToken[] {
+  if (chars.length === 0) return []
+  const grouped: DiffToken[] = [{ text: chars[0].text, kind: chars[0].kind }]
+  for (let i = 1; i < chars.length; i++) {
+    const prev = grouped[grouped.length - 1]
+    if (prev.kind === chars[i].kind) prev.text += chars[i].text
+    else grouped.push({ text: chars[i].text, kind: chars[i].kind })
+  }
+  return grouped
+}
+
+/** Character-level diff for typed single-word answers (spelling / vocabulary). */
+export function buildCharAlignedDiff(expected: string, got: string): AlignedDiff {
+  if (!got || got === '__skip__' || got === '__wrong__') {
+    return { userTokens: [], correctTokens: [] }
+  }
+
+  const expChars = [...expected]
+  const gotChars = [...got]
+  const m = expChars.length
+  const n = gotChars.length
+
+  const dp: number[][] = Array.from({ length: m + 1 }, (_, i) =>
+    Array.from({ length: n + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0)),
+  )
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (charMatches(expChars[i - 1], gotChars[j - 1])) {
+        dp[i][j] = dp[i - 1][j - 1]
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+      }
+    }
+  }
+
+  const pairs: Array<{ expected: string | null; got: string | null }> = []
+  let i = m
+  let j = n
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && charMatches(expChars[i - 1], gotChars[j - 1])) {
+      pairs.push({ expected: expChars[i - 1], got: gotChars[j - 1] })
+      i--
+      j--
+    } else if (j > 0 && (i === 0 || dp[i][j - 1] <= dp[i - 1][j] && dp[i][j - 1] <= dp[i - 1][j - 1])) {
+      pairs.push({ expected: null, got: gotChars[j - 1] })
+      j--
+    } else if (i > 0 && (j === 0 || dp[i - 1][j] <= dp[i][j - 1] && dp[i - 1][j] <= dp[i - 1][j - 1])) {
+      pairs.push({ expected: expChars[i - 1], got: null })
+      i--
+    } else {
+      pairs.push({ expected: expChars[i - 1], got: gotChars[j - 1] })
+      i--
+      j--
+    }
+  }
+  pairs.reverse()
+
+  const userChars: Array<{ text: string; kind: DiffToken['kind'] }> = []
+  const correctChars: Array<{ text: string; kind: DiffToken['kind'] }> = []
+
+  for (const { expected: exp, got: g } of pairs) {
+    if (exp === null && g !== null) {
+      userChars.push({ text: g, kind: 'extra' })
+    } else if (g === null && exp !== null) {
+      correctChars.push({ text: exp, kind: 'missing' })
+    } else if (exp !== null && g !== null) {
+      const kind = charMatches(exp, g) ? 'correct' : 'wrong'
+      userChars.push({ text: g, kind })
+      correctChars.push({ text: exp, kind })
+    }
+  }
+
+  return {
+    userTokens: groupCharDiffTokens(userChars),
+    correctTokens: groupCharDiffTokens(correctChars),
+  }
+}
+
+export function buildTypedWordDiff(item: ContentItem, userInput: string): AlignedDiff {
+  const allAnswers = [item.data.correct_answer, ...(item.data.alternate_answers ?? [])]
+  const bestAnswer = allAnswers.reduce((best, ans) =>
+    charSimilarity(ans, userInput) > charSimilarity(best, userInput) ? ans : best,
+  )
+  return buildCharAlignedDiff(bestAnswer, userInput)
+}
+
 export function buildAlignedDiff(item: ContentItem, userInput: string): AlignedDiff {
   const userTokens = buildDiffTokens(item, userInput)
   if (userTokens.length === 0) return { userTokens: [], correctTokens: [] }

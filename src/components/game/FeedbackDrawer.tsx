@@ -3,7 +3,7 @@ import { CheckCircle2, XCircle, BookOpen } from 'lucide-react'
 import type { AnswerResult } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
 import { SpeakButton } from '@/components/ui/SpeakButton'
-import { buildAlignedDiff, type DiffToken } from '@/services/gradingService'
+import { buildAlignedDiff, buildTypedWordDiff, type DiffToken } from '@/services/gradingService'
 import { useGameStore } from '@/store/useGameStore'
 import { playCorrect, playWrong, vibrateCorrect, vibrateWrong } from '@/services/soundService'
 import { getMistakeFeedback } from '@/services/feedbackService'
@@ -15,7 +15,8 @@ interface FeedbackDrawerProps {
 }
 
 const OPEN_ANSWER_TYPES = new Set(['sentence_builder', 'translation_he_en', 'listening_dictation'])
-const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', 'verb_conjugation', 'word_spelling'])
+const TYPED_ANSWER_TYPES = new Set(['vocabulary', 'word_spelling', 'word_scramble', 'verb_conjugation'])
+const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', ...TYPED_ANSWER_TYPES])
 const KEYBOARD_DISMISS_DELAY_MS = 400
 
 function UserDiffDisplay({ tokens }: { tokens: DiffToken[] }) {
@@ -119,13 +120,24 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
 
   const userAnswer = (result as AnswerResult & { userAnswer?: string }).userAnswer ?? ''
   const explanation = (result as AnswerResult & { explanation?: string }).explanation
-  const showDiff = !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
-  const alignedDiff = showDiff ? buildAlignedDiff(item, userAnswer) : { userTokens: [], correctTokens: [] }
+  const isTypedAnswer = TYPED_ANSWER_TYPES.has(item.type)
+  const showSentenceDiff =
+    !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
+  const showTypedDiff =
+    !isCorrect && isTypedAnswer && userAnswer && userAnswer !== '__skip__'
+  const showDiff = showSentenceDiff || showTypedDiff
+  const alignedDiff = showTypedDiff
+    ? buildTypedWordDiff(item, userAnswer)
+    : showSentenceDiff
+      ? buildAlignedDiff(item, userAnswer)
+      : { userTokens: [], correctTokens: [] }
   const showAnswerComparison =
     !isCorrect &&
     userAnswer &&
     userAnswer !== '__skip__' &&
     (OPEN_ANSWER_TYPES.has(item.type) || CHOICE_ANSWER_TYPES.has(item.type))
+  const showTypedComparison = showAnswerComparison && isTypedAnswer
+  const showOpenComparison = showAnswerComparison && !isTypedAnswer
   const showNearMiss =
     isCorrect && explanation && explanation !== 'Correct!' && !explanation.startsWith('Well done')
 
@@ -237,6 +249,15 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
             </span>
           </div>
 
+          {showTypedComparison && (
+            <AnswerComparison
+              userAnswer={userAnswer}
+              correctAnswer={correctAnswer}
+              userTokens={showDiff ? alignedDiff.userTokens : undefined}
+              correctTokens={showDiff ? alignedDiff.correctTokens : undefined}
+            />
+          )}
+
           {showNearMiss && (
             <div className="rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 p-4">
               <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">{explanation}</p>
@@ -261,7 +282,7 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
                 למה טעית?
               </p>
 
-              {showAnswerComparison && (
+              {showOpenComparison && (
                 <AnswerComparison
                   userAnswer={userAnswer}
                   correctAnswer={correctAnswer}
