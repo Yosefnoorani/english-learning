@@ -25,6 +25,7 @@ import {
   getRatingFromTier,
   getEffectivePracticeTier,
   MIN_TIER,
+  MAX_TIER,
 } from '@/services/adaptiveProgressionService'
 import {
   upsertMistakeOnWrong,
@@ -63,6 +64,10 @@ interface GameState {
   tierCorrectStreak: number
   tierWrongStreak: number
   hadRecentMistakeAtTier: boolean
+  /** Highest tier ever reached — unlocks practice levels. */
+  highestTierReached: number
+  /** Absolute tier for question selection (1–highestTierReached). */
+  practiceTier: number
 
   sessionAnswered: number
   sessionCorrect: number
@@ -77,8 +82,6 @@ interface GameState {
   hasCompletedSetup: boolean
   voiceLang: string
   voiceRate: number
-  /** How many tiers below currentTier to pull practice questions from (0 = current level). */
-  practiceTierOffset: number
   /** Recently seen content IDs — reduces repetition across sessions. */
   recentContentIds: string[]
 
@@ -107,7 +110,7 @@ interface GameState {
   markOnboardingSeen: () => void
   setVoice: (lang: string, rate: number) => void
   setDailyGoalTarget: (n: number) => void
-  setPracticeTierOffset: (offset: number) => void
+  setPracticeTier: (tier: number) => void
   resetProgress: () => void
   showOnboardingTour: () => void
 }
@@ -213,6 +216,8 @@ export const useGameStore = create<GameState>()(
       tierCorrectStreak: 0,
       tierWrongStreak: 0,
       hadRecentMistakeAtTier: false,
+      highestTierReached: MIN_TIER,
+      practiceTier: MIN_TIER,
 
       sessionAnswered: 0,
       sessionCorrect: 0,
@@ -226,7 +231,6 @@ export const useGameStore = create<GameState>()(
       hasCompletedSetup: false,
       voiceLang: 'en-GB',
       voiceRate: 0.9,
-      practiceTierOffset: 0,
       recentContentIds: [],
       activeView: 'practice',
       resumeSnapshot: null,
@@ -243,10 +247,10 @@ export const useGameStore = create<GameState>()(
       setDailyGoalTarget: (n) =>
         set((s) => ({ userState: { ...s.userState, dailyGoalTarget: n } })),
 
-      setPracticeTierOffset: (offset) => {
-        const { currentTier } = get()
-        const maxOffset = Math.max(0, currentTier - MIN_TIER)
-        set({ practiceTierOffset: Math.max(0, Math.min(maxOffset, offset)) })
+      setPracticeTier: (tier) => {
+        const { highestTierReached } = get()
+        const clamped = Math.max(MIN_TIER, Math.min(highestTierReached, tier))
+        set({ practiceTier: clamped })
       },
 
       setActiveView: (view) => {
@@ -285,7 +289,8 @@ export const useGameStore = create<GameState>()(
           tierCorrectStreak: 0,
           tierWrongStreak: 0,
           hadRecentMistakeAtTier: false,
-          practiceTierOffset: 0,
+          highestTierReached: MIN_TIER,
+          practiceTier: MIN_TIER,
           resumeSnapshot: null,
           activeView: 'practice',
         }),
@@ -296,8 +301,7 @@ export const useGameStore = create<GameState>()(
       },
 
       continueSession: async () => {
-        const { currentTier, practiceTierOffset, skillStats, mistakeQueue, recentContentIds } = get()
-        const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
+        const { practiceTier, skillStats, mistakeQueue, recentContentIds } = get()
         const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
         set({
           questionBuffer: items,
@@ -319,6 +323,8 @@ export const useGameStore = create<GameState>()(
             phase: 'gameplay',
             hasCompletedSetup: true,
             currentTier: MIN_TIER,
+            highestTierReached: MIN_TIER,
+            practiceTier: MIN_TIER,
             userState: { ...state.userState, rating: getRatingFromTier(MIN_TIER) },
           })
         }
@@ -362,14 +368,15 @@ export const useGameStore = create<GameState>()(
       },
 
       completePlacement: async (finalRating: number) => {
-        const tier = Math.min(10, Math.max(1, Math.floor((finalRating - 350) / 50) + 1))
-        const { skillStats, mistakeQueue, practiceTierOffset, recentContentIds } = get()
-        const practiceTier = getEffectivePracticeTier(tier, practiceTierOffset)
-        const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
+        const tier = Math.min(MAX_TIER, Math.max(MIN_TIER, Math.floor((finalRating - 350) / 50) + 1))
+        const { skillStats, mistakeQueue, recentContentIds } = get()
+        const items = await fetchQuestions(tier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
         set((s) => ({
           phase: 'gameplay',
           userState: { ...s.userState, rating: finalRating },
           currentTier: tier,
+          highestTierReached: tier,
+          practiceTier: tier,
           tierCorrectStreak: 0,
           tierWrongStreak: 0,
           hadRecentMistakeAtTier: false,
@@ -420,6 +427,7 @@ export const useGameStore = create<GameState>()(
           tierCorrectStreak,
           tierWrongStreak,
           hadRecentMistakeAtTier,
+          highestTierReached,
         } = state
         let { rating, streak, score, dailyGoalProgress, dailyGoalTarget, lastActiveDate, streakFreezes } =
           state.userState
@@ -476,6 +484,7 @@ export const useGameStore = create<GameState>()(
           tierChanged = tierAction.promoted
           if (tierAction.promoted) {
             didLevelUp = true
+            highestTierReached = Math.max(highestTierReached, tierAction.newTier)
             setTimeout(() => fireConfetti('levelup'), 100)
           }
 
@@ -496,7 +505,9 @@ export const useGameStore = create<GameState>()(
           hadRecentMistakeAtTier = tierAction.hadRecentMistakeAtTier
           rating = tierAction.newRating
           tierChanged = tierAction.demoted
-          streak = 0
+          if (tierAction.demoted) {
+            streak = 0
+          }
           triggerHint = true
         }
 
@@ -515,13 +526,13 @@ export const useGameStore = create<GameState>()(
           tierCorrectStreak,
           tierWrongStreak,
           hadRecentMistakeAtTier,
+          highestTierReached,
         })
 
         if (tierChanged) {
           const s = get()
-          const practiceTier = getEffectivePracticeTier(s.currentTier, s.practiceTierOffset)
           const fresh = await fetchQuestions(
-            practiceTier,
+            s.practiceTier,
             'gameplay',
             BUFFER_SIZE,
             s.skillStats,
@@ -540,8 +551,7 @@ export const useGameStore = create<GameState>()(
         const {
           questionBuffer,
           currentIndex,
-          currentTier,
-          practiceTierOffset,
+          practiceTier,
           phase,
           skillStats,
           mistakeQueue,
@@ -591,7 +601,6 @@ export const useGameStore = create<GameState>()(
         }
 
         if (nextIndex >= questionBuffer.length - 3) {
-          const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
           // Include session mistake cooldown IDs in the exclude list so the buffer refill
           // also avoids recently reviewed mistake items.
           const excludeForFetch = [...new Set([...recentContentIds, ...sessionRecentMistakeIds])]
@@ -632,10 +641,9 @@ export const useGameStore = create<GameState>()(
       },
 
       toggleMistakeReview: async () => {
-        const { mistakeReviewMode, currentTier, practiceTierOffset } = get()
+        const { mistakeReviewMode, practiceTier } = get()
         if (mistakeReviewMode) {
           const { skillStats, mistakeQueue, recentContentIds } = get()
-          const practiceTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
           const items = await fetchQuestions(practiceTier, 'gameplay', BUFFER_SIZE, skillStats, mistakeQueue, recentContentIds)
           set({ mistakeReviewMode: false, phase: 'gameplay', questionBuffer: items, currentIndex: 0, sessionRecentMistakeIds: [] })
         } else {
@@ -655,8 +663,8 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'english-game-storage',
-      version: 4,
-      migrate: (persisted: unknown) => {
+      version: 5,
+      migrate: (persisted: unknown, version: number) => {
         const s = persisted as Record<string, unknown>
         if (s.mistakeQueue && Array.isArray(s.mistakeQueue)) {
           s.mistakeQueue = migrateMistakeQueue(s.mistakeQueue as MistakeEntry[])
@@ -668,9 +676,21 @@ export const useGameStore = create<GameState>()(
         if (s.tierCorrectStreak === undefined) s.tierCorrectStreak = 0
         if (s.tierWrongStreak === undefined) s.tierWrongStreak = 0
         if (s.hadRecentMistakeAtTier === undefined) s.hadRecentMistakeAtTier = false
-        if (s.practiceTierOffset === undefined) s.practiceTierOffset = 0
         if (s.recentContentIds === undefined) s.recentContentIds = []
         if (s.activeView === undefined) s.activeView = 'practice'
+
+        if (version < 5) {
+          const currentTier = (s.currentTier as number) ?? MIN_TIER
+          const offset = (s.practiceTierOffset as number) ?? 0
+          if (s.practiceTier === undefined) {
+            s.practiceTier = getEffectivePracticeTier(currentTier, offset)
+          }
+          if (s.highestTierReached === undefined) {
+            s.highestTierReached = Math.max(MIN_TIER, currentTier)
+          }
+          delete s.practiceTierOffset
+        }
+
         return s
       },
       partialize: (state) => ({
@@ -691,7 +711,8 @@ export const useGameStore = create<GameState>()(
         tierCorrectStreak: state.tierCorrectStreak,
         tierWrongStreak: state.tierWrongStreak,
         hadRecentMistakeAtTier: state.hadRecentMistakeAtTier,
-        practiceTierOffset: state.practiceTierOffset,
+        highestTierReached: state.highestTierReached,
+        practiceTier: state.practiceTier,
         recentContentIds: state.recentContentIds,
         activeView: state.activeView,
         resumeSnapshot: state.resumeSnapshot,

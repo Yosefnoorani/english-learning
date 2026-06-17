@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { X, Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList, Sparkles } from 'lucide-react'
+import { X, Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList, Sparkles, Lock } from 'lucide-react'
 import { useGameStore } from '@/store/useGameStore'
 import type { AppTheme, SessionMode } from '@/types/game'
 import { downloadContentJson } from '@/services/contentService'
-import { getEffectivePracticeTier, getTierLabel, MIN_TIER } from '@/services/adaptiveProgressionService'
+import { getTierLabel, MIN_TIER, MAX_TIER } from '@/services/adaptiveProgressionService'
 import { AddContentPanel } from '@/components/game/AddContentPanel'
 
 interface SettingsPanelProps {
@@ -42,7 +42,8 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
   const voiceRate = useGameStore((s) => s.voiceRate)
   const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
   const currentTier = useGameStore((s) => s.currentTier)
-  const practiceTierOffset = useGameStore((s) => s.practiceTierOffset)
+  const practiceTier = useGameStore((s) => s.practiceTier)
+  const highestTierReached = useGameStore((s) => s.highestTierReached)
 
   const setTheme = useGameStore((s) => s.setTheme)
   const setSessionMode = useGameStore((s) => s.setSessionMode)
@@ -51,16 +52,14 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
   const setReducedMotion = useGameStore((s) => s.setReducedMotion)
   const setVoice = useGameStore((s) => s.setVoice)
   const setDailyGoalTarget = useGameStore((s) => s.setDailyGoalTarget)
-  const setPracticeTierOffset = useGameStore((s) => s.setPracticeTierOffset)
+  const setPracticeTier = useGameStore((s) => s.setPracticeTier)
   const resetProgress = useGameStore((s) => s.resetProgress)
   const startPlacement = useGameStore((s) => s.startPlacement)
 
   const [confirmReset, setConfirmReset] = useState(false)
   const [showAddContent, setShowAddContent] = useState(false)
 
-  const maxPracticeOffset = Math.max(0, currentTier - MIN_TIER)
-  const effectivePracticeTier = getEffectivePracticeTier(currentTier, practiceTierOffset)
-  const practiceOffsetOptions = [0, 1, 2, 3].filter((n) => n <= maxPracticeOffset)
+  const allTiers = Array.from({ length: MAX_TIER - MIN_TIER + 1 }, (_, i) => MIN_TIER + i)
 
   async function handleStartPlacement() {
     onClose()
@@ -165,33 +164,46 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Practice Level</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
               Your level: <span className="font-semibold">{getTierLabel(currentTier)}</span>
-              {practiceTierOffset > 0 && (
-                <> · Practising: <span className="font-semibold text-amber-600 dark:text-amber-400">{getTierLabel(effectivePracticeTier)}</span></>
+              {practiceTier !== currentTier && (
+                <> · Practising: <span className="font-semibold text-amber-600 dark:text-amber-400">{getTierLabel(practiceTier)}</span></>
               )}
             </p>
             <div className="flex flex-col gap-2">
-              {practiceOffsetOptions.map((offset) => {
-                const tier = getEffectivePracticeTier(currentTier, offset)
-                const label = offset === 0
-                  ? `Current (${getTierLabel(tier)})`
-                  : `−${offset} tier${offset > 1 ? 's' : ''} (${getTierLabel(tier)})`
+              {allTiers.map((tier) => {
+                const isLocked = tier > highestTierReached
+                const isCurrent = tier === currentTier
+                const isSelected = tier === practiceTier
                 return (
                   <button
-                    key={offset}
-                    onClick={() => setPracticeTierOffset(offset)}
-                    className={`w-full py-2.5 px-4 rounded-xl border-2 text-sm font-semibold transition-all min-h-[44px] text-left ${
-                      practiceTierOffset === offset
-                        ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300'
-                        : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
+                    key={tier}
+                    disabled={isLocked}
+                    title={isLocked ? 'Reach this level to unlock' : undefined}
+                    onClick={() => setPracticeTier(tier)}
+                    className={`w-full py-2.5 px-4 rounded-xl border-2 text-sm font-semibold transition-all min-h-[44px] text-left flex items-center justify-between gap-2 ${
+                      isLocked
+                        ? 'border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed opacity-60'
+                        : isSelected
+                          ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300'
+                          : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
                     }`}
                   >
-                    {label}
+                    <span>
+                      T{tier} · {getTierLabel(tier)}
+                    </span>
+                    <span className="flex items-center gap-1.5 shrink-0">
+                      {isCurrent && (
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-indigo-500 dark:text-indigo-400">
+                          Your level
+                        </span>
+                      )}
+                      {isLocked && <Lock size={14} className="text-slate-400" aria-hidden />}
+                    </span>
                   </button>
                 )
               })}
             </div>
             <p className="text-[11px] text-slate-400 mt-2">
-              Choose a lower level to review basics. Your progress tier stays the same.
+              Choose any level you&apos;ve reached. Locked levels unlock when you promote.
             </p>
           </section>
 

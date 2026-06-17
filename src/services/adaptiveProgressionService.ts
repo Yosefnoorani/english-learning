@@ -3,7 +3,8 @@
 export const PROMOTION_X = 7
 export const PROMOTION_Y = 4
 export const PROMOTION_AFTER_MISTAKE = PROMOTION_X + PROMOTION_Y // 11
-export const DEMOTION_WRONG_STREAK = 2
+export const TIER_PROGRESS_PENALTY = 2
+export const DEMOTION_WRONG_STREAK = 3
 export const MIN_TIER = 1
 export const MAX_TIER = 10
 export const TIER_MIN_DIFFICULTY = 350
@@ -111,7 +112,7 @@ export function onCorrect(
 
 export function onWrong(
   currentTier: number,
-  _tierCorrectStreak: number,
+  tierCorrectStreak: number,
   tierWrongStreak: number,
 ): TierAction {
   const newWrongStreak = tierWrongStreak + 1
@@ -132,7 +133,7 @@ export function onWrong(
   return {
     newTier: currentTier,
     newRating: getRatingFromTier(currentTier),
-    tierCorrectStreak: 0,
+    tierCorrectStreak: Math.max(0, tierCorrectStreak - TIER_PROGRESS_PENALTY),
     tierWrongStreak: newWrongStreak,
     hadRecentMistakeAtTier: true,
     promoted: false,

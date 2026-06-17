@@ -77,6 +77,21 @@ export async function submitTelemetry(entry: TelemetryEntry): Promise<void> {
 
 const RECENT_EXCLUDE_CAP = 30
 
+/** Per-type caps per batch — conjugation gets a higher share than most types. */
+const TYPE_CAPS: Partial<Record<ContentItem['type'], number>> = {
+  verb_conjugation: 4,
+}
+const DEFAULT_TYPE_CAP = 2
+
+function getTypeCap(type: ContentItem['type']): number {
+  return TYPE_CAPS[type] ?? DEFAULT_TYPE_CAP
+}
+
+/** Ensure at least this fraction of each batch is verb conjugation (when available). */
+function minConjugationSlots(batchSize: number): number {
+  return Math.max(1, Math.ceil(batchSize * 0.25))
+}
+
 function skillBiasedSelect(
   pool: ContentItem[],
   limit: number,
@@ -126,6 +141,19 @@ function skillBiasedSelect(
   const typeCount: Record<string, number> = {}
   const remaining = shuffle(workingPool.filter((item) => !usedIds.has(item.id)))
 
+  // Reserve conjugation slots early so they are not crowded out by vocab derivatives.
+  const conjugationMin = minConjugationSlots(limit)
+  const conjugationCandidates = shuffle(
+    workingPool.filter((item) => item.type === 'verb_conjugation' && !usedIds.has(item.id)),
+  )
+  for (const item of conjugationCandidates) {
+    if (selected.length >= limit) break
+    if ((typeCount.verb_conjugation ?? 0) >= conjugationMin) break
+    selected.push(item)
+    usedIds.add(item.id)
+    typeCount.verb_conjugation = (typeCount.verb_conjugation ?? 0) + 1
+  }
+
   while (selected.length < limit) {
     const useWeakSkill = weakSkillItems.length > 0 && Math.random() < 0.4
     const candidatePool = useWeakSkill ? weakSkillItems : remaining.filter((i) => !usedIds.has(i.id))
@@ -141,7 +169,7 @@ function skillBiasedSelect(
     }
 
     const pick =
-      candidatePool.find((i) => (typeCount[i.type] ?? 0) < 2) ??
+      candidatePool.find((i) => (typeCount[i.type] ?? 0) < getTypeCap(i.type)) ??
       candidatePool[0]
 
     selected.push(pick)
