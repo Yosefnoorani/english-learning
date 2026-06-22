@@ -305,4 +305,58 @@ Research in behavioural economics has demonstrated that this tendency is not lim
       common_mistake: 'Academic passages often define terms in the same sentence — "motivated reasoning — selectively interpreting…" gives the definition.',
     },
   },
+  {
+    id: 'r8',
+    type: 'reading_comprehension',
+    difficulty: 520,
+    skill: 'vocabulary_travel',
+    tags: ['travel', 'reading', 'intermediate'],
+    data: {
+      context_sentence: 'Read the passage and answer the questions below.',
+      context_translation: 'קרא את הקטע וענה על השאלות.',
+      correct_answer: '',
+      passage: `Traveling by train across Europe remains one of the most popular ways to see the continent. High-speed rail connects major cities in hours, and overnight sleeper trains offer a comfortable alternative to short flights. Many travellers prefer trains because stations are usually located in city centres, avoiding long airport transfers.
+
+However, booking in advance is essential during peak season. Prices can rise sharply, and popular routes sell out weeks ahead. A rail pass can save money for those planning multiple journeys within a month.`,
+      comprehension_questions: [
+        {
+          q: 'Why do many travellers prefer trains according to the passage?',
+          options: [
+            'Trains are always cheaper than flights',
+            'Stations are usually in city centres',
+            'Sleeper trains are faster than planes',
+            'Booking is never required',
+          ],
+          answer: 'Stations are usually in city centres',
+        },
+      ],
+      common_mistake: 'Look for explicit reasons stated in the text — "because stations are usually located in city centres".',
+    },
+  },
+  {
+    id: 'r9',
+    type: 'reading_comprehension',
+    difficulty: 560,
+    skill: 'present_perfect',
+    tags: ['grammar', 'reading', 'intermediate'],
+    data: {
+      context_sentence: 'Read the passage and answer the questions below.',
+      context_translation: 'קרא את הקטע וענה על השאלות.',
+      correct_answer: '',
+      passage: `Sarah has lived in Tel Aviv for ten years, but she has never learned to surf. Last summer, her friend invited her to a lesson in Herzliya. She was nervous at first, but after an hour she stood on the board for a few seconds. Since that day, she has practised every weekend when the waves are calm.`,
+      comprehension_questions: [
+        {
+          q: 'How long has Sarah lived in Tel Aviv?',
+          options: ['One summer', 'Ten years', 'Every weekend', 'A few seconds'],
+          answer: 'Ten years',
+        },
+        {
+          q: 'When did she first stand on the board?',
+          options: ['Ten years ago', 'Last summer', 'Every weekend', 'She has never stood on a board'],
+          answer: 'Last summer',
+        },
+      ],
+      grammar_hint: 'Present Perfect (has lived) = unfinished time connection. Past Simple (Last summer) = finished time.',
+    },
+  },
 ]

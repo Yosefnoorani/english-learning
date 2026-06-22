@@ -1,5 +1,8 @@
-import { Zap } from 'lucide-react'
+import { useMemo } from 'react'
+import { Zap, BookOpen } from 'lucide-react'
 import { useGameStore, selectLevelLabel } from '@/store/useGameStore'
+import { getContentById } from '@/services/contentService'
+import { SKILL_LABELS } from '@/types/game'
 
 interface SessionSummaryProps {
   onContinue: () => void
@@ -9,24 +12,33 @@ interface SessionSummaryProps {
 export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
   const sessionAnswered = useGameStore((s) => s.sessionAnswered)
   const sessionCorrect = useGameStore((s) => s.sessionCorrect)
+  const sessionCombo = useGameStore((s) => s.sessionCombo)
+  const sessionLearnedIds = useGameStore((s) => s.sessionLearnedIds)
   const dailyGoalProgress = useGameStore((s) => s.userState.dailyGoalProgress)
   const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
   const streak = useGameStore((s) => s.userState.streak)
   const levelLabel = useGameStore(selectLevelLabel)
   const sessionMode = useGameStore((s) => s.sessionMode)
+  const lastResult = useGameStore((s) => s.lastResult)
 
   const accuracy = sessionAnswered > 0 ? Math.round((sessionCorrect / sessionAnswered) * 100) : 0
   const passed = accuracy >= 60
 
+  const learnedItems = useMemo(
+    () => sessionLearnedIds.slice(0, 3).map((id) => getContentById(id)).filter(Boolean),
+    [sessionLearnedIds],
+  )
+
+  const recapItems = sessionLearnedIds.slice(-3).map((id) => getContentById(id)).filter(Boolean)
+
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm">
       <div className="w-full max-w-sm fade-in">
-        <div className={`rounded-3xl p-7 shadow-2xl flex flex-col gap-5 ${
+        <div className={`rounded-3xl p-7 shadow-2xl flex flex-col gap-5 max-h-[90svh] overflow-y-auto ${
           passed
             ? 'bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/60 dark:to-teal-950/60'
             : 'bg-white dark:bg-slate-900'
         }`}>
-          {/* Emoji + title */}
           <div className="flex flex-col items-center gap-3 text-center">
             <div className="text-5xl">{passed ? '🎉' : '💪'}</div>
             <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
@@ -34,30 +46,62 @@ export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">
               {levelLabel} · {streak} day streak
+              {sessionCombo >= 3 && ` · best combo ×${sessionCombo}`}
             </p>
           </div>
 
-          {/* Stats grid */}
           <div className="grid grid-cols-3 gap-3">
             <div className="flex flex-col items-center bg-white/70 dark:bg-slate-800/70 rounded-2xl p-3 gap-1">
               <span className="text-2xl font-bold text-slate-800 dark:text-slate-100">{sessionCorrect}</span>
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide text-center">Correct</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide text-center">Correct</span>
             </div>
             <div className="flex flex-col items-center bg-white/70 dark:bg-slate-800/70 rounded-2xl p-3 gap-1">
               <span className={`text-2xl font-bold ${passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
                 {accuracy}%
               </span>
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide text-center">Accuracy</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide text-center">Accuracy</span>
             </div>
             <div className="flex flex-col items-center bg-white/70 dark:bg-slate-800/70 rounded-2xl p-3 gap-1">
               <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
                 +{sessionCorrect * 10}
               </span>
-              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide text-center">Points</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide text-center">Points</span>
             </div>
           </div>
 
-          {/* Daily goal progress */}
+          {learnedItems.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+                <BookOpen size={12} />
+                What you practised
+              </p>
+              <ul className="flex flex-col gap-1.5">
+                {learnedItems.map((item) => item && (
+                  <li key={item.id} className="text-sm text-slate-700 dark:text-slate-200 bg-white/60 dark:bg-slate-800/60 rounded-lg px-3 py-2">
+                    <span className="font-semibold">{item.data.word ?? item.data.correct_answer.slice(0, 40)}</span>
+                    <span className="text-xs text-slate-400 block">{SKILL_LABELS[item.skill]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {!passed && lastResult && !lastResult.isCorrect && (
+            <div className="rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900 p-3">
+              <p className="text-xs font-semibold text-rose-600 dark:text-rose-400 mb-1">Remember</p>
+              <p className="text-sm text-rose-800 dark:text-rose-200">{lastResult.correctAnswer}</p>
+            </div>
+          )}
+
+          {recapItems.length > 0 && (
+            <div className="flex flex-col gap-1">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Quick recap</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {recapItems.map((i) => i?.data.word ?? i?.data.correct_answer.split(' ')[0]).join(' · ')}
+              </p>
+            </div>
+          )}
+
           <div className="flex flex-col gap-1.5">
             <div className="flex justify-between text-xs text-slate-400">
               <span>Daily goal</span>
@@ -73,7 +117,6 @@ export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
             </div>
           </div>
 
-          {/* CTAs */}
           <div className="flex flex-col gap-2">
             <button
               onClick={onContinue}

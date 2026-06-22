@@ -10,6 +10,29 @@
  */
 
 const AI_ENABLED = import.meta.env.VITE_ENABLE_AI === 'true'
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY as string | undefined
+
+async function callGemini(prompt: string): Promise<string | null> {
+  if (!GEMINI_KEY) return null
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.3, maxOutputTokens: 512 },
+        }),
+      },
+    )
+    if (!res.ok) return null
+    const data = await res.json() as { candidates?: { content?: { parts?: { text?: string }[] } }[] }
+    return data.candidates?.[0]?.content?.parts?.[0]?.text ?? null
+  } catch {
+    return null
+  }
+}
 
 // ── Public types ─────────────────────────────────────────────
 
@@ -36,22 +59,22 @@ export interface MistakeExplanation {
 export async function gradeFreeWriting(
   expectedAnswer: string,
   userAnswer: string,
-  _skillContext: string,
+  skillContext: string,
 ): Promise<FreeWritingResult> {
-  if (!AI_ENABLED) {
-    return mockFreeWritingResult(expectedAnswer, userAnswer)
+  if (AI_ENABLED || GEMINI_KEY) {
+    const prompt = `You are an English teacher helping a Hebrew speaker. Grade this translation.
+Expected: "${expectedAnswer}"
+Student wrote: "${userAnswer}"
+Skill: ${skillContext}
+Respond ONLY as JSON: {"score":0-10,"isAcceptable":bool,"feedback":"Hebrew explanation if meaning wrong or unnatural","suggestedCorrection":"..."}`
+    const raw = await callGemini(prompt)
+    if (raw) {
+      try {
+        const json = JSON.parse(raw.replace(/```json\n?|\n?```/g, '').trim()) as FreeWritingResult
+        return json
+      } catch { /* fall through */ }
+    }
   }
-
-  // Real implementation when AI_ENABLED:
-  // const response = await callLLM(`
-  //   You are an English language teacher. The student was asked to write:
-  //   Expected: "${expectedAnswer}"
-  //   Student wrote: "${userAnswer}"
-  //   Skill being practised: ${skillContext}
-  //   Grade from 0-10 and provide concise feedback.
-  //   Respond as JSON: { score, isAcceptable, feedback, suggestedCorrection }
-  // `)
-  // return JSON.parse(response)
 
   return mockFreeWritingResult(expectedAnswer, userAnswer)
 }

@@ -1,4 +1,8 @@
-import { X, ExternalLink, Headphones, Tv, BookOpen, Mic } from 'lucide-react'
+import { useMemo } from 'react'
+import { ExternalLink, Headphones, Tv, BookOpen, Mic, Sparkles } from 'lucide-react'
+import { MobileSheet } from '@/components/layout/MobileSheet'
+import { CURRICULUM_UNITS } from '@/types/game'
+import { useGameStore } from '@/store/useGameStore'
 
 interface ResourceItem {
   title: string
@@ -73,10 +77,10 @@ const TYPE_ICONS = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  podcast: 'bg-violet-50 text-violet-600 border-violet-100',
-  series: 'bg-sky-50 text-sky-600 border-sky-100',
-  book: 'bg-amber-50 text-amber-600 border-amber-100',
-  channel: 'bg-rose-50 text-rose-600 border-rose-100',
+  podcast: 'bg-violet-50 text-violet-600 border-violet-100 dark:bg-violet-950/40 dark:text-violet-300 dark:border-violet-900',
+  series: 'bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-900',
+  book: 'bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900',
+  channel: 'bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900',
 }
 
 interface ResourcesPanelProps {
@@ -85,93 +89,115 @@ interface ResourcesPanelProps {
 }
 
 export function ResourcesPanel({ levelLabel, onClose }: ResourcesPanelProps) {
+  const skillStats = useGameStore((s) => s.skillStats)
   const current = RESOURCES_BY_BAND[levelLabel] ?? RESOURCES_BY_BAND['Intermediate']
   const otherBands = Object.values(RESOURCES_BY_BAND).filter((b) => b.label !== current.label)
 
+  const activeUnit = useMemo(() => {
+    let best = CURRICULUM_UNITS[0]
+    let bestProgress = -1
+    for (const unit of CURRICULUM_UNITS) {
+      const practised = unit.skills.filter((s) => skillStats[s])
+      const progress = practised.length / unit.skills.length
+      if (progress < 1 && progress > bestProgress) {
+        best = unit
+        bestProgress = progress
+      }
+    }
+    return best
+  }, [skillStats])
+
+  const tryThisWeek = current.resources[0]
+
   return (
-    <>
-      <div className="fixed inset-0 bg-black/30 z-40" onClick={onClose} aria-hidden="true" />
+    <MobileSheet title="Recommended Resources" onClose={onClose}>
+      <div className="px-5 py-4 flex flex-col gap-6">
+        <p className="text-xs text-slate-400">Curated for {current.label}</p>
 
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl flex flex-col slide-in-right">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Recommended Resources</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Curated for {current.label}</p>
+        <section className="rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 p-4 text-white">
+          <div className="flex items-center gap-2 text-teal-100 text-xs font-semibold uppercase tracking-wide mb-2">
+            <Sparkles size={14} />
+            Try this week
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 min-h-[44px] min-w-[44px] flex items-center justify-center">
-            <X size={20} />
-          </button>
-        </div>
+          <p className="font-bold text-sm mb-1">{tryThisWeek.title}</p>
+          <p className="text-xs text-teal-50 leading-relaxed mb-3">{tryThisWeek.description}</p>
+          <p className="text-xs text-teal-100 mb-2">Linked to {activeUnit.title} in your curriculum</p>
+          <a
+            href={tryThisWeek.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 bg-white text-teal-700 font-bold text-sm px-4 py-2 rounded-xl hover:bg-teal-50 transition-colors"
+          >
+            Open resource
+            <ExternalLink size={14} />
+          </a>
+        </section>
 
-        <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-6">
-          {/* Current level */}
-          <section>
-            <h3 className="text-sm font-bold text-indigo-700 mb-3">{current.label} — Your level</h3>
-            <div className="flex flex-col gap-3">
-              {current.resources.map((r) => {
-                const Icon = TYPE_ICONS[r.type]
-                return (
-                  <a
-                    key={r.url}
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 hover:border-indigo-200 hover:bg-indigo-50 transition-colors group"
-                  >
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-xl border flex items-center justify-center ${TYPE_COLORS[r.type]}`}>
-                      <Icon size={18} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1">
-                        <p className="text-sm font-bold text-slate-800 truncate">{r.title}</p>
-                        <ExternalLink size={12} className="text-slate-300 group-hover:text-indigo-400 flex-shrink-0 transition-colors" />
-                      </div>
-                      <p className="text-xs text-slate-500 leading-relaxed mt-0.5">{r.description}</p>
-                    </div>
-                  </a>
-                )
-              })}
-            </div>
-          </section>
-
-          {/* Other levels collapsed */}
-          <section>
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Other levels</h3>
-            <div className="flex flex-col gap-2">
-              {otherBands.map((band) => (
-                <details key={band.label} className="group">
-                  <summary className="flex items-center justify-between cursor-pointer list-none rounded-xl px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors">
-                    <span className="text-sm font-semibold text-slate-600">{band.label}</span>
-                    <span className="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
-                  </summary>
-                  <div className="flex flex-col gap-2 mt-2 ml-2">
-                    {band.resources.map((r) => {
-                      const Icon = TYPE_ICONS[r.type]
-                      return (
-                        <a
-                          key={r.url}
-                          href={r.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex gap-3 rounded-xl border border-slate-100 bg-white p-3 hover:border-slate-300 transition-colors"
-                        >
-                          <div className={`flex-shrink-0 w-8 h-8 rounded-lg border flex items-center justify-center ${TYPE_COLORS[r.type]}`}>
-                            <Icon size={14} />
-                          </div>
-                          <div>
-                            <p className="text-xs font-bold text-slate-700">{r.title}</p>
-                            <p className="text-xs text-slate-400 leading-relaxed mt-0.5">{r.description}</p>
-                          </div>
-                        </a>
-                      )
-                    })}
+        <section>
+          <h3 className="text-sm font-bold text-indigo-700 dark:text-indigo-300 mb-3">{current.label} — Your level</h3>
+          <div className="flex flex-col gap-3">
+            {current.resources.map((r) => {
+              const Icon = TYPE_ICONS[r.type]
+              return (
+                <a
+                  key={r.url}
+                  href={r.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 hover:border-indigo-200 dark:hover:border-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors group min-h-[72px]"
+                >
+                  <div className={`flex-shrink-0 w-10 h-10 rounded-xl border flex items-center justify-center ${TYPE_COLORS[r.type]}`}>
+                    <Icon size={18} />
                   </div>
-                </details>
-              ))}
-            </div>
-          </section>
-        </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1">
+                      <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{r.title}</p>
+                      <ExternalLink size={12} className="text-slate-300 group-hover:text-indigo-400 flex-shrink-0 transition-colors" />
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">{r.description}</p>
+                  </div>
+                </a>
+              )
+            })}
+          </div>
+        </section>
+
+        <section>
+          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Other levels</h3>
+          <div className="flex flex-col gap-2">
+            {otherBands.map((band) => (
+              <details key={band.label} className="group">
+                <summary className="flex items-center justify-between cursor-pointer list-none rounded-xl px-4 py-3 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-h-[48px]">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">{band.label}</span>
+                  <span className="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div className="flex flex-col gap-2 mt-2 ml-2">
+                  {band.resources.map((r) => {
+                    const Icon = TYPE_ICONS[r.type]
+                    return (
+                      <a
+                        key={r.url}
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex gap-3 rounded-xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 hover:border-slate-300 dark:hover:border-slate-600 transition-colors min-h-[56px]"
+                      >
+                        <div className={`flex-shrink-0 w-8 h-8 rounded-lg border flex items-center justify-center ${TYPE_COLORS[r.type]}`}>
+                          <Icon size={14} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-slate-700 dark:text-slate-200">{r.title}</p>
+                          <p className="text-xs text-slate-400 leading-relaxed mt-0.5">{r.description}</p>
+                        </div>
+                      </a>
+                    )
+                  })}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
       </div>
-    </>
+    </MobileSheet>
   )
 }

@@ -77,6 +77,40 @@ export type GamePhase = 'placement' | 'gameplay' | 'review'
 
 export type NavView = 'practice' | 'skills' | 'journal' | 'resources'
 
+export interface CurriculumUnit {
+  id: string
+  title: string
+  skills: SkillId[]
+}
+
+export const CURRICULUM_UNITS: CurriculumUnit[] = [
+  {
+    id: 'unit1',
+    title: 'Unit 1: Basics',
+    skills: ['present_simple', 'vocabulary_emotions', 'articles', 'sentence_structure'],
+  },
+  {
+    id: 'unit2',
+    title: 'Unit 2: Daily Life',
+    skills: ['past_simple', 'vocabulary_travel', 'prepositions', 'vocabulary_business'],
+  },
+  {
+    id: 'unit3',
+    title: 'Unit 3: Communication',
+    skills: ['present_continuous', 'modal_verbs', 'vocabulary_technology', 'reported_speech'],
+  },
+  {
+    id: 'unit4',
+    title: 'Unit 4: Complex Tenses',
+    skills: ['present_perfect', 'past_perfect', 'passive_voice', 'conditionals'],
+  },
+  {
+    id: 'unit5',
+    title: 'Unit 5: Fluency',
+    skills: ['relative_clauses', 'phrasal_verbs', 'vocabulary_academic', 'vocabulary_idioms'],
+  },
+]
+
 export interface ResumeSnapshot {
   bufferIds: string[]
   currentIndex: number
@@ -176,6 +210,14 @@ export interface MistakeEntry {
   inSessionRequeueAt?: number
   questionsUntilRequeue?: number
   cachedExplanation?: MistakeExplanation
+}
+
+/** Proactive vocab review schedule entry */
+export interface VocabReviewEntry {
+  contentId: string
+  lastSeenAt: number
+  nextReviewAt: number
+  reviewStage: number
 }
 
 // ── Telemetry ───────────────────────────────────────────────

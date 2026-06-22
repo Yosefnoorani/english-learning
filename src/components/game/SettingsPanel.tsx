@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { X, Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList, Sparkles, Lock } from 'lucide-react'
+import { Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList, Sparkles, Lock } from 'lucide-react'
+import { MobileSheet } from '@/components/layout/MobileSheet'
 import { useGameStore } from '@/store/useGameStore'
 import type { AppTheme, SessionMode } from '@/types/game'
 import { downloadContentJson } from '@/services/contentService'
@@ -51,6 +52,8 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
   const setHaptics = useGameStore((s) => s.setHaptics)
   const setReducedMotion = useGameStore((s) => s.setReducedMotion)
   const setVoice = useGameStore((s) => s.setVoice)
+  const includeAudioQuestions = useGameStore((s) => s.includeAudioQuestions)
+  const setIncludeAudioQuestions = useGameStore((s) => s.setIncludeAudioQuestions)
   const setDailyGoalTarget = useGameStore((s) => s.setDailyGoalTarget)
   const setPracticeTier = useGameStore((s) => s.setPracticeTier)
   const resetProgress = useGameStore((s) => s.resetProgress)
@@ -82,18 +85,8 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/30 z-40" onClick={onClose} />
-
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white dark:bg-slate-900 shadow-2xl flex flex-col slide-in-right">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Settings</h2>
-          <button onClick={onClose} className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 min-h-[44px] min-w-[44px] flex items-center justify-center">
-            <X size={20} />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-6">
+      <MobileSheet title="Settings" onClose={onClose}>
+        <div className="px-5 py-4 flex flex-col gap-6">
           {/* Theme */}
           <section>
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Appearance</h3>
@@ -228,6 +221,18 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
                   <p className="text-xs text-slate-400">Vibration on answers (mobile)</p>
                 </div>
                 <Toggle checked={haptics} onChange={setHaptics} label="Haptic feedback" />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">Listening &amp; speaking exercises</p>
+                  <p className="text-xs text-slate-400">Dictation and shadowing questions in practice</p>
+                </div>
+                <Toggle
+                  checked={includeAudioQuestions}
+                  onChange={setIncludeAudioQuestions}
+                  label="Listening and speaking exercises"
+                />
               </div>
 
               {/* Voice accent */}
@@ -367,7 +372,7 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
             )}
           </section>
         </div>
-      </div>
+      </MobileSheet>
 
       {showAddContent && (
         <AddContentPanel onClose={() => setShowAddContent(false)} />

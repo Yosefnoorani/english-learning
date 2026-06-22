@@ -4,6 +4,7 @@ import { useGameStore } from '@/store/useGameStore'
 import { SideNav } from './SideNav'
 import { BottomNav } from './BottomNav'
 import { TopBar } from './TopBar'
+import { PracticeHeader } from './PracticeHeader'
 
 type NavView = 'practice' | 'skills' | 'journal' | 'resources' | 'settings'
 
@@ -11,10 +12,11 @@ interface AppShellProps {
   activeView: NavView
   onNavigate: (view: NavView) => void
   onOpenSettings: () => void
+  inPracticeSession?: boolean
   children: ReactNode
 }
 
-export function AppShell({ activeView, onNavigate, onOpenSettings, children }: AppShellProps) {
+export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSession = false, children }: AppShellProps) {
   const theme = useGameStore((s) => s.theme)
   const reducedMotion = useGameStore((s) => s.reducedMotion)
 
@@ -34,6 +36,14 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, children }: A
 
     if (reducedMotion) html.classList.add('motion-reduce')
     else html.classList.remove('motion-reduce')
+
+    const themeMeta = document.getElementById('theme-color-meta') as HTMLMetaElement | null
+    if (themeMeta) {
+      const isDark =
+        theme === 'dark' ||
+        (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      themeMeta.content = isDark ? '#0f172a' : '#6366f1'
+    }
   }, [theme, reducedMotion])
 
   // Also listen for system preference changes when theme = 'system'
@@ -55,8 +65,11 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, children }: A
 
       {/* Main content column */}
       <div className="flex-1 flex flex-col min-w-0 md:ml-60">
-        {/* Slim status bar on desktop / full top bar on mobile */}
-        <TopBar onOpenSettings={onOpenSettings} />
+        {inPracticeSession ? (
+          <PracticeHeader onOpenSettings={onOpenSettings} />
+        ) : (
+          <TopBar onOpenSettings={onOpenSettings} />
+        )}
 
         {/* Page content */}
         <div className="flex-1 flex flex-col">

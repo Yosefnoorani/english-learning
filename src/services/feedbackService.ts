@@ -2,6 +2,7 @@ import type { ContentItem, MistakeExplanation, QuestionType, SkillId } from '@/t
 import { SKILL_LABELS } from '@/types/game'
 import type { ErrorMark, GradingResult } from '@/services/gradingService'
 import { gradeAnswer } from '@/services/gradingService'
+import { getInterferenceTipForSkill } from '@/content/hebrewInterference'
 
 export type MistakeTypeId =
   | 'wrong_choice'
@@ -258,10 +259,14 @@ export function getMistakeFeedback(
   grading?: GradingResult,
 ): MistakeExplanation {
   const fb = resolveMistakeFeedback(item, userAnswer, grading)
+  const interference = getInterferenceTipForSkill(item.skill)
+  const rule = interference
+    ? `${fb.rule_he}\n\n💡 דוברי עברית: ${interference.explanation_he}`
+    : fb.rule_he
   return {
     shortExplanation: fb.shortExplanation_he,
     sentenceWhy: fb.sentenceWhy_he,
-    rule: fb.rule_he,
+    rule,
     example: fb.example_en,
   }
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-15",
+  "updatedAt": "2026-06-22",
   "items": [
     {
       "id": "p0",
@@ -3353,6 +3353,1700 @@
       }
     },
     {
+      "id": "v179",
+      "type": "vocabulary",
+      "difficulty": 351,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Calm",
+        "translation": "רגוע / רגועה",
+        "context_sentence": "Take a deep breath and stay calm during the exam.",
+        "context_translation": "קח נשימה עמוקה והישאר רגוע במהלך המבחן.",
+        "correct_answer": "Calm",
+        "common_mistake": "\"Stay calm\" — not \"stay calmed\". \"Calm down\" is the verb phrase."
+      }
+    },
+    {
+      "id": "v180",
+      "type": "vocabulary",
+      "difficulty": 359,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Worried",
+        "translation": "דואג / דואגת",
+        "context_sentence": "She was worried about her sick grandmother.",
+        "context_translation": "היא דאגה לסבתא החולה שלה.",
+        "correct_answer": "Worried",
+        "common_mistake": "\"Worried about\" something. Similar to \"anxious\" but more everyday."
+      }
+    },
+    {
+      "id": "v181",
+      "type": "vocabulary",
+      "difficulty": 365,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Shy",
+        "translation": "ביישן / ביישנית",
+        "context_sentence": "The shy boy did not speak much on the first day of school.",
+        "context_translation": "הילד הביישן לא דיבר הרבה ביום הראשון בבית הספר.",
+        "correct_answer": "Shy",
+        "common_mistake": "\"Shy\" describes personality. \"Embarrassed\" is about a specific moment."
+      }
+    },
+    {
+      "id": "v182",
+      "type": "vocabulary",
+      "difficulty": 372,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Surprised",
+        "translation": "מופתע / מופתעת",
+        "context_sentence": "We were surprised when our friends threw a birthday party for us.",
+        "context_translation": "הופתענו כשהחברים שלנו ערכו לנו מסיבת יום הולדת.",
+        "correct_answer": "Surprised",
+        "common_mistake": "\"Surprised\" = how you feel. \"Surprising\" = the thing that surprises you."
+      }
+    },
+    {
+      "id": "v183",
+      "type": "vocabulary",
+      "difficulty": 378,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Confused",
+        "translation": "מבולבל / מבולבלת",
+        "context_sentence": "The new student felt confused by the complicated directions.",
+        "context_translation": "התלמיד החדש הרגיש מבולבל מההוראות המסובכות.",
+        "correct_answer": "Confused",
+        "common_mistake": "\"Confused about/by\" something — not \"confused from\"."
+      }
+    },
+    {
+      "id": "v184",
+      "type": "vocabulary",
+      "difficulty": 384,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Comfortable",
+        "translation": "נוח / בנוח",
+        "context_sentence": "I feel comfortable speaking English with my classmates.",
+        "context_translation": "אני מרגיש בנוח לדבר אנגלית עם חברי לכיתה.",
+        "correct_answer": "Comfortable",
+        "common_mistake": "\"Comfortable with\" a situation. \"Comfortable\" also describes physical ease."
+      }
+    },
+    {
+      "id": "v185",
+      "type": "vocabulary",
+      "difficulty": 391,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Jealous",
+        "translation": "קנאי / קנאית",
+        "context_sentence": "He was jealous when his brother got a new bicycle.",
+        "context_translation": "הוא קנא כשאחיו קיבל אופניים חדשים.",
+        "correct_answer": "Jealous",
+        "common_mistake": "\"Jealous of\" someone. \"Envious\" is similar and often interchangeable."
+      }
+    },
+    {
+      "id": "v186",
+      "type": "vocabulary",
+      "difficulty": 397,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Embarrassed",
+        "translation": "מבוכה / מבוכה",
+        "context_sentence": "She felt embarrassed when she forgot the words on stage.",
+        "context_translation": "היא הרגישה מבוכה כששכחה את המילים על הבמה.",
+        "correct_answer": "Embarrassed",
+        "common_mistake": "\"Embarrassed about/by\" something — temporary feeling, not a personality trait."
+      }
+    },
+    {
+      "id": "v187",
+      "type": "vocabulary",
+      "difficulty": 352,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Hotel",
+        "translation": "מלון",
+        "context_sentence": "We stayed at a small hotel near the beach.",
+        "context_translation": "לנו במלון קטן ליד החוף.",
+        "correct_answer": "Hotel",
+        "common_mistake": "\"Stay at a hotel\" — not \"stay in hotel\" (missing article)."
+      }
+    },
+    {
+      "id": "v188",
+      "type": "vocabulary",
+      "difficulty": 358,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Bus",
+        "translation": "אוטובוס",
+        "context_sentence": "The bus to the city centre leaves every fifteen minutes.",
+        "context_translation": "האוטובוס למרכז העיר יוצא כל חמש עשרה דקות.",
+        "correct_answer": "Bus",
+        "common_mistake": "\"Take the bus\" or \"get on the bus\". \"By bus\" for transport method."
+      }
+    },
+    {
+      "id": "v189",
+      "type": "vocabulary",
+      "difficulty": 364,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Train",
+        "translation": "רכבת",
+        "context_sentence": "We took the train from Tel Aviv to Haifa.",
+        "context_translation": "נסענו ברכבת מתל אביב לחיפה.",
+        "correct_answer": "Train",
+        "common_mistake": "\"Take the train\" — similar to bus. \"By train\" for method of travel."
+      }
+    },
+    {
+      "id": "v190",
+      "type": "vocabulary",
+      "difficulty": 370,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Map",
+        "translation": "מפה",
+        "context_sentence": "Use the map on your phone to find the museum.",
+        "context_translation": "השתמש במפה בטלפון כדי למצוא את המוזיאון.",
+        "correct_answer": "Map",
+        "common_mistake": "Countable: \"a map\". \"Read a map\" — not \"watch a map\"."
+      }
+    },
+    {
+      "id": "v191",
+      "type": "vocabulary",
+      "difficulty": 376,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "City",
+        "translation": "עיר",
+        "context_sentence": "Jerusalem is an ancient city with many historical sites.",
+        "context_translation": "ירושלים היא עיר עתיקה עם אתרים היסטוריים רבים.",
+        "correct_answer": "City",
+        "common_mistake": "Countable: \"a city\", \"cities\". \"In the city\" vs \"in a city\"."
+      }
+    },
+    {
+      "id": "v192",
+      "type": "vocabulary",
+      "difficulty": 382,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Country",
+        "translation": "מדינה / ארץ",
+        "context_sentence": "Israel is a small country with a rich history.",
+        "context_translation": "ישראל היא מדינה קטנה עם היסטוריה עשירה.",
+        "correct_answer": "Country",
+        "common_mistake": "\"Country\" = nation. \"Countryside\" = rural areas outside cities."
+      }
+    },
+    {
+      "id": "v193",
+      "type": "vocabulary",
+      "difficulty": 388,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner"
+      ],
+      "data": {
+        "word": "Taxi",
+        "translation": "מונית",
+        "context_sentence": "We took a taxi from the airport to the hotel.",
+        "context_translation": "לקחנו מונית משדה התעופה למלון.",
+        "correct_answer": "Taxi",
+        "common_mistake": "Also \"cab\" in American English. \"Take a taxi\" — not \"take taxi\"."
+      }
+    },
+    {
+      "id": "v194",
+      "type": "vocabulary",
+      "difficulty": 394,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner",
+        "food"
+      ],
+      "data": {
+        "word": "Coffee",
+        "translation": "קפה",
+        "context_sentence": "Would you like a cup of coffee or tea?",
+        "context_translation": "תרצה כוס קפה או תה?",
+        "correct_answer": "Coffee",
+        "common_mistake": "Uncountable: \"some coffee\". \"A cup of coffee\" for one serving."
+      }
+    },
+    {
+      "id": "v195",
+      "type": "vocabulary",
+      "difficulty": 399,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "basics",
+        "beginner",
+        "food"
+      ],
+      "data": {
+        "word": "Bread",
+        "translation": "לחם",
+        "context_sentence": "Fresh bread smells wonderful in the morning.",
+        "context_translation": "לחם טרי מריח נפלא בבוקר.",
+        "correct_answer": "Bread",
+        "common_mistake": "Uncountable — \"some bread\" or \"a loaf of bread\", not \"a bread\"."
+      }
+    },
+    {
+      "id": "v196",
+      "type": "vocabulary",
+      "difficulty": 353,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Desk",
+        "translation": "שולחן כתיבה",
+        "context_sentence": "Please leave the documents on my desk.",
+        "context_translation": "אנא השאר את המסמכים על שולחן הכתיבה שלי.",
+        "correct_answer": "Desk",
+        "common_mistake": "\"Desk\" is where you work. \"Table\" is for eating or meetings."
+      }
+    },
+    {
+      "id": "v197",
+      "type": "vocabulary",
+      "difficulty": 361,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Customer",
+        "translation": "לקוח / לקוחה",
+        "context_sentence": "The customer asked for a refund because the product was broken.",
+        "context_translation": "הלקוח ביקש החזר כי המוצר היה שבור.",
+        "correct_answer": "Customer",
+        "common_mistake": "\"Customer\" buys from a business. \"Client\" often for professional services."
+      }
+    },
+    {
+      "id": "v198",
+      "type": "vocabulary",
+      "difficulty": 368,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Company",
+        "translation": "חברה",
+        "context_sentence": "She works for a technology company in Tel Aviv.",
+        "context_translation": "היא עובדת בחברת טכנולוגיה בתל אביב.",
+        "correct_answer": "Company",
+        "common_mistake": "\"Work for a company\" — not \"work in company\". Also \"firm\" or \"business\"."
+      }
+    },
+    {
+      "id": "v199",
+      "type": "vocabulary",
+      "difficulty": 375,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Interview",
+        "translation": "ראיון עבודה",
+        "context_sentence": "He has a job interview tomorrow at ten o'clock.",
+        "context_translation": "יש לו ראיון עבודה מחר בשעה עשר.",
+        "correct_answer": "Interview",
+        "common_mistake": "\"Have an interview\" — the verb is \"interview\" (to ask questions)."
+      }
+    },
+    {
+      "id": "v200",
+      "type": "vocabulary",
+      "difficulty": 383,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Contract",
+        "translation": "חוזה",
+        "context_sentence": "She signed a one-year contract with the new employer.",
+        "context_translation": "היא חתמה על חוזה לשנה עם המעסיק החדש.",
+        "correct_answer": "Contract",
+        "common_mistake": "Countable: \"a contract\". \"Sign a contract\" — formal agreement for work or services."
+      }
+    },
+    {
+      "id": "v201",
+      "type": "vocabulary",
+      "difficulty": 389,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Store",
+        "translation": "חנות",
+        "context_sentence": "The store opens at nine in the morning.",
+        "context_translation": "החנות נפתחת בשעה תשע בבוקר.",
+        "correct_answer": "Store",
+        "common_mistake": "US: \"store\". UK: often \"shop\". Both are correct."
+      }
+    },
+    {
+      "id": "v202",
+      "type": "vocabulary",
+      "difficulty": 396,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Money",
+        "translation": "כסף",
+        "context_sentence": "Do you have enough money to pay for lunch?",
+        "context_translation": "יש לך מספיק כסף לשלם על ארוחת צהריים?",
+        "correct_answer": "Money",
+        "common_mistake": "Uncountable — \"some money\", not \"many moneys\" or \"a money\"."
+      }
+    },
+    {
+      "id": "v203",
+      "type": "vocabulary",
+      "difficulty": 350,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Mouse",
+        "translation": "עכבר (מחשב)",
+        "context_sentence": "My wireless mouse needs new batteries.",
+        "context_translation": "העכבר האלחוטי שלי צריך סוללות חדשות.",
+        "correct_answer": "Mouse",
+        "common_mistake": "Plural is \"mice\" for animals but often \"mouses\" for computer devices."
+      }
+    },
+    {
+      "id": "v204",
+      "type": "vocabulary",
+      "difficulty": 356,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "WiFi",
+        "translation": "WiFi / אינטרנט אלחוטי",
+        "context_sentence": "What is the WiFi password for this café?",
+        "context_translation": "מה סיסמת ה-WiFi של בית הקפה הזה?",
+        "correct_answer": "WiFi",
+        "common_mistake": "Often written \"Wi-Fi\" with a hyphen. No capital letters required."
+      }
+    },
+    {
+      "id": "v205",
+      "type": "vocabulary",
+      "difficulty": 363,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Camera",
+        "translation": "מצלמה",
+        "context_sentence": "The camera on my phone takes excellent photos.",
+        "context_translation": "המצלמה בטלפון שלי מצלמת תמונות מעולות.",
+        "correct_answer": "Camera",
+        "common_mistake": "Countable: \"a camera\". \"Take a photo\" — not \"make a photo\"."
+      }
+    },
+    {
+      "id": "v206",
+      "type": "vocabulary",
+      "difficulty": 369,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Battery",
+        "translation": "סוללה",
+        "context_sentence": "My phone battery dies quickly when I use GPS.",
+        "context_translation": "סוללת הטלפון שלי נגמרת מהר כשאני משתמש ב-GPS.",
+        "correct_answer": "Battery",
+        "common_mistake": "Countable: \"a battery\" or \"batteries\". \"Battery is dead/low\" — common phrases."
+      }
+    },
+    {
+      "id": "v207",
+      "type": "vocabulary",
+      "difficulty": 377,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "File",
+        "translation": "קובץ",
+        "context_sentence": "Save the file before you close the program.",
+        "context_translation": "שמור את הקובץ לפני שאתה סוגר את התוכנה.",
+        "correct_answer": "File",
+        "common_mistake": "Countable: \"a file\", \"files\". \"Save a file\" — not \"keep a file\" in this context."
+      }
+    },
+    {
+      "id": "v208",
+      "type": "vocabulary",
+      "difficulty": 385,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Button",
+        "translation": "כפתור",
+        "context_sentence": "Press the green button to start the machine.",
+        "context_translation": "לחץ על הכפתור הירוק כדי להפעיל את המכונה.",
+        "correct_answer": "Button",
+        "common_mistake": "\"Press a button\" — not \"push\" in formal instructions (both work in speech)."
+      }
+    },
+    {
+      "id": "v209",
+      "type": "vocabulary",
+      "difficulty": 392,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Charger",
+        "translation": "מטען",
+        "context_sentence": "I forgot my phone charger at home.",
+        "context_translation": "שכחתי את מטען הטלפון בבית.",
+        "correct_answer": "Charger",
+        "common_mistake": "\"Charger\" = the cable/plug device. \"Charge\" is the verb."
+      }
+    },
+    {
+      "id": "v210",
+      "type": "vocabulary",
+      "difficulty": 351,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Tree",
+        "translation": "עץ",
+        "context_sentence": "There is a large tree in the middle of the park.",
+        "context_translation": "יש עץ גדול באמצע הפארק.",
+        "correct_answer": "Tree",
+        "common_mistake": "Countable: \"a tree\", \"trees\". \"Plant a tree\" for planting."
+      }
+    },
+    {
+      "id": "v211",
+      "type": "vocabulary",
+      "difficulty": 357,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Flower",
+        "translation": "פרח",
+        "context_sentence": "She picked a red flower from the garden.",
+        "context_translation": "היא קטפה פרח אדום מהגינה.",
+        "correct_answer": "Flower",
+        "common_mistake": "Countable: \"a flower\", \"flowers\". \"Bouquet\" = a bunch of flowers."
+      }
+    },
+    {
+      "id": "v212",
+      "type": "vocabulary",
+      "difficulty": 366,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Wind",
+        "translation": "רוח",
+        "context_sentence": "The wind was strong, so we closed the windows.",
+        "context_translation": "הרוח הייתה חזקה, אז סגרנו את החלונות.",
+        "correct_answer": "Wind",
+        "common_mistake": "Uncountable — \"strong wind\". \"Windy\" is the adjective."
+      }
+    },
+    {
+      "id": "v213",
+      "type": "vocabulary",
+      "difficulty": 373,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "River",
+        "translation": "נהר",
+        "context_sentence": "The Jordan River flows through the valley.",
+        "context_translation": "נהר הירדן זורם בעמק.",
+        "correct_answer": "River",
+        "common_mistake": "Countable: \"a river\". \"Flow\" is what rivers do — not \"run\" in formal writing."
+      }
+    },
+    {
+      "id": "v214",
+      "type": "vocabulary",
+      "difficulty": 380,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Mountain",
+        "translation": "הר",
+        "context_sentence": "They climbed the mountain early in the morning.",
+        "context_translation": "הם טיפסו על ההר מוקדם בבוקר.",
+        "correct_answer": "Mountain",
+        "common_mistake": "Countable: \"a mountain\". \"Hill\" is smaller than a mountain."
+      }
+    },
+    {
+      "id": "v215",
+      "type": "vocabulary",
+      "difficulty": 387,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Beach",
+        "translation": "חוף / חוף ים",
+        "context_sentence": "We spent the whole day at the beach swimming and reading.",
+        "context_translation": "בילינו את כל היום בחוף שחיינו וקראנו.",
+        "correct_answer": "Beach",
+        "common_mistake": "\"At the beach\" — sandy area by the sea. \"Go to the beach\" is common."
+      }
+    },
+    {
+      "id": "v216",
+      "type": "vocabulary",
+      "difficulty": 393,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Sky",
+        "translation": "שמיים",
+        "context_sentence": "The sky turned orange and pink at sunset.",
+        "context_translation": "השמיים הפכו לכתומים וורודים בשקיעה.",
+        "correct_answer": "Sky",
+        "common_mistake": "Usually singular: \"the sky\". \"Skies\" appears in poetic expressions."
+      }
+    },
+    {
+      "id": "v217",
+      "type": "vocabulary",
+      "difficulty": 398,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Cloud",
+        "translation": "ענן",
+        "context_sentence": "Dark clouds appeared, and it started to rain.",
+        "context_translation": "הופיעו עננים כהים, והתחיל לרדת גשם.",
+        "correct_answer": "Cloud",
+        "common_mistake": "Countable: \"a cloud\", \"clouds\". \"Cloudy\" = adjective for overcast weather."
+      }
+    },
+    {
+      "id": "v218",
+      "type": "vocabulary",
+      "difficulty": 354,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Pen",
+        "translation": "עט",
+        "context_sentence": "Please write your name with a blue pen.",
+        "context_translation": "אנא כתוב את שמך בעט כחול.",
+        "correct_answer": "Pen",
+        "common_mistake": "Countable: \"a pen\". \"Pencil\" uses lead/graphite — not ink."
+      }
+    },
+    {
+      "id": "v219",
+      "type": "vocabulary",
+      "difficulty": 360,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Pencil",
+        "translation": "עיפרון",
+        "context_sentence": "Use a pencil so you can erase your mistakes.",
+        "context_translation": "השתמש בעיפרון כדי שתוכל למחוק את הטעויות.",
+        "correct_answer": "Pencil",
+        "common_mistake": "\"Sharpen a pencil\" — not \"fix a pencil\"."
+      }
+    },
+    {
+      "id": "v220",
+      "type": "vocabulary",
+      "difficulty": 367,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Paper",
+        "translation": "נייר / דף",
+        "context_sentence": "The teacher gave us a sheet of paper for the test.",
+        "context_translation": "המורה נתנה לנו דף נייר למבחן.",
+        "correct_answer": "Paper",
+        "common_mistake": "Uncountable for material: \"paper\". Countable for sheets: \"a piece of paper\"."
+      }
+    },
+    {
+      "id": "v221",
+      "type": "vocabulary",
+      "difficulty": 374,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Class",
+        "translation": "כיתה / שיעור",
+        "context_sentence": "Our English class starts at eight thirty.",
+        "context_translation": "שיעור האנגלית שלנו מתחיל בשמונה וחצי.",
+        "correct_answer": "Class",
+        "common_mistake": "\"Class\" = lesson or group of students. \"Classroom\" = the room."
+      }
+    },
+    {
+      "id": "v222",
+      "type": "vocabulary",
+      "difficulty": 381,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Question",
+        "translation": "שאלה",
+        "context_sentence": "Raise your hand if you have a question.",
+        "context_translation": "הרם את ידך אם יש לך שאלה.",
+        "correct_answer": "Question",
+        "common_mistake": "Countable: \"a question\". \"Ask a question\" — not \"do a question\"."
+      }
+    },
+    {
+      "id": "v223",
+      "type": "vocabulary",
+      "difficulty": 386,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Answer",
+        "translation": "תשובה",
+        "context_sentence": "Write your answer in complete sentences.",
+        "context_translation": "כתוב את תשובתך במשפטים שלמים.",
+        "correct_answer": "Answer",
+        "common_mistake": "Noun: \"an answer\". Verb: \"answer the question\" — same word."
+      }
+    },
+    {
+      "id": "v224",
+      "type": "vocabulary",
+      "difficulty": 390,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Study",
+        "translation": "ללמוד / לימודים",
+        "context_sentence": "I need to study for the maths test tonight.",
+        "context_translation": "אני צריך ללמוד למבחן במתמטיקה הערב.",
+        "correct_answer": "Study",
+        "common_mistake": "Verb: \"study for a test\". Noun (uncountable): \"study\" as in academic work."
+      }
+    },
+    {
+      "id": "v225",
+      "type": "vocabulary",
+      "difficulty": 355,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Good night",
+        "translation": "לילה טוב",
+        "context_sentence": "Good night — sleep well and see you tomorrow.",
+        "context_translation": "לילה טוב — תישן טוב ונתראה מחר.",
+        "correct_answer": "Good night",
+        "common_mistake": "Used when leaving or going to bed — not \"Good night\" as a morning greeting."
+      }
+    },
+    {
+      "id": "v226",
+      "type": "vocabulary",
+      "difficulty": 362,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Excuse me",
+        "translation": "סליחה (למשיכת תשומת לב)",
+        "context_sentence": "Excuse me, is this seat taken?",
+        "context_translation": "סליחה, המושב הזה תפוס?",
+        "correct_answer": "Excuse me",
+        "common_mistake": "For getting attention or apologising lightly. \"I'm sorry\" is for real apologies."
+      }
+    },
+    {
+      "id": "v227",
+      "type": "vocabulary",
+      "difficulty": 371,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "I am sorry",
+        "translation": "אני מצטער / סליחה",
+        "context_sentence": "I am sorry I was late to the meeting.",
+        "context_translation": "אני מצטער שהגעתי מאוחר לפגישה.",
+        "correct_answer": "I am sorry",
+        "common_mistake": "Short form: \"Sorry\". Use for apologies — not just \"Excuse me\"."
+      }
+    },
+    {
+      "id": "v228",
+      "type": "vocabulary",
+      "difficulty": 379,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "You are welcome",
+        "translation": "על לא דבר / בבקשה",
+        "context_sentence": "Thank you for your help. — You are welcome!",
+        "context_translation": "תודה על העזרה. — על לא דבר!",
+        "correct_answer": "You are welcome",
+        "common_mistake": "Reply to \"Thank you\". Informal: \"No problem\" or \"Sure\"."
+      }
+    },
+    {
+      "id": "v229",
+      "type": "vocabulary",
+      "difficulty": 387,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "No problem",
+        "translation": "אין בעיה",
+        "context_sentence": "Can you help me move this table? — No problem!",
+        "context_translation": "אתה יכול לעזור לי להזיז את השולחן? — אין בעיה!",
+        "correct_answer": "No problem",
+        "common_mistake": "Casual way to agree or respond to thanks. More informal than \"You are welcome\"."
+      }
+    },
+    {
+      "id": "v230",
+      "type": "vocabulary",
+      "difficulty": 395,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Of course",
+        "translation": "כמובן / בטח",
+        "context_sentence": "Of course you can borrow my notes for the exam.",
+        "context_translation": "כמובן שאתה יכול ללוות את הפתקים שלי למבחן.",
+        "correct_answer": "Of course",
+        "common_mistake": "Shows agreement or that something is obvious. \"Sure\" is similar but more casual."
+      }
+    },
+    {
+      "id": "v231",
+      "type": "vocabulary",
+      "difficulty": 401,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "beginner"
+      ],
+      "data": {
+        "word": "Disappointed",
+        "translation": "מאוכזב / מאוכזבת",
+        "context_sentence": "She was disappointed when the concert was cancelled.",
+        "context_translation": "היא התאכזבה כשהקונצרט בוטל.",
+        "correct_answer": "Disappointed",
+        "common_mistake": "\"Disappointed in/with\" someone or something — not \"disappointed from\"."
+      }
+    },
+    {
+      "id": "v232",
+      "type": "vocabulary",
+      "difficulty": 410,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "beginner"
+      ],
+      "data": {
+        "word": "Confident",
+        "translation": "בטוח בעצמו / בטוחה בעצמה",
+        "context_sentence": "After weeks of practice, he felt confident speaking in public.",
+        "context_translation": "אחרי שבועות של תרגול, הוא הרגיש בטוח בעצמו לדבר בציבור.",
+        "correct_answer": "Confident",
+        "common_mistake": "\"Confident about/in\" something. Not the same as \"confidential\" (secret)."
+      }
+    },
+    {
+      "id": "v233",
+      "type": "vocabulary",
+      "difficulty": 418,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "beginner"
+      ],
+      "data": {
+        "word": "Stressed",
+        "translation": "לחוץ / לחוצה",
+        "context_sentence": "Many students feel stressed before final exams.",
+        "context_translation": "תלמידים רבים מרגישים לחוצים לפני מבחני הגמר.",
+        "correct_answer": "Stressed",
+        "common_mistake": "\"Stressed about\" something. \"Stressful\" describes the situation, not the person."
+      }
+    },
+    {
+      "id": "v234",
+      "type": "vocabulary",
+      "difficulty": 403,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "beginner"
+      ],
+      "data": {
+        "word": "Suitcase",
+        "translation": "מזוודה",
+        "context_sentence": "She packed her suitcase the night before the trip.",
+        "context_translation": "היא ארזה את המזוודה בלילה שלפני הטיול.",
+        "correct_answer": "Suitcase",
+        "common_mistake": "Countable: \"a suitcase\". \"Pack a suitcase\" — put clothes inside."
+      }
+    },
+    {
+      "id": "v235",
+      "type": "vocabulary",
+      "difficulty": 412,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "beginner"
+      ],
+      "data": {
+        "word": "Boarding pass",
+        "translation": "כרטיס עלייה למטוס",
+        "context_sentence": "Show your boarding pass at the gate before you enter the plane.",
+        "context_translation": "הראה את כרטיס העלייה למטוס בשער לפני שאתה נכנס למטוס.",
+        "correct_answer": "Boarding pass",
+        "common_mistake": "Different from \"ticket\" — boarding pass is for getting on the specific flight."
+      }
+    },
+    {
+      "id": "v236",
+      "type": "vocabulary",
+      "difficulty": 422,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "beginner"
+      ],
+      "data": {
+        "word": "Terminal",
+        "translation": "טרמינל (בשדה תעופה)",
+        "context_sentence": "Our flight departs from terminal three at Ben Gurion Airport.",
+        "context_translation": "הטיסה שלנו יוצאת מטרמינל 3 בשדה התעופה בן גוריון.",
+        "correct_answer": "Terminal",
+        "common_mistake": "Airport building section for arrivals/departures — \"Terminal 1\", \"Terminal 3\"."
+      }
+    },
+    {
+      "id": "v237",
+      "type": "vocabulary",
+      "difficulty": 405,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Resume",
+        "translation": "קורות חיים",
+        "context_sentence": "Update your resume before applying for the new position.",
+        "context_translation": "עדכן את קורות החיים שלך לפני שאתה מגיש מועמדות למשרה החדשה.",
+        "correct_answer": "Resume",
+        "common_mistake": "US: \"resume\". UK: \"CV\" (curriculum vitae). Both list work history."
+      }
+    },
+    {
+      "id": "v238",
+      "type": "vocabulary",
+      "difficulty": 413,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Promotion",
+        "translation": "קידום ( בעבודה)",
+        "context_sentence": "She received a promotion after leading the successful project.",
+        "context_translation": "היא קיבלה קידום אחרי שהובילה את הפרויקט המוצלח.",
+        "correct_answer": "Promotion",
+        "common_mistake": "Work promotion vs \"promotion\" in marketing (advertising a product)."
+      }
+    },
+    {
+      "id": "v239",
+      "type": "vocabulary",
+      "difficulty": 423,
+      "skill": "vocabulary_business",
+      "tags": [
+        "work",
+        "beginner"
+      ],
+      "data": {
+        "word": "Overtime",
+        "translation": "שעות נוספות",
+        "context_sentence": "He worked overtime to finish the project before the deadline.",
+        "context_translation": "הוא עבד שעות נוספות כדי לסיים את הפרויקט לפני המועד האחרון.",
+        "correct_answer": "Overtime",
+        "common_mistake": "Uncountable — \"work overtime\". Extra hours beyond normal schedule."
+      }
+    },
+    {
+      "id": "v240",
+      "type": "vocabulary",
+      "difficulty": 407,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Settings",
+        "translation": "הגדרות",
+        "context_sentence": "Open settings to change the language on your phone.",
+        "context_translation": "פתח את ההגדרות כדי לשנות את השפה בטלפון.",
+        "correct_answer": "Settings",
+        "common_mistake": "Usually plural: \"settings\". \"Privacy settings\", \"notification settings\"."
+      }
+    },
+    {
+      "id": "v241",
+      "type": "vocabulary",
+      "difficulty": 416,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Update",
+        "translation": "עדכון / לעדכן",
+        "context_sentence": "Install the latest update to fix the security bug.",
+        "context_translation": "התקן את העדכון האחרון כדי לתקן את באג האבטחה.",
+        "correct_answer": "Update",
+        "common_mistake": "Noun: \"an update\". Verb: \"update the software\"."
+      }
+    },
+    {
+      "id": "v242",
+      "type": "vocabulary",
+      "difficulty": 425,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "beginner"
+      ],
+      "data": {
+        "word": "Browser",
+        "translation": "דפדפן",
+        "context_sentence": "Open the link in a different browser if the page does not load.",
+        "context_translation": "פתח את הקישור בדפדפן אחר אם הדף לא נטען.",
+        "correct_answer": "Browser",
+        "common_mistake": "Examples: Chrome, Firefox, Safari. \"Search engine\" is different (Google)."
+      }
+    },
+    {
+      "id": "v243",
+      "type": "vocabulary",
+      "difficulty": 409,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Temperature",
+        "translation": "טמפרטורה",
+        "context_sentence": "The temperature dropped below zero during the night.",
+        "context_translation": "הטמפרטורה ירדה מתחת לאפס במהלך הלילה.",
+        "correct_answer": "Temperature",
+        "common_mistake": "Countable/uncountable: \"a high temperature\". Measured in Celsius or Fahrenheit."
+      }
+    },
+    {
+      "id": "v244",
+      "type": "vocabulary",
+      "difficulty": 417,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Season",
+        "translation": "עונה",
+        "context_sentence": "Autumn is my favourite season because of the colourful leaves.",
+        "context_translation": "הסתיו הוא העונה האהובה עלי בגלל העלים הצבעוניים.",
+        "correct_answer": "Season",
+        "common_mistake": "Four seasons: spring, summer, autumn/fall, winter."
+      }
+    },
+    {
+      "id": "v245",
+      "type": "vocabulary",
+      "difficulty": 426,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "nature",
+        "beginner"
+      ],
+      "data": {
+        "word": "Lake",
+        "translation": "אגם",
+        "context_sentence": "We had a picnic by the lake on Saturday.",
+        "context_translation": "עשינו פיקניק ליד האגם ביום שבת.",
+        "correct_answer": "Lake",
+        "common_mistake": "Countable: \"a lake\". Smaller than a sea — surrounded by land."
+      }
+    },
+    {
+      "id": "v246",
+      "type": "vocabulary",
+      "difficulty": 411,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Dictionary",
+        "translation": "מילון",
+        "context_sentence": "Use a dictionary to check the meaning of new words.",
+        "context_translation": "השתמש במילון כדי לבדוק את משמעות מילים חדשות.",
+        "correct_answer": "Dictionary",
+        "common_mistake": "Countable: \"a dictionary\". Online: \"look up a word\" in a dictionary."
+      }
+    },
+    {
+      "id": "v247",
+      "type": "vocabulary",
+      "difficulty": 420,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Subject",
+        "translation": "מקצוע / נושא",
+        "context_sentence": "Maths is my favourite subject at school.",
+        "context_translation": "מתמטיקה הוא המקצוע האהוב עלי בבית הספר.",
+        "correct_answer": "Subject",
+        "common_mistake": "School \"subject\" = course (maths, history). Also means \"topic\"."
+      }
+    },
+    {
+      "id": "v248",
+      "type": "vocabulary",
+      "difficulty": 429,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "school",
+        "beginner"
+      ],
+      "data": {
+        "word": "Graduate",
+        "translation": "בוגר / לסיים לימודים",
+        "context_sentence": "She will graduate from university next summer.",
+        "context_translation": "היא תסיים את האוניברסיטה הקיץ הבא.",
+        "correct_answer": "Graduate",
+        "common_mistake": "Verb: \"graduate from\". Noun: \"a graduate\" = someone who finished."
+      }
+    },
+    {
+      "id": "v249",
+      "type": "vocabulary",
+      "difficulty": 408,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "How much does it cost",
+        "translation": "כמה זה עולה",
+        "context_sentence": "Excuse me, how much does it cost to send this package abroad?",
+        "context_translation": "סליחה, כמה עולה לשלוח את החבילה הזו לחו\"ל?",
+        "correct_answer": "How much does it cost",
+        "common_mistake": "Use \"How much\" for price. \"How many\" is for countable items."
+      }
+    },
+    {
+      "id": "v250",
+      "type": "vocabulary",
+      "difficulty": 419,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Where is the bathroom",
+        "translation": "איפה השירותים",
+        "context_sentence": "Excuse me, where is the bathroom in this restaurant?",
+        "context_translation": "סליחה, איפה השירותים במסעדה הזו?",
+        "correct_answer": "Where is the bathroom",
+        "common_mistake": "US: \"bathroom\" or \"restroom\". UK: often \"toilet\" or \"loo\"."
+      }
+    },
+    {
+      "id": "v251",
+      "type": "vocabulary",
+      "difficulty": 430,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "I do not understand",
+        "translation": "אני לא מבין / מבינה",
+        "context_sentence": "Sorry, I do not understand — can you speak more slowly?",
+        "context_translation": "סליחה, אני לא מבין — אתה יכול לדבר יותר לאט?",
+        "correct_answer": "I do not understand",
+        "common_mistake": "Essential phrase for learners. Short form in speech: \"I don't understand\"."
+      }
+    },
+    {
+      "id": "v252",
+      "type": "vocabulary",
+      "difficulty": 438,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "phrases",
+        "beginner"
+      ],
+      "data": {
+        "word": "Can you help me",
+        "translation": "אתה יכול לעזור לי",
+        "context_sentence": "Can you help me find the train station, please?",
+        "context_translation": "אתה יכול לעזור לי למצוא את תחנת הרכבת, בבקשה?",
+        "correct_answer": "Can you help me",
+        "common_mistake": "\"Help me\" + verb: \"help me find\", \"help me carry\"."
+      }
+    },
+    {
+      "id": "v253",
+      "type": "vocabulary",
+      "difficulty": 452,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Content",
+        "translation": "מרוצה / שבע רצון",
+        "context_sentence": "After a simple dinner with friends, she felt content and peaceful.",
+        "context_translation": "אחרי ארוחת ערב פשוטה עם חברים, היא הרגישה מרוצה ושלווה.",
+        "correct_answer": "Content",
+        "common_mistake": "Adjective: /kənˈtent/ (satisfied). Noun \"content\" /ˈkɒntent/ = material inside."
+      }
+    },
+    {
+      "id": "v254",
+      "type": "vocabulary",
+      "difficulty": 468,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Hostel",
+        "translation": "אכסניה / הוסטל",
+        "context_sentence": "Backpackers often stay in a hostel to save money while travelling.",
+        "context_translation": "תרמילאים לעיתים לנים בהוסטל כדי לחסוך כסף בזמן טיול.",
+        "correct_answer": "Hostel",
+        "common_mistake": "Budget shared accommodation — not the same as \"hotel\"."
+      }
+    },
+    {
+      "id": "v255",
+      "type": "vocabulary",
+      "difficulty": 478,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Freelance",
+        "translation": "פרילנס / עצמאי",
+        "context_sentence": "She works as a freelance designer for several small companies.",
+        "context_translation": "היא עובדת כמעצבת פרילנס עבור כמה חברות קטנות.",
+        "correct_answer": "Freelance",
+        "common_mistake": "Self-employed, not on a permanent contract. \"Freelancer\" = the person."
+      }
+    },
+    {
+      "id": "v256",
+      "type": "vocabulary",
+      "difficulty": 488,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Cloud storage",
+        "translation": "אחסון בענן",
+        "context_sentence": "Save your photos to cloud storage so you do not lose them.",
+        "context_translation": "שמור את התמונות שלך באחסון בענן כדי שלא תאבד אותן.",
+        "correct_answer": "Cloud storage",
+        "common_mistake": "Data stored on remote servers — accessible from any device."
+      }
+    },
+    {
+      "id": "v257",
+      "type": "vocabulary",
+      "difficulty": 498,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Compost",
+        "translation": "קומפוסט / הפריה",
+        "context_sentence": "They collect food scraps to make compost for the garden.",
+        "context_translation": "הם אוספים שאריות אוכל כדי להכין קומפוסט לגינה.",
+        "correct_answer": "Compost",
+        "common_mistake": "Decayed organic matter used as fertiliser — eco-friendly waste reduction."
+      }
+    },
+    {
+      "id": "v258",
+      "type": "vocabulary",
+      "difficulty": 508,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Semester",
+        "translation": "סמסטר",
+        "context_sentence": "The fall semester begins in September at most universities.",
+        "context_translation": "סמסטר הסתיו מתחיל בספטמבר ברוב האוניברסיטאות.",
+        "correct_answer": "Semester",
+        "common_mistake": "US: \"semester\" (half year). UK often uses \"term\"."
+      }
+    },
+    {
+      "id": "v259",
+      "type": "vocabulary",
+      "difficulty": 518,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Break a leg",
+        "translation": "בהצלחה (במה)",
+        "context_sentence": "Break a leg tonight — I know your performance will be amazing.",
+        "context_translation": "בהצלחה הערב — אני יודע שההופעה שלך תהיה מדהימה.",
+        "correct_answer": "Break a leg",
+        "common_mistake": "Theatre idiom meaning \"good luck\" — never say \"good luck\" backstage!"
+      }
+    },
+    {
+      "id": "v260",
+      "type": "vocabulary",
+      "difficulty": 528,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Bittersweet",
+        "translation": "מר / מתוק / מעורב שמחה ועצב",
+        "context_sentence": "Graduation day was bittersweet — exciting but sad to leave friends.",
+        "context_translation": "יום הסיום היה מר-מתוק — מרגש אבל עצוב לעזוב חברים.",
+        "correct_answer": "Bittersweet",
+        "common_mistake": "Mixed happy and sad feelings at the same time."
+      }
+    },
+    {
+      "id": "v261",
+      "type": "vocabulary",
+      "difficulty": 538,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Round trip",
+        "translation": "נסיעה הלוך ושוב",
+        "context_sentence": "A round trip ticket to Paris costs less than two one-way tickets.",
+        "context_translation": "כרטיס הלוך ושוב לפריז עולה פחות משני כרטיסי כיוון אחד.",
+        "correct_answer": "Round trip",
+        "common_mistake": "US: \"round trip\". UK: \"return ticket\". Opposite: \"one-way\"."
+      }
+    },
+    {
+      "id": "v262",
+      "type": "vocabulary",
+      "difficulty": 548,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Remote work",
+        "translation": "עבודה מהבית / עבודה מרחוק",
+        "context_sentence": "The company allows remote work twice a week.",
+        "context_translation": "החברה מאפשרת עבודה מרחוק פעמיים בשבוע.",
+        "correct_answer": "Remote work",
+        "common_mistake": "Also \"work from home\" (WFH). \"Hybrid\" mixes office and remote."
+      }
+    },
+    {
+      "id": "v263",
+      "type": "vocabulary",
+      "difficulty": 558,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Artificial intelligence",
+        "translation": "בינה מלאכותית",
+        "context_sentence": "Artificial intelligence is changing how companies analyse customer data.",
+        "context_translation": "בינה מלאכותית משנה את האופן שבו חברות מנתחות נתוני לקוחות.",
+        "correct_answer": "Artificial intelligence",
+        "common_mistake": "Abbreviation: AI. Not the same as simple automation or scripts."
+      }
+    },
+    {
+      "id": "v264",
+      "type": "vocabulary",
+      "difficulty": 575,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Carbon neutral",
+        "translation": "ניטרלי פחמן",
+        "context_sentence": "The city aims to become carbon neutral by twenty thirty.",
+        "context_translation": "העיר שואפת להפוך לניטרלית פחמן עד 2030.",
+        "correct_answer": "Carbon neutral",
+        "common_mistake": "Balancing emitted carbon with offsets or reduction — climate goal term."
+      }
+    },
+    {
+      "id": "v265",
+      "type": "vocabulary",
+      "difficulty": 595,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "intermediate"
+      ],
+      "data": {
+        "word": "Peer review",
+        "translation": "ביקורת עמיתים",
+        "context_sentence": "The journal sent the article for peer review before publication.",
+        "context_translation": "כתב העת שלח את המאמר לביקורת עמיתים לפני הפרסום.",
+        "correct_answer": "Peer review",
+        "common_mistake": "Evaluation by experts in the same field — standard in academic publishing."
+      }
+    },
+    {
+      "id": "v266",
+      "type": "vocabulary",
+      "difficulty": 615,
+      "skill": "vocabulary_business",
+      "tags": [
+        "business",
+        "advanced"
+      ],
+      "data": {
+        "word": "Disruption",
+        "translation": "שיבוש / חידוש משבש",
+        "context_sentence": "The startup caused disruption in the traditional banking industry.",
+        "context_translation": "הסטארט-אפ גרם לשיבוש בתעשיית הבנקאות המסורתית.",
+        "correct_answer": "Disruption",
+        "common_mistake": "Business sense: innovation that displaces old models — not just \"interruption\"."
+      }
+    },
+    {
+      "id": "v267",
+      "type": "vocabulary",
+      "difficulty": 635,
+      "skill": "vocabulary_idioms",
+      "tags": [
+        "idioms",
+        "advanced"
+      ],
+      "data": {
+        "word": "Move the goalposts",
+        "translation": "להזיז את קווי השער / לשנות את הכללים",
+        "context_sentence": "Every time we meet the target, management moves the goalposts.",
+        "context_translation": "בכל פעם שאנחנו עומדים ביעד, ההנהלה מזיזה את קווי השער.",
+        "correct_answer": "Move the goalposts",
+        "common_mistake": "Changing rules or expectations unfairly after work has started."
+      }
+    },
+    {
+      "id": "v268",
+      "type": "vocabulary",
+      "difficulty": 655,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "advanced"
+      ],
+      "data": {
+        "word": "Red-eye flight",
+        "translation": "טיסת לילה",
+        "context_sentence": "They took a red-eye flight to arrive in New York by morning.",
+        "context_translation": "הם לקחו טיסת לילה כדי להגיע לניו יורק עד הבוקר.",
+        "correct_answer": "Red-eye flight",
+        "common_mistake": "Overnight flight — named because passengers may arrive with tired red eyes."
+      }
+    },
+    {
+      "id": "v269",
+      "type": "vocabulary",
+      "difficulty": 705,
+      "skill": "vocabulary_emotions",
+      "tags": [
+        "emotions",
+        "advanced"
+      ],
+      "data": {
+        "word": "Euphoric",
+        "translation": "אופורי / מלא אושר",
+        "context_sentence": "The team was euphoric after winning the championship.",
+        "context_translation": "הקבוצה הייתה אופורית אחרי שזכתה באליפות.",
+        "correct_answer": "Euphoric",
+        "common_mistake": "Intense happiness or elation — stronger than \"happy\" or \"excited\"."
+      }
+    },
+    {
+      "id": "v270",
+      "type": "vocabulary",
+      "difficulty": 745,
+      "skill": "vocabulary_technology",
+      "tags": [
+        "technology",
+        "advanced"
+      ],
+      "data": {
+        "word": "Latency",
+        "translation": "זמן תגובה / השהיה",
+        "context_sentence": "High latency makes video calls frustrating even with fast internet.",
+        "context_translation": "זמן תגובה גבוה הופך שיחות וידאו למתסכלות גם עם אינטרנט מהיר.",
+        "correct_answer": "Latency",
+        "common_mistake": "Delay between action and response — critical in networking and gaming."
+      }
+    },
+    {
+      "id": "v271",
+      "type": "vocabulary",
+      "difficulty": 785,
+      "skill": "vocabulary_environment",
+      "tags": [
+        "environment",
+        "advanced"
+      ],
+      "data": {
+        "word": "Biodiversity hotspot",
+        "translation": "אזור עשיר במגוון ביולוגי",
+        "context_sentence": "The rainforest is a biodiversity hotspot threatened by deforestation.",
+        "context_translation": "יער הגשם הוא אזור עשיר במגוון ביולוגי שאיים עליו בגלל כריתת יערות.",
+        "correct_answer": "Biodiversity hotspot",
+        "common_mistake": "Region with exceptional species diversity — conservation priority area."
+      }
+    },
+    {
+      "id": "v272",
+      "type": "vocabulary",
+      "difficulty": 825,
+      "skill": "vocabulary_academic",
+      "tags": [
+        "academic",
+        "advanced"
+      ],
+      "data": {
+        "word": "Epistemology",
+        "translation": "תורת ההכרה",
+        "context_sentence": "The philosophy course introduced students to epistemology and theories of knowledge.",
+        "context_translation": "קורס הפילוסופיה הציג לסטודנטים את תורת ההכרה ותיאוריות של הידע.",
+        "correct_answer": "Epistemology",
+        "common_mistake": "Branch of philosophy studying the nature and limits of knowledge."
+      }
+    },
+    {
       "id": "g1",
       "type": "grammar_choice",
       "difficulty": 450,
@@ -4122,6 +5816,523 @@
         "correct_answer": "stored",
         "grammar_hint": "Reduced relative clause: past participle replaces \"which were + past participle\". \"Documents stored\" = \"documents which were stored\".",
         "common_mistake": "\"Storing\" is active — documents do not store themselves. Use past participle \"stored\" for passive meaning."
+      }
+    },
+    {
+      "id": "g33",
+      "type": "grammar_choice",
+      "difficulty": 360,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form of \"be\":",
+        "context_sentence": "She ___ very tired after the long flight yesterday.",
+        "context_translation": "היא ___ מאוד עייפה אחרי הטיסה הארוכה אתמול.",
+        "options": [
+          "was",
+          "were",
+          "is",
+          "has been"
+        ],
+        "correct_answer": "was",
+        "grammar_hint": "Past Simple of \"be\": I/he/she/it → was. We/you/they → were. \"Yesterday\" signals past tense.",
+        "common_mistake": "\"Were\" is for we/you/they — not for \"she\". Use \"She was tired.\""
+      }
+    },
+    {
+      "id": "g34",
+      "type": "grammar_choice",
+      "difficulty": 368,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form of \"be\":",
+        "context_sentence": "We ___ at the concert until midnight last Saturday.",
+        "context_translation": "___ בקונצרט עד חצות ביום שבת שעבר.",
+        "options": [
+          "were",
+          "was",
+          "are",
+          "have been"
+        ],
+        "correct_answer": "were",
+        "grammar_hint": "With \"we/you/they\", the past form of \"be\" is \"were\". \"Last Saturday\" confirms Past Simple.",
+        "common_mistake": "\"Was\" is only for I/he/she/it. \"We were\" — never \"We was\"."
+      }
+    },
+    {
+      "id": "g35",
+      "type": "grammar_choice",
+      "difficulty": 375,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct negative form:",
+        "context_sentence": "He ___ at home yesterday evening — he went out with friends.",
+        "context_translation": "הוא ___ בבית אתמול בערב — הוא יצא עם חברים.",
+        "options": [
+          "wasn't",
+          "weren't",
+          "isn't",
+          "hasn't been"
+        ],
+        "correct_answer": "wasn't",
+        "grammar_hint": "Negative Past Simple of \"be\": was not (wasn't) / were not (weren't). With \"he\" use \"wasn't\".",
+        "common_mistake": "\"He weren't\" is always wrong. \"He wasn't\" or \"He was not\"."
+      }
+    },
+    {
+      "id": "g36",
+      "type": "grammar_choice",
+      "difficulty": 382,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct question form:",
+        "context_sentence": "Where ___ you last night? I tried to call you.",
+        "context_translation": "איפה ___ אתמול בלילה? ניסיתי להתקשר אליך.",
+        "options": [
+          "were",
+          "was",
+          "are",
+          "did"
+        ],
+        "correct_answer": "were",
+        "grammar_hint": "Questions with \"be\": invert subject and verb — \"Where were you?\" With \"you\" use \"were\".",
+        "common_mistake": "Do not use \"did\" with \"be\": NOT \"Where did you were?\" Say \"Where were you?\""
+      }
+    },
+    {
+      "id": "g37",
+      "type": "grammar_choice",
+      "difficulty": 390,
+      "skill": "present_simple",
+      "tags": [
+        "tenses",
+        "present-simple",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form of \"be\":",
+        "context_sentence": "The weather ___ nice today — let us go for a walk.",
+        "context_translation": "מזג האוויר ___ נחמד היום — בוא נצא לטיול.",
+        "options": [
+          "is",
+          "are",
+          "was",
+          "has been"
+        ],
+        "correct_answer": "is",
+        "grammar_hint": "Present Simple of \"be\": he/she/it/weather → is. \"Today\" signals present time.",
+        "common_mistake": "\"The weather are\" is wrong — \"weather\" is singular. Use \"The weather is nice.\""
+      }
+    },
+    {
+      "id": "g38",
+      "type": "grammar_choice",
+      "difficulty": 398,
+      "skill": "present_simple",
+      "tags": [
+        "tenses",
+        "present-simple",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form of \"be\":",
+        "context_sentence": "My parents ___ both teachers at the same school.",
+        "context_translation": "שני ההורים שלי ___ מורים באותו בית ספר.",
+        "options": [
+          "are",
+          "is",
+          "was",
+          "have been"
+        ],
+        "correct_answer": "are",
+        "grammar_hint": "With plural subjects (parents, we, they), use \"are\" in the present.",
+        "common_mistake": "\"My parents is\" is wrong — plural subject needs \"are\"."
+      }
+    },
+    {
+      "id": "g39",
+      "type": "grammar_choice",
+      "difficulty": 405,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect",
+        "beginner",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "She ___ already finished her homework for today.",
+        "context_translation": "היא ___ כבר סיימה את שיעורי הבית להיום.",
+        "options": [
+          "has",
+          "have",
+          "had",
+          "is"
+        ],
+        "correct_answer": "has",
+        "grammar_hint": "Present Perfect: has/have + past participle. With she/he/it use \"has finished\". \"Already\" often signals Present Perfect.",
+        "common_mistake": "\"She have finished\" is wrong. Third person singular uses \"has\"."
+      }
+    },
+    {
+      "id": "g40",
+      "type": "grammar_choice",
+      "difficulty": 412,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect",
+        "beginner",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "We ___ known each other since we were children.",
+        "context_translation": "___ מכירים מאז שהיינו ילדים.",
+        "options": [
+          "have",
+          "has",
+          "had",
+          "are"
+        ],
+        "correct_answer": "have",
+        "grammar_hint": "With we/you/they/I use \"have\" in Present Perfect. \"Since\" + past point in time → Present Perfect.",
+        "common_mistake": "\"We has known\" is wrong. Plural/first person uses \"have known\"."
+      }
+    },
+    {
+      "id": "g41",
+      "type": "grammar_choice",
+      "difficulty": 420,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect",
+        "beginner",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct negative form:",
+        "context_sentence": "I ___ never been to London, but I hope to visit someday.",
+        "context_translation": "___ מעולם לא הייתי בלונדון, אבל אני מקווה לבקר שם יום אחד.",
+        "options": [
+          "have",
+          "has",
+          "had",
+          "was"
+        ],
+        "correct_answer": "have",
+        "grammar_hint": "Present Perfect for life experience: \"I have never been to…\" With \"I\" always use \"have\".",
+        "common_mistake": "\"I has never been\" is wrong. \"Never\" goes between have/has and the past participle."
+      }
+    },
+    {
+      "id": "g42",
+      "type": "grammar_choice",
+      "difficulty": 428,
+      "skill": "past_simple",
+      "tags": [
+        "tenses",
+        "past-simple",
+        "beginner",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form of \"have\" (possession):",
+        "context_sentence": "He ___ a great idea for the school project.",
+        "context_translation": "היה ___ לו רעיון נהדר לפרויקט בית הספר.",
+        "options": [
+          "had",
+          "has",
+          "have",
+          "was"
+        ],
+        "correct_answer": "had",
+        "grammar_hint": "\"Have\" for possession in the past: had. \"He had an idea\" = he possessed an idea at that time.",
+        "common_mistake": "Do not confuse \"had\" (past of have) with \"has\" (present). The sentence describes a past situation."
+      }
+    },
+    {
+      "id": "g43",
+      "type": "grammar_choice",
+      "difficulty": 435,
+      "skill": "past_perfect",
+      "tags": [
+        "tenses",
+        "past-perfect",
+        "intermediate",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "By the time we arrived, the movie ___ already started.",
+        "context_translation": "עד שהגענו, הסרט ___ כבר התחיל.",
+        "options": [
+          "had",
+          "has",
+          "have",
+          "was"
+        ],
+        "correct_answer": "had",
+        "grammar_hint": "Past Perfect: had + past participle. Use for an action completed BEFORE another past action (\"arrived\").",
+        "common_mistake": "\"Has already started\" is present perfect. Here both events are in the past — use \"had started\"."
+      }
+    },
+    {
+      "id": "g44",
+      "type": "grammar_choice",
+      "difficulty": 442,
+      "skill": "past_continuous",
+      "tags": [
+        "tenses",
+        "past-continuous",
+        "intermediate",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "I ___ watching TV when you called last night.",
+        "context_translation": "___ צופה בטלוויזיה כשהתקשרת אתמול בלילה.",
+        "options": [
+          "was",
+          "were",
+          "am",
+          "have been"
+        ],
+        "correct_answer": "was",
+        "grammar_hint": "Past Continuous: was/were + verb-ing. Ongoing past action interrupted by another event. With \"I\" use \"was\".",
+        "common_mistake": "\"I were watching\" is wrong. I/he/she/it → was + -ing."
+      }
+    },
+    {
+      "id": "g45",
+      "type": "grammar_choice",
+      "difficulty": 450,
+      "skill": "past_continuous",
+      "tags": [
+        "tenses",
+        "past-continuous",
+        "intermediate",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "They ___ sleeping when the alarm went off this morning.",
+        "context_translation": "הם ___ ישנים כשהשעון המעורר צלצל הבוקר.",
+        "options": [
+          "were",
+          "was",
+          "are",
+          "had been"
+        ],
+        "correct_answer": "were",
+        "grammar_hint": "Past Continuous with they/we/you: were + verb-ing. \"When the alarm went off\" = interrupting past event.",
+        "common_mistake": "\"They was sleeping\" is wrong. Plural subjects use \"were sleeping\"."
+      }
+    },
+    {
+      "id": "g46",
+      "type": "grammar_choice",
+      "difficulty": 458,
+      "skill": "present_continuous",
+      "tags": [
+        "tenses",
+        "present-continuous",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "Look! It ___ raining outside — take an umbrella.",
+        "context_translation": "תסתכל! ___ יורד גשם בחוץ — קח מטריה.",
+        "options": [
+          "is",
+          "are",
+          "was",
+          "has"
+        ],
+        "correct_answer": "is",
+        "grammar_hint": "Present Continuous: am/is/are + verb-ing for actions happening now. \"It\" takes \"is\".",
+        "common_mistake": "\"It are raining\" is wrong. Weather \"it\" always uses \"is\"."
+      }
+    },
+    {
+      "id": "g47",
+      "type": "grammar_choice",
+      "difficulty": 465,
+      "skill": "present_continuous",
+      "tags": [
+        "tenses",
+        "present-continuous",
+        "beginner",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "The children ___ playing in the garden right now.",
+        "context_translation": "הילדים ___ משחקים בגינה עכשיו.",
+        "options": [
+          "are",
+          "is",
+          "were",
+          "have been"
+        ],
+        "correct_answer": "are",
+        "grammar_hint": "Present Continuous with plural subjects: are + verb-ing. \"Right now\" signals ongoing present action.",
+        "common_mistake": "\"The children is playing\" is wrong — plural needs \"are playing\"."
+      }
+    },
+    {
+      "id": "g48",
+      "type": "grammar_choice",
+      "difficulty": 472,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "intermediate",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct passive form:",
+        "context_sentence": "The windows ___ broken during the storm last week.",
+        "context_translation": "החלונות ___ נשברו במהלך הסערה בשבוע שעבר.",
+        "options": [
+          "were",
+          "was",
+          "are",
+          "have been"
+        ],
+        "correct_answer": "were",
+        "grammar_hint": "Past passive: was/were + past participle. Plural subject \"windows\" → \"were broken\".",
+        "common_mistake": "\"The windows was broken\" is wrong. Plural subject needs \"were\"."
+      }
+    },
+    {
+      "id": "g49",
+      "type": "grammar_choice",
+      "difficulty": 480,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "intermediate",
+        "be-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct passive form:",
+        "context_sentence": "The cake ___ baked by my grandmother yesterday.",
+        "context_translation": "העוגה ___ אפויה על ידי סבתי אתמול.",
+        "options": [
+          "was",
+          "were",
+          "is",
+          "has been"
+        ],
+        "correct_answer": "was",
+        "grammar_hint": "Past passive with singular subject: was + past participle. \"The cake\" is singular → \"was baked\".",
+        "common_mistake": "Active: \"My grandmother baked the cake.\" Passive: \"The cake was baked by my grandmother.\""
+      }
+    },
+    {
+      "id": "g50",
+      "type": "grammar_choice",
+      "difficulty": 488,
+      "skill": "present_perfect",
+      "tags": [
+        "tenses",
+        "present-perfect",
+        "intermediate",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "They ___ been waiting for the bus for twenty minutes.",
+        "context_translation": "הם ___ מחכים לאוטובוס כבר עשרים דקות.",
+        "options": [
+          "have",
+          "has",
+          "had",
+          "are"
+        ],
+        "correct_answer": "have",
+        "grammar_hint": "Present Perfect Continuous: have/have been + verb-ing. Duration up to now (\"for twenty minutes\").",
+        "common_mistake": "\"They has been waiting\" is wrong. With \"they\" use \"have been waiting\"."
+      }
+    },
+    {
+      "id": "g51",
+      "type": "grammar_choice",
+      "difficulty": 495,
+      "skill": "past_perfect",
+      "tags": [
+        "tenses",
+        "past-perfect",
+        "intermediate",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "She ___ already left when I got to the party.",
+        "context_translation": "היא ___ כבר עזבה כשהגעתי למסיבה.",
+        "options": [
+          "had",
+          "has",
+          "have",
+          "was"
+        ],
+        "correct_answer": "had",
+        "grammar_hint": "Past Perfect: had + past participle. Her leaving happened BEFORE I arrived.",
+        "common_mistake": "\"She has already left\" suggests relevance to now. Both events are past — use \"had left\"."
+      }
+    },
+    {
+      "id": "g52",
+      "type": "grammar_choice",
+      "difficulty": 502,
+      "skill": "conditionals",
+      "tags": [
+        "conditionals",
+        "intermediate",
+        "have-verbs"
+      ],
+      "data": {
+        "question_text": "Choose the correct form:",
+        "context_sentence": "If they ___ more time, they would have finished the project.",
+        "context_translation": "אם היה ___ להם יותר זמן, הם היו מסיימים את הפרויקט.",
+        "options": [
+          "had had",
+          "have had",
+          "has had",
+          "would have"
+        ],
+        "correct_answer": "had had",
+        "grammar_hint": "Third conditional if-clause: If + had + past participle. \"Had had\" = past perfect of \"have\" (possession/time).",
+        "common_mistake": "Looks strange but correct: \"If they had had more time\" = if they had possessed more time."
       }
     },
     {
@@ -5037,6 +7248,475 @@
       }
     },
     {
+      "id": "s34",
+      "type": "sentence_builder",
+      "difficulty": 355,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"was\" about good news.",
+        "context_translation": "בנה משפט עם \"was\" על חדשות טובות.",
+        "correct_answer": "She was happy when she got the good news",
+        "word_chips": [
+          "She",
+          "was",
+          "happy",
+          "when",
+          "she",
+          "got",
+          "the",
+          "good",
+          "news"
+        ],
+        "common_mistake": "Past of \"be\" with she/he/it: \"She was\" — not \"She were\"."
+      }
+    },
+    {
+      "id": "s35",
+      "type": "sentence_builder",
+      "difficulty": 365,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"were\" about being late.",
+        "context_translation": "בנה משפט עם \"were\" על איחור.",
+        "correct_answer": "They were late because the bus did not come",
+        "word_chips": [
+          "They",
+          "were",
+          "late",
+          "because",
+          "the",
+          "bus",
+          "did",
+          "not",
+          "come"
+        ],
+        "common_mistake": "With they/we/you use \"were\": \"They were late\" — not \"They was late\"."
+      }
+    },
+    {
+      "id": "s36",
+      "type": "sentence_builder",
+      "difficulty": 375,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"has\" about finished homework.",
+        "context_translation": "בנה משפט עם \"has\" על שיעורי בית שהסתיימו.",
+        "correct_answer": "He has finished all his homework for today",
+        "word_chips": [
+          "He",
+          "has",
+          "finished",
+          "all",
+          "his",
+          "homework",
+          "for",
+          "today"
+        ],
+        "common_mistake": "Present Perfect: has + past participle. \"Finished\" not \"finish\"."
+      }
+    },
+    {
+      "id": "s37",
+      "type": "sentence_builder",
+      "difficulty": 385,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"have\" and \"since\".",
+        "context_translation": "בנה משפט עם \"have\" ו-\"since\".",
+        "correct_answer": "We have lived here since twenty twenty",
+        "word_chips": [
+          "We",
+          "have",
+          "lived",
+          "here",
+          "since",
+          "twenty",
+          "twenty"
+        ],
+        "common_mistake": "\"Since\" + starting point → Present Perfect. \"We have lived\" not \"We lived\"."
+      }
+    },
+    {
+      "id": "s38",
+      "type": "sentence_builder",
+      "difficulty": 395,
+      "skill": "past_continuous",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"was\" and an interrupted action.",
+        "context_translation": "בנה משפט עם \"was\" על פעולה שהופסקה.",
+        "correct_answer": "I was reading a book when the phone rang",
+        "word_chips": [
+          "I",
+          "was",
+          "reading",
+          "a",
+          "book",
+          "when",
+          "the",
+          "phone",
+          "rang"
+        ],
+        "common_mistake": "Past Continuous: was + verb-ing for ongoing action. Past Simple for the interruption."
+      }
+    },
+    {
+      "id": "s39",
+      "type": "sentence_builder",
+      "difficulty": 405,
+      "skill": "past_continuous",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"were\" about students studying.",
+        "context_translation": "בנה משפט עם \"were\" על תלמידים שלומדים.",
+        "correct_answer": "The students were studying when the teacher entered the room",
+        "word_chips": [
+          "The",
+          "students",
+          "were",
+          "studying",
+          "when",
+          "the",
+          "teacher",
+          "entered",
+          "the",
+          "room"
+        ],
+        "common_mistake": "Plural subject → \"were studying\". The interrupting action uses Past Simple."
+      }
+    },
+    {
+      "id": "s40",
+      "type": "sentence_builder",
+      "difficulty": 415,
+      "skill": "past_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"had\" about something that happened before your arrival.",
+        "context_translation": "בנה משפט עם \"had\" על משהו שקרה לפני שהגעת.",
+        "correct_answer": "She had already left when I arrived at the party",
+        "word_chips": [
+          "She",
+          "had",
+          "already",
+          "left",
+          "when",
+          "I",
+          "arrived",
+          "at",
+          "the",
+          "party"
+        ],
+        "common_mistake": "Past Perfect (had + past participle) for the earlier of two past events."
+      }
+    },
+    {
+      "id": "s41",
+      "type": "sentence_builder",
+      "difficulty": 425,
+      "skill": "present_continuous",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"is\" and \"are\" about today.",
+        "context_translation": "בנה משפט עם \"is\" ו-\"are\" על היום.",
+        "correct_answer": "It is very hot today and the children are tired",
+        "word_chips": [
+          "It",
+          "is",
+          "very",
+          "hot",
+          "today",
+          "and",
+          "the",
+          "children",
+          "are",
+          "tired"
+        ],
+        "common_mistake": "\"It is\" for weather. Plural \"children\" takes \"are tired\"."
+      }
+    },
+    {
+      "id": "s42",
+      "type": "sentence_builder",
+      "difficulty": 435,
+      "skill": "passive_voice",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a passive sentence using \"was\".",
+        "context_translation": "בנה משפט פסיבי עם \"was\".",
+        "correct_answer": "The cake was baked by my grandmother yesterday",
+        "word_chips": [
+          "The",
+          "cake",
+          "was",
+          "baked",
+          "by",
+          "my",
+          "grandmother",
+          "yesterday"
+        ],
+        "common_mistake": "Past passive: was/were + past participle. \"Baked\" not \"bake\"."
+      }
+    },
+    {
+      "id": "s43",
+      "type": "sentence_builder",
+      "difficulty": 445,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"have been\" about a long friendship.",
+        "context_translation": "בנה משפט עם \"have been\" על חברות ארוכה.",
+        "correct_answer": "They have been friends since they were children",
+        "word_chips": [
+          "They",
+          "have",
+          "been",
+          "friends",
+          "since",
+          "they",
+          "were",
+          "children"
+        ],
+        "common_mistake": "\"Have been friends\" = friendship continues. \"Since\" + past (\"were children\") → Present Perfect."
+      }
+    },
+    {
+      "id": "s44",
+      "type": "sentence_builder",
+      "difficulty": 455,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using both \"was\" and \"were\".",
+        "context_translation": "בנה משפט עם \"was\" ו-\"were\" יחד.",
+        "correct_answer": "I was at the park and my friends were there too",
+        "word_chips": [
+          "I",
+          "was",
+          "at",
+          "the",
+          "park",
+          "and",
+          "my",
+          "friends",
+          "were",
+          "there",
+          "too"
+        ],
+        "common_mistake": "I/he/she/it → was. We/you/they → were. Both in the same past-time sentence."
+      }
+    },
+    {
+      "id": "s45",
+      "type": "sentence_builder",
+      "difficulty": 465,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a negative sentence using \"has not been\".",
+        "context_translation": "בנה משפט שלילי עם \"has not been\".",
+        "correct_answer": "She has not been to London yet but she wants to go",
+        "word_chips": [
+          "She",
+          "has",
+          "not",
+          "been",
+          "to",
+          "London",
+          "yet",
+          "but",
+          "she",
+          "wants",
+          "to",
+          "go"
+        ],
+        "common_mistake": "\"Has not been to\" for places never visited. \"Yet\" in negatives often uses Present Perfect."
+      }
+    },
+    {
+      "id": "s46",
+      "type": "sentence_builder",
+      "difficulty": 475,
+      "skill": "past_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"had\" for past possession.",
+        "context_translation": "בנה משפט עם \"had\" לביטוי בעלות בעבר.",
+        "correct_answer": "He had a good idea and the team liked it",
+        "word_chips": [
+          "He",
+          "had",
+          "a",
+          "good",
+          "idea",
+          "and",
+          "the",
+          "team",
+          "liked",
+          "it"
+        ],
+        "common_mistake": "\"Had\" = past of \"have\" for possession. \"He had an idea\" = he got/had the idea in the past."
+      }
+    },
+    {
+      "id": "s47",
+      "type": "sentence_builder",
+      "difficulty": 485,
+      "skill": "present_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"am\", \"is\", and \"are\".",
+        "context_translation": "בנה משפט עם \"am\", \"is\" ו-\"are\".",
+        "correct_answer": "I am a student my brother is a doctor and my parents are teachers",
+        "word_chips": [
+          "I",
+          "am",
+          "a",
+          "student",
+          "my",
+          "brother",
+          "is",
+          "a",
+          "doctor",
+          "and",
+          "my",
+          "parents",
+          "are",
+          "teachers"
+        ],
+        "common_mistake": "I → am. He/she/it (brother) → is. Plural (parents) → are."
+      }
+    },
+    {
+      "id": "s48",
+      "type": "sentence_builder",
+      "difficulty": 495,
+      "skill": "passive_voice",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a passive sentence using \"were\" about broken windows.",
+        "context_translation": "בנה משפט פסיבי עם \"were\" על חלונות שנשברו.",
+        "correct_answer": "The windows were broken during the storm last night",
+        "word_chips": [
+          "The",
+          "windows",
+          "were",
+          "broken",
+          "during",
+          "the",
+          "storm",
+          "last",
+          "night"
+        ],
+        "common_mistake": "Plural subject → \"were broken\". Past participle \"broken\" stays the same."
+      }
+    },
+    {
+      "id": "s49",
+      "type": "sentence_builder",
+      "difficulty": 505,
+      "skill": "past_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"had already\" before another past event.",
+        "context_translation": "בנה משפט עם \"had already\" לפני אירוע עבר אחר.",
+        "correct_answer": "The train had already left when we got to the station",
+        "word_chips": [
+          "The",
+          "train",
+          "had",
+          "already",
+          "left",
+          "when",
+          "we",
+          "got",
+          "to",
+          "the",
+          "station"
+        ],
+        "common_mistake": "Past Perfect (had left) = earlier event. Past Simple (got) = later event."
+      }
+    },
+    {
+      "id": "s50",
+      "type": "sentence_builder",
+      "difficulty": 515,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Build a sentence using \"has been\" about a recent change.",
+        "context_translation": "בנה משפט עם \"has been\" על שינוי אחרון.",
+        "correct_answer": "The weather has been very cold this week",
+        "word_chips": [
+          "The",
+          "weather",
+          "has",
+          "been",
+          "very",
+          "cold",
+          "this",
+          "week"
+        ],
+        "common_mistake": "Present Perfect with \"be\": has/have been + adjective. Period up to now (\"this week\")."
+      }
+    },
+    {
       "id": "t1",
       "type": "translation_he_en",
       "difficulty": 400,
@@ -5452,6 +8132,319 @@
       }
     },
     {
+      "id": "t22",
+      "type": "translation_he_en",
+      "difficulty": 355,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "היה קר מאוד אתמול.",
+        "context_translation": "It was very cold yesterday.",
+        "correct_answer": "It was very cold yesterday.",
+        "alternate_answers": [
+          "Yesterday it was very cold.",
+          "It was very cold yesterday"
+        ],
+        "common_mistake": "Past of \"be\" with \"it\": \"It was\" — not \"It were\" or \"It is\"."
+      }
+    },
+    {
+      "id": "t23",
+      "type": "translation_he_en",
+      "difficulty": 365,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "הילדים היו בבית הספר אתמול.",
+        "context_translation": "The children were at school yesterday.",
+        "correct_answer": "The children were at school yesterday.",
+        "alternate_answers": [
+          "Yesterday the children were at school."
+        ],
+        "common_mistake": "Plural subject → \"were\". \"The children was\" is always wrong."
+      }
+    },
+    {
+      "id": "t24",
+      "type": "translation_he_en",
+      "difficulty": 375,
+      "skill": "present_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "יש לה כלב קטן.",
+        "context_translation": "She has a small dog.",
+        "correct_answer": "She has a small dog.",
+        "alternate_answers": [
+          "She's got a small dog.",
+          "She has a little dog."
+        ],
+        "common_mistake": "\"Have\" for possession: she/he/it → has. \"She have a dog\" is wrong."
+      }
+    },
+    {
+      "id": "t25",
+      "type": "translation_he_en",
+      "difficulty": 385,
+      "skill": "past_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "היה לו רעיון טוב לפרויקט.",
+        "context_translation": "He had a good idea for the project.",
+        "correct_answer": "He had a good idea for the project.",
+        "alternate_answers": [
+          "He had a good idea about the project."
+        ],
+        "common_mistake": "Past of \"have\" (possession) = \"had\". Not \"He has\" for a past situation."
+      }
+    },
+    {
+      "id": "t26",
+      "type": "translation_he_en",
+      "difficulty": 395,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "היא כבר סיימה את שיעורי הבית.",
+        "context_translation": "She has already finished her homework.",
+        "correct_answer": "She has already finished her homework.",
+        "alternate_answers": [
+          "She's already finished her homework.",
+          "She has finished her homework already."
+        ],
+        "common_mistake": "Present Perfect: has + past participle. \"Already\" often goes between has and the verb."
+      }
+    },
+    {
+      "id": "t27",
+      "type": "translation_he_en",
+      "difficulty": 405,
+      "skill": "past_continuous",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "הם היו ישנים כשהגעתי.",
+        "context_translation": "They were sleeping when I arrived.",
+        "correct_answer": "They were sleeping when I arrived.",
+        "alternate_answers": [
+          "When I arrived, they were sleeping."
+        ],
+        "common_mistake": "Past Continuous: were + verb-ing. Arrival (Past Simple) interrupts the sleeping."
+      }
+    },
+    {
+      "id": "t28",
+      "type": "translation_he_en",
+      "difficulty": 415,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "הסרט היה משעמם.",
+        "context_translation": "The film was boring.",
+        "correct_answer": "The film was boring.",
+        "alternate_answers": [
+          "The movie was boring.",
+          "The film was dull."
+        ],
+        "common_mistake": "\"Was\" + adjective for past description. \"Boring\" describes the film (not \"bored\")."
+      }
+    },
+    {
+      "id": "t29",
+      "type": "translation_he_en",
+      "difficulty": 425,
+      "skill": "present_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "יש לנו מספיק זמן.",
+        "context_translation": "We have enough time.",
+        "correct_answer": "We have enough time.",
+        "alternate_answers": [
+          "We've got enough time.",
+          "We have sufficient time."
+        ],
+        "common_mistake": "With we/I/they use \"have\" — not \"has\". \"We has\" is wrong."
+      }
+    },
+    {
+      "id": "t30",
+      "type": "translation_he_en",
+      "difficulty": 435,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "הוא היה חולה אתמול ולא הגיע לעבודה.",
+        "context_translation": "He was sick yesterday and did not come to work.",
+        "correct_answer": "He was sick yesterday and did not come to work.",
+        "alternate_answers": [
+          "He was ill yesterday and did not come to work.",
+          "He was sick yesterday and didn't come to work."
+        ],
+        "common_mistake": "\"He was sick\" (past state). Second clause uses Past Simple \"did not come\"."
+      }
+    },
+    {
+      "id": "t31",
+      "type": "translation_he_en",
+      "difficulty": 445,
+      "skill": "past_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "הם כבר היו שם כשהגענו.",
+        "context_translation": "They had already been there when we arrived.",
+        "correct_answer": "They had already been there when we arrived.",
+        "alternate_answers": [
+          "When we arrived, they had already been there."
+        ],
+        "common_mistake": "Past Perfect (had been) = earlier past. \"Arrived\" = later past event."
+      }
+    },
+    {
+      "id": "t32",
+      "type": "translation_he_en",
+      "difficulty": 455,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "זה היה היום הכי יפה של הסתיו.",
+        "context_translation": "It was the most beautiful day of autumn.",
+        "correct_answer": "It was the most beautiful day of autumn.",
+        "alternate_answers": [
+          "It was the most beautiful day of the autumn.",
+          "It was the prettiest day of autumn."
+        ],
+        "common_mistake": "Superlative + past \"was\". US: \"fall\" instead of \"autumn\"."
+      }
+    },
+    {
+      "id": "t33",
+      "type": "translation_he_en",
+      "difficulty": 465,
+      "skill": "present_continuous",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "היא עובדת על הפרויקט עכשיו.",
+        "context_translation": "She is working on the project now.",
+        "correct_answer": "She is working on the project now.",
+        "alternate_answers": [
+          "She's working on the project now.",
+          "Right now she is working on the project."
+        ],
+        "common_mistake": "Present Continuous: is + verb-ing for actions happening now."
+      }
+    },
+    {
+      "id": "t34",
+      "type": "translation_he_en",
+      "difficulty": 475,
+      "skill": "passive_voice",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "הדלתות נסגרו בערב.",
+        "context_translation": "The doors were closed in the evening.",
+        "correct_answer": "The doors were closed in the evening.",
+        "alternate_answers": [
+          "The doors were shut in the evening.",
+          "In the evening the doors were closed."
+        ],
+        "common_mistake": "Past passive: were + past participle. Plural \"doors\" → \"were closed\"."
+      }
+    },
+    {
+      "id": "t35",
+      "type": "translation_he_en",
+      "difficulty": 485,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "מעולם לא הייתי בפריז, אבל שמעתי שהיא עיר יפה.",
+        "context_translation": "I have never been to Paris, but I have heard it is a beautiful city.",
+        "correct_answer": "I have never been to Paris, but I have heard it is a beautiful city.",
+        "alternate_answers": [
+          "I've never been to Paris, but I've heard it's a beautiful city."
+        ],
+        "common_mistake": "Two Present Perfect clauses: \"have never been\" (experience) and \"have heard\" (recent knowledge)."
+      }
+    },
+    {
+      "id": "t36",
+      "type": "translation_he_en",
+      "difficulty": 495,
+      "skill": "past_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "היא כבר אכלה לפני שהגענו לארוחת הערב.",
+        "context_translation": "She had already eaten before we arrived for dinner.",
+        "correct_answer": "She had already eaten before we arrived for dinner.",
+        "alternate_answers": [
+          "Before we arrived for dinner, she had already eaten."
+        ],
+        "common_mistake": "Past Perfect (had eaten) before Past Simple (arrived). Eating happened first."
+      }
+    },
+    {
+      "id": "t37",
+      "type": "translation_he_en",
+      "difficulty": 505,
+      "skill": "present_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "context_sentence": "אני תלמיד והחברים שלי תלמידים טובים.",
+        "context_translation": "I am a student and my friends are good students.",
+        "correct_answer": "I am a student and my friends are good students.",
+        "alternate_answers": [
+          "I'm a student and my friends are good students."
+        ],
+        "common_mistake": "I → am. Plural \"friends\" → are. Do not use \"is\" with \"friends\"."
+      }
+    },
+    {
       "id": "l1",
       "type": "listening_dictation",
       "difficulty": 400,
@@ -5466,6 +8459,24 @@
         "correct_answer": "The sun rises in the east and sets in the west.",
         "audio_only": true,
         "common_mistake": "Pay attention to \"rises\" (not \"rise\") — third person singular needs the -s suffix."
+      }
+    },
+    {
+      "id": "l23",
+      "type": "listening_dictation",
+      "difficulty": 440,
+      "skill": "sentence_structure",
+      "tags": [
+        "daily-life",
+        "beginner",
+        "shadowing"
+      ],
+      "data": {
+        "context_sentence": "Good morning, how can I help you today?",
+        "context_translation": "בוקר טוב, איך אני יכול לעזור לך היום?",
+        "correct_answer": "Good morning, how can I help you today?",
+        "audio_only": true,
+        "common_mistake": "Shadowing: listen, then repeat the full sentence aloud."
       }
     },
     {
@@ -6205,6 +9216,918 @@
       }
     },
     {
+      "id": "c21",
+      "type": "verb_conjugation",
+      "difficulty": 355,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Past Simple",
+        "target_person": "she / he / it",
+        "context_sentence": "She ___ at home yesterday evening.",
+        "context_translation": "היא ___ בבית אתמול בערב.",
+        "correct_answer": "was",
+        "common_mistake": "Past Simple of \"be\": I/he/she/it → was. We/you/they → were."
+      }
+    },
+    {
+      "id": "c22",
+      "type": "verb_conjugation",
+      "difficulty": 365,
+      "skill": "past_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Past Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ very happy at the party last night.",
+        "context_translation": "הם ___ מאוד שמחים במסיבה אתמול בלילה.",
+        "correct_answer": "were",
+        "common_mistake": "With they/we/you use \"were\" in the past — never \"was\"."
+      }
+    },
+    {
+      "id": "c23",
+      "type": "verb_conjugation",
+      "difficulty": 375,
+      "skill": "present_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "have",
+        "target_tense": "Present Simple",
+        "target_person": "she / he / it",
+        "context_sentence": "She ___ two brothers and one sister.",
+        "context_translation": "יש ___ שני אחים ואחות אחת.",
+        "correct_answer": "has",
+        "common_mistake": "\"Have\" for possession: I/you/we/they → have. She/he/it → has."
+      }
+    },
+    {
+      "id": "c24",
+      "type": "verb_conjugation",
+      "difficulty": 385,
+      "skill": "past_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "have",
+        "target_tense": "Past Simple",
+        "target_person": "he",
+        "context_sentence": "He ___ a headache yesterday, so he stayed home.",
+        "context_translation": "היה ___ לו כאב ראש אתמול, אז הוא נשאר בבית.",
+        "correct_answer": "had",
+        "common_mistake": "Past of \"have\" (possession or experience) = \"had\" for all persons."
+      }
+    },
+    {
+      "id": "c25",
+      "type": "verb_conjugation",
+      "difficulty": 395,
+      "skill": "past_continuous",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Past Continuous",
+        "target_person": "I",
+        "context_sentence": "I ___ cooking dinner when the doorbell rang.",
+        "context_translation": "___ מבשל ארוחת ערב כשצלצל פעמון הדלת.",
+        "correct_answer": "was",
+        "common_mistake": "Past Continuous: was/were + verb-ing. With \"I\" use \"was\" — then add the main verb (-ing form follows \"was\")."
+      }
+    },
+    {
+      "id": "c26",
+      "type": "verb_conjugation",
+      "difficulty": 405,
+      "skill": "past_continuous",
+      "tags": [
+        "be-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Past Continuous",
+        "target_person": "they",
+        "context_sentence": "They ___ playing football when it started to rain.",
+        "context_translation": "הם ___ משחקים כדורגל כשהתחיל לרדת גשם.",
+        "correct_answer": "were",
+        "common_mistake": "Past Continuous with they: \"were\" + verb-ing. \"They was playing\" is wrong."
+      }
+    },
+    {
+      "id": "c27",
+      "type": "verb_conjugation",
+      "difficulty": 415,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "have",
+        "target_tense": "Present Perfect",
+        "target_person": "I",
+        "context_sentence": "I ___ finished my work for today.",
+        "context_translation": "___ סיימתי את העבודה שלי להיום.",
+        "correct_answer": "have",
+        "common_mistake": "Present Perfect auxiliary: I/you/we/they → have. She/he/it → has."
+      }
+    },
+    {
+      "id": "c28",
+      "type": "verb_conjugation",
+      "difficulty": 425,
+      "skill": "present_perfect",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "have",
+        "target_tense": "Present Perfect",
+        "target_person": "she",
+        "context_sentence": "She ___ never tried sushi before.",
+        "context_translation": "היא ___ מעולם לא ניסתה סושי קודם.",
+        "correct_answer": "has",
+        "common_mistake": "With she/he/it use \"has\" + past participle. \"Never\" goes between has and the verb."
+      }
+    },
+    {
+      "id": "c29",
+      "type": "verb_conjugation",
+      "difficulty": 435,
+      "skill": "past_perfect",
+      "tags": [
+        "have-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "have",
+        "target_tense": "Past Perfect",
+        "target_person": "he",
+        "context_sentence": "He ___ already left when I called him.",
+        "context_translation": "הוא ___ כבר עזב כשהתקשרתי אליו.",
+        "correct_answer": "had",
+        "common_mistake": "Past Perfect: had + past participle for the earlier of two past events."
+      }
+    },
+    {
+      "id": "c30",
+      "type": "verb_conjugation",
+      "difficulty": 445,
+      "skill": "present_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Present Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ both from the same city.",
+        "context_translation": "שניהם ___ מאותה עיר.",
+        "correct_answer": "are",
+        "common_mistake": "Present Simple of \"be\": they/we/you → are. I → am. He/she/it → is."
+      }
+    },
+    {
+      "id": "c31",
+      "type": "verb_conjugation",
+      "difficulty": 455,
+      "skill": "present_continuous",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Present Continuous",
+        "target_person": "he",
+        "context_sentence": "He ___ reading a book in the library right now.",
+        "context_translation": "הוא ___ קורא ספר בספרייה עכשיו.",
+        "correct_answer": "is",
+        "common_mistake": "Present Continuous auxiliary: is/am/are + verb-ing. He → \"is reading\"."
+      }
+    },
+    {
+      "id": "c32",
+      "type": "verb_conjugation",
+      "difficulty": 465,
+      "skill": "present_simple",
+      "tags": [
+        "have-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "have",
+        "target_tense": "Present Simple",
+        "target_person": "we",
+        "context_sentence": "We ___ a meeting every Monday morning.",
+        "context_translation": "יש ___ לנו פגישה כל יום שני בבוקר.",
+        "correct_answer": "have",
+        "common_mistake": "With we/I/they/you use \"have\". \"We has\" is always wrong."
+      }
+    },
+    {
+      "id": "c33",
+      "type": "verb_conjugation",
+      "difficulty": 352,
+      "skill": "present_simple",
+      "tags": [
+        "be-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Present Simple",
+        "target_person": "he / she / it",
+        "context_sentence": "She ___ a doctor at the local hospital.",
+        "context_translation": "היא ___ רופאה בבית החולים המקומי.",
+        "correct_answer": "is",
+        "common_mistake": "I → am. He/she/it → is. We/you/they → are."
+      }
+    },
+    {
+      "id": "c34",
+      "type": "verb_conjugation",
+      "difficulty": 358,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "do",
+        "target_tense": "Present Simple",
+        "target_person": "he",
+        "context_sentence": "He ___ his homework every evening after dinner.",
+        "context_translation": "הוא ___ שיעורי בית כל ערב אחרי ארוחת הערב.",
+        "correct_answer": "does",
+        "common_mistake": "Irregular 3rd person: do → does. \"He do\" is always wrong."
+      }
+    },
+    {
+      "id": "c35",
+      "type": "verb_conjugation",
+      "difficulty": 362,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "play",
+        "target_tense": "Present Simple",
+        "target_person": "she",
+        "context_sentence": "She ___ tennis every Saturday with her friends.",
+        "context_translation": "היא ___ טניס כל יום שבת עם החברים שלה.",
+        "correct_answer": "plays",
+        "common_mistake": "Regular verbs: add -s for he/she/it. play → plays."
+      }
+    },
+    {
+      "id": "c36",
+      "type": "verb_conjugation",
+      "difficulty": 368,
+      "skill": "present_simple",
+      "tags": [
+        "present-simple",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "eat",
+        "target_tense": "Present Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ lunch at the café near the office.",
+        "context_translation": "הם ___ צהריים בבית הקפה ליד המשרד.",
+        "correct_answer": "eat",
+        "common_mistake": "With they/we/you/I use the base verb — no -s."
+      }
+    },
+    {
+      "id": "c37",
+      "type": "verb_conjugation",
+      "difficulty": 372,
+      "skill": "present_continuous",
+      "tags": [
+        "present-continuous",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "eat",
+        "target_tense": "Present Continuous",
+        "target_person": "we",
+        "context_sentence": "We ___ dinner right now — can I call you back?",
+        "context_translation": "___ אוכלים ארוחת ערב עכשיו — אפשר שאחזור אליך?",
+        "correct_answer": "are eating",
+        "common_mistake": "Present Continuous: am/is/are + verb-ing. We → \"are eating\"."
+      }
+    },
+    {
+      "id": "c38",
+      "type": "verb_conjugation",
+      "difficulty": 378,
+      "skill": "present_continuous",
+      "tags": [
+        "present-continuous",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "write",
+        "target_tense": "Present Continuous",
+        "target_person": "she",
+        "context_sentence": "She ___ an email to her manager at the moment.",
+        "context_translation": "היא ___ אימייל למנהל שלה כרגע.",
+        "correct_answer": "is writing",
+        "common_mistake": "Drop the silent \"e\" before -ing: write → writing, not \"writeing\"."
+      }
+    },
+    {
+      "id": "c39",
+      "type": "verb_conjugation",
+      "difficulty": 382,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "come",
+        "target_tense": "Past Simple",
+        "target_person": "he",
+        "context_sentence": "He ___ home late last night.",
+        "context_translation": "הוא ___ הביתה מאוחר אתמול בלילה.",
+        "correct_answer": "came",
+        "common_mistake": "Irregular: come → came. Never \"comed\"."
+      }
+    },
+    {
+      "id": "c40",
+      "type": "verb_conjugation",
+      "difficulty": 388,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "drink",
+        "target_tense": "Past Simple",
+        "target_person": "I",
+        "context_sentence": "I ___ two cups of coffee this morning.",
+        "context_translation": "___ שתי כוסות קפה הבוקר.",
+        "correct_answer": "drank",
+        "common_mistake": "Irregular: drink → drank → drunk. Past Simple is \"drank\"."
+      }
+    },
+    {
+      "id": "c41",
+      "type": "verb_conjugation",
+      "difficulty": 392,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "think",
+        "target_tense": "Past Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ the movie was too long.",
+        "context_translation": "הם ___ שהסרט היה ארוך מדי.",
+        "correct_answer": "thought",
+        "common_mistake": "Irregular: think → thought. Same form for all persons in Past Simple."
+      }
+    },
+    {
+      "id": "c42",
+      "type": "verb_conjugation",
+      "difficulty": 398,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "know",
+        "target_tense": "Past Simple",
+        "target_person": "she",
+        "context_sentence": "She ___ the answer immediately.",
+        "context_translation": "היא ___ את התשובה מיד.",
+        "correct_answer": "knew",
+        "common_mistake": "Irregular: know → knew → known. Past Simple is \"knew\"."
+      }
+    },
+    {
+      "id": "c43",
+      "type": "verb_conjugation",
+      "difficulty": 402,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "make",
+        "target_tense": "Past Simple",
+        "target_person": "we",
+        "context_sentence": "We ___ a cake for her birthday party.",
+        "context_translation": "___ עוגה למסיבת יום ההולדת שלה.",
+        "correct_answer": "made",
+        "common_mistake": "Irregular: make → made. Never \"maked\"."
+      }
+    },
+    {
+      "id": "c44",
+      "type": "verb_conjugation",
+      "difficulty": 408,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "give",
+        "target_tense": "Past Simple",
+        "target_person": "he",
+        "context_sentence": "He ___ me a book for my birthday.",
+        "context_translation": "הוא ___ לי ספר ליום ההולדת.",
+        "correct_answer": "gave",
+        "common_mistake": "Irregular: give → gave → given. Past Simple is \"gave\"."
+      }
+    },
+    {
+      "id": "c45",
+      "type": "verb_conjugation",
+      "difficulty": 412,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "find",
+        "target_tense": "Past Simple",
+        "target_person": "I",
+        "context_sentence": "I ___ my keys under the sofa.",
+        "context_translation": "___ את המפתחות שלי מתחת לספה.",
+        "correct_answer": "found",
+        "common_mistake": "Irregular: find → found. Never \"finded\"."
+      }
+    },
+    {
+      "id": "c46",
+      "type": "verb_conjugation",
+      "difficulty": 418,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "leave",
+        "target_tense": "Past Simple",
+        "target_person": "she",
+        "context_sentence": "She ___ the office at five o'clock yesterday.",
+        "context_translation": "היא ___ מהמשרד בשעה חמש אתמול.",
+        "correct_answer": "left",
+        "common_mistake": "Irregular: leave → left. Never \"leaved\"."
+      }
+    },
+    {
+      "id": "c47",
+      "type": "verb_conjugation",
+      "difficulty": 422,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "tell",
+        "target_tense": "Past Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ us about their trip to Italy.",
+        "context_translation": "הם ___ לנו על הטיול שלהם לאיטליה.",
+        "correct_answer": "told",
+        "common_mistake": "Irregular: tell → told. Same form for all persons."
+      }
+    },
+    {
+      "id": "c48",
+      "type": "verb_conjugation",
+      "difficulty": 428,
+      "skill": "past_continuous",
+      "tags": [
+        "past-continuous",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "sleep",
+        "target_tense": "Past Continuous",
+        "target_person": "he",
+        "context_sentence": "He ___ when the phone rang at midnight.",
+        "context_translation": "הוא ___ כשהטלפון צלצל בחצות.",
+        "correct_answer": "was sleeping",
+        "common_mistake": "Past Continuous: was/were + verb-ing. He → \"was sleeping\"."
+      }
+    },
+    {
+      "id": "c49",
+      "type": "verb_conjugation",
+      "difficulty": 432,
+      "skill": "past_continuous",
+      "tags": [
+        "past-continuous",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "wait",
+        "target_tense": "Past Continuous",
+        "target_person": "we",
+        "context_sentence": "We ___ for the bus when it started to rain.",
+        "context_translation": "___ מחכים לאוטובוס כשהתחיל לרדת גשם.",
+        "correct_answer": "were waiting",
+        "common_mistake": "We/they/you → \"were waiting\". Drop silent \"e\": wait → waiting."
+      }
+    },
+    {
+      "id": "c50",
+      "type": "verb_conjugation",
+      "difficulty": 438,
+      "skill": "past_continuous",
+      "tags": [
+        "past-continuous",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "read",
+        "target_tense": "Past Continuous",
+        "target_person": "I",
+        "context_sentence": "I ___ a novel when you knocked on the door.",
+        "context_translation": "___ קורא רומן כשדפקת בדלת.",
+        "correct_answer": "was reading",
+        "common_mistake": "Present \"read\" /riːd/ vs past \"read\" /red/ — same spelling, different sound."
+      }
+    },
+    {
+      "id": "c51",
+      "type": "verb_conjugation",
+      "difficulty": 442,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "do",
+        "target_tense": "Present Perfect",
+        "target_person": "I",
+        "context_sentence": "I ___ my homework already — can we go out?",
+        "context_translation": "___ כבר את שיעורי הבית — אפשר לצאת?",
+        "correct_answer": "have done",
+        "common_mistake": "Irregular past participle: do → did → done. Present Perfect: have done."
+      }
+    },
+    {
+      "id": "c52",
+      "type": "verb_conjugation",
+      "difficulty": 448,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "go",
+        "target_tense": "Present Perfect",
+        "target_person": "she",
+        "context_sentence": "She ___ to Paris three times this year.",
+        "context_translation": "היא ___ לפריז שלוש פעמים השנה.",
+        "correct_answer": "has gone",
+        "common_mistake": "go → went → gone. Present Perfect uses \"gone\", not \"went\"."
+      }
+    },
+    {
+      "id": "c53",
+      "type": "verb_conjugation",
+      "difficulty": 452,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "be",
+        "target_tense": "Present Perfect",
+        "target_person": "they",
+        "context_sentence": "They ___ to this restaurant before — the food is great.",
+        "context_translation": "הם ___ במסעדה הזו קודם — האוכל מעולה.",
+        "correct_answer": "have been",
+        "common_mistake": "Present Perfect of \"be\": have/has been. \"Have been to\" = visited a place."
+      }
+    },
+    {
+      "id": "c54",
+      "type": "verb_conjugation",
+      "difficulty": 458,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "write",
+        "target_tense": "Present Perfect",
+        "target_person": "he",
+        "context_sentence": "He ___ three emails but has not received a reply yet.",
+        "context_translation": "הוא ___ שלושה אימיילים אבל עדיין לא קיבל תשובה.",
+        "correct_answer": "has written",
+        "common_mistake": "write → wrote → written. Present Perfect: has written."
+      }
+    },
+    {
+      "id": "c55",
+      "type": "verb_conjugation",
+      "difficulty": 462,
+      "skill": "past_perfect",
+      "tags": [
+        "past-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "see",
+        "target_tense": "Past Perfect",
+        "target_person": "I",
+        "context_sentence": "I ___ that film before, so I knew the ending.",
+        "context_translation": "___ את הסרט הזה קודם, אז ידעתי את הסוף.",
+        "correct_answer": "had seen",
+        "common_mistake": "Past Perfect: had + past participle. Earlier past event before \"knew\"."
+      }
+    },
+    {
+      "id": "c56",
+      "type": "verb_conjugation",
+      "difficulty": 468,
+      "skill": "past_perfect",
+      "tags": [
+        "past-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "finish",
+        "target_tense": "Past Perfect",
+        "target_person": "she",
+        "context_sentence": "She ___ the report before the meeting started.",
+        "context_translation": "היא ___ את הדוח לפני שהפגישה התחילה.",
+        "correct_answer": "had finished",
+        "common_mistake": "Finishing happened BEFORE the meeting started — use Past Perfect."
+      }
+    },
+    {
+      "id": "c57",
+      "type": "verb_conjugation",
+      "difficulty": 472,
+      "skill": "future_will",
+      "tags": [
+        "future",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "call",
+        "target_tense": "Future Simple (will)",
+        "target_person": "I",
+        "context_sentence": "I ___ you as soon as I arrive at the airport.",
+        "context_translation": "___ אותך ברגע שאגיע לשדה התעופה.",
+        "correct_answer": "will call",
+        "common_mistake": "Future Simple: will + base verb. Same form for all persons."
+      }
+    },
+    {
+      "id": "c58",
+      "type": "verb_conjugation",
+      "difficulty": 478,
+      "skill": "future_going_to",
+      "tags": [
+        "future",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "rain",
+        "target_tense": "Future (going to)",
+        "target_person": "it",
+        "context_sentence": "Look at those clouds — it ___ soon.",
+        "context_translation": "תסתכל על העננים האלה — ___ לרדת גשם בקרוב.",
+        "correct_answer": "is going to rain",
+        "common_mistake": "Going to + base verb. With \"it\": \"it is going to rain\"."
+      }
+    },
+    {
+      "id": "c59",
+      "type": "verb_conjugation",
+      "difficulty": 482,
+      "skill": "modal_verbs",
+      "tags": [
+        "modals",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "can",
+        "target_tense": "Modal (ability)",
+        "target_person": "she",
+        "context_sentence": "She ___ speak three languages fluently.",
+        "context_translation": "היא ___ לדבר שלוש שפות בצורה שוטפת.",
+        "correct_answer": "can",
+        "common_mistake": "Modal verbs are followed by base verb — no \"to\": \"can speak\" not \"can to speak\"."
+      }
+    },
+    {
+      "id": "c60",
+      "type": "verb_conjugation",
+      "difficulty": 488,
+      "skill": "modal_verbs",
+      "tags": [
+        "modals",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "can",
+        "target_tense": "Modal (past ability)",
+        "target_person": "he",
+        "context_sentence": "When he was young, he ___ swim very well.",
+        "context_translation": "כשהיה צעיר, הוא ___ לשחות מאוד טוב.",
+        "correct_answer": "could",
+        "common_mistake": "Past ability: \"could\" (not \"can\"). \"Could swim\" = was able to swim."
+      }
+    },
+    {
+      "id": "c61",
+      "type": "verb_conjugation",
+      "difficulty": 492,
+      "skill": "past_simple",
+      "tags": [
+        "regular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "walk",
+        "target_tense": "Past Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ to school every day last year.",
+        "context_translation": "הם ___ לבית הספר כל יום בשנה שעברה.",
+        "correct_answer": "walked",
+        "common_mistake": "Regular verbs: add -ed for Past Simple. walk → walked."
+      }
+    },
+    {
+      "id": "c62",
+      "type": "verb_conjugation",
+      "difficulty": 498,
+      "skill": "past_simple",
+      "tags": [
+        "regular-verbs",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "help",
+        "target_tense": "Past Simple",
+        "target_person": "she",
+        "context_sentence": "She ___ her mother cook dinner yesterday.",
+        "context_translation": "היא ___ לאמא שלה לבשל ארוחת ערב אתמול.",
+        "correct_answer": "helped",
+        "common_mistake": "Regular verbs ending in -p: add -ed → helped."
+      }
+    },
+    {
+      "id": "c63",
+      "type": "verb_conjugation",
+      "difficulty": 505,
+      "skill": "present_perfect",
+      "tags": [
+        "present-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "live",
+        "target_tense": "Present Perfect",
+        "target_person": "we",
+        "context_sentence": "We ___ in this neighbourhood for ten years.",
+        "context_translation": "___ בשכונה הזו כבר עשר שנים.",
+        "correct_answer": "have lived",
+        "common_mistake": "\"For ten years\" + still living there → Present Perfect: have lived."
+      }
+    },
+    {
+      "id": "c64",
+      "type": "verb_conjugation",
+      "difficulty": 512,
+      "skill": "passive_voice",
+      "tags": [
+        "passive",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "build",
+        "target_tense": "Past Simple Passive",
+        "target_person": "it",
+        "context_sentence": "The bridge ___ in nineteen eighty-five.",
+        "context_translation": "הגשר ___ ב-1985.",
+        "correct_answer": "was built",
+        "common_mistake": "Past passive: was/were + past participle. build → built (irregular)."
+      }
+    },
+    {
+      "id": "c65",
+      "type": "verb_conjugation",
+      "difficulty": 518,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "feel",
+        "target_tense": "Past Simple",
+        "target_person": "I",
+        "context_sentence": "I ___ nervous before the job interview.",
+        "context_translation": "___ לחוץ לפני ראיון העבודה.",
+        "correct_answer": "felt",
+        "common_mistake": "Irregular: feel → felt. Never \"feeled\"."
+      }
+    },
+    {
+      "id": "c66",
+      "type": "verb_conjugation",
+      "difficulty": 525,
+      "skill": "past_simple",
+      "tags": [
+        "irregular-verbs",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "get",
+        "target_tense": "Past Simple",
+        "target_person": "they",
+        "context_sentence": "They ___ lost on the way to the museum.",
+        "context_translation": "הם ___ אבודים בדרך למוזיאון.",
+        "correct_answer": "got",
+        "common_mistake": "Irregular: get → got → gotten/got. Past Simple is \"got\" (UK also uses \"gotten\" in US)."
+      }
+    },
+    {
+      "id": "c67",
+      "type": "verb_conjugation",
+      "difficulty": 532,
+      "skill": "present_continuous",
+      "tags": [
+        "present-continuous",
+        "beginner"
+      ],
+      "data": {
+        "verb_base": "sit",
+        "target_tense": "Present Continuous",
+        "target_person": "they",
+        "context_sentence": "They ___ in the front row at the concert.",
+        "context_translation": "הם ___ בשורה הראשונה בקונצרט.",
+        "correct_answer": "are sitting",
+        "common_mistake": "Double the consonant: sit → sitting. They → \"are sitting\"."
+      }
+    },
+    {
+      "id": "c68",
+      "type": "verb_conjugation",
+      "difficulty": 538,
+      "skill": "past_perfect",
+      "tags": [
+        "past-perfect",
+        "intermediate"
+      ],
+      "data": {
+        "verb_base": "eat",
+        "target_tense": "Past Perfect",
+        "target_person": "they",
+        "context_sentence": "They ___ already eaten when we arrived for dinner.",
+        "context_translation": "הם ___ כבר כשהגענו לארוחת הערב.",
+        "correct_answer": "had eaten",
+        "common_mistake": "Eating finished before arrival — Past Perfect: had eaten."
+      }
+    },
+    {
       "id": "r1",
       "type": "reading_comprehension",
       "difficulty": 480,
@@ -6522,6 +10445,76 @@
           }
         ],
         "common_mistake": "Academic passages often define terms in the same sentence — \"motivated reasoning — selectively interpreting…\" gives the definition."
+      }
+    },
+    {
+      "id": "r8",
+      "type": "reading_comprehension",
+      "difficulty": 520,
+      "skill": "vocabulary_travel",
+      "tags": [
+        "travel",
+        "reading",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions below.",
+        "context_translation": "קרא את הקטע וענה על השאלות.",
+        "correct_answer": "",
+        "passage": "Traveling by train across Europe remains one of the most popular ways to see the continent. High-speed rail connects major cities in hours, and overnight sleeper trains offer a comfortable alternative to short flights. Many travellers prefer trains because stations are usually located in city centres, avoiding long airport transfers.\n\nHowever, booking in advance is essential during peak season. Prices can rise sharply, and popular routes sell out weeks ahead. A rail pass can save money for those planning multiple journeys within a month.",
+        "comprehension_questions": [
+          {
+            "q": "Why do many travellers prefer trains according to the passage?",
+            "options": [
+              "Trains are always cheaper than flights",
+              "Stations are usually in city centres",
+              "Sleeper trains are faster than planes",
+              "Booking is never required"
+            ],
+            "answer": "Stations are usually in city centres"
+          }
+        ],
+        "common_mistake": "Look for explicit reasons stated in the text — \"because stations are usually located in city centres\"."
+      }
+    },
+    {
+      "id": "r9",
+      "type": "reading_comprehension",
+      "difficulty": 560,
+      "skill": "present_perfect",
+      "tags": [
+        "grammar",
+        "reading",
+        "intermediate"
+      ],
+      "data": {
+        "context_sentence": "Read the passage and answer the questions below.",
+        "context_translation": "קרא את הקטע וענה על השאלות.",
+        "correct_answer": "",
+        "passage": "Sarah has lived in Tel Aviv for ten years, but she has never learned to surf. Last summer, her friend invited her to a lesson in Herzliya. She was nervous at first, but after an hour she stood on the board for a few seconds. Since that day, she has practised every weekend when the waves are calm.",
+        "comprehension_questions": [
+          {
+            "q": "How long has Sarah lived in Tel Aviv?",
+            "options": [
+              "One summer",
+              "Ten years",
+              "Every weekend",
+              "A few seconds"
+            ],
+            "answer": "Ten years"
+          },
+          {
+            "q": "When did she first stand on the board?",
+            "options": [
+              "Ten years ago",
+              "Last summer",
+              "Every weekend",
+              "She has never stood on a board"
+            ],
+            "answer": "Last summer"
+          }
+        ],
+        "grammar_hint": "Present Perfect (has lived) = unfinished time connection. Past Simple (Last summer) = finished time."
       }
     },
     {

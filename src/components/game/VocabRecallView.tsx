@@ -5,6 +5,11 @@ import type { ContentItem } from '@/types/game'
 import { useSpeech } from '@/hooks/useSpeech'
 import { useGameStore } from '@/store/useGameStore'
 import { maskWord, buildLetterHint } from '@/utils/wordHint'
+import { ExerciseLayout } from '@/components/layout/ExerciseLayout'
+import { Card } from '@/components/ui/Card'
+import { PrimaryButton } from '@/components/ui/PrimaryButton'
+import { SecondaryButton } from '@/components/ui/SecondaryButton'
+import { TextInput } from '@/components/ui/TextInput'
 
 interface VocabRecallViewProps {
   item: ContentItem
@@ -61,8 +66,30 @@ export function VocabRecallView({ item, onAnswer, showHint }: VocabRecallViewPro
   const mistakeHint = showHint && item.data.common_mistake
 
   return (
-    <div className="w-full max-w-xl mx-auto px-4 flex flex-col gap-5">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-5">
+    <ExerciseLayout
+      actions={
+        <>
+          <div className="flex gap-2">
+            <SecondaryButton onClick={handleSkip} disabled={submitted} iconOnly aria-label="Skip">
+              <EyeOff size={18} />
+            </SecondaryButton>
+            <SecondaryButton
+              onClick={handleHint}
+              disabled={submitted || hintLevel >= 3}
+              iconOnly
+              variant="amber"
+              aria-label="Hint"
+            >
+              <HelpCircle size={18} />
+            </SecondaryButton>
+          </div>
+          <PrimaryButton onClick={handleSubmit} disabled={!input.trim() || submitted}>
+            {submitted ? 'Checking…' : 'Check'}
+          </PrimaryButton>
+        </>
+      }
+    >
+      <Card>
         <div className="flex items-center justify-between mb-4">
           <span className="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
             <BookOpen size={14} />
@@ -73,7 +100,7 @@ export function VocabRecallView({ item, onAnswer, showHint }: VocabRecallViewPro
 
         <div className="flex flex-col gap-3 mb-4">
           <div className="rounded-xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 px-4 py-3 text-center" dir="rtl">
-            <p className="text-[10px] font-semibold text-indigo-500 dark:text-indigo-400 uppercase tracking-wide mb-1">
+            <p className="text-xs font-semibold text-indigo-500 dark:text-indigo-400 uppercase tracking-wide mb-1">
               Meaning (Hebrew)
             </p>
             <p className="text-xl font-bold text-indigo-900 dark:text-indigo-100">{item.data.translation}</p>
@@ -102,69 +129,22 @@ export function VocabRecallView({ item, onAnswer, showHint }: VocabRecallViewPro
             <p className="text-sm text-amber-700 dark:text-amber-200 leading-relaxed">{item.data.common_mistake}</p>
           </div>
         )}
-      </div>
+      </Card>
 
-      <div>
-        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-300 mb-2">
-          Type the English word:
-        </label>
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={submitted}
-          placeholder="Type the word…"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-          className={`w-full rounded-xl border-2 px-4 py-3 text-lg font-semibold text-slate-800 dark:text-slate-100 placeholder:text-slate-400 placeholder:font-normal outline-none transition-colors focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-            submitted
-              ? 'border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-slate-500'
-              : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 focus:border-indigo-400'
-          }`}
-        />
-        <p className="text-xs text-slate-400 mt-1">Press Enter to check</p>
-      </div>
-
-      <div className="flex gap-3">
-        <button
-          onClick={handleSkip}
-          disabled={submitted}
-          className={`flex items-center gap-2 px-4 min-h-[52px] rounded-xl font-semibold text-sm transition-all border-2 focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-            submitted
-              ? 'border-slate-200 dark:border-slate-600 text-slate-300 dark:text-slate-600 cursor-not-allowed'
-              : 'border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:border-indigo-300 dark:hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30'
-          }`}
-        >
-          <EyeOff size={16} />
-          Skip
-        </button>
-        <button
-          onClick={handleHint}
-          disabled={submitted || hintLevel >= 3}
-          className={`flex items-center gap-2 px-4 min-h-[52px] rounded-xl font-semibold text-sm transition-all border-2 focus-visible:ring-2 focus-visible:ring-amber-400 ${
-            submitted || hintLevel >= 3
-              ? 'border-slate-200 dark:border-slate-600 text-slate-300 dark:text-slate-600 cursor-not-allowed'
-              : 'border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30'
-          }`}
-        >
-          <HelpCircle size={16} />
-          Hint
-        </button>
-        <button
-          onClick={handleSubmit}
-          disabled={!input.trim() || submitted}
-          className={`flex-1 min-h-[52px] rounded-xl font-bold text-base transition-all focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-            input.trim() && !submitted
-              ? 'bg-indigo-600 text-white shadow-md active:bg-indigo-700 hover:bg-indigo-700'
-              : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
-          }`}
-        >
-          {submitted ? 'Checking…' : 'Check'}
-        </button>
-      </div>
-    </div>
+      <TextInput
+        ref={inputRef}
+        label="Type the English word:"
+        hint="Press Enter to check"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        disabled={submitted}
+        placeholder="Type the word…"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck={false}
+      />
+    </ExerciseLayout>
   )
 }

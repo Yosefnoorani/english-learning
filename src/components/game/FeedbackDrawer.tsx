@@ -216,13 +216,14 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
         `}
         style={{ transform: swipeOffset > 0 ? `translateY(${swipeOffset}px)` : undefined, transition: swipeOffset > 0 ? 'none' : undefined }}
       >
-        <div className="flex flex-col h-full max-h-[85svh] md:max-h-full p-6 gap-5 overflow-y-auto">
+        <div className="flex flex-col h-full max-h-[85svh] md:max-h-full">
+          <div className="flex-1 overflow-y-auto p-6 gap-5 flex flex-col min-h-0">
           <div
             ref={handleRef}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
-            className="w-10 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto md:hidden cursor-grab"
+            className="w-10 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto md:hidden cursor-grab flex-shrink-0"
             aria-hidden="true"
           />
 
@@ -277,10 +278,11 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
           </div>
 
           {!isCorrect && staticFeedback && (
-            <div className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-3">
-              <p className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide text-right" dir="rtl">
-                למה טעית?
-              </p>
+            <details className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-3 group" open>
+              <summary className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide text-right cursor-pointer list-none flex items-center justify-between" dir="rtl">
+                <span>למה טעית?</span>
+                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
 
               {showOpenComparison && (
                 <AnswerComparison
@@ -294,18 +296,25 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
               {staticFeedback.sentenceWhy && (
                 <div className="rounded-lg bg-white/70 dark:bg-slate-900/50 border border-violet-200 dark:border-violet-700 p-3" dir="rtl">
                   <p className="text-xs font-bold text-violet-700 dark:text-violet-300 mb-1">למה כך נכון?</p>
-                  <p className="text-sm text-violet-900 dark:text-violet-100 leading-relaxed text-right">
+                  <p className="text-[15px] text-violet-900 dark:text-violet-100 leading-relaxed text-right">
                     <BidiMixedText text={staticFeedback.sentenceWhy} />
                   </p>
                 </div>
               )}
 
-              <p className="text-xs text-violet-700 dark:text-violet-300 leading-relaxed text-right" dir="rtl">
+              <p className="text-[15px] text-violet-700 dark:text-violet-300 leading-relaxed text-right" dir="rtl">
                 <BidiMixedText text={staticFeedback.rule} prefix={<strong>כלל: </strong>} />
               </p>
               <p className="text-xs text-slate-600 dark:text-slate-400 italic" dir="ltr">
                 {staticFeedback.example}
               </p>
+            </details>
+          )}
+
+          {item.data.common_mistake && isCorrect && (
+            <div className="rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 p-3">
+              <p className="text-xs font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wide mb-1">Did you know?</p>
+              <p className="text-sm text-sky-800 dark:text-sky-200 leading-relaxed">{item.data.common_mistake}</p>
             </div>
           )}
 
@@ -315,9 +324,12 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
               <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{item.data.translation}</p>
             </div>
           )}
+          </div>
 
-          <div className="flex-1 hidden md:block" />
-
+          <div
+            className="flex-shrink-0 p-4 pt-2 border-t border-slate-200/80 dark:border-slate-700/80 bg-inherit"
+            style={{ paddingBottom: 'max(1rem, var(--safe-bottom))' }}
+          >
           <button
             onClick={onNext}
             autoFocus
@@ -329,6 +341,7 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
           >
             Got it, next!
           </button>
+          </div>
         </div>
       </div>
     </>

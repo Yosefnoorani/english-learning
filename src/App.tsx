@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useGameStore, selectCurrentItem, selectLevelLabel } from '@/store/useGameStore'
 import { useStoreHydrated } from '@/hooks/useStoreHydrated'
 import { loadContent, getAllContent } from '@/services/contentService'
+import { filterByAudioPreference } from '@/services/gameService'
 import { loadFeedback } from '@/services/feedbackService'
 import type { NavView } from '@/types/game'
 import { AppShell } from '@/components/layout/AppShell'
@@ -17,6 +18,7 @@ import { SpellingView } from '@/components/game/SpellingView'
 import { MatchingPairsView } from '@/components/game/MatchingPairsView'
 import { VocabularyChoiceView } from '@/components/game/VocabularyChoiceView'
 import { WordScrambleView } from '@/components/game/WordScrambleView'
+import { ShadowingView } from '@/components/game/ShadowingView'
 import { ReadingView } from '@/components/game/ReadingView'
 import { SkillsPanel } from '@/components/game/SkillsPanel'
 import { ResourcesPanel } from '@/components/game/ResourcesPanel'
@@ -25,6 +27,8 @@ import { SettingsPanel } from '@/components/game/SettingsPanel'
 import { OnboardingTour } from '@/components/game/OnboardingTour'
 import { SessionSummary } from '@/components/game/SessionSummary'
 import { HomeScreen } from '@/components/game/HomeScreen'
+import { MicroLessonCard } from '@/components/game/MicroLessonCard'
+import { getLessonTip } from '@/content/lessonTips'
 import type { SkillId } from '@/types/game'
 
 function LoadingSkeleton() {
@@ -69,6 +73,12 @@ export default function App() {
   )
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [pendingMicroSkill, setPendingMicroSkill] = useState<SkillId | null>(null)
+  const hasSeenOnboarding = useGameStore((s) => s.hasSeenOnboarding)
+  const hasCompletedSetup = useGameStore((s) => s.hasCompletedSetup)
+  const skillStats = useGameStore((s) => s.skillStats)
+  const blockedSkillsShown = useGameStore((s) => s.blockedSkillsShown)
+  const startPlacement = useGameStore((s) => s.startPlacement)
   const storeHydrated = useStoreHydrated()
 
   useEffect(() => {
@@ -82,13 +92,57 @@ export default function App() {
   }, [contentReady, initGame])
 
   useEffect(() => {
+    if (storeHydrated && !hasSeenOnboarding) {
+      setShowOnboarding(true)
+    }
+  }, [storeHydrated, hasSeenOnboarding])
+
+  useEffect(() => {
+    if (!item || activeView !== 'practice') {
+      setPendingMicroSkill(null)
+      return
+    }
+    const stats = skillStats[item.skill]
+    const attempts = (stats?.correct ?? 0) + (stats?.wrong ?? 0)
+    if (attempts < 3 && !blockedSkillsShown.includes(item.skill) && getLessonTip(item.skill)) {
+      setPendingMicroSkill(item.skill)
+    } else {
+      setPendingMicroSkill(null)
+    }
+  }, [item?.id, item?.skill, activeView, skillStats, blockedSkillsShown])
+
+  function dismissMicroLesson() {
+    if (pendingMicroSkill) {
+      useGameStore.setState((s) => ({
+        blockedSkillsShown: [...s.blockedSkillsShown, pendingMicroSkill],
+      }))
+    }
+    setPendingMicroSkill(null)
+  }
+
+  function handleOnboardingDone() {
+    setShowOnboarding(false)
+    useGameStore.getState().markOnboardingSeen()
+  }
+
+  async function handleOnboardingStartPlacement() {
+    if (!hasCompletedSetup) {
+      await startPlacement()
+    }
+  }
+
+  useEffect(() => {
     document.title = phase === 'placement'
       ? 'English Learning · Placement'
       : `English Learning · ${levelLabel}`
   }, [phase, levelLabel])
 
   function startDailyLesson(skill: SkillId) {
-    const items = getAllContent().filter((i) => i.skill === skill && i.type !== 'placement_test')
+    const includeAudio = useGameStore.getState().includeAudioQuestions
+    const items = filterByAudioPreference(
+      getAllContent().filter((i) => i.skill === skill && i.type !== 'placement_test'),
+      includeAudio,
+    )
     if (items.length > 0) {
       useGameStore.setState({
         questionBuffer: items.slice(0, 10),
@@ -130,7 +184,10 @@ export default function App() {
     return (
       <>
         {showOnboarding && (
-          <OnboardingTour onDone={() => { setShowOnboarding(false); useGameStore.getState().markOnboardingSeen() }} />
+          <OnboardingTour
+            onDone={handleOnboardingDone}
+            onStartPlacement={() => { void handleOnboardingStartPlacement() }}
+          />
         )}
         <div
           className="min-h-svh bg-slate-50 dark:bg-slate-950 flex flex-col"
@@ -153,6 +210,7 @@ export default function App() {
         activeView={activeView}
         onNavigate={handleNavigate}
         onOpenSettings={() => setShowSettings(true)}
+        inPracticeSession={activeView === 'practice' && !!item}
       >
         <main
           className="flex-1 flex flex-col"
@@ -160,7 +218,12 @@ export default function App() {
         >
           {activeView === 'practice' && (
             item ? (
-              <div className="flex flex-col gap-5 py-4 overflow-y-auto flex-1">
+              <div className="flex flex-col gap-5 py-4 overflow-y-auto flex-1 min-h-0">
+                {pendingMicroSkill && getLessonTip(pendingMicroSkill) && (
+                  <MicroLessonCard tip={getLessonTip(pendingMicroSkill)!} onDismiss={dismissMicroLesson} />
+                )}
+                {!pendingMicroSkill && (
+                <>
                 {item.type === 'vocabulary' && (
                   <VocabRecallView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
@@ -176,7 +239,10 @@ export default function App() {
                 {item.type === 'translation_he_en' && (
                   <TranslationView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
-                {item.type === 'listening_dictation' && (
+                {item.type === 'listening_dictation' && item.tags.includes('shadowing') && (
+                  <ShadowingView item={item} onAnswer={submitAnswer} />
+                )}
+                {item.type === 'listening_dictation' && !item.tags.includes('shadowing') && (
                   <DictationView item={item} onAnswer={submitAnswer} showHint={triggerHint} />
                 )}
                 {item.type === 'verb_conjugation' && (
@@ -197,6 +263,8 @@ export default function App() {
                 {item.type === 'reading_comprehension' && (
                   <ReadingView item={item} onAnswer={submitAnswer} onDismiss={dismissFeedback} showHint={triggerHint} />
                 )}
+                </>
+                )}
               </div>
             ) : (
               <HomeScreen
@@ -209,7 +277,7 @@ export default function App() {
 
           {activeView === 'skills' && (
             <div className="flex-1 overflow-y-auto">
-              <SkillsPanel onClose={closePanelToHome} />
+              <SkillsPanel onClose={closePanelToHome} onPracticeSkill={startDailyLesson} />
             </div>
           )}
 
@@ -249,7 +317,10 @@ export default function App() {
       )}
 
       {showOnboarding && (
-        <OnboardingTour onDone={() => { setShowOnboarding(false); useGameStore.getState().markOnboardingSeen() }} />
+        <OnboardingTour
+          onDone={handleOnboardingDone}
+          onStartPlacement={() => { void handleOnboardingStartPlacement() }}
+        />
       )}
     </>
   )

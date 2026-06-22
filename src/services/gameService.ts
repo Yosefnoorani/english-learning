@@ -1,4 +1,4 @@
-import type { ContentItem, SkillId, SkillStats, MistakeEntry } from '@/types/game'
+import type { ContentItem, SkillId, SkillStats, MistakeEntry, VocabReviewEntry } from '@/types/game'
 import { supabase } from './supabaseClient'
 import { getAllContent, getPlacementContent } from './contentService'
 import { getDifficultyBand } from './adaptiveProgressionService'
@@ -7,7 +7,18 @@ import {
   pickNextRequeueItem,
 } from './mistakeMasteryService'
 import { expandPoolWithVocabDerivatives } from './vocabDerivationService'
+import { getDueVocabReviews } from './vocabReviewService'
 import type { TelemetryEntry } from '@/types/game'
+
+/** Listening dictation and shadowing — exercises that require hearing or speaking. */
+export function isAudioQuestion(item: ContentItem): boolean {
+  return item.type === 'listening_dictation'
+}
+
+export function filterByAudioPreference(items: ContentItem[], includeAudio: boolean): ContentItem[] {
+  if (includeAudio) return items
+  return items.filter((item) => !isAudioQuestion(item))
+}
 
 /**
  * Fetch questions filtered by difficulty tier band.
@@ -20,9 +31,11 @@ export async function fetchQuestions(
   skillStats?: Record<SkillId, SkillStats>,
   mistakeQueue?: MistakeEntry[],
   excludeIds: string[] = [],
+  vocabReviewQueue?: VocabReviewEntry[],
+  includeAudioQuestions = true,
 ): Promise<ContentItem[]> {
   if (mode === 'placement') {
-    return shuffle(getPlacementContent()).slice(0, 5)
+    return shuffle(filterByAudioPreference(getPlacementContent(), includeAudioQuestions)).slice(0, 5)
   }
 
   const rating = getDifficultyBand(tier).min + 25
@@ -37,23 +50,48 @@ export async function fetchQuestions(
       .limit(limit * 2)
 
     if (!error && data?.length) {
-      return skillBiasedSelect(data as ContentItem[], limit, skillStats, mistakeQueue, tier, excludeIds)
+      return skillBiasedSelect(
+        filterByAudioPreference(data as ContentItem[], includeAudioQuestions),
+        limit,
+        skillStats,
+        mistakeQueue,
+        tier,
+        excludeIds,
+        vocabReviewQueue,
+        includeAudioQuestions,
+      )
     }
     console.warn('[gameService] Supabase fetch failed, using local content', error)
   }
 
   const { min, max } = getDifficultyBand(tier)
   const all = getAllContent()
-  const inBand = all.filter(
-    (item) =>
-      item.difficulty >= min &&
-      item.difficulty <= max &&
-      item.type !== 'placement_test',
+  const inBand = filterByAudioPreference(
+    all.filter(
+      (item) =>
+        item.difficulty >= min &&
+        item.difficulty <= max &&
+        item.type !== 'placement_test',
+    ),
+    includeAudioQuestions,
   )
-  const pool = inBand.length >= 6 ? inBand : all.filter((i) => i.type !== 'placement_test')
+  const fallback = filterByAudioPreference(
+    all.filter((i) => i.type !== 'placement_test'),
+    includeAudioQuestions,
+  )
+  const pool = inBand.length >= 6 ? inBand : fallback
   const expandedPool = expandPoolWithVocabDerivatives(pool, getAllContent())
 
-  return skillBiasedSelect(expandedPool, limit, skillStats, mistakeQueue, tier, excludeIds)
+  return skillBiasedSelect(
+    expandedPool,
+    limit,
+    skillStats,
+    mistakeQueue,
+    tier,
+    excludeIds,
+    vocabReviewQueue,
+    includeAudioQuestions,
+  )
 }
 
 export async function fetchReviewItems(_userId: string): Promise<ContentItem[]> {
@@ -99,28 +137,43 @@ function skillBiasedSelect(
   mistakeQueue?: MistakeEntry[],
   _tier?: number,
   excludeIds: string[] = [],
+  vocabReviewQueue?: VocabReviewEntry[],
+  includeAudioQuestions = true,
 ): ContentItem[] {
   const allContent = getAllContent()
   const selected: ContentItem[] = []
   const usedIds = new Set<string>()
   const recentExclude = new Set(excludeIds.slice(-RECENT_EXCLUDE_CAP))
 
-  let workingPool = pool.filter((item) => !recentExclude.has(item.id))
+  let workingPool = filterByAudioPreference(
+    pool.filter((item) => !recentExclude.has(item.id)),
+    includeAudioQuestions,
+  )
   if (workingPool.length < limit) {
-    workingPool = pool
+    workingPool = filterByAudioPreference(pool, includeAudioQuestions)
+  }
+
+  if (vocabReviewQueue) {
+    for (const item of getDueVocabReviews(vocabReviewQueue, allContent)) {
+      if (selected.length >= 2) break
+      if (!usedIds.has(item.id) && !recentExclude.has(item.id)) {
+        selected.push(item)
+        usedIds.add(item.id)
+      }
+    }
   }
 
   if (mistakeQueue) {
     // At most 1 in-session requeue item — chosen via round-robin (oldest failedAt first)
     // so the user sees variety across all failed words, not the same one repeatedly.
     const requeueItem = pickNextRequeueItem(mistakeQueue, allContent, recentExclude)
-    if (requeueItem && !usedIds.has(requeueItem.id)) {
+    if (requeueItem && !usedIds.has(requeueItem.id) && (includeAudioQuestions || !isAudioQuestion(requeueItem))) {
       selected.push(requeueItem)
       usedIds.add(requeueItem.id)
     }
 
     // At most 1 SRS-due item on top of the requeue slot (keeps mistake density low).
-    const dueItems = getDueMistakeItems(mistakeQueue, allContent)
+    const dueItems = filterByAudioPreference(getDueMistakeItems(mistakeQueue, allContent), includeAudioQuestions)
     for (const item of dueItems) {
       if (selected.length >= 2) break
       if (!usedIds.has(item.id) && !recentExclude.has(item.id)) {
@@ -196,4 +249,34 @@ function findWeakestSkill(skillStats: Record<SkillId, SkillStats>): SkillId | nu
 
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
+}
+
+const BLOCKED_INTRO_COUNT = 5
+const BLOCKED_INTRO_THRESHOLD = 3
+
+/** Front-load items for a new skill (< 3 attempts) before mixed practice. */
+export function applyBlockedPractice(
+  items: ContentItem[],
+  skillStats: Record<SkillId, SkillStats>,
+  allContent: ContentItem[],
+  includeAudioQuestions = true,
+): ContentItem[] {
+  const newSkill = (Object.entries(skillStats) as [SkillId, SkillStats][]).find(
+    ([, s]) => s.correct + s.wrong < BLOCKED_INTRO_THRESHOLD,
+  )?.[0]
+
+  if (!newSkill) return items
+
+  const blocked = shuffle(
+    filterByAudioPreference(
+      allContent.filter((i) => i.skill === newSkill && i.type !== 'placement_test'),
+      includeAudioQuestions,
+    ),
+  ).slice(0, BLOCKED_INTRO_COUNT)
+
+  if (blocked.length === 0) return items
+
+  const blockedIds = new Set(blocked.map((i) => i.id))
+  const rest = items.filter((i) => !blockedIds.has(i.id))
+  return [...blocked, ...rest].slice(0, items.length)
 }

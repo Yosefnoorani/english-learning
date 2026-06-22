@@ -1,4 +1,4 @@
-import { X, RotateCcw, Clock } from 'lucide-react'
+import { X, RotateCcw, Clock, Download } from 'lucide-react'
 import { useGameStore } from '@/store/useGameStore'
 import { SKILL_LABELS } from '@/types/game'
 import type { SkillId } from '@/types/game'
@@ -33,6 +33,22 @@ export function MistakeJournal({ onClose, onPractise }: MistakeJournalProps) {
     onPractise()
   }
 
+  function exportJournal() {
+    const rows = entries.map((e) => {
+      const item = getContentById(e.contentId)
+      const word = (item?.data.word ?? item?.data.correct_answer ?? '').replace(/"/g, '""')
+      return `"${e.contentId}","${word}",${e.failCount}`
+    })
+    const csv = `id,word,failCount\n${rows.join('\n')}`
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'mistake-journal.csv'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <>
       <div className="fixed inset-0 bg-black/30 z-40" onClick={onClose} aria-hidden="true" />
@@ -50,6 +66,18 @@ export function MistakeJournal({ onClose, onPractise }: MistakeJournalProps) {
             <X size={20} />
           </button>
         </div>
+
+        {entries.length > 0 && (
+          <div className="px-5 pt-3">
+            <button
+              onClick={exportJournal}
+              className="w-full min-h-[44px] rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              <Download size={16} />
+              Export journal (CSV)
+            </button>
+          </div>
+        )}
 
         {dueNow.length > 0 && (
           <div className="px-5 pt-4">

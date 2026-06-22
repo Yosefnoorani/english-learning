@@ -20,7 +20,8 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
   const [hintRevealed, setHintRevealed] = useState(false)
   const voiceLang = useGameStore((s) => s.voiceLang)
   const voiceRate = useGameStore((s) => s.voiceRate)
-  const { speak, stop } = useSpeech({ lang: voiceLang, rate: voiceRate * 0.85 }) // slightly slower for dictation
+  const [speedMult, setSpeedMult] = useState(0.85)
+  const { speak, stop } = useSpeech({ lang: voiceLang, rate: voiceRate * speedMult })
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -107,8 +108,26 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
             ? 'border-sky-300 dark:border-sky-700 text-sky-600 dark:text-sky-400'
             : 'border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600'
         }`}>
-          <RotateCw size={14} />
-          <span>Replay {replaysLeft > 0 ? `(${replaysLeft} left)` : '(used up)'}</span>
+          <RotateCw size={16} />
+          {replaysLeft} replay{replaysLeft !== 1 ? 's' : ''} left
+        </div>
+
+        <div className="flex gap-2 w-full">
+          {([0.75, 1, 1.25] as const).map((mult) => (
+            <button
+              key={mult}
+              type="button"
+              disabled={submitted || isPlaying}
+              onClick={() => setSpeedMult(mult * 0.85)}
+              className={`flex-1 min-h-[44px] rounded-xl text-xs font-bold border-2 transition-colors ${
+                Math.abs(speedMult - mult * 0.85) < 0.01
+                  ? 'border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300'
+                  : 'border-slate-200 dark:border-slate-700 text-slate-500'
+              }`}
+            >
+              {mult}x
+            </button>
+          ))}
         </div>
 
         {/* Hint: Hebrew translation (manual or after mistake) */}

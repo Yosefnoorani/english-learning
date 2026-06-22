@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { BookOpen, Repeat2, Settings, ChevronRight } from 'lucide-react'
+import { BookOpen, Repeat2, Settings, ChevronRight, Target } from 'lucide-react'
 import { useGameStore } from '@/store/useGameStore'
 
 interface OnboardingTourProps {
   onDone: () => void
+  onStartPlacement?: () => void
 }
 
 const SCREENS = [
@@ -26,11 +27,18 @@ const SCREENS = [
     bg: 'from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40',
     title: 'Make It Your Own',
     body: 'Choose Quick (5Q), Standard (10Q), or Deep (20Q) sessions. Turn on dark mode, adjust sound effects, and set your daily goal — all in Settings.',
+    cta: 'Next',
+  },
+  {
+    icon: <Target size={40} className="text-indigo-500" />,
+    bg: 'from-indigo-50 to-blue-50 dark:from-indigo-950/40 dark:to-blue-950/40',
+    title: 'Find Your Level',
+    body: 'Take a quick 5-question placement test so exercises match your English level from the start.',
     cta: 'Start Learning',
   },
 ]
 
-export function OnboardingTour({ onDone }: OnboardingTourProps) {
+export function OnboardingTour({ onDone, onStartPlacement }: OnboardingTourProps) {
   const [step, setStep] = useState(0)
   const markOnboardingSeen = useGameStore((s) => s.markOnboardingSeen)
   const current = SCREENS[step]
@@ -40,6 +48,7 @@ export function OnboardingTour({ onDone }: OnboardingTourProps) {
       setStep((s) => s + 1)
     } else {
       markOnboardingSeen()
+      onStartPlacement?.()
       onDone()
     }
   }

@@ -16,6 +16,20 @@ export const LISTENING_ITEMS: ContentItem[] = [
     },
   },
   {
+    id: 'l23',
+    type: 'listening_dictation',
+    difficulty: 440,
+    skill: 'sentence_structure',
+    tags: ['daily-life', 'beginner', 'shadowing'],
+    data: {
+      context_sentence: 'Good morning, how can I help you today?',
+      context_translation: 'בוקר טוב, איך אני יכול לעזור לך היום?',
+      correct_answer: 'Good morning, how can I help you today?',
+      audio_only: true,
+      common_mistake: 'Shadowing: listen, then repeat the full sentence aloud.',
+    },
+  },
+  {
     id: 'l2',
     type: 'listening_dictation',
     difficulty: 420,

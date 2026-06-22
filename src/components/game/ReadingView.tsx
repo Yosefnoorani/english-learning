@@ -99,7 +99,7 @@ export function ReadingView({ item, onAnswer, onDismiss, showHint }: ReadingView
           </div>
 
           {/* Passage — larger text for readability */}
-          <div className="text-base sm:text-lg text-slate-700 dark:text-slate-200 leading-7 whitespace-pre-line">
+          <div className="text-[17px] sm:text-lg text-slate-700 dark:text-slate-200 leading-7 whitespace-pre-line">
             {item.data.passage}
           </div>
 

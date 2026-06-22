@@ -51,7 +51,7 @@ export function DailyLesson({ skillStats, rating, onStartLesson }: DailyLessonPr
 
   return (
     <div
-      className="mx-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 p-5 shadow-lg cursor-pointer hover:shadow-xl transition-shadow active:scale-[0.98]"
+      className="rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 p-5 shadow-lg cursor-pointer hover:shadow-xl transition-shadow active:scale-[0.98]"
       onClick={() => onStartLesson(todaySkill)}
     >
       <div className="flex items-start justify-between mb-3">
