@@ -14,7 +14,7 @@ import type {
   NavView,
   ResumeSnapshot,
 } from '@/types/game'
-import { fetchQuestions, fetchReviewItems, submitTelemetry, applyBlockedPractice, filterByAudioPreference, isAudioQuestion } from '@/services/gameService'
+import { fetchQuestions, fetchDueMistakeReviewItems, fetchSkillLessonQuestions, submitTelemetry, applyBlockedPractice, filterByAudioPreference, isAudioQuestion } from '@/services/gameService'
 import { gradeAnswer } from '@/services/gradingService'
 import { getContentByIds } from '@/services/contentService'
 import {
@@ -38,6 +38,7 @@ import { getAllContent } from '@/services/contentService'
 import {
   registerVocabSeen,
   advanceVocabReview,
+  regressVocabReview,
   isVocabItem,
 } from '@/services/vocabReviewService'
 import { checkAchievements, awardAchievement } from '@/services/achievementService'
@@ -96,6 +97,8 @@ interface GameState {
   voiceRate: number
   /** Include listening dictation and shadowing exercises in sessions. */
   includeAudioQuestions: boolean
+  /** Show diff + Hebrew explanations in feedback drawer. */
+  detailedFeedback: boolean
   /** Recently seen content IDs — reduces repetition across sessions. */
   recentContentIds: string[]
   /** Proactive vocab SRS schedule. */
@@ -124,6 +127,7 @@ interface GameState {
   setActiveView: (view: NavView) => void
   saveResumeSnapshot: () => void
 
+  retrySimilarQuestion: () => Promise<void>
   setTheme: (theme: AppTheme) => void
   setSessionMode: (mode: SessionMode) => void
   setSounds: (v: boolean) => void
@@ -132,6 +136,7 @@ interface GameState {
   markOnboardingSeen: () => void
   setVoice: (lang: string, rate: number) => void
   setIncludeAudioQuestions: (v: boolean) => void
+  setDetailedFeedback: (v: boolean) => void
   setDailyGoalTarget: (n: number) => void
   setPracticeTier: (tier: number) => void
   resetProgress: () => void
@@ -258,6 +263,7 @@ export const useGameStore = create<GameState>()(
       voiceLang: 'en-GB',
       voiceRate: 0.9,
       includeAudioQuestions: true,
+      detailedFeedback: true,
       recentContentIds: [],
       vocabReviewQueue: [],
       achievements: [],
@@ -293,6 +299,7 @@ export const useGameStore = create<GameState>()(
         }
         set(updates)
       },
+      setDetailedFeedback: (v) => set({ detailedFeedback: v }),
       setDailyGoalTarget: (n) =>
         set((s) => ({ userState: { ...s.userState, dailyGoalTarget: n } })),
 
@@ -546,6 +553,8 @@ export const useGameStore = create<GameState>()(
           vocabReviewQueue = registerVocabSeen(vocabReviewQueue, item.id)
           if (isCorrect) {
             vocabReviewQueue = advanceVocabReview(vocabReviewQueue, item.id)
+          } else {
+            vocabReviewQueue = regressVocabReview(vocabReviewQueue, item.id)
           }
         }
 
@@ -556,19 +565,27 @@ export const useGameStore = create<GameState>()(
           dailyQuestDate = todayStr
         }
         const quests = getDailyQuests(new Date(), state.includeAudioQuestions)
+        const nowMs = Date.now()
+        const mistakeEntry = state.mistakeQueue.find((e) => e.contentId === item.id)
+        const wasDueMistake =
+          mistakeEntry != null && !mistakeEntry.mastered && mistakeEntry.nextDueAt <= nowMs
+
         for (const quest of quests) {
           if (quest.metric === 'session_questions') {
+            dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
+          }
+          if (quest.metric === 'session_correct' && isCorrect) {
             dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
           }
           if (quest.metric === 'listening_count' && item.type === 'listening_dictation' && state.includeAudioQuestions) {
             dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
           }
-        }
-        if (!isCorrect && state.mistakeQueue.some((e) => e.contentId === item.id)) {
-          for (const quest of quests) {
-            if (quest.metric === 'mistakes_reviewed') {
-              dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
-            }
+          if (
+            quest.metric === 'mistakes_reviewed' &&
+            isCorrect &&
+            (state.mistakeReviewMode || wasDueMistake)
+          ) {
+            dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
           }
         }
 
@@ -678,6 +695,7 @@ export const useGameStore = create<GameState>()(
         })
 
         if (tierChanged) {
+          set({ practiceTier: currentTier })
           const s = get()
           const fresh = await fetchQuestions(
             s.practiceTier,
@@ -819,17 +837,45 @@ export const useGameStore = create<GameState>()(
           )
           set({ mistakeReviewMode: false, phase: 'gameplay', questionBuffer: items, currentIndex: 0, sessionRecentMistakeIds: [] })
         } else {
-          const items = await fetchReviewItems('anonymous')
+          const { mistakeQueue, includeAudioQuestions } = get()
+          const items = fetchDueMistakeReviewItems(mistakeQueue, BUFFER_SIZE, includeAudioQuestions)
           set({
             mistakeReviewMode: true,
             phase: 'review',
-            questionBuffer: items.length ? items : get().questionBuffer,
+            questionBuffer: items,
             currentIndex: 0,
             sessionAnswered: 0,
             sessionCorrect: 0,
             sessionRecentMistakeIds: [],
           })
         }
+        get().saveResumeSnapshot()
+      },
+
+      retrySimilarQuestion: async () => {
+        const { lastResult, practiceTier, skillStats, mistakeQueue, recentContentIds, vocabReviewQueue, includeAudioQuestions } = get()
+        if (!lastResult || lastResult.isCorrect) return
+        const skill = lastResult.item.skill
+        const items = await fetchSkillLessonQuestions(
+          skill,
+          Math.max(MIN_TIER, practiceTier - 1),
+          1,
+          skillStats,
+          mistakeQueue,
+          recentContentIds,
+          vocabReviewQueue,
+          includeAudioQuestions,
+        )
+        if (items.length === 0) return
+        const retryItem = items[0]
+        const { questionBuffer, currentIndex } = get()
+        const newBuffer = [...questionBuffer]
+        newBuffer.splice(currentIndex + 1, 0, retryItem)
+        set({
+          questionBuffer: newBuffer,
+          showFeedback: false,
+          triggerHint: true,
+        })
         get().saveResumeSnapshot()
       },
     }),
@@ -859,6 +905,7 @@ export const useGameStore = create<GameState>()(
         if (s.dailyQuestProgress === undefined) s.dailyQuestProgress = {}
         if (s.dailyQuestDate === undefined) s.dailyQuestDate = ''
         if (s.includeAudioQuestions === undefined) s.includeAudioQuestions = true
+        if (s.detailedFeedback === undefined) s.detailedFeedback = true
 
         if (version < 5) {
           const currentTier = (s.currentTier as number) ?? MIN_TIER
@@ -889,6 +936,7 @@ export const useGameStore = create<GameState>()(
         voiceLang: state.voiceLang,
         voiceRate: state.voiceRate,
         includeAudioQuestions: state.includeAudioQuestions,
+        detailedFeedback: state.detailedFeedback,
         currentTier: state.currentTier,
         tierCorrectStreak: state.tierCorrectStreak,
         tierWrongStreak: state.tierWrongStreak,

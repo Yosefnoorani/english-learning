@@ -8,6 +8,8 @@ const INTERVALS_MS = [
   30 * 24 * 60 * 60 * 1000,
 ]
 
+const ADVANCE_CONSECUTIVE = 2
+
 export function isVocabItem(item: ContentItem): boolean {
   return item.type === 'vocabulary' || !!item.data.word
 }
@@ -30,6 +32,7 @@ export function registerVocabSeen(
       lastSeenAt: now,
       nextReviewAt: now + INTERVALS_MS[0],
       reviewStage: 0,
+      consecutiveCorrect: 0,
     },
   ]
 }
@@ -41,10 +44,33 @@ export function advanceVocabReview(
 ): VocabReviewEntry[] {
   return queue.map((e) => {
     if (e.contentId !== contentId) return e
+    const consecutiveCorrect = (e.consecutiveCorrect ?? 0) + 1
+    if (consecutiveCorrect < ADVANCE_CONSECUTIVE) {
+      return { ...e, consecutiveCorrect, lastSeenAt: now }
+    }
     const nextStage = Math.min(e.reviewStage + 1, INTERVALS_MS.length - 1)
     return {
       ...e,
       reviewStage: nextStage,
+      consecutiveCorrect: 0,
+      lastSeenAt: now,
+      nextReviewAt: now + INTERVALS_MS[nextStage],
+    }
+  })
+}
+
+export function regressVocabReview(
+  queue: VocabReviewEntry[],
+  contentId: string,
+  now = Date.now(),
+): VocabReviewEntry[] {
+  return queue.map((e) => {
+    if (e.contentId !== contentId) return e
+    const nextStage = Math.max(0, e.reviewStage - 1)
+    return {
+      ...e,
+      reviewStage: nextStage,
+      consecutiveCorrect: 0,
       lastSeenAt: now,
       nextReviewAt: now + INTERVALS_MS[nextStage],
     }

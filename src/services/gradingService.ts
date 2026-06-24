@@ -161,6 +161,21 @@ export function gradeAnswer(item: ContentItem, userInput: string): GradingResult
       explanation: 'Well done on the reading passage!',
     }
   }
+  const readingMatch = userInput.match(/^__reading__:(\d+)\/(\d+)$/)
+  if (readingMatch) {
+    const correct = parseInt(readingMatch[1], 10)
+    const total = parseInt(readingMatch[2], 10)
+    const pct = total > 0 ? correct / total : 0
+    const isCorrect = pct >= 0.67
+    return {
+      isCorrect,
+      similarity: pct,
+      errors: [],
+      explanation: isCorrect
+        ? `You answered ${correct} of ${total} comprehension questions correctly.`
+        : `You got ${correct} of ${total} — review the passage and try again.`,
+    }
+  }
 
   const primaryAnswer = item.data.correct_answer
   const allAnswers = [primaryAnswer, ...(item.data.alternate_answers ?? [])]

@@ -94,14 +94,66 @@ export async function fetchQuestions(
   )
 }
 
-export async function fetchReviewItems(_userId: string): Promise<ContentItem[]> {
+/** Load due items from the local mistake SRS queue for dedicated review sessions. */
+export function fetchDueMistakeReviewItems(
+  mistakeQueue: MistakeEntry[],
+  limit = 12,
+  includeAudioQuestions = true,
+): ContentItem[] {
   const all = getAllContent()
-  if (!supabase) {
-    return shuffle(all.filter((i) => i.difficulty >= 550 && i.type !== 'placement_test')).slice(0, 6)
+  const due = filterByAudioPreference(getDueMistakeItems(mistakeQueue, all), includeAudioQuestions)
+  return shuffle(due).slice(0, limit)
+}
+
+/** Adaptive skill-focused lesson using the same selection pipeline as gameplay. */
+export async function fetchSkillLessonQuestions(
+  skill: SkillId,
+  tier: number,
+  limit: number,
+  skillStats?: Record<SkillId, SkillStats>,
+  mistakeQueue?: MistakeEntry[],
+  excludeIds: string[] = [],
+  vocabReviewQueue?: VocabReviewEntry[],
+  includeAudioQuestions = true,
+): Promise<ContentItem[]> {
+  const batch = await fetchQuestions(
+    tier,
+    'gameplay',
+    limit * 4,
+    skillStats,
+    mistakeQueue,
+    excludeIds,
+    vocabReviewQueue,
+    includeAudioQuestions,
+  )
+  const skillItems = batch.filter((i) => i.skill === skill)
+  if (skillItems.length >= limit) return skillItems.slice(0, limit)
+
+  const { min, max } = getDifficultyBand(tier)
+  const all = getAllContent()
+  const pool = shuffle(
+    filterByAudioPreference(
+      all.filter(
+        (i) =>
+          i.skill === skill &&
+          i.type !== 'placement_test' &&
+          i.difficulty >= min - 50 &&
+          i.difficulty <= max + 50,
+      ),
+      includeAudioQuestions,
+    ),
+  )
+  const merged = [...skillItems]
+  for (const item of pool) {
+    if (merged.length >= limit) break
+    if (!merged.some((m) => m.id === item.id)) merged.push(item)
   }
-  const { data, error } = await supabase.rpc('get_due_review_items', { p_user_id: _userId })
-  if (error || !data?.length) return []
-  return data as ContentItem[]
+  return merged.slice(0, limit)
+}
+
+/** @deprecated Use fetchDueMistakeReviewItems with local mistakeQueue instead. */
+export async function fetchReviewItems(_userId: string): Promise<ContentItem[]> {
+  return fetchDueMistakeReviewItems([], 6)
 }
 
 export async function submitTelemetry(entry: TelemetryEntry): Promise<void> {
@@ -183,6 +235,19 @@ function skillBiasedSelect(
     }
   }
 
+  if (skillStats) {
+    const staleGrammarSkill = findStaleGrammarSkill(skillStats)
+    if (staleGrammarSkill) {
+      const staleItem = workingPool.find(
+        (item) => item.skill === staleGrammarSkill && !usedIds.has(item.id) && !item.skill.startsWith('vocabulary'),
+      )
+      if (staleItem && selected.length < limit) {
+        selected.push(staleItem)
+        usedIds.add(staleItem.id)
+      }
+    }
+  }
+
   let weakSkillItems: ContentItem[] = []
   if (skillStats) {
     const weakSkill = findWeakestSkill(skillStats)
@@ -247,12 +312,37 @@ function findWeakestSkill(skillStats: Record<SkillId, SkillStats>): SkillId | nu
   return worst?.skill ?? null
 }
 
+const GRAMMAR_REVIEW_MS = 7 * 24 * 60 * 60 * 1000
+
+function findStaleGrammarSkill(skillStats: Record<SkillId, SkillStats>, now = Date.now()): SkillId | null {
+  let candidate: { skill: SkillId; mastery: number; lastSeen: number } | null = null
+  for (const [skill, stats] of Object.entries(skillStats) as [SkillId, SkillStats][]) {
+    if (skill.startsWith('vocabulary')) continue
+    const total = stats.correct + stats.wrong
+    if (total < 5) continue
+    const mastery = stats.correct / total
+    if (mastery >= 0.75) continue
+    if (now - stats.lastSeen < GRAMMAR_REVIEW_MS) continue
+    if (!candidate || stats.lastSeen < candidate.lastSeen) {
+      candidate = { skill, mastery, lastSeen: stats.lastSeen }
+    }
+  }
+  return candidate?.skill ?? null
+}
+
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
 }
 
 const BLOCKED_INTRO_COUNT = 5
 const BLOCKED_INTRO_THRESHOLD = 3
+
+function findNewestSkill(skillStats: Record<SkillId, SkillStats>): SkillId | null {
+  const candidates = (Object.entries(skillStats) as [SkillId, SkillStats][])
+    .filter(([, s]) => s.correct + s.wrong < BLOCKED_INTRO_THRESHOLD)
+    .sort((a, b) => a[1].correct + a[1].wrong - (b[1].correct + b[1].wrong))
+  return candidates[0]?.[0] ?? null
+}
 
 /** Front-load items for a new skill (< 3 attempts) before mixed practice. */
 export function applyBlockedPractice(
@@ -261,9 +351,7 @@ export function applyBlockedPractice(
   allContent: ContentItem[],
   includeAudioQuestions = true,
 ): ContentItem[] {
-  const newSkill = (Object.entries(skillStats) as [SkillId, SkillStats][]).find(
-    ([, s]) => s.correct + s.wrong < BLOCKED_INTRO_THRESHOLD,
-  )?.[0]
+  const newSkill = findNewestSkill(skillStats)
 
   if (!newSkill) return items
 

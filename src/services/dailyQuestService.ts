@@ -2,14 +2,14 @@ export interface DailyQuest {
   id: string
   label: string
   target: number
-  metric: 'session_questions' | 'mistakes_reviewed' | 'listening_count'
+  metric: 'session_questions' | 'session_correct' | 'mistakes_reviewed' | 'listening_count'
 }
 
 const QUEST_POOL: DailyQuest[] = [
   { id: 'session_10', label: 'Complete a 10-question session', target: 10, metric: 'session_questions' },
   { id: 'review_3', label: 'Review 3 due mistakes', target: 3, metric: 'mistakes_reviewed' },
   { id: 'listening_2', label: 'Practice 2 listening exercises', target: 2, metric: 'listening_count' },
-  { id: 'session_5', label: 'Answer 5 questions correctly', target: 5, metric: 'session_questions' },
+  { id: 'session_5', label: 'Answer 5 questions correctly', target: 5, metric: 'session_correct' },
 ]
 
 function daySeed(date: Date): number {

@@ -5,6 +5,10 @@ import type { ContentItem } from '@/types/game'
 import { useGameStore } from '@/store/useGameStore'
 import { useSpeech } from '@/hooks/useSpeech'
 import { maskWord, buildLetterHint } from '@/utils/wordHint'
+import { ExerciseLayout } from '@/components/layout/ExerciseLayout'
+import { Card } from '@/components/ui/Card'
+import { PrimaryButton } from '@/components/ui/PrimaryButton'
+import { TextInput } from '@/components/ui/TextInput'
 
 interface SpellingViewProps {
   item: ContentItem
@@ -47,8 +51,14 @@ export function SpellingView({ item, onAnswer, showHint }: SpellingViewProps) {
   const letterHint = showHint && targetWord ? buildLetterHint(targetWord, 2) : null
 
   return (
-    <div className="w-full max-w-xl mx-auto px-4 flex flex-col gap-5">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-5">
+    <ExerciseLayout
+      actions={
+        <PrimaryButton onClick={handleSubmit} disabled={!input.trim() || submitted}>
+          {submitted ? 'Checking…' : 'Check spelling'}
+        </PrimaryButton>
+      }
+    >
+      <Card>
         <div className="flex items-center justify-between mb-4">
           <span className="text-xs font-semibold uppercase tracking-widest text-fuchsia-600 dark:text-fuchsia-400 flex items-center gap-1.5">
             <PenLine size={14} />
@@ -86,43 +96,22 @@ export function SpellingView({ item, onAnswer, showHint }: SpellingViewProps) {
             <p className="text-sm text-amber-700 dark:text-amber-200 leading-relaxed">{item.data.common_mistake}</p>
           </div>
         )}
-      </div>
+      </Card>
 
-      <div>
-        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-300 mb-2">
-          Type the English word:
-        </label>
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={submitted}
-          placeholder="Spell the word…"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-          className={`w-full rounded-xl border-2 px-4 py-3 text-lg font-semibold text-slate-800 dark:text-slate-100 placeholder:text-slate-400 placeholder:font-normal outline-none transition-colors focus-visible:ring-2 focus-visible:ring-fuchsia-400 ${
-            submitted
-              ? 'border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-slate-500'
-              : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 focus:border-fuchsia-400'
-          }`}
-        />
-        <p className="text-xs text-slate-400 mt-1">Press Enter to check spelling</p>
-      </div>
-
-      <button
-        onClick={handleSubmit}
-        disabled={!input.trim() || submitted}
-        className={`w-full min-h-[52px] rounded-xl font-bold text-base transition-all focus-visible:ring-2 focus-visible:ring-fuchsia-400 ${
-          input.trim() && !submitted
-            ? 'bg-fuchsia-600 text-white shadow-md active:bg-fuchsia-700 hover:bg-fuchsia-700'
-            : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
-        }`}
-      >
-        {submitted ? 'Checking…' : 'Check spelling'}
-      </button>
-    </div>
+      <TextInput
+        ref={inputRef}
+        label="Type the English word:"
+        hint="Press Enter to check spelling"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        disabled={submitted}
+        placeholder="Spell the word…"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck={false}
+      />
+    </ExerciseLayout>
   )
 }

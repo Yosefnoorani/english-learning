@@ -73,9 +73,7 @@ export function ReadingView({ item, onAnswer, onDismiss, showHint }: ReadingView
     const next = questionIndex + 1
     if (next >= totalQuestions) {
       setReadingPhase('done')
-      const finalScore = score + (selected === currentQuestion?.answer ? 1 : 0)
-      const pct = Math.round((finalScore / totalQuestions) * 100)
-      onAnswer(pct >= 67 ? '__correct__' : '__wrong__')
+      onAnswer(`__reading__:${score}/${totalQuestions}`)
     } else {
       setQuestionIndex(next)
       setSelected(null)

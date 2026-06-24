@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useGameStore, selectCurrentItem, selectLevelLabel } from '@/store/useGameStore'
 import { useStoreHydrated } from '@/hooks/useStoreHydrated'
-import { loadContent, getAllContent } from '@/services/contentService'
-import { filterByAudioPreference } from '@/services/gameService'
+import { loadContent } from '@/services/contentService'
+import { fetchSkillLessonQuestions } from '@/services/gameService'
 import { loadFeedback } from '@/services/feedbackService'
 import type { NavView } from '@/types/game'
 import { AppShell } from '@/components/layout/AppShell'
@@ -73,12 +73,14 @@ export default function App() {
   )
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [showPlacementBanner, setShowPlacementBanner] = useState(false)
   const [pendingMicroSkill, setPendingMicroSkill] = useState<SkillId | null>(null)
   const hasSeenOnboarding = useGameStore((s) => s.hasSeenOnboarding)
   const hasCompletedSetup = useGameStore((s) => s.hasCompletedSetup)
   const skillStats = useGameStore((s) => s.skillStats)
   const blockedSkillsShown = useGameStore((s) => s.blockedSkillsShown)
   const startPlacement = useGameStore((s) => s.startPlacement)
+  const toggleMistakeReview = useGameStore((s) => s.toggleMistakeReview)
   const storeHydrated = useStoreHydrated()
 
   useEffect(() => {
@@ -126,9 +128,27 @@ export default function App() {
   }
 
   async function handleOnboardingStartPlacement() {
+    setShowPlacementBanner(false)
     if (!hasCompletedSetup) {
+      setPlacementStarted(true)
       await startPlacement()
     }
+  }
+
+  function handleOnboardingSkip() {
+    if (!hasCompletedSetup) {
+      setShowPlacementBanner(true)
+    }
+  }
+
+  async function handleStartPlacementFromHome() {
+    setShowPlacementBanner(false)
+    setPlacementStarted(true)
+    await startPlacement()
+  }
+
+  async function handleStartReview() {
+    await toggleMistakeReview()
   }
 
   useEffect(() => {
@@ -137,21 +157,28 @@ export default function App() {
       : `English Learning · ${levelLabel}`
   }, [phase, levelLabel])
 
-  function startDailyLesson(skill: SkillId) {
-    const includeAudio = useGameStore.getState().includeAudioQuestions
-    const items = filterByAudioPreference(
-      getAllContent().filter((i) => i.skill === skill && i.type !== 'placement_test'),
-      includeAudio,
+  async function startDailyLesson(skill: SkillId) {
+    const state = useGameStore.getState()
+    const items = await fetchSkillLessonQuestions(
+      skill,
+      state.practiceTier,
+      10,
+      state.skillStats,
+      state.mistakeQueue,
+      state.recentContentIds,
+      state.vocabReviewQueue,
+      state.includeAudioQuestions,
     )
     if (items.length > 0) {
       useGameStore.setState({
-        questionBuffer: items.slice(0, 10),
+        questionBuffer: items,
         currentIndex: 0,
         showFeedback: false,
         triggerHint: false,
         sessionAnswered: 0,
         sessionCorrect: 0,
         showSessionSummary: false,
+        activeView: 'practice',
       })
       useGameStore.getState().saveResumeSnapshot()
     }
@@ -187,6 +214,7 @@ export default function App() {
           <OnboardingTour
             onDone={handleOnboardingDone}
             onStartPlacement={() => { void handleOnboardingStartPlacement() }}
+            onSkip={handleOnboardingSkip}
           />
         )}
         <div
@@ -212,13 +240,10 @@ export default function App() {
         onOpenSettings={() => setShowSettings(true)}
         inPracticeSession={activeView === 'practice' && !!item}
       >
-        <main
-          className="flex-1 flex flex-col"
-          style={{ paddingBottom: 'max(5rem, env(safe-area-inset-bottom))' }}
-        >
+        <main className="flex-1 flex flex-col min-h-0">
           {activeView === 'practice' && (
             item ? (
-              <div className="flex flex-col gap-5 py-4 overflow-y-auto flex-1 min-h-0">
+              <div className="flex flex-col flex-1 min-h-0">
                 {pendingMicroSkill && getLessonTip(pendingMicroSkill) && (
                   <MicroLessonCard tip={getLessonTip(pendingMicroSkill)!} onDismiss={dismissMicroLesson} />
                 )}
@@ -271,29 +296,23 @@ export default function App() {
                 onStartLesson={startDailyLesson}
                 onOpenJournal={() => setActiveView('journal')}
                 onOpenSkills={() => setActiveView('skills')}
+                onStartPlacement={() => { void handleStartPlacementFromHome() }}
+                onStartReview={() => { void handleStartReview() }}
+                showPlacementBanner={showPlacementBanner && !hasCompletedSetup}
               />
             )
           )}
 
           {activeView === 'skills' && (
-            <div className="flex-1 overflow-y-auto">
-              <SkillsPanel onClose={closePanelToHome} onPracticeSkill={startDailyLesson} />
-            </div>
+            <SkillsPanel onClose={closePanelToHome} onPracticeSkill={startDailyLesson} />
           )}
 
           {activeView === 'journal' && (
-            <div className="flex-1 overflow-y-auto">
-              <MistakeJournal
-                onClose={closePanelToHome}
-                onPractise={closePanelToHome}
-              />
-            </div>
+            <MistakeJournal onClose={closePanelToHome} onPractise={closePanelToHome} />
           )}
 
           {activeView === 'resources' && (
-            <div className="flex-1 overflow-y-auto">
-              <ResourcesPanel levelLabel={levelLabel} onClose={closePanelToHome} />
-            </div>
+            <ResourcesPanel levelLabel={levelLabel} onClose={closePanelToHome} />
           )}
         </main>
       </AppShell>
@@ -320,6 +339,7 @@ export default function App() {
         <OnboardingTour
           onDone={handleOnboardingDone}
           onStartPlacement={() => { void handleOnboardingStartPlacement() }}
+          onSkip={handleOnboardingSkip}
         />
       )}
     </>

@@ -54,6 +54,8 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
   const setVoice = useGameStore((s) => s.setVoice)
   const includeAudioQuestions = useGameStore((s) => s.includeAudioQuestions)
   const setIncludeAudioQuestions = useGameStore((s) => s.setIncludeAudioQuestions)
+  const detailedFeedback = useGameStore((s) => s.detailedFeedback)
+  const setDetailedFeedback = useGameStore((s) => s.setDetailedFeedback)
   const setDailyGoalTarget = useGameStore((s) => s.setDailyGoalTarget)
   const setPracticeTier = useGameStore((s) => s.setPracticeTier)
   const resetProgress = useGameStore((s) => s.resetProgress)
@@ -221,6 +223,14 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
                   <p className="text-xs text-slate-400">Vibration on answers (mobile)</p>
                 </div>
                 <Toggle checked={haptics} onChange={setHaptics} label="Haptic feedback" />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">Detailed feedback</p>
+                  <p className="text-xs text-slate-400">Show diff + Hebrew explanations after wrong answers</p>
+                </div>
+                <Toggle checked={detailedFeedback} onChange={setDetailedFeedback} label="Detailed feedback" />
               </div>
 
               <div className="flex items-center justify-between">

@@ -21,8 +21,27 @@ export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
   const sessionMode = useGameStore((s) => s.sessionMode)
   const lastResult = useGameStore((s) => s.lastResult)
 
+  const mistakeReviewMode = useGameStore((s) => s.mistakeReviewMode)
+  const vocabReviewQueue = useGameStore((s) => s.vocabReviewQueue)
+
   const accuracy = sessionAnswered > 0 ? Math.round((sessionCorrect / sessionAnswered) * 100) : 0
   const passed = accuracy >= 60
+  const newWords = useMemo(
+    () => sessionLearnedIds.filter((id) => {
+      const item = getContentById(id)
+      return item?.type === 'vocabulary' || item?.data.word
+    }).length,
+    [sessionLearnedIds],
+  )
+  const summaryLine = [
+    `${sessionLearnedIds.length} item${sessionLearnedIds.length !== 1 ? 's' : ''} practised`,
+    `${sessionCorrect} correct`,
+    mistakeReviewMode ? 'mistake review session' : null,
+    newWords > 0 ? `${newWords} vocab` : null,
+    vocabReviewQueue.filter((e) => e.nextReviewAt <= Date.now()).length > 0
+      ? `${vocabReviewQueue.filter((e) => e.nextReviewAt <= Date.now()).length} vocab due later`
+      : null,
+  ].filter(Boolean).join(' · ')
 
   const learnedItems = useMemo(
     () => sessionLearnedIds.slice(0, 3).map((id) => getContentById(id)).filter(Boolean),
@@ -48,6 +67,7 @@ export function SessionSummary({ onContinue, onDone }: SessionSummaryProps) {
               {levelLabel} · {streak} day streak
               {sessionCombo >= 3 && ` · best combo ×${sessionCombo}`}
             </p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{summaryLine}</p>
           </div>
 
           <div className="grid grid-cols-3 gap-3">

@@ -14,9 +14,12 @@
   --success:      #10b981;
   --danger:       #f43f5e;
   --warn:         #f59e0b;
-  --nav-height:   3.5rem;
+  --nav-height:   3.75rem;
+  --action-bar-height: 5.25rem;
+  --header-compact: 3.25rem;
   --safe-top:     env(safe-area-inset-top, 0px);
   --safe-bottom:  env(safe-area-inset-bottom, 0px);
+  --mobile-page-pad: 1rem;
 }
 
 [data-theme="dark"] {
@@ -47,11 +50,26 @@
     background-color: var(--surface);
     color: var(--text);
     transition: background-color 0.2s ease, color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    overscroll-behavior-y: none;
+  }
+
+  html {
+    overscroll-behavior-y: none;
   }
 
   #root {
     width: 100%;
     min-height: 100svh;
+  }
+
+  @media (max-width: 767px) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
   }
 
   /* Uniform focus ring */
@@ -143,6 +161,27 @@ html.motion-reduce .slide-up,
 html.motion-reduce .slide-in-right,
 html.motion-reduce .slide-in-left { animation: none; }
 html.motion-reduce .fade-in { animation: none; opacity: 1; transform: none; }
+
+/* ── Mobile learning layout helpers ─────────────────────────── */
+.mobile-page {
+  padding-left: var(--mobile-page-pad);
+  padding-right: var(--mobile-page-pad);
+}
+
+.pb-bottom-nav {
+  padding-bottom: max(calc(var(--nav-height) + var(--safe-bottom)), 5rem);
+}
+
+.mobile-action-dock {
+  padding-bottom: max(0.75rem, var(--safe-bottom));
+}
+
+@media (min-width: 768px) {
+  .mobile-page {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
 
 /* ── Dark mode surface overrides (for components using bg-white) */
 [data-theme="dark"] .bg-white     { background-color: var(--surface-elev); }

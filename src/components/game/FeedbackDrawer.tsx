@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from 'react'
-import { CheckCircle2, XCircle, BookOpen } from 'lucide-react'
+import { CheckCircle2, XCircle, BookOpen, RotateCcw } from 'lucide-react'
 import type { AnswerResult } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
 import { SpeakButton } from '@/components/ui/SpeakButton'
@@ -7,6 +7,8 @@ import { buildAlignedDiff, buildTypedWordDiff, type DiffToken } from '@/services
 import { useGameStore } from '@/store/useGameStore'
 import { playCorrect, playWrong, vibrateCorrect, vibrateWrong } from '@/services/soundService'
 import { getMistakeFeedback } from '@/services/feedbackService'
+import { getLessonTip } from '@/content/lessonTips'
+import { getCachedOrFetchExplanation } from '@/services/aiGradeService'
 import { BidiMixedText } from '@/utils/bidiText'
 
 interface FeedbackDrawerProps {
@@ -17,12 +19,13 @@ interface FeedbackDrawerProps {
 const OPEN_ANSWER_TYPES = new Set(['sentence_builder', 'translation_he_en', 'listening_dictation'])
 const TYPED_ANSWER_TYPES = new Set(['vocabulary', 'word_spelling', 'word_scramble', 'verb_conjugation'])
 const CHOICE_ANSWER_TYPES = new Set(['grammar_choice', 'placement_test', ...TYPED_ANSWER_TYPES])
+const AI_GRADE_TYPES = new Set(['translation_he_en', 'sentence_builder'])
 const KEYBOARD_DISMISS_DELAY_MS = 400
 
 function UserDiffDisplay({ tokens }: { tokens: DiffToken[] }) {
   if (tokens.length === 0) return null
   return (
-    <div className="flex flex-wrap gap-1" dir="ltr">
+    <div className="flex flex-wrap gap-1" dir="ltr" aria-label="Your answer with errors marked">
       {tokens.map((tok, i) => {
         let cls = 'inline-block px-1.5 py-0.5 rounded text-sm font-medium '
         if (tok.kind === 'correct') cls += 'text-slate-500 dark:text-slate-400'
@@ -42,7 +45,7 @@ function UserDiffDisplay({ tokens }: { tokens: DiffToken[] }) {
 function CorrectDiffDisplay({ tokens }: { tokens: DiffToken[] }) {
   if (tokens.length === 0) return null
   return (
-    <div className="flex flex-wrap gap-1" dir="ltr">
+    <div className="flex flex-wrap gap-1" dir="ltr" aria-label="Correct answer with fixes highlighted">
       {tokens.map((tok, i) => {
         let cls = 'inline-block px-1.5 py-0.5 rounded text-sm font-medium '
         if (tok.kind === 'correct') cls += 'text-slate-600 dark:text-slate-300'
@@ -71,7 +74,7 @@ function AnswerComparison({
   const hasDiff = userTokens && correctTokens && userTokens.length > 0
 
   return (
-    <div className="flex flex-col gap-3" dir="rtl">
+    <div className="flex flex-col gap-3" dir="rtl" lang="he">
       <div className="rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 p-3">
         <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mb-1.5">כתבת:</p>
         {hasDiff ? (
@@ -115,16 +118,19 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   const { isCorrect, correctAnswer, item } = result
   const sounds = useGameStore((s) => s.sounds)
   const haptics = useGameStore((s) => s.haptics)
+  const detailedFeedback = useGameStore((s) => s.detailedFeedback)
+  const retrySimilarQuestion = useGameStore((s) => s.retrySimilarQuestion)
   const speakText = `${correctAnswer}. ${item.data.context_sentence}`
   const skillLabel = SKILL_LABELS[item.skill] ?? item.skill
+  const microLesson = getLessonTip(item.skill)
 
   const userAnswer = (result as AnswerResult & { userAnswer?: string }).userAnswer ?? ''
   const explanation = (result as AnswerResult & { explanation?: string }).explanation
   const isTypedAnswer = TYPED_ANSWER_TYPES.has(item.type)
   const showSentenceDiff =
-    !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
+    detailedFeedback && !isCorrect && OPEN_ANSWER_TYPES.has(item.type) && userAnswer && userAnswer !== '__skip__'
   const showTypedDiff =
-    !isCorrect && isTypedAnswer && userAnswer && userAnswer !== '__skip__'
+    detailedFeedback && !isCorrect && isTypedAnswer && userAnswer && userAnswer !== '__skip__'
   const showDiff = showSentenceDiff || showTypedDiff
   const alignedDiff = showTypedDiff
     ? buildTypedWordDiff(item, userAnswer)
@@ -132,6 +138,7 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
       ? buildAlignedDiff(item, userAnswer)
       : { userTokens: [], correctTokens: [] }
   const showAnswerComparison =
+    detailedFeedback &&
     !isCorrect &&
     userAnswer &&
     userAnswer !== '__skip__' &&
@@ -139,17 +146,31 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
   const showTypedComparison = showAnswerComparison && isTypedAnswer
   const showOpenComparison = showAnswerComparison && !isTypedAnswer
   const showNearMiss =
-    isCorrect && explanation && explanation !== 'Correct!' && !explanation.startsWith('Well done')
+    detailedFeedback && isCorrect && explanation && explanation !== 'Correct!' && !explanation.startsWith('Well done')
 
   const staticFeedback = useMemo(() => {
-    if (isCorrect) return null
+    if (isCorrect || !detailedFeedback) return null
     return getMistakeFeedback(item, userAnswer, {
       isCorrect: result.isCorrect,
       similarity: result.similarity ?? 0,
       errors: result.errorMarks ?? [],
       explanation: '',
     })
-  }, [isCorrect, item, userAnswer, result])
+  }, [isCorrect, detailedFeedback, item, userAnswer, result])
+
+  const [aiExplanation, setAiExplanation] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (isCorrect || !detailedFeedback || !AI_GRADE_TYPES.has(item.type) || !userAnswer || userAnswer === '__skip__') {
+      setAiExplanation(null)
+      return
+    }
+    let cancelled = false
+    void getCachedOrFetchExplanation(item.id, correctAnswer, userAnswer, skillLabel).then((ex) => {
+      if (!cancelled && ex.sentenceWhy) setAiExplanation(ex.sentenceWhy)
+    })
+    return () => { cancelled = true }
+  }, [item.id, item.type, correctAnswer, userAnswer, skillLabel, isCorrect, detailedFeedback])
 
   useEffect(() => {
     if (sounds) {
@@ -199,6 +220,10 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
     setSwipeOffset(0)
   }
 
+  async function handleRetrySimilar() {
+    await retrySimilarQuestion()
+  }
+
   return (
     <>
       <div className="fixed inset-0 bg-black/30 z-40 md:hidden" onClick={onNext} aria-hidden="true" />
@@ -214,9 +239,13 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
           ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/60' : 'bg-white dark:bg-slate-900'}
           rounded-t-3xl md:rounded-none md:rounded-l-3xl shadow-2xl
         `}
-        style={{ transform: swipeOffset > 0 ? `translateY(${swipeOffset}px)` : undefined, transition: swipeOffset > 0 ? 'none' : undefined }}
+        style={{
+          transform: swipeOffset > 0 ? `translateY(${swipeOffset}px)` : undefined,
+          transition: swipeOffset > 0 ? 'none' : undefined,
+          paddingBottom: 'var(--safe-bottom)',
+        }}
       >
-        <div className="flex flex-col h-full max-h-[85svh] md:max-h-full">
+        <div className="flex flex-col h-full max-h-[min(88dvh,100svh)] md:max-h-full">
           <div className="flex-1 overflow-y-auto p-6 gap-5 flex flex-col min-h-0">
           <div
             ref={handleRef}
@@ -238,7 +267,7 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
                 {isCorrect ? 'Correct!' : 'Not quite…'}
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                {isCorrect ? 'Great work, keep it up!' : "Here's what you need to know:"}
+                {isCorrect ? 'Great work, keep it up!' : detailedFeedback ? "Here's what you need to know:" : 'See the correct answer below.'}
               </p>
             </div>
           </div>
@@ -271,15 +300,19 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
               <SpeakButton text={speakText} size={16} />
             </div>
             <p className="text-xl font-bold text-slate-800 dark:text-slate-100 leading-snug">{correctAnswer}</p>
-            <p className="text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
-              "{item.data.context_sentence}"
-            </p>
-            <p className="text-xs text-slate-400">{item.data.context_translation}</p>
+            {detailedFeedback && (
+              <>
+                <p className="text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
+                  &ldquo;{item.data.context_sentence}&rdquo;
+                </p>
+                <p className="text-xs text-slate-400" dir="rtl" lang="he">{item.data.context_translation}</p>
+              </>
+            )}
           </div>
 
           {!isCorrect && staticFeedback && (
             <details className="rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 p-4 flex flex-col gap-3 group" open>
-              <summary className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide text-right cursor-pointer list-none flex items-center justify-between" dir="rtl">
+              <summary className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide text-right cursor-pointer list-none flex items-center justify-between" dir="rtl" lang="he">
                 <span>למה טעית?</span>
                 <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
@@ -293,8 +326,15 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
                 />
               )}
 
+              {aiExplanation && (
+                <div className="rounded-lg bg-white/70 dark:bg-slate-900/50 border border-violet-200 dark:border-violet-700 p-3" dir="rtl" lang="he">
+                  <p className="text-xs font-bold text-violet-700 dark:text-violet-300 mb-1">הסבר מותאם</p>
+                  <p className="text-[15px] text-violet-900 dark:text-violet-100 leading-relaxed text-right">{aiExplanation}</p>
+                </div>
+              )}
+
               {staticFeedback.sentenceWhy && (
-                <div className="rounded-lg bg-white/70 dark:bg-slate-900/50 border border-violet-200 dark:border-violet-700 p-3" dir="rtl">
+                <div className="rounded-lg bg-white/70 dark:bg-slate-900/50 border border-violet-200 dark:border-violet-700 p-3" dir="rtl" lang="he">
                   <p className="text-xs font-bold text-violet-700 dark:text-violet-300 mb-1">למה כך נכון?</p>
                   <p className="text-[15px] text-violet-900 dark:text-violet-100 leading-relaxed text-right">
                     <BidiMixedText text={staticFeedback.sentenceWhy} />
@@ -302,34 +342,51 @@ export function FeedbackDrawer({ result, onNext }: FeedbackDrawerProps) {
                 </div>
               )}
 
-              <p className="text-[15px] text-violet-700 dark:text-violet-300 leading-relaxed text-right" dir="rtl">
+              <p className="text-[15px] text-violet-700 dark:text-violet-300 leading-relaxed text-right" dir="rtl" lang="he">
                 <BidiMixedText text={staticFeedback.rule} prefix={<strong>כלל: </strong>} />
               </p>
               <p className="text-xs text-slate-600 dark:text-slate-400 italic" dir="ltr">
                 {staticFeedback.example}
               </p>
+
+              {microLesson && (
+                <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold" dir="rtl" lang="he">
+                  Review rule: {microLesson.title} — {microLesson.rule_he.slice(0, 80)}
+                  {microLesson.rule_he.length > 80 ? '…' : ''}
+                </p>
+              )}
             </details>
           )}
 
-          {item.data.common_mistake && isCorrect && (
+          {item.data.common_mistake && isCorrect && detailedFeedback && (
             <div className="rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 p-3">
               <p className="text-xs font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wide mb-1">Did you know?</p>
               <p className="text-sm text-sky-800 dark:text-sky-200 leading-relaxed">{item.data.common_mistake}</p>
             </div>
           )}
 
-          {item.data.translation && (
+          {item.data.translation && detailedFeedback && (
             <div className="rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Translation</p>
-              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{item.data.translation}</p>
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200" dir="rtl" lang="he">{item.data.translation}</p>
             </div>
           )}
           </div>
 
           <div
-            className="flex-shrink-0 p-4 pt-2 border-t border-slate-200/80 dark:border-slate-700/80 bg-inherit"
+            className="flex-shrink-0 p-4 pt-2 border-t border-slate-200/80 dark:border-slate-700/80 bg-inherit flex flex-col gap-2"
             style={{ paddingBottom: 'max(1rem, var(--safe-bottom))' }}
           >
+          {!isCorrect && (
+            <button
+              type="button"
+              onClick={() => { void handleRetrySimilar() }}
+              className="w-full min-h-[44px] rounded-xl border-2 border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors"
+            >
+              <RotateCcw size={16} />
+              Try a similar question
+            </button>
+          )}
           <button
             onClick={onNext}
             autoFocus

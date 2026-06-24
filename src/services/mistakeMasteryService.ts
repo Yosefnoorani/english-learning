@@ -70,11 +70,20 @@ export function upsertMistakeOnCorrect(queue: MistakeEntry[], contentId: string)
   }
 
   const consecutiveCorrect = existing.consecutiveCorrect + 1
+  const now = Date.now()
+
   if (consecutiveCorrect >= MASTERY_CONSECUTIVE_CORRECT) {
-    return queue.filter((e) => e.contentId !== contentId)
+    const mastered: MistakeEntry = {
+      ...existing,
+      consecutiveCorrect,
+      mastered: true,
+      masteredAt: now,
+      inSessionRequeueAt: undefined,
+      questionsUntilRequeue: undefined,
+    }
+    return [...queue.filter((e) => e.contentId !== contentId), mastered]
   }
 
-  const now = Date.now()
   const updated: MistakeEntry = {
     ...existing,
     consecutiveCorrect,

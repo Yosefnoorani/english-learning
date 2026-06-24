@@ -20,7 +20,6 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSes
   const theme = useGameStore((s) => s.theme)
   const reducedMotion = useGameStore((s) => s.reducedMotion)
 
-  // Apply theme + reduced-motion to <html>
   useEffect(() => {
     const html = document.documentElement
     if (theme === 'dark') {
@@ -28,7 +27,6 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSes
     } else if (theme === 'light') {
       html.removeAttribute('data-theme')
     } else {
-      // system
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
       if (prefersDark) html.setAttribute('data-theme', 'dark')
       else html.removeAttribute('data-theme')
@@ -46,7 +44,6 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSes
     }
   }, [theme, reducedMotion])
 
-  // Also listen for system preference changes when theme = 'system'
   useEffect(() => {
     if (theme !== 'system') return
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
@@ -60,25 +57,25 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSes
 
   return (
     <div className="min-h-svh flex bg-slate-50 dark:bg-slate-950">
-      {/* Desktop sidebar */}
       <SideNav activeView={activeView} onNavigate={onNavigate} />
 
-      {/* Main content column */}
-      <div className="flex-1 flex flex-col min-w-0 md:ml-60">
+      <div className="flex-1 flex flex-col min-w-0 min-h-svh md:min-h-0 md:ml-60">
         {inPracticeSession ? (
           <PracticeHeader onOpenSettings={onOpenSettings} />
         ) : (
           <TopBar onOpenSettings={onOpenSettings} />
         )}
 
-        {/* Page content */}
-        <div className="flex-1 flex flex-col">
+        <div className={`flex-1 flex flex-col min-h-0 ${inPracticeSession ? '' : 'pb-bottom-nav md:pb-0'}`}>
           {children}
         </div>
       </div>
 
-      {/* Mobile bottom navigation */}
-      <BottomNav activeView={activeView} onNavigate={onNavigate} />
+      <BottomNav
+        activeView={activeView}
+        onNavigate={onNavigate}
+        hidden={inPracticeSession}
+      />
     </div>
   )
 }

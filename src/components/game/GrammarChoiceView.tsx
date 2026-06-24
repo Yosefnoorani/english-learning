@@ -5,6 +5,9 @@ import { SpeakButton } from '@/components/ui/SpeakButton'
 import { GrammarSentence } from '@/components/game/GrammarSentence'
 import { RevealTranslation } from '@/components/game/RevealTranslation'
 import { grammarTextForSpeech } from '@/utils/grammarBlank'
+import { ExerciseLayout } from '@/components/layout/ExerciseLayout'
+import { Card } from '@/components/ui/Card'
+import { PrimaryButton } from '@/components/ui/PrimaryButton'
 
 interface GrammarChoiceViewProps {
   item: ContentItem
@@ -61,9 +64,17 @@ export function GrammarChoiceView({ item, onAnswer, showHint }: GrammarChoiceVie
   const options = item.data.options ?? []
 
   return (
-    <div className="w-full max-w-xl mx-auto px-4 flex flex-col gap-5">
-      {/* Question card */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-5">
+    <ExerciseLayout
+      actions={
+        !confirmed ? (
+          <PrimaryButton onClick={handleConfirm} disabled={!selected}>
+            Confirm
+            {selected && <span className="ml-2 text-xs opacity-60 hidden md:inline">(Enter)</span>}
+          </PrimaryButton>
+        ) : null
+      }
+    >
+      <Card>
         <div className="flex items-start justify-between gap-2 mb-3">
           <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">Grammar</span>
           <SpeakButton text={speechSentence} size={18} />
@@ -81,9 +92,8 @@ export function GrammarChoiceView({ item, onAnswer, showHint }: GrammarChoiceVie
             <p className="text-sm text-amber-700 dark:text-amber-200">{item.data.grammar_hint}</p>
           </div>
         )}
-      </div>
+      </Card>
 
-      {/* Options */}
       <div className="flex flex-col gap-3" role="group" aria-label="Answer options">
         {options.map((option, idx) => {
           const isSelected = selected === option
@@ -122,23 +132,6 @@ export function GrammarChoiceView({ item, onAnswer, showHint }: GrammarChoiceVie
           )
         })}
       </div>
-
-      {/* Confirm */}
-      {!confirmed && (
-        <button
-          ref={confirmRef}
-          onClick={handleConfirm}
-          disabled={!selected}
-          className={`w-full min-h-[52px] rounded-xl font-semibold text-base transition-all focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-            selected
-              ? 'bg-indigo-600 text-white shadow-md active:bg-indigo-700 hover:bg-indigo-700'
-              : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
-          }`}
-        >
-          Confirm
-          {selected && <span className="ml-2 text-xs opacity-60 hidden md:inline">(Enter)</span>}
-        </button>
-      )}
-    </div>
+    </ExerciseLayout>
   )
 }

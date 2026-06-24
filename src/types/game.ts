@@ -206,6 +206,7 @@ export interface MistakeEntry {
   failCount: number
   consecutiveCorrect: number
   mastered: boolean
+  masteredAt?: number
   lastUserAnswer?: string
   inSessionRequeueAt?: number
   questionsUntilRequeue?: number
@@ -218,6 +219,7 @@ export interface VocabReviewEntry {
   lastSeenAt: number
   nextReviewAt: number
   reviewStage: number
+  consecutiveCorrect?: number
 }
 
 // ── Telemetry ───────────────────────────────────────────────

@@ -3,6 +3,10 @@ import { SpeakButton } from '@/components/ui/SpeakButton'
 import type { ContentItem } from '@/types/game'
 import { useGameStore } from '@/store/useGameStore'
 import { useSpeech } from '@/hooks/useSpeech'
+import { ExerciseLayout } from '@/components/layout/ExerciseLayout'
+import { Card } from '@/components/ui/Card'
+import { PrimaryButton } from '@/components/ui/PrimaryButton'
+import { TextInput } from '@/components/ui/TextInput'
 
 interface ConjugationViewProps {
   item: ContentItem
@@ -43,9 +47,14 @@ export function ConjugationView({ item, onAnswer, showHint }: ConjugationViewPro
   const speakText = [item.data.verb_base, item.data.correct_answer].filter(Boolean).join(', ')
 
   return (
-    <div className="w-full max-w-xl mx-auto px-4 flex flex-col gap-5">
-      {/* Header card */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-5">
+    <ExerciseLayout
+      actions={
+        <PrimaryButton onClick={handleSubmit} disabled={!input.trim() || submitted}>
+          {submitted ? 'Checking…' : 'Check'}
+        </PrimaryButton>
+      }
+    >
+      <Card>
         <div className="flex items-center justify-between mb-4">
           <span className="text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
             Verb Conjugation
@@ -83,44 +92,22 @@ export function ConjugationView({ item, onAnswer, showHint }: ConjugationViewPro
             <p className="text-sm text-amber-700 dark:text-amber-200 leading-relaxed">{item.data.common_mistake}</p>
           </div>
         )}
-      </div>
+      </Card>
 
-      {/* Input */}
-      <div>
-        <label className="block text-sm font-semibold text-slate-600 dark:text-slate-300 mb-2">
-          Conjugate "{item.data.verb_base}" ({item.data.target_tense}, {item.data.target_person}):
-        </label>
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={submitted}
-          placeholder="Type the conjugated form…"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-          className={`w-full rounded-xl border-2 px-4 py-3 text-lg font-semibold text-slate-800 dark:text-slate-100 placeholder:text-slate-400 placeholder:font-normal outline-none transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 ${
-            submitted
-              ? 'border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-slate-500'
-              : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 focus:border-emerald-400'
-          }`}
-        />
-        <p className="text-xs text-slate-400 mt-1">Press Enter to submit</p>
-      </div>
-
-      <button
-        onClick={handleSubmit}
-        disabled={!input.trim() || submitted}
-        className={`w-full min-h-[52px] rounded-xl font-bold text-base transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 ${
-          input.trim() && !submitted
-            ? 'bg-emerald-600 text-white shadow-md active:bg-emerald-700 hover:bg-emerald-700'
-            : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
-        }`}
-      >
-        {submitted ? 'Checking…' : 'Check'}
-      </button>
-    </div>
+      <TextInput
+        ref={inputRef}
+        label={`Conjugate "${item.data.verb_base}" (${item.data.target_tense}, ${item.data.target_person}):`}
+        hint="Press Enter to submit"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        disabled={submitted}
+        placeholder="Type the conjugated form…"
+        autoComplete="off"
+        autoCorrect="off"
+        spellCheck={false}
+      />
+    </ExerciseLayout>
   )
 }

@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
-import { Zap, RotateCcw, BarChart2, BookOpen, Clock, Target, Trophy } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { Zap, RotateCcw, BarChart2, BookOpen, ChevronDown, ChevronUp, Target, Trophy } from 'lucide-react'
 import { useGameStore, selectLevelLabel, getDueCount } from '@/store/useGameStore'
 import { DailyLesson } from '@/components/game/DailyLesson'
 import { PracticePreview } from '@/components/game/PracticePreview'
 import { DailyQuestsCard } from '@/components/game/DailyQuestsCard'
+import { ACHIEVEMENTS } from '@/services/achievementService'
 import { getContentById } from '@/services/contentService'
 import type { SkillId, SessionMode } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
@@ -12,6 +13,9 @@ interface HomeScreenProps {
   onStartLesson: (skillId: SkillId) => void
   onOpenJournal: () => void
   onOpenSkills: () => void
+  onStartPlacement: () => void
+  onStartReview: () => void
+  showPlacementBanner?: boolean
 }
 
 const SESSION_LABELS: Record<SessionMode, { label: string; questions: number; color: string }> = {
@@ -20,32 +24,57 @@ const SESSION_LABELS: Record<SessionMode, { label: string; questions: number; co
   deep: { label: 'Deep', questions: 20, color: 'border-violet-300 bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300' },
 }
 
-function getHomeGreeting(opts: {
+const ACHIEVEMENT_LABELS = Object.fromEntries(ACHIEVEMENTS.map((a) => [a.id, a.label])) as Record<string, string>
+
+type HeroAction = 'placement' | 'review' | 'continue' | 'session'
+
+function getHeroAction(opts: {
   totalSessions: number
+  hasCompletedSetup: boolean
   dueCount: number
   dailyRemaining: number
-}): { title: string; subtitle: string } {
-  if (opts.totalSessions === 0) {
-    return { title: 'Welcome! Ready to learn?', subtitle: 'Start with a quick session or take the placement test in Settings.' }
+}): { action: HeroAction; title: string; subtitle: string; cta: string } {
+  if (!opts.hasCompletedSetup && opts.totalSessions === 0) {
+    return {
+      action: 'placement',
+      title: 'Welcome! Find your level',
+      subtitle: 'A quick 5-question test picks exercises that match your English.',
+      cta: 'Take placement test',
+    }
   }
   if (opts.dueCount > 0) {
     return {
-      title: `${opts.dueCount} item${opts.dueCount !== 1 ? 's' : ''} ready for review`,
-      subtitle: 'Review mistakes to strengthen your memory.',
+      action: 'review',
+      title: `${opts.dueCount} mistake${opts.dueCount !== 1 ? 's' : ''} ready to review`,
+      subtitle: 'Spaced repetition works best when you review on time.',
+      cta: `Review ${Math.min(opts.dueCount, 12)} item${opts.dueCount !== 1 ? 's' : ''}`,
     }
   }
   if (opts.dailyRemaining > 0) {
     return {
+      action: 'continue',
       title: `${opts.dailyRemaining} more to hit today's goal`,
-      subtitle: 'Keep going — you\'re building a habit.',
+      subtitle: 'Keep going — small daily steps build lasting progress.',
+      cta: `Continue session (${opts.dailyRemaining} left)`,
     }
   }
-  return { title: "You're all caught up!", subtitle: 'Great work today. Come back tomorrow or try a focus lesson.' }
+  return {
+    action: 'session',
+    title: "You're all caught up!",
+    subtitle: 'Start a mixed session or try a focus lesson below.',
+    cta: 'Start session',
+  }
 }
 
-export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeScreenProps) {
+export function HomeScreen({
+  onStartLesson,
+  onOpenJournal,
+  onOpenSkills,
+  onStartPlacement,
+  onStartReview,
+  showPlacementBanner,
+}: HomeScreenProps) {
   const rating = useGameStore((s) => s.userState.rating)
-  const score = useGameStore((s) => s.userState.score)
   const skillStats = useGameStore((s) => s.skillStats)
   const mistakeQueue = useGameStore((s) => s.mistakeQueue)
   const sessionMode = useGameStore((s) => s.sessionMode)
@@ -54,15 +83,19 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
   const dailyGoalProgress = useGameStore((s) => s.userState.dailyGoalProgress)
   const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
   const totalSessionsCompleted = useGameStore((s) => s.totalSessionsCompleted)
+  const hasCompletedSetup = useGameStore((s) => s.hasCompletedSetup)
   const achievements = useGameStore((s) => s.achievements)
   const levelLabel = useGameStore(selectLevelLabel)
   const dueCount = useMemo(() => getDueCount(mistakeQueue), [mistakeQueue])
   const now = useMemo(() => Date.now(), [mistakeQueue])
+  const [showSessionOptions, setShowSessionOptions] = useState(false)
 
-  const greeting = getHomeGreeting({
+  const dailyRemaining = Math.max(0, dailyGoalTarget - dailyGoalProgress)
+  const hero = getHeroAction({
     totalSessions: totalSessionsCompleted,
+    hasCompletedSetup,
     dueCount,
-    dailyRemaining: Math.max(0, dailyGoalTarget - dailyGoalProgress),
+    dailyRemaining,
   })
 
   const dueMistakes = [...mistakeQueue]
@@ -72,69 +105,124 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
     .map((e) => getContentById(e.contentId))
     .filter(Boolean)
 
+  function handleHeroClick() {
+    switch (hero.action) {
+      case 'placement':
+        onStartPlacement()
+        break
+      case 'review':
+        void onStartReview()
+        break
+      case 'continue':
+      case 'session':
+        void continueSession()
+        break
+    }
+  }
+
+  const heroColor =
+    hero.action === 'review'
+      ? 'bg-rose-600 hover:bg-rose-700'
+      : hero.action === 'placement'
+        ? 'bg-violet-600 hover:bg-violet-700'
+        : 'bg-indigo-600 hover:bg-indigo-700'
+
   return (
-    <div
-      className="flex-1 overflow-y-auto"
-      style={{ paddingBottom: 'max(calc(var(--nav-height) + var(--safe-bottom)), 5rem)' }}
-    >
-      <div className="w-full max-w-2xl mx-auto px-4 py-6 flex flex-col gap-5">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">{greeting.title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {levelLabel} · {score} points · {greeting.subtitle}
-          </p>
-        </div>
-
-        <DailyQuestsCard />
-
-        <div className="flex flex-col gap-2">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
-            <Target size={12} />
-            Session length
-          </p>
-          <div className="flex gap-2">
-            {(Object.entries(SESSION_LABELS) as [SessionMode, typeof SESSION_LABELS[SessionMode]][]).map(([mode, info]) => (
-              <button
-                key={mode}
-                onClick={() => setSessionMode(mode)}
-                className={`flex-1 flex flex-col items-center py-2.5 rounded-xl border-2 transition-all min-h-[60px] ${
-                  sessionMode === mode
-                    ? info.color + ' border-opacity-100 font-bold'
-                    : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-300 dark:hover:border-slate-600'
-                }`}
-              >
-                <span className="text-sm font-bold">{info.label}</span>
-                <span className="text-xs font-semibold mt-0.5">{info.questions} questions</span>
-              </button>
-            ))}
+    <div className="flex-1 overflow-y-auto">
+      <div className="w-full max-w-2xl mx-auto px-4 py-5 md:py-6 flex flex-col gap-4 md:gap-5">
+        {showPlacementBanner && (
+          <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-4 py-3 flex flex-col gap-2">
+            <p className="text-sm font-semibold text-violet-800 dark:text-violet-200">
+              Complete placement for better exercises
+            </p>
+            <button
+              type="button"
+              onClick={onStartPlacement}
+              className="text-sm font-bold text-violet-600 dark:text-violet-400 hover:underline text-left"
+            >
+              Take the 5-question test →
+            </button>
           </div>
-          <button
-            onClick={continueSession}
-            className="w-full min-h-[52px] rounded-xl bg-indigo-600 text-white font-bold text-base shadow-md active:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
-          >
-            <Zap size={18} />
-            Start {SESSION_LABELS[sessionMode].questions}-question session
-          </button>
+        )}
+
+        <div className="flex flex-col gap-1">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">{levelLabel}</p>
+          <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">{hero.title}</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{hero.subtitle}</p>
         </div>
 
-        {dueCount > 0 && (
-          <div className="flex flex-col gap-2 order-first md:order-none">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={handleHeroClick}
+            className={`w-full min-h-[52px] rounded-xl text-white font-bold text-base shadow-md transition-colors flex items-center justify-center gap-2 ${heroColor}`}
+          >
+            {hero.action === 'review' ? <RotateCcw size={18} /> : <Zap size={18} />}
+            {hero.cta}
+          </button>
+
+          {hero.action !== 'placement' && (
+            <button
+              type="button"
+              onClick={() => setShowSessionOptions((v) => !v)}
+              className="flex items-center justify-center gap-1 text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            >
+              {showSessionOptions ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+              {showSessionOptions ? 'Hide session options' : `Session: ${SESSION_LABELS[sessionMode].label} (${SESSION_LABELS[sessionMode].questions}Q)`}
+            </button>
+          )}
+
+          {showSessionOptions && hero.action !== 'placement' && (
+            <div className="flex flex-col gap-2 pt-1 border-t border-slate-100 dark:border-slate-700">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+                <Target size={12} />
+                Session length
+              </p>
+              <div className="flex gap-2">
+                {(Object.entries(SESSION_LABELS) as [SessionMode, typeof SESSION_LABELS[SessionMode]][]).map(([mode, info]) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setSessionMode(mode)}
+                    className={`flex-1 flex flex-col items-center py-2 rounded-xl border-2 transition-all min-h-[52px] ${
+                      sessionMode === mode
+                        ? info.color + ' border-opacity-100 font-bold'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-300 dark:hover:border-slate-600'
+                    }`}
+                  >
+                    <span className="text-xs font-bold">{info.label}</span>
+                    <span className="text-[10px] font-semibold mt-0.5">{info.questions}Q</span>
+                  </button>
+                ))}
+              </div>
+              {hero.action !== 'review' && hero.action !== 'continue' && (
+                <button
+                  type="button"
+                  onClick={() => void continueSession()}
+                  className="w-full min-h-[44px] rounded-xl border-2 border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold text-sm transition-colors hover:bg-indigo-50 dark:hover:bg-indigo-950/30"
+                >
+                  Start {SESSION_LABELS[sessionMode].questions}-question mixed session
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        <DailyQuestsCard compact />
+
+        {dueCount > 0 && hero.action !== 'review' && (
+          <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Due for review</p>
               <button
+                type="button"
                 onClick={onOpenJournal}
                 className="text-xs text-rose-600 dark:text-rose-400 font-semibold hover:underline"
               >
                 See all {dueCount}
               </button>
             </div>
-            <div className="bg-rose-50 dark:bg-rose-950/30 rounded-2xl border border-rose-200 dark:border-rose-900 p-4 flex flex-col gap-3">
-              <div className="flex items-center gap-2">
-                <Clock size={14} className="text-rose-500" />
-                <span className="text-sm font-semibold text-rose-700 dark:text-rose-300">
-                  {dueCount} item{dueCount !== 1 ? 's' : ''} ready to review
-                </span>
-              </div>
+            <div className="bg-rose-50 dark:bg-rose-950/30 rounded-2xl border border-rose-200 dark:border-rose-900 p-4 flex flex-col gap-2">
               {dueMistakes.slice(0, 2).map((item) => item && (
                 <div key={item.id} className="text-xs text-rose-600 dark:text-rose-400">
                   <span className="font-semibold">{item.data.word ?? item.data.context_sentence?.slice(0, 40)}</span>
@@ -142,21 +230,17 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
                   <span>{SKILL_LABELS[item.skill]}</span>
                 </div>
               ))}
-              <button
-                onClick={onOpenJournal}
-                className="flex items-center gap-2 min-h-[44px] rounded-xl bg-rose-600 text-white font-bold text-sm px-4 justify-center shadow active:bg-rose-700 transition-colors"
-              >
-                <RotateCcw size={16} />
-                Practise due items
-              </button>
             </div>
           </div>
         )}
 
         <PracticePreview />
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Focus lesson</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+            10 questions on today&apos;s weak skill — different from a mixed session.
+          </p>
           <DailyLesson skillStats={skillStats} rating={rating} onStartLesson={onStartLesson} />
         </div>
 
@@ -170,9 +254,10 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
               {achievements.slice(-6).map((id) => (
                 <span
                   key={id}
+                  title={ACHIEVEMENTS.find((a) => a.id === id)?.description}
                   className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
                 >
-                  {id.replace(/_/g, ' ')}
+                  {ACHIEVEMENT_LABELS[id] ?? id.replace(/_/g, ' ')}
                 </span>
               ))}
             </div>
@@ -182,6 +267,7 @@ export function HomeScreen({ onStartLesson, onOpenJournal, onOpenSkills }: HomeS
         <div className="flex flex-col gap-2">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Your progress</p>
           <button
+            type="button"
             onClick={onOpenSkills}
             className="w-full bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex items-center gap-4 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors shadow-sm min-h-[72px]"
           >

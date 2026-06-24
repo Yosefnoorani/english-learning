@@ -127,6 +127,28 @@ function mockMistakeExplanation(
   }
 }
 
+const explanationCache = new Map<string, MistakeExplanation>()
+
+function explanationCacheKey(contentId: string, userAnswer: string): string {
+  return `${contentId}:${userAnswer.trim().toLowerCase().slice(0, 80)}`
+}
+
+/** Fetch AI explanation with in-memory cache keyed by content + answer. */
+export async function getCachedOrFetchExplanation(
+  contentId: string,
+  correctAnswer: string,
+  userAnswer: string,
+  skillContext: string,
+): Promise<MistakeExplanation> {
+  const key = explanationCacheKey(contentId, userAnswer)
+  const cached = explanationCache.get(key)
+  if (cached) return cached
+
+  const result = await explainMistake(contentId, correctAnswer, userAnswer, skillContext)
+  explanationCache.set(key, result)
+  return result
+}
+
 // ── Internal helper (placeholder) ───────────────────────────
 
 // async function callLLM(prompt: string): Promise<string> {

@@ -1,7 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { RotateCcw } from 'lucide-react'
 import type { ContentItem } from '@/types/game'
 import { SpeakButton } from '@/components/ui/SpeakButton'
+import { ExerciseLayout } from '@/components/layout/ExerciseLayout'
+import { Card } from '@/components/ui/Card'
+import { PrimaryButton } from '@/components/ui/PrimaryButton'
+import { SecondaryButton } from '@/components/ui/SecondaryButton'
 
 interface SentenceBuilderProps {
   item: ContentItem
@@ -18,7 +22,6 @@ export function SentenceBuilder({ item, onAnswer, showHint }: SentenceBuilderPro
   const [bank, setBank] = useState<string[]>([])
   const [built, setBuilt] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
-  const submitRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     setBank(shuffle(chips))
@@ -86,15 +89,25 @@ export function SentenceBuilder({ item, onAnswer, showHint }: SentenceBuilderPro
   })()
 
   return (
-    <div className="w-full max-w-xl mx-auto px-4 flex flex-col gap-5">
-      {/* Prompt */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-5">
+    <ExerciseLayout
+      actions={
+        <div className="flex gap-2">
+          <SecondaryButton onClick={reset} disabled={submitted} iconOnly aria-label="Reset">
+            <RotateCcw size={20} />
+          </SecondaryButton>
+          <PrimaryButton onClick={handleSubmit} disabled={!built.length || submitted} fullWidth={false} className="flex-1 min-w-0">
+            {submitted ? 'Checking…' : 'Check answer'}
+          </PrimaryButton>
+        </div>
+      }
+    >
+      <Card>
         <div className="flex items-start justify-between gap-2 mb-2">
           <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">Build the sentence</span>
           {constructedSentence && <SpeakButton text={constructedSentence} size={18} />}
         </div>
         <p className="text-base text-slate-700 dark:text-slate-200">{item.data.context_sentence}</p>
-        <p className="text-sm text-slate-400 italic mt-1">{item.data.context_translation}</p>
+        <p className="text-sm text-slate-400 italic mt-1" dir="rtl" lang="he">{item.data.context_translation}</p>
 
         {softHint && (
           <div className="mt-2 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2">
@@ -102,11 +115,10 @@ export function SentenceBuilder({ item, onAnswer, showHint }: SentenceBuilderPro
             <p className="text-sm text-amber-700 dark:text-amber-200">{softHint}</p>
           </div>
         )}
-      </div>
+      </Card>
 
-      {/* Construction zone */}
       <div
-        className="min-h-[72px] bg-slate-100 dark:bg-slate-800/60 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 px-4 py-3 flex flex-wrap gap-2 items-start"
+        className="min-h-[64px] bg-slate-100 dark:bg-slate-800/60 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 px-3 py-3 flex flex-wrap gap-2 items-start"
         aria-label="Your answer"
       >
         {built.length === 0 && (
@@ -117,55 +129,29 @@ export function SentenceBuilder({ item, onAnswer, showHint }: SentenceBuilderPro
         {built.map((word, i) => (
           <button
             key={`${word}-${i}`}
+            type="button"
             onClick={() => removeChip(i)}
             disabled={submitted}
-            className="word-chip bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-3 py-2 rounded-lg shadow focus-visible:ring-2 focus-visible:ring-indigo-400"
+            className="word-chip bg-indigo-600 active:bg-indigo-700 text-white text-sm font-semibold px-3 py-2.5 rounded-lg shadow min-h-[44px]"
           >
             {word}
           </button>
         ))}
       </div>
 
-      {/* Word bank */}
       <div className="flex flex-wrap gap-2" aria-label="Word bank">
         {bank.map((word, i) => (
           <button
             key={`${word}-${i}`}
+            type="button"
             onClick={() => pickChip(i)}
             disabled={submitted}
-            className="word-chip bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-sm font-semibold px-3 py-2 rounded-lg shadow-sm hover:border-indigo-300 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 focus-visible:ring-2 focus-visible:ring-indigo-400"
+            className="word-chip bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-sm font-semibold px-3 py-2.5 rounded-lg shadow-sm active:border-indigo-400 min-h-[44px]"
           >
-            <span className="hidden md:inline text-[10px] text-slate-300 dark:text-slate-600 mr-1">{i + 1}</span>
             {word}
           </button>
         ))}
       </div>
-
-      {/* Action bar */}
-      <div className="flex gap-3">
-        <button
-          onClick={reset}
-          aria-label="Reset"
-          className="min-h-[52px] min-w-[52px] rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-slate-400"
-        >
-          <RotateCcw size={20} />
-        </button>
-        <button
-          ref={submitRef}
-          onClick={handleSubmit}
-          disabled={!built.length || submitted}
-          className={`flex-1 min-h-[52px] rounded-xl font-semibold text-base transition-all focus-visible:ring-2 focus-visible:ring-indigo-400 ${
-            built.length && !submitted
-              ? 'bg-indigo-600 text-white shadow-md active:bg-indigo-700 hover:bg-indigo-700'
-              : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
-          }`}
-        >
-          {submitted ? 'Checking…' : 'Check answer'}
-          {built.length > 0 && !submitted && (
-            <span className="ml-2 text-xs opacity-60 hidden md:inline">(Enter)</span>
-          )}
-        </button>
-      </div>
-    </div>
+    </ExerciseLayout>
   )
 }
