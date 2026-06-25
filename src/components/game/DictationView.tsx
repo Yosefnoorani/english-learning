@@ -1,3 +1,4 @@
+import { focusInput } from '@/utils/focusInput'
 import { useState, useEffect, useRef } from 'react'
 import { Volume2, RotateCw, HelpCircle, EyeOff } from 'lucide-react'
 import type { ContentItem } from '@/types/game'
@@ -66,7 +67,7 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
     }
     if (skipPhase === 'reveal') {
       setSkipPhase('type')
-      setTimeout(() => inputRef.current?.focus(), 200)
+      focusInput(inputRef.current, 200)
     }
   }
 
@@ -220,7 +221,7 @@ export function DictationView({ item, onAnswer, showHint }: DictationViewProps) 
             {skipPhase === 'reveal' && (
               <button
                 type="button"
-                onClick={() => { setSkipPhase('type'); setTimeout(() => inputRef.current?.focus(), 200) }}
+                onClick={() => { setSkipPhase('type'); focusInput(inputRef.current, 200) }}
                 className="mt-2 text-sm font-bold text-violet-600 dark:text-violet-400 hover:underline"
               >
                 Ready to type →

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Settings, Zap } from 'lucide-react'
 import { useGameStore, selectCurrentItem } from '@/store/useGameStore'
 import type { QuestionType } from '@/types/game'
@@ -25,6 +26,7 @@ interface PracticeHeaderProps {
 }
 
 export function PracticeHeader({ onOpenSettings }: PracticeHeaderProps) {
+  const headerRef = useRef<HTMLElement>(null)
   const sessionAnswered = useGameStore((s) => s.sessionAnswered)
   const sessionMode = useGameStore((s) => s.sessionMode)
   const sessionCombo = useGameStore((s) => s.sessionCombo)
@@ -37,8 +39,24 @@ export function PracticeHeader({ onOpenSettings }: PracticeHeaderProps) {
   const typeLabel = item ? (TYPE_LABELS[item.type] ?? item.type) : 'Practice'
   const skillLabel = item ? SKILL_LABELS[item.skill] : null
 
+  useEffect(() => {
+    const el = headerRef.current
+    if (!el) return
+
+    function syncHeight() {
+      if (!el) return
+      document.documentElement.style.setProperty('--practice-header-height', `${el.offsetHeight}px`)
+    }
+
+    syncHeight()
+    const observer = new ResizeObserver(syncHeight)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <header
+      ref={headerRef}
       className="w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 sticky top-0 z-20 flex-shrink-0"
       style={{ paddingTop: 'var(--safe-top)' }}
     >

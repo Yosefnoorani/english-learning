@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { focusInput } from '@/utils/focusInput'
 import { Eye, EyeOff, HelpCircle } from 'lucide-react'
 import type { ContentItem } from '@/types/game'
 import { ExerciseLayout } from '@/components/layout/ExerciseLayout'
@@ -22,7 +23,7 @@ export function TranslationView({ item, onAnswer, showHint }: TranslationViewPro
     setInput('')
     setSubmitted(false)
     setRevealAnswer(false)
-    setTimeout(() => textareaRef.current?.focus(), 200)
+    focusInput(textareaRef.current, 200)
   }, [item.id])
 
   function handleSubmit() {

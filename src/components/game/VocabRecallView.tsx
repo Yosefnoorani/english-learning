@@ -1,3 +1,4 @@
+import { focusInput } from '@/utils/focusInput'
 import { useState, useEffect, useRef } from 'react'
 import { BookOpen, EyeOff, HelpCircle } from 'lucide-react'
 import { SpeakButton } from '@/components/ui/SpeakButton'
@@ -33,7 +34,7 @@ export function VocabRecallView({ item, onAnswer, showHint }: VocabRecallViewPro
     setInput('')
     setSubmitted(false)
     setHintLevel(0)
-    setTimeout(() => inputRef.current?.focus(), 300)
+    focusInput(inputRef.current, 300)
   }, [item.id])
 
   useEffect(() => {

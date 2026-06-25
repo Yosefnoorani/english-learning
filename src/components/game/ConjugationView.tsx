@@ -1,3 +1,4 @@
+import { focusInput } from '@/utils/focusInput'
 import { useState, useEffect, useRef } from 'react'
 import { SpeakButton } from '@/components/ui/SpeakButton'
 import type { ContentItem } from '@/types/game'
@@ -25,7 +26,7 @@ export function ConjugationView({ item, onAnswer, showHint }: ConjugationViewPro
   useEffect(() => {
     setInput('')
     setSubmitted(false)
-    setTimeout(() => inputRef.current?.focus(), 300)
+    focusInput(inputRef.current, 300)
   }, [item.id])
 
   // Auto-read verb when it changes

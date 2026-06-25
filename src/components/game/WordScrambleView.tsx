@@ -1,3 +1,4 @@
+import { focusInput } from '@/utils/focusInput'
 import { useState, useEffect, useRef } from 'react'
 import { RotateCcw, Shuffle } from 'lucide-react'
 import type { ContentItem } from '@/types/game'
@@ -29,7 +30,7 @@ export function WordScrambleView({ item, onAnswer, showHint }: WordScrambleViewP
     setBuilt([])
     setTyped('')
     setSubmitted(false)
-    setTimeout(() => inputRef.current?.focus(), 300)
+    focusInput(inputRef.current, 300)
   }, [item.id, scrambled])
 
   function syncFromTyped(value: string) {

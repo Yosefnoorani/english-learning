@@ -1,3 +1,4 @@
+import { focusInput } from '@/utils/focusInput'
 import { useState, useEffect, useRef } from 'react'
 import { PenLine } from 'lucide-react'
 import { SpeakButton } from '@/components/ui/SpeakButton'
@@ -30,7 +31,7 @@ export function SpellingView({ item, onAnswer, showHint }: SpellingViewProps) {
   useEffect(() => {
     setInput('')
     setSubmitted(false)
-    setTimeout(() => inputRef.current?.focus(), 300)
+    focusInput(inputRef.current, 300)
   }, [item.id])
 
   useEffect(() => {

@@ -176,6 +176,32 @@ html.motion-reduce .fade-in { animation: none; opacity: 1; transform: none; }
   padding-bottom: max(0.75rem, var(--safe-bottom));
 }
 
+/* Keep question + input visible when the mobile keyboard is open */
+@media (max-width: 767px) {
+  html.keyboard-open .exercise-keyboard-shell {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: calc(var(--vv-offset-top, 0px) + var(--practice-header-height, 4.5rem));
+    height: calc(var(--vv-height, 100dvh) - var(--practice-header-height, 4.5rem));
+    max-height: calc(var(--vv-height, 100dvh) - var(--practice-header-height, 4.5rem));
+    z-index: 15;
+    background-color: var(--surface);
+    box-shadow: 0 -1px 0 var(--border);
+  }
+
+  html.keyboard-open .exercise-scroll {
+    gap: 0.75rem;
+  }
+
+  html.keyboard-open .exercise-scroll > .rounded-2xl:first-child {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 1px 0 var(--border);
+  }
+}
+
 @media (min-width: 768px) {
   .mobile-page {
     padding-left: 1rem;
