@@ -1,20 +1,23 @@
 import { useState } from 'react'
-import { BookOpen, Repeat2, Settings, ChevronRight, Target, Languages } from 'lucide-react'
+import { BookOpen, Repeat2, Settings, ChevronRight, Target, Languages, Bell, Clock } from 'lucide-react'
 import { useGameStore } from '@/store/useGameStore'
+import { WELCOME_XP_BONUS } from '@/services/rewardService'
 
 interface OnboardingTourProps {
   onDone: () => void
   onStartPlacement?: () => void
   onSkip?: () => void
+  onRequestNotifications?: () => void | Promise<void>
 }
 
-const SCREENS = [
+const BASE_SCREENS = [
   {
     icon: <Languages size={40} className="text-violet-500" />,
     bg: 'from-violet-50 to-indigo-50 dark:from-violet-950/40 dark:to-indigo-950/40',
     title: 'Built for Hebrew Speakers',
     body: 'Practice in English with Hebrew explanations when you need them. Tips and feedback help you avoid common Hebrew→English mistakes.',
     cta: 'Next',
+    type: 'info' as const,
   },
   {
     icon: <BookOpen size={40} className="text-indigo-500" />,
@@ -22,6 +25,7 @@ const SCREENS = [
     title: 'Adaptive English Practice',
     body: 'The app learns your level and picks the right exercises for you — grammar, vocabulary, translation, listening, and more.',
     cta: 'Next',
+    type: 'info' as const,
   },
   {
     icon: <Repeat2 size={40} className="text-rose-500" />,
@@ -29,33 +33,77 @@ const SCREENS = [
     title: 'Review Your Mistakes',
     body: "Every word you get wrong is saved in your Mistake Journal with spaced repetition. When items are due, you'll see a badge on the Mistakes tab.",
     cta: 'Next',
+    type: 'info' as const,
+  },
+  {
+    icon: <Clock size={40} className="text-emerald-500" />,
+    bg: 'from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40',
+    title: 'Set Your Daily Goal',
+    body: 'How much time can you commit each day? Small daily steps build lasting habits.',
+    cta: 'Next',
+    type: 'goal' as const,
+  },
+  {
+    icon: <Bell size={40} className="text-amber-500" />,
+    bg: 'from-amber-50 to-yellow-50 dark:from-amber-950/40 dark:to-yellow-950/40',
+    title: 'Stay on Track',
+    body: 'Users with reminders are 3× more likely to keep a 7-day streak. Enable notifications to protect your progress.',
+    cta: 'Enable reminders',
+    type: 'notify' as const,
   },
   {
     icon: <Settings size={40} className="text-emerald-500" />,
     bg: 'from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40',
     title: 'Make It Your Own',
-    body: 'Choose Quick (5Q), Standard (10Q), or Deep (20Q) sessions. Turn on dark mode, adjust sound effects, and set your daily goal — all in Settings.',
+    body: 'Choose Quick (5Q), Standard (10Q), or Deep (20Q) sessions. Turn on dark mode, adjust sound effects — all in Settings.',
     cta: 'Next',
+    type: 'info' as const,
   },
   {
     icon: <Target size={40} className="text-indigo-500" />,
     bg: 'from-indigo-50 to-blue-50 dark:from-indigo-950/40 dark:to-blue-950/40',
     title: 'Find Your Level',
-    body: 'Take a quick 5-question placement test so exercises match your English level from the start.',
+    body: 'Take a quick 5-question placement test so exercises match your English level from the start. You start with a welcome XP bonus!',
     cta: 'Take placement test',
+    type: 'placement' as const,
   },
 ]
 
-export function OnboardingTour({ onDone, onStartPlacement, onSkip }: OnboardingTourProps) {
+const GOAL_OPTIONS = [
+  { label: '5 min / day', target: 5 },
+  { label: '10 min / day', target: 10 },
+  { label: '15 min / day', target: 15 },
+]
+
+export function OnboardingTour({ onDone, onStartPlacement, onSkip, onRequestNotifications }: OnboardingTourProps) {
   const [step, setStep] = useState(0)
+  const [selectedGoal, setSelectedGoal] = useState(10)
   const markOnboardingSeen = useGameStore((s) => s.markOnboardingSeen)
-  const current = SCREENS[step]
+  const setDailyGoalTarget = useGameStore((s) => s.setDailyGoalTarget)
+  const current = BASE_SCREENS[step]!
+
+  function grantWelcomeBonus() {
+    const state = useGameStore.getState()
+    if (!state.welcomeXpGranted) {
+      useGameStore.setState({
+        userState: { ...state.userState, xp: state.userState.xp + WELCOME_XP_BONUS },
+        welcomeXpGranted: true,
+      })
+    }
+  }
 
   function advance() {
-    if (step < SCREENS.length - 1) {
+    if (current.type === 'goal') {
+      setDailyGoalTarget(selectedGoal)
+    }
+    if (current.type === 'notify') {
+      void onRequestNotifications?.()
+    }
+    if (step < BASE_SCREENS.length - 1) {
       setStep((s) => s + 1)
     } else {
       markOnboardingSeen()
+      grantWelcomeBonus()
       onStartPlacement?.()
       onDone()
     }
@@ -63,6 +111,7 @@ export function OnboardingTour({ onDone, onStartPlacement, onSkip }: OnboardingT
 
   function handleSkip() {
     markOnboardingSeen()
+    grantWelcomeBonus()
     onSkip?.()
     onDone()
   }
@@ -76,7 +125,7 @@ export function OnboardingTour({ onDone, onStartPlacement, onSkip }: OnboardingT
           </div>
 
           <div className="flex gap-2">
-            {SCREENS.map((_, i) => (
+            {BASE_SCREENS.map((_, i) => (
               <div
                 key={i}
                 className={`h-2 rounded-full transition-all duration-300 ${
@@ -91,22 +140,41 @@ export function OnboardingTour({ onDone, onStartPlacement, onSkip }: OnboardingT
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{current.body}</p>
           </div>
 
+          {current.type === 'goal' && (
+            <div className="flex flex-col gap-2 w-full">
+              {GOAL_OPTIONS.map((opt) => (
+                <button
+                  key={opt.target}
+                  type="button"
+                  onClick={() => setSelectedGoal(opt.target)}
+                  className={`w-full min-h-[44px] rounded-xl border-2 font-semibold text-sm transition-colors ${
+                    selectedGoal === opt.target
+                      ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
+
           <button
             type="button"
             onClick={advance}
             className="w-full min-h-[52px] rounded-xl bg-indigo-600 text-white font-bold text-base shadow-lg active:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
           >
-            {current.cta}
-            {step < SCREENS.length - 1 && <ChevronRight size={18} />}
+            {current.type === 'notify' ? 'Enable reminders' : current.cta}
+            {step < BASE_SCREENS.length - 1 && current.type !== 'notify' && <ChevronRight size={18} />}
           </button>
 
-          {step < SCREENS.length - 1 && (
+          {(current.type === 'notify' || step < BASE_SCREENS.length - 1) && (
             <button
               type="button"
-              onClick={handleSkip}
+              onClick={current.type === 'notify' ? advance : handleSkip}
               className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
-              Skip intro
+              {current.type === 'notify' ? 'Maybe later' : 'Skip intro'}
             </button>
           )}
         </div>

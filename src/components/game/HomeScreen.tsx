@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react'
-import { Zap, RotateCcw, BarChart2, BookOpen, ChevronDown, ChevronUp, Target, Trophy } from 'lucide-react'
+import { Zap, RotateCcw, BarChart2, BookOpen, ChevronDown, ChevronUp, Target, Trophy, Map, Share2 } from 'lucide-react'
 import { useGameStore, selectLevelLabel, getDueCount } from '@/store/useGameStore'
 import { DailyLesson } from '@/components/game/DailyLesson'
 import { PracticePreview } from '@/components/game/PracticePreview'
 import { DailyQuestsCard } from '@/components/game/DailyQuestsCard'
+import { StreakAtRiskBanner } from '@/components/game/StreakAtRiskBanner'
+import { LeagueWidget } from '@/components/game/LeagueWidget'
 import { ACHIEVEMENTS } from '@/services/achievementService'
 import { getContentById } from '@/services/contentService'
+import { getTomorrowFocusSkill, getActiveEvents } from '@/services/eventService'
+import { estimateMinutesToGoal, xpProgressInLevel } from '@/services/rewardService'
 import type { SkillId, SessionMode } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
 
@@ -15,6 +19,9 @@ interface HomeScreenProps {
   onOpenSkills: () => void
   onStartPlacement: () => void
   onStartReview: () => void
+  onOpenAchievements?: () => void
+  onOpenUnitMap?: () => void
+  onShareStreak?: () => void
   showPlacementBanner?: boolean
 }
 
@@ -60,7 +67,7 @@ function getHeroAction(opts: {
   }
   return {
     action: 'session',
-    title: "You're all caught up!",
+    title: `Tomorrow's focus: ${getTomorrowFocusSkill(new Date())}`,
     subtitle: 'Start a mixed session or try a focus lesson below.',
     cta: 'Start session',
   }
@@ -72,9 +79,14 @@ export function HomeScreen({
   onOpenSkills,
   onStartPlacement,
   onStartReview,
+  onOpenAchievements,
+  onOpenUnitMap,
+  onShareStreak,
   showPlacementBanner,
 }: HomeScreenProps) {
   const rating = useGameStore((s) => s.userState.rating)
+  const xp = useGameStore((s) => s.userState.xp)
+  const streak = useGameStore((s) => s.userState.streak)
   const skillStats = useGameStore((s) => s.skillStats)
   const mistakeQueue = useGameStore((s) => s.mistakeQueue)
   const sessionMode = useGameStore((s) => s.sessionMode)
@@ -85,12 +97,15 @@ export function HomeScreen({
   const totalSessionsCompleted = useGameStore((s) => s.totalSessionsCompleted)
   const hasCompletedSetup = useGameStore((s) => s.hasCompletedSetup)
   const achievements = useGameStore((s) => s.achievements)
+  const resumeSnapshot = useGameStore((s) => s.resumeSnapshot)
   const levelLabel = useGameStore(selectLevelLabel)
   const dueCount = useMemo(() => getDueCount(mistakeQueue), [mistakeQueue])
   const now = useMemo(() => Date.now(), [mistakeQueue])
   const [showSessionOptions, setShowSessionOptions] = useState(false)
 
   const dailyRemaining = Math.max(0, dailyGoalTarget - dailyGoalProgress)
+  const xpProgress = xpProgressInLevel(xp)
+  const activeEvents = useMemo(() => getActiveEvents(), [])
   const hero = getHeroAction({
     totalSessions: totalSessionsCompleted,
     hasCompletedSetup,
@@ -145,10 +160,41 @@ export function HomeScreen({
           </div>
         )}
 
+        <StreakAtRiskBanner onContinue={() => void continueSession()} />
+
+        {activeEvents.length > 0 && (
+          <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/30 px-4 py-3">
+            <p className="text-xs font-bold text-violet-700 dark:text-violet-300">{activeEvents[0]!.title}</p>
+            <p className="text-[10px] text-violet-600 dark:text-violet-400 mt-0.5">{activeEvents[0]!.description}</p>
+          </div>
+        )}
+
+        {resumeSnapshot?.bufferIds.length ? (
+          <button
+            type="button"
+            onClick={() => void continueSession()}
+            className="w-full rounded-2xl border-2 border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/30 p-4 text-left"
+          >
+            <p className="text-sm font-bold text-indigo-800 dark:text-indigo-200">Continue where you left off</p>
+            <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-0.5">
+              Question {resumeSnapshot.currentIndex + 1} · {resumeSnapshot.sessionAnswered} answered
+            </p>
+          </button>
+        ) : null}
+
         <div className="flex flex-col gap-1">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">{levelLabel}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">{levelLabel}</p>
+            <p className="text-[10px] text-violet-600 dark:text-violet-400">XP Lv {xpProgress.level}</p>
+          </div>
+          <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+            <div className="h-full bg-violet-500 rounded-full" style={{ width: `${xpProgress.percent}%` }} />
+          </div>
           <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">{hero.title}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{hero.subtitle}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            {hero.subtitle}
+            {dailyRemaining > 0 && ` · ~${estimateMinutesToGoal(dailyRemaining)} min to goal`}
+          </p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm flex flex-col gap-3">
@@ -210,6 +256,8 @@ export function HomeScreen({
 
         <DailyQuestsCard compact />
 
+        <LeagueWidget />
+
         {dueCount > 0 && hero.action !== 'review' && (
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -246,10 +294,17 @@ export function HomeScreen({
 
         {achievements.length > 0 && (
           <div className="flex flex-col gap-2">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
-              <Trophy size={12} />
-              Achievements ({achievements.length})
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+                <Trophy size={12} />
+                Achievements ({achievements.length})
+              </p>
+              {onOpenAchievements && (
+                <button type="button" onClick={onOpenAchievements} className="text-xs text-indigo-600 font-semibold">
+                  View all
+                </button>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2">
               {achievements.slice(-6).map((id) => (
                 <span
@@ -266,6 +321,28 @@ export function HomeScreen({
 
         <div className="flex flex-col gap-2">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Your progress</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {onOpenUnitMap && (
+              <button
+                type="button"
+                onClick={onOpenUnitMap}
+                className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex items-center gap-3 hover:border-violet-300 transition-colors shadow-sm min-h-[64px]"
+              >
+                <Map size={20} className="text-violet-600" />
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">Learning journey</span>
+              </button>
+            )}
+            {onShareStreak && streak > 0 && (
+              <button
+                type="button"
+                onClick={onShareStreak}
+                className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex items-center gap-3 hover:border-orange-300 transition-colors shadow-sm min-h-[64px]"
+              >
+                <Share2 size={20} className="text-orange-500" />
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">Share {streak}-day streak</span>
+              </button>
+            )}
+          </div>
           <button
             type="button"
             onClick={onOpenSkills}

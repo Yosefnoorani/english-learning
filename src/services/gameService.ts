@@ -165,6 +165,26 @@ export async function submitTelemetry(entry: TelemetryEntry): Promise<void> {
   })
 }
 
+export async function submitExperimentEvent(
+  experimentId: string,
+  variant: string,
+  event: string,
+  payload?: Record<string, unknown>,
+): Promise<void> {
+  console.debug('[telemetry/experiment]', { experimentId, variant, event, payload })
+  if (!supabase) return
+  try {
+    await supabase.rpc('log_experiment_event', {
+      p_experiment_id: experimentId,
+      p_variant: variant,
+      p_event: event,
+      p_payload: payload ?? {},
+    })
+  } catch {
+    /* optional RPC */
+  }
+}
+
 const RECENT_EXCLUDE_CAP = 30
 
 /** Per-type caps per batch — conjugation gets a higher share than most types. */

@@ -42,7 +42,35 @@ import {
   isVocabItem,
 } from '@/services/vocabReviewService'
 import { checkAchievements, awardAchievement } from '@/services/achievementService'
-import { getDailyQuests, allQuestsComplete } from '@/services/dailyQuestService'
+import {
+  getDailyQuests,
+  allQuestsComplete,
+  isBonusQuestUnlocked,
+  updateQuestProgressForAnswer,
+} from '@/services/dailyQuestService'
+import {
+  computeCorrectAnswerRewards,
+  WELCOME_XP_BONUS,
+  STREAK_FREEZE_GEM_COST,
+  STREAK_REPAIR_GEM_COST,
+  DOUBLE_XP_GEM_COST,
+  DOUBLE_XP_DURATION_MS,
+  MAX_STREAK_REPAIRS_PER_MONTH,
+  getUnclaimedStreakMilestones,
+  QUEST_GEM_REWARDS,
+} from '@/services/rewardService'
+import { getCombinedXpMultiplier } from '@/services/eventService'
+import {
+  resetWeeklyLeagueIfNeeded,
+  syncLeagueXp,
+} from '@/services/leagueService'
+import {
+  loadExperiments,
+  getQuestGemMultiplier,
+} from '@/services/experimentService'
+import type { NotificationPreferences } from '@/services/notificationService'
+import { DEFAULT_NOTIFICATION_PREFS } from '@/services/notificationService'
+import type { LeagueTier } from '@/services/leagueService'
 
 const PLACEMENT_QUESTIONS = 5
 const BUFFER_SIZE = 12
@@ -104,9 +132,32 @@ interface GameState {
   /** Proactive vocab SRS schedule. */
   vocabReviewQueue: import('@/types/game').VocabReviewEntry[]
   achievements: string[]
+  pendingAchievementUnlocks: string[]
   dailyQuestIds: string[]
   dailyQuestProgress: Record<string, number>
   dailyQuestDate: string
+  claimedQuestRewards: string[]
+  questStreak: number
+  lastQuestStreakDate: string
+  weeklyXp: number
+  weekStartDate: string
+  personalBestWeeklyXp: number
+  leagueTier: LeagueTier
+  promotedLastWeek: boolean | null
+  showLeagueSummary: boolean
+  activityHistory: string[]
+  claimedStreakMilestones: number[]
+  doubleXpUntil: number
+  pendingBonusChest: { gems: number; goldenCombo: boolean } | null
+  continueNudgesToday: number
+  continueNudgesDate: string
+  unitsCompleted: string[]
+  notificationPreferences: NotificationPreferences
+  experiments: Record<string, string>
+  welcomeXpGranted: boolean
+  lastSeenAt: number
+  showWelcomeBack: boolean
+  dismissedLeagueSummaryWeek: string
   /** Skills that received blocked intro this session. */
   blockedSkillsShown: SkillId[]
 
@@ -123,7 +174,7 @@ interface GameState {
   toggleMistakeReview: () => Promise<void>
   dismissFeedback: () => void
   dismissSessionSummary: () => void
-  continueSession: () => Promise<void>
+  continueSession: (microMode?: boolean) => Promise<void>
   setActiveView: (view: NavView) => void
   saveResumeSnapshot: () => void
 
@@ -141,6 +192,18 @@ interface GameState {
   setPracticeTier: (tier: number) => void
   resetProgress: () => void
   showOnboardingTour: () => void
+  dismissAchievementUnlock: () => void
+  buyStreakFreeze: () => void
+  repairStreak: () => void
+  buyDoubleXp: () => void
+  claimStreakMilestone: (days: number) => void
+  claimQuestGemReward: (questId: string) => void
+  dismissBonusChest: () => void
+  dismissLeagueSummary: () => void
+  dismissWelcomeBack: () => void
+  setNotificationPreferences: (prefs: Partial<NotificationPreferences>) => void
+  recordContinueNudge: () => boolean
+  completeUnit: (unitId: string) => void
 }
 
 function initialSkillStats(): Record<SkillId, SkillStats> {
@@ -179,14 +242,31 @@ function applyDailyReset(userState: UserState, todayStr: string): Partial<UserSt
   const todayMs = new Date(todayStr).getTime()
   const daysMissed = Math.max(0, Math.floor((todayMs - lastMs) / 86400000) - 1)
 
-  let { streak, streakFreezes } = userState
+  let { streak, streakFreezes, streakBrokenAt } = userState
   if (daysMissed > 0) {
     const freezesToUse = Math.min(daysMissed, streakFreezes)
     streakFreezes = Math.max(0, streakFreezes - freezesToUse)
-    if (daysMissed > freezesToUse) streak = 0
+    if (daysMissed > freezesToUse) {
+      if (streak > 0) streakBrokenAt = Date.now()
+      streak = 0
+    }
   }
 
-  return { dailyGoalProgress: 0, lastActiveDate: todayStr, streak, streakFreezes }
+  return { dailyGoalProgress: 0, lastActiveDate: todayStr, streak, streakFreezes, streakBrokenAt }
+}
+
+function queueNewAchievements(
+  prev: string[],
+  next: string[],
+  pending: string[],
+): string[] {
+  const newlyEarned = next.filter((id) => !prev.includes(id))
+  return [...pending, ...newlyEarned.filter((id) => !pending.includes(id))]
+}
+
+function recordActivityDate(history: string[], todayStr: string): string[] {
+  if (history.includes(todayStr)) return history
+  return [...history, todayStr].slice(-90)
 }
 
 function buildResumeSnapshot(state: GameState): ResumeSnapshot | null {
@@ -224,6 +304,8 @@ export const useGameStore = create<GameState>()(
         dailyGoalTarget: 10,
         lastActiveDate: '',
         streakFreezes: 0,
+        xp: 0,
+        gems: 0,
       },
       questionBuffer: [],
       currentIndex: 0,
@@ -267,9 +349,32 @@ export const useGameStore = create<GameState>()(
       recentContentIds: [],
       vocabReviewQueue: [],
       achievements: [],
+      pendingAchievementUnlocks: [],
       dailyQuestIds: [],
       dailyQuestProgress: {},
       dailyQuestDate: '',
+      claimedQuestRewards: [],
+      questStreak: 0,
+      lastQuestStreakDate: '',
+      weeklyXp: 0,
+      weekStartDate: new Date().toDateString(),
+      personalBestWeeklyXp: 0,
+      leagueTier: 'bronze',
+      promotedLastWeek: null,
+      showLeagueSummary: false,
+      activityHistory: [],
+      claimedStreakMilestones: [],
+      doubleXpUntil: 0,
+      pendingBonusChest: null,
+      continueNudgesToday: 0,
+      continueNudgesDate: '',
+      unitsCompleted: [],
+      notificationPreferences: DEFAULT_NOTIFICATION_PREFS,
+      experiments: loadExperiments('default'),
+      welcomeXpGranted: false,
+      lastSeenAt: Date.now(),
+      showWelcomeBack: false,
+      dismissedLeagueSummaryWeek: '',
       blockedSkillsShown: [],
       activeView: 'practice',
       resumeSnapshot: null,
@@ -329,6 +434,8 @@ export const useGameStore = create<GameState>()(
             dailyGoalTarget: 10,
             lastActiveDate: '',
             streakFreezes: 0,
+            xp: 0,
+            gems: 0,
           },
           skillStats: initialSkillStats(),
           mistakeQueue: [],
@@ -349,7 +456,117 @@ export const useGameStore = create<GameState>()(
           practiceTier: MIN_TIER,
           resumeSnapshot: null,
           activeView: 'practice',
+          achievements: [],
+          pendingAchievementUnlocks: [],
+          questStreak: 0,
+          weeklyXp: 0,
+          activityHistory: [],
+          unitsCompleted: [],
         }),
+
+      dismissAchievementUnlock: () =>
+        set((s) => ({
+          pendingAchievementUnlocks: s.pendingAchievementUnlocks.slice(1),
+        })),
+
+      buyStreakFreeze: () => {
+        const { userState } = get()
+        if (userState.gems < STREAK_FREEZE_GEM_COST || userState.streakFreezes >= 3) return
+        set({
+          userState: {
+            ...userState,
+            gems: userState.gems - STREAK_FREEZE_GEM_COST,
+            streakFreezes: userState.streakFreezes + 1,
+          },
+        })
+      },
+
+      repairStreak: () => {
+        const { userState } = get()
+        const month = `${new Date().getMonth()}-${new Date().getFullYear()}`
+        const repairsUsed =
+          userState.streakRepairMonth === month ? (userState.streakRepairsUsedThisMonth ?? 0) : 0
+        if (
+          userState.gems < STREAK_REPAIR_GEM_COST ||
+          repairsUsed >= MAX_STREAK_REPAIRS_PER_MONTH ||
+          !userState.streakBrokenAt ||
+          Date.now() - userState.streakBrokenAt > 86400000
+        ) return
+        set({
+          userState: {
+            ...userState,
+            gems: userState.gems - STREAK_REPAIR_GEM_COST,
+            streak: Math.max(1, userState.streak),
+            streakBrokenAt: undefined,
+            streakRepairsUsedThisMonth: repairsUsed + 1,
+            streakRepairMonth: month,
+          },
+        })
+      },
+
+      buyDoubleXp: () => {
+        const { userState } = get()
+        if (userState.gems < DOUBLE_XP_GEM_COST) return
+        set({
+          userState: { ...userState, gems: userState.gems - DOUBLE_XP_GEM_COST },
+          doubleXpUntil: Date.now() + DOUBLE_XP_DURATION_MS,
+        })
+      },
+
+      claimStreakMilestone: (days: number) => {
+        const { userState, claimedStreakMilestones } = get()
+        const unclaimed = getUnclaimedStreakMilestones(userState.streak, claimedStreakMilestones)
+        const milestone = unclaimed.find((m) => m.days === days)
+        if (!milestone) return
+        set({
+          userState: { ...userState, gems: userState.gems + milestone.gems },
+          claimedStreakMilestones: [...claimedStreakMilestones, days],
+        })
+      },
+
+      claimQuestGemReward: (questId: string) => {
+        const { claimedQuestRewards, userState, experiments } = get()
+        if (claimedQuestRewards.includes(questId)) return
+        const base = QUEST_GEM_REWARDS[questId] ?? 5
+        const gems = Math.round(base * getQuestGemMultiplier(experiments))
+        set({
+          userState: { ...userState, gems: userState.gems + gems },
+          claimedQuestRewards: [...claimedQuestRewards, questId],
+        })
+      },
+
+      dismissBonusChest: () => set({ pendingBonusChest: null }),
+
+      dismissLeagueSummary: () =>
+        set({ showLeagueSummary: false, dismissedLeagueSummaryWeek: get().weekStartDate }),
+
+      dismissWelcomeBack: () => set({ showWelcomeBack: false }),
+
+      setNotificationPreferences: (prefs) =>
+        set((s) => ({
+          notificationPreferences: { ...s.notificationPreferences, ...prefs },
+        })),
+
+      recordContinueNudge: () => {
+        const today = new Date().toDateString()
+        const { continueNudgesToday, continueNudgesDate } = get()
+        const count = continueNudgesDate === today ? continueNudgesToday : 0
+        if (count >= 2) return false
+        set({
+          continueNudgesToday: count + 1,
+          continueNudgesDate: today,
+        })
+        return true
+      },
+
+      completeUnit: (unitId: string) => {
+        const { unitsCompleted, userState } = get()
+        if (unitsCompleted.includes(unitId)) return
+        set({
+          unitsCompleted: [...unitsCompleted, unitId],
+          userState: { ...userState, gems: userState.gems + 30, xp: userState.xp + 50 },
+        })
+      },
 
       dismissSessionSummary: () => {
         set((s) => ({
@@ -364,13 +581,13 @@ export const useGameStore = create<GameState>()(
         get().saveResumeSnapshot()
       },
 
-      continueSession: async () => {
+      continueSession: async (microMode = false) => {
         const { practiceTier, skillStats, mistakeQueue, recentContentIds, vocabReviewQueue, includeAudioQuestions } = get()
         const all = getAllContent()
         const items = await fetchQuestions(
           practiceTier,
           'gameplay',
-          BUFFER_SIZE,
+          microMode ? 5 : BUFFER_SIZE,
           skillStats,
           mistakeQueue,
           recentContentIds,
@@ -378,8 +595,9 @@ export const useGameStore = create<GameState>()(
           includeAudioQuestions,
         )
         const blocked = applyBlockedPractice(items, skillStats, all, includeAudioQuestions)
+        const sessionItems = microMode ? blocked.slice(0, 5) : blocked
         set({
-          questionBuffer: blocked,
+          questionBuffer: sessionItems,
           currentIndex: 0,
           showSessionSummary: false,
           sessionAnswered: 0,
@@ -388,6 +606,7 @@ export const useGameStore = create<GameState>()(
           sessionLearnedIds: [],
           sessionRecentMistakeIds: [],
           blockedSkillsShown: [],
+          sessionMode: microMode ? 'quick' : get().sessionMode,
         })
         get().saveResumeSnapshot()
       },
@@ -395,6 +614,36 @@ export const useGameStore = create<GameState>()(
       initGame: async () => {
         set({ isLoading: true })
         const state = get()
+
+        const leagueUpdate = resetWeeklyLeagueIfNeeded({
+          leagueTier: state.leagueTier,
+          weeklyXp: state.weeklyXp,
+          weekStartDate: state.weekStartDate,
+          personalBestWeeklyXp: state.personalBestWeeklyXp,
+          leagueRank: 15,
+          leagueSize: 30,
+          promotedLastWeek: state.promotedLastWeek,
+        })
+        const showLeagueSummary =
+          leagueUpdate.weekStartDate !== state.weekStartDate &&
+          state.dismissedLeagueSummaryWeek !== state.weekStartDate
+
+        const hoursAway = (Date.now() - state.lastSeenAt) / 3600000
+        const showWelcomeBack = hoursAway >= 24 && state.hasCompletedSetup
+
+        if (!state.welcomeXpGranted && state.hasSeenOnboarding) {
+          set({
+            userState: { ...state.userState, xp: state.userState.xp + WELCOME_XP_BONUS },
+            welcomeXpGranted: true,
+          })
+        }
+
+        set({
+          ...leagueUpdate,
+          showLeagueSummary,
+          showWelcomeBack,
+          lastSeenAt: Date.now(),
+        })
 
         if (!state.hasCompletedSetup && state.phase !== 'placement' && state.hasSeenOnboarding) {
           set({
@@ -482,6 +731,9 @@ export const useGameStore = create<GameState>()(
           sessionCorrect: 0,
           hasCompletedSetup: true,
           achievements: awardAchievement(s.achievements, 'first_steps'),
+          pendingAchievementUnlocks: s.achievements.includes('first_steps')
+            ? s.pendingAchievementUnlocks
+            : [...s.pendingAchievementUnlocks, 'first_steps'],
         }))
         get().saveResumeSnapshot()
       },
@@ -526,10 +778,12 @@ export const useGameStore = create<GameState>()(
           hadRecentMistakeAtTier,
           highestTierReached,
         } = state
-        let { rating, streak, score, dailyGoalProgress, dailyGoalTarget, lastActiveDate, streakFreezes } =
+        let { rating, streak, score, dailyGoalProgress, dailyGoalTarget, lastActiveDate, streakFreezes, xp, gems } =
           state.userState
         let triggerHint = false
         let didLevelUp = false
+        let pendingBonusChest = state.pendingBonusChest
+        let weeklyXp = state.weeklyXp
 
         const todayStr = new Date().toDateString()
         const resetFields = applyDailyReset(state.userState, todayStr)
@@ -541,6 +795,8 @@ export const useGameStore = create<GameState>()(
 
         const wasActiveToday = lastActiveDate === todayStr
         if (!lastActiveDate) lastActiveDate = todayStr
+
+        let activityHistory = recordActivityDate(state.activityHistory, todayStr)
 
         let sessionCombo = state.sessionCombo
         let sessionLearnedIds = state.sessionLearnedIds
@@ -560,33 +816,32 @@ export const useGameStore = create<GameState>()(
 
         let dailyQuestProgress = { ...state.dailyQuestProgress }
         let dailyQuestDate = state.dailyQuestDate
+        let claimedQuestRewards = [...state.claimedQuestRewards]
         if (dailyQuestDate !== todayStr) {
           dailyQuestProgress = {}
           dailyQuestDate = todayStr
+          claimedQuestRewards = []
         }
         const quests = getDailyQuests(new Date(), state.includeAudioQuestions)
+        const bonusUnlocked = isBonusQuestUnlocked(quests, dailyQuestProgress)
         const nowMs = Date.now()
         const mistakeEntry = state.mistakeQueue.find((e) => e.contentId === item.id)
         const wasDueMistake =
           mistakeEntry != null && !mistakeEntry.mastered && mistakeEntry.nextDueAt <= nowMs
 
         for (const quest of quests) {
-          if (quest.metric === 'session_questions') {
-            dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
-          }
-          if (quest.metric === 'session_correct' && isCorrect) {
-            dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
-          }
-          if (quest.metric === 'listening_count' && item.type === 'listening_dictation' && state.includeAudioQuestions) {
-            dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
-          }
-          if (
-            quest.metric === 'mistakes_reviewed' &&
-            isCorrect &&
-            (state.mistakeReviewMode || wasDueMistake)
-          ) {
-            dailyQuestProgress[quest.id] = (dailyQuestProgress[quest.id] ?? 0) + 1
-          }
+          dailyQuestProgress = updateQuestProgressForAnswer({
+            quest,
+            progress: dailyQuestProgress,
+            isCorrect,
+            sessionCombo: isCorrect ? state.sessionCombo + 1 : 0,
+            itemType: item.type,
+            itemTags: item.tags,
+            mistakeReviewMode: state.mistakeReviewMode,
+            wasDueMistake,
+            includeAudioQuestions: state.includeAudioQuestions,
+            bonusUnlocked,
+          })
         }
 
         const newSkillStats = updateSkillStats(state.skillStats, item.skill, isCorrect)
@@ -634,10 +889,25 @@ export const useGameStore = create<GameState>()(
 
           score += 10
           sessionCombo += 1
+          const rewards = computeCorrectAnswerRewards({
+            streak,
+            doubleXpUntil: state.doubleXpUntil,
+          })
+          const eventMult = getCombinedXpMultiplier()
+          const earnedXp = Math.round(rewards.xp * eventMult)
+          xp += earnedXp
+          weeklyXp += earnedXp
+          gems += rewards.gems
+          if (rewards.bonusChest) {
+            gems += rewards.bonusChest.gems
+            pendingBonusChest = rewards.bonusChest
+          }
+          syncLeagueXp(weeklyXp).catch(console.warn)
           dailyGoalProgress = Math.min(dailyGoalProgress + 1, dailyGoalTarget)
           if (!wasActiveToday) {
             streak += 1
             lastActiveDate = todayStr
+            activityHistory = recordActivityDate(activityHistory, todayStr)
             if (streak > 0 && streak % 7 === 0) {
               streakFreezes = Math.min(MAX_STREAK_FREEZES, streakFreezes + 1)
             }
@@ -654,11 +924,42 @@ export const useGameStore = create<GameState>()(
           hadRecentMistakeAtTier = tierAction.hadRecentMistakeAtTier
           rating = tierAction.newRating
           tierChanged = tierAction.demoted
-          if (tierAction.demoted) {
-            streak = 0
-          }
           triggerHint = true
+          if (gradingResult.similarity != null && gradingResult.similarity >= 0.7) {
+            result.explanation = 'You were close! ' + (result.explanation ?? '')
+          }
         }
+
+        let questStreak = state.questStreak
+        let lastQuestStreakDate = state.lastQuestStreakDate
+        if (allQuestsComplete(quests, dailyQuestProgress)) {
+          if (lastQuestStreakDate !== todayStr) {
+            const yesterday = new Date()
+            yesterday.setDate(yesterday.getDate() - 1)
+            questStreak = lastQuestStreakDate === yesterday.toDateString() ? questStreak + 1 : 1
+            lastQuestStreakDate = todayStr
+          }
+        }
+
+        const prevAchievements = state.achievements
+        const newAchievements = checkAchievements({
+          achievements: prevAchievements,
+          streak,
+          sessionCorrect: newSessionCorrect,
+          sessionAnswered: newSessionAnswered,
+          sessionCombo,
+          skillStats: newSkillStats,
+          mistakeQueue: newMistakeQueue,
+          phase,
+          dailyQuestComplete: allQuestsComplete(quests, dailyQuestProgress),
+          hasCompletedSetup: state.hasCompletedSetup,
+          questStreak,
+        })
+        const pendingAchievementUnlocks = queueNewAchievements(
+          prevAchievements,
+          newAchievements,
+          state.pendingAchievementUnlocks,
+        )
 
         set({
           triggerHint,
@@ -672,18 +973,15 @@ export const useGameStore = create<GameState>()(
           vocabReviewQueue,
           dailyQuestProgress,
           dailyQuestDate,
-          achievements: checkAchievements({
-            achievements: state.achievements,
-            streak,
-            sessionCorrect: newSessionCorrect,
-            sessionAnswered: newSessionAnswered,
-            sessionCombo,
-            skillStats: newSkillStats,
-            mistakeQueue: newMistakeQueue,
-            phase,
-            dailyQuestComplete: allQuestsComplete(quests, dailyQuestProgress),
-          }),
-          userState: { rating, streak, score, dailyGoalProgress, dailyGoalTarget, lastActiveDate, streakFreezes },
+          claimedQuestRewards,
+          questStreak,
+          lastQuestStreakDate,
+          weeklyXp,
+          pendingBonusChest,
+          activityHistory,
+          achievements: newAchievements,
+          pendingAchievementUnlocks,
+          userState: { rating, streak, score, dailyGoalProgress, dailyGoalTarget, lastActiveDate, streakFreezes, xp, gems },
           skillStats: newSkillStats,
           mistakeQueue: newMistakeQueue,
           recentContentIds: trackRecentContentId(state.recentContentIds, item.id),
@@ -881,7 +1179,7 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'english-game-storage',
-      version: 7,
+      version: 8,
       migrate: (persisted: unknown, version: number) => {
         const s = persisted as Record<string, unknown>
         if (s.mistakeQueue && Array.isArray(s.mistakeQueue)) {
@@ -906,6 +1204,36 @@ export const useGameStore = create<GameState>()(
         if (s.dailyQuestDate === undefined) s.dailyQuestDate = ''
         if (s.includeAudioQuestions === undefined) s.includeAudioQuestions = true
         if (s.detailedFeedback === undefined) s.detailedFeedback = true
+
+        const us = s.userState as Record<string, unknown> | undefined
+        if (us) {
+          if (us.xp === undefined) us.xp = 0
+          if (us.gems === undefined) us.gems = 0
+          s.userState = us
+        }
+
+        if (version < 8) {
+          s.pendingAchievementUnlocks = s.pendingAchievementUnlocks ?? []
+          s.claimedQuestRewards = s.claimedQuestRewards ?? []
+          s.questStreak = s.questStreak ?? 0
+          s.lastQuestStreakDate = s.lastQuestStreakDate ?? ''
+          s.weeklyXp = s.weeklyXp ?? 0
+          s.weekStartDate = s.weekStartDate ?? new Date().toDateString()
+          s.personalBestWeeklyXp = s.personalBestWeeklyXp ?? 0
+          s.leagueTier = s.leagueTier ?? 'bronze'
+          s.promotedLastWeek = s.promotedLastWeek ?? null
+          s.activityHistory = s.activityHistory ?? []
+          s.claimedStreakMilestones = s.claimedStreakMilestones ?? []
+          s.doubleXpUntil = s.doubleXpUntil ?? 0
+          s.continueNudgesToday = s.continueNudgesToday ?? 0
+          s.continueNudgesDate = s.continueNudgesDate ?? ''
+          s.unitsCompleted = s.unitsCompleted ?? []
+          s.notificationPreferences = s.notificationPreferences ?? DEFAULT_NOTIFICATION_PREFS
+          s.experiments = s.experiments ?? loadExperiments('default')
+          s.welcomeXpGranted = s.welcomeXpGranted ?? false
+          s.lastSeenAt = s.lastSeenAt ?? Date.now()
+          s.dismissedLeagueSummaryWeek = s.dismissedLeagueSummaryWeek ?? ''
+        }
 
         if (version < 5) {
           const currentTier = (s.currentTier as number) ?? MIN_TIER
@@ -946,9 +1274,27 @@ export const useGameStore = create<GameState>()(
         recentContentIds: state.recentContentIds,
         vocabReviewQueue: state.vocabReviewQueue,
         achievements: state.achievements,
+        pendingAchievementUnlocks: state.pendingAchievementUnlocks,
         dailyQuestIds: state.dailyQuestIds,
         dailyQuestProgress: state.dailyQuestProgress,
         dailyQuestDate: state.dailyQuestDate,
+        claimedQuestRewards: state.claimedQuestRewards,
+        questStreak: state.questStreak,
+        lastQuestStreakDate: state.lastQuestStreakDate,
+        weeklyXp: state.weeklyXp,
+        weekStartDate: state.weekStartDate,
+        personalBestWeeklyXp: state.personalBestWeeklyXp,
+        leagueTier: state.leagueTier,
+        promotedLastWeek: state.promotedLastWeek,
+        activityHistory: state.activityHistory,
+        claimedStreakMilestones: state.claimedStreakMilestones,
+        doubleXpUntil: state.doubleXpUntil,
+        unitsCompleted: state.unitsCompleted,
+        notificationPreferences: state.notificationPreferences,
+        experiments: state.experiments,
+        welcomeXpGranted: state.welcomeXpGranted,
+        lastSeenAt: state.lastSeenAt,
+        dismissedLeagueSummaryWeek: state.dismissedLeagueSummaryWeek,
         totalSessionsCompleted: state.totalSessionsCompleted,
         activeView: state.activeView,
         resumeSnapshot: state.resumeSnapshot,

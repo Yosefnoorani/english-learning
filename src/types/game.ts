@@ -189,6 +189,12 @@ export interface UserState {
   dailyGoalTarget: number
   lastActiveDate: string   // toDateString() e.g. "Mon May 26 2025"
   streakFreezes: number    // 0–3 tokens
+  xp: number
+  gems: number
+  /** Timestamp when streak was last broken — for repair window. */
+  streakBrokenAt?: number
+  streakRepairsUsedThisMonth?: number
+  streakRepairMonth?: string
 }
 
 // ── Per-skill statistics (persisted) ────────────────────────

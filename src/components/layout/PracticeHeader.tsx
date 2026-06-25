@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
-import { Settings, Zap } from 'lucide-react'
+import { Settings, Zap, Flame } from 'lucide-react'
 import { useGameStore, selectCurrentItem } from '@/store/useGameStore'
 import type { QuestionType } from '@/types/game'
 import { SKILL_LABELS } from '@/types/game'
+import { streakXpMultiplier } from '@/services/rewardService'
 
 const SESSION_SIZES = { quick: 5, standard: 10, deep: 20 } as const
 
@@ -31,9 +32,13 @@ export function PracticeHeader({ onOpenSettings }: PracticeHeaderProps) {
   const sessionMode = useGameStore((s) => s.sessionMode)
   const sessionCombo = useGameStore((s) => s.sessionCombo)
   const practiceTier = useGameStore((s) => s.practiceTier)
+  const streak = useGameStore((s) => s.userState.streak)
+  const doubleXpUntil = useGameStore((s) => s.doubleXpUntil)
   const item = useGameStore(selectCurrentItem)
 
   const sessionTarget = SESSION_SIZES[sessionMode]
+  const xpMult = streakXpMultiplier(streak)
+  const doubleActive = doubleXpUntil > Date.now()
   const questionNum = Math.min(sessionAnswered + 1, sessionTarget)
   const progressPct = Math.round((sessionAnswered / sessionTarget) * 100)
   const typeLabel = item ? (TYPE_LABELS[item.type] ?? item.type) : 'Practice'
@@ -71,6 +76,8 @@ export function PracticeHeader({ onOpenSettings }: PracticeHeaderProps) {
           {skillLabel && (
             <p className="text-[10px] text-slate-400 truncate mb-1">
               {skillLabel} · Tier {practiceTier}
+              {xpMult > 1 && ` · ${xpMult}× XP`}
+              {doubleActive && ' · 2× boost'}
             </p>
           )}
           <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -80,6 +87,13 @@ export function PracticeHeader({ onOpenSettings }: PracticeHeaderProps) {
             />
           </div>
         </div>
+
+        {streak >= 3 && (
+          <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-950/40 rounded-xl px-2 py-1.5 flex-shrink-0" title="Streak XP multiplier">
+            <Flame size={14} className="text-orange-500" />
+            <span className="text-xs font-bold text-orange-600">{xpMult}×</span>
+          </div>
+        )}
 
         {sessionCombo >= 2 && (
           <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950/40 rounded-xl px-2.5 py-1.5 flex-shrink-0">

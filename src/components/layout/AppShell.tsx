@@ -12,11 +12,12 @@ interface AppShellProps {
   activeView: NavView
   onNavigate: (view: NavView) => void
   onOpenSettings: () => void
+  onOpenStreakHub?: () => void
   inPracticeSession?: boolean
   children: ReactNode
 }
 
-export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSession = false, children }: AppShellProps) {
+export function AppShell({ activeView, onNavigate, onOpenSettings, onOpenStreakHub, inPracticeSession = false, children }: AppShellProps) {
   const theme = useGameStore((s) => s.theme)
   const reducedMotion = useGameStore((s) => s.reducedMotion)
 
@@ -63,7 +64,7 @@ export function AppShell({ activeView, onNavigate, onOpenSettings, inPracticeSes
         {inPracticeSession ? (
           <PracticeHeader onOpenSettings={onOpenSettings} />
         ) : (
-          <TopBar onOpenSettings={onOpenSettings} />
+          <TopBar onOpenSettings={onOpenSettings} onOpenStreakHub={onOpenStreakHub} />
         )}
 
         <div className={`flex-1 flex flex-col min-h-0 ${inPracticeSession ? '' : 'pb-bottom-nav md:pb-0'}`}>

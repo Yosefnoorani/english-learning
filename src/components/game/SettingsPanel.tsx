@@ -1,16 +1,19 @@
 import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList, Sparkles, Lock } from 'lucide-react'
+import { Sun, Moon, Monitor, Volume2, Target, AlertTriangle, Download, BookOpen, ClipboardList, Sparkles, Lock, Gem, Bell, Trophy } from 'lucide-react'
 import { MobileSheet } from '@/components/layout/MobileSheet'
 import { useGameStore } from '@/store/useGameStore'
 import type { AppTheme, SessionMode } from '@/types/game'
 import { downloadContentJson } from '@/services/contentService'
 import { getTierLabel, MIN_TIER, MAX_TIER } from '@/services/adaptiveProgressionService'
 import { AddContentPanel } from '@/components/game/AddContentPanel'
+import { STREAK_FREEZE_GEM_COST, DOUBLE_XP_GEM_COST } from '@/services/rewardService'
+import { requestNotificationPermission } from '@/services/notificationService'
 
 interface SettingsPanelProps {
   onClose: () => void
   onShowOnboarding?: () => void
+  onShowAchievements?: () => void
 }
 
 function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
@@ -33,7 +36,7 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: 
   )
 }
 
-export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps) {
+export function SettingsPanel({ onClose, onShowOnboarding, onShowAchievements }: SettingsPanelProps) {
   const theme = useGameStore((s) => s.theme)
   const sessionMode = useGameStore((s) => s.sessionMode)
   const sounds = useGameStore((s) => s.sounds)
@@ -42,9 +45,12 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
   const voiceLang = useGameStore((s) => s.voiceLang)
   const voiceRate = useGameStore((s) => s.voiceRate)
   const dailyGoalTarget = useGameStore((s) => s.userState.dailyGoalTarget)
+  const gems = useGameStore((s) => s.userState.gems)
+  const xp = useGameStore((s) => s.userState.xp)
   const currentTier = useGameStore((s) => s.currentTier)
   const practiceTier = useGameStore((s) => s.practiceTier)
   const highestTierReached = useGameStore((s) => s.highestTierReached)
+  const notificationPreferences = useGameStore((s) => s.notificationPreferences)
 
   const setTheme = useGameStore((s) => s.setTheme)
   const setSessionMode = useGameStore((s) => s.setSessionMode)
@@ -60,6 +66,9 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
   const setPracticeTier = useGameStore((s) => s.setPracticeTier)
   const resetProgress = useGameStore((s) => s.resetProgress)
   const startPlacement = useGameStore((s) => s.startPlacement)
+  const buyStreakFreeze = useGameStore((s) => s.buyStreakFreeze)
+  const buyDoubleXp = useGameStore((s) => s.buyDoubleXp)
+  const setNotificationPreferences = useGameStore((s) => s.setNotificationPreferences)
 
   const [confirmReset, setConfirmReset] = useState(false)
   const [showAddContent, setShowAddContent] = useState(false)
@@ -153,6 +162,71 @@ export function SettingsPanel({ onClose, onShowOnboarding }: SettingsPanelProps)
               ))}
             </div>
           </section>
+
+          {/* Gems shop */}
+          <section>
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-1">
+              <Gem size={12} className="text-violet-500" />
+              Gems · {gems} · {xp} XP
+            </h3>
+            <div className="flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => buyStreakFreeze()}
+                className="w-full py-3 px-4 rounded-xl border-2 border-blue-200 dark:border-blue-800 text-sm font-semibold text-left min-h-[44px]"
+              >
+                Streak freeze · {STREAK_FREEZE_GEM_COST} gems
+              </button>
+              <button
+                type="button"
+                onClick={() => buyDoubleXp()}
+                className="w-full py-3 px-4 rounded-xl border-2 border-violet-200 dark:border-violet-800 text-sm font-semibold text-left min-h-[44px]"
+              >
+                15-min 2× XP boost · {DOUBLE_XP_GEM_COST} gems
+              </button>
+            </div>
+          </section>
+
+          {/* Notifications */}
+          <section>
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-1">
+              <Bell size={12} />
+              Reminders
+            </h3>
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">Push notifications</p>
+                  <p className="text-xs text-slate-400">Streak alerts, mistakes due, league updates</p>
+                </div>
+                <Toggle
+                  checked={notificationPreferences.enabled}
+                  onChange={async (v) => {
+                    if (v) {
+                      const ok = await requestNotificationPermission()
+                      setNotificationPreferences({ enabled: ok })
+                    } else {
+                      setNotificationPreferences({ enabled: false })
+                    }
+                  }}
+                  label="Push notifications"
+                />
+              </div>
+            </div>
+          </section>
+
+          {onShowAchievements && (
+            <section>
+              <button
+                type="button"
+                onClick={() => { onClose(); onShowAchievements() }}
+                className="w-full py-3 px-4 rounded-xl border-2 border-amber-200 dark:border-amber-800 text-sm font-semibold flex items-center gap-2 min-h-[44px]"
+              >
+                <Trophy size={16} className="text-amber-500" />
+                View achievements gallery
+              </button>
+            </section>
+          )}
 
           {/* Practice level */}
           <section>

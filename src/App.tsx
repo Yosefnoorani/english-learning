@@ -4,6 +4,14 @@ import { useStoreHydrated } from '@/hooks/useStoreHydrated'
 import { loadContent } from '@/services/contentService'
 import { fetchSkillLessonQuestions } from '@/services/gameService'
 import { loadFeedback } from '@/services/feedbackService'
+import {
+  registerServiceWorker,
+  scheduleRetentionNotifications,
+  requestNotificationPermission,
+} from '@/services/notificationService'
+import { getStreakRiskHour } from '@/services/experimentService'
+import { buildOfflineLeaderboard, xpToNextRank } from '@/services/leagueService'
+import { getDueCount } from '@/store/useGameStore'
 import type { NavView } from '@/types/game'
 import { AppShell } from '@/components/layout/AppShell'
 import { PlacementView } from '@/components/game/PlacementView'
@@ -28,6 +36,14 @@ import { OnboardingTour } from '@/components/game/OnboardingTour'
 import { SessionSummary } from '@/components/game/SessionSummary'
 import { HomeScreen } from '@/components/game/HomeScreen'
 import { MicroLessonCard } from '@/components/game/MicroLessonCard'
+import { AchievementUnlockModal } from '@/components/game/AchievementUnlockModal'
+import { AchievementsGallery } from '@/components/game/AchievementsGallery'
+import { StreakHub } from '@/components/game/StreakHub'
+import { LeagueSummaryModal } from '@/components/game/LeagueSummaryModal'
+import { UnitMap } from '@/components/game/UnitMap'
+import { ShareStreakCard } from '@/components/game/ShareStreakCard'
+import { BonusChestToast } from '@/components/game/BonusChestToast'
+import { WelcomeBackScreen } from '@/components/game/WelcomeBackScreen'
 import { getLessonTip } from '@/content/lessonTips'
 import type { SkillId } from '@/types/game'
 
@@ -74,6 +90,24 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [showPlacementBanner, setShowPlacementBanner] = useState(false)
+  const [showAchievements, setShowAchievements] = useState(false)
+  const [showStreakHub, setShowStreakHub] = useState(false)
+  const [showUnitMap, setShowUnitMap] = useState(false)
+  const [showShareStreak, setShowShareStreak] = useState(false)
+  const pendingAchievementUnlocks = useGameStore((s) => s.pendingAchievementUnlocks)
+  const dismissAchievementUnlock = useGameStore((s) => s.dismissAchievementUnlock)
+  const pendingBonusChest = useGameStore((s) => s.pendingBonusChest)
+  const dismissBonusChest = useGameStore((s) => s.dismissBonusChest)
+  const showLeagueSummary = useGameStore((s) => s.showLeagueSummary)
+  const dismissLeagueSummary = useGameStore((s) => s.dismissLeagueSummary)
+  const showWelcomeBack = useGameStore((s) => s.showWelcomeBack)
+  const dismissWelcomeBack = useGameStore((s) => s.dismissWelcomeBack)
+  const notificationPreferences = useGameStore((s) => s.notificationPreferences)
+  const experiments = useGameStore((s) => s.experiments)
+  const mistakeQueue = useGameStore((s) => s.mistakeQueue)
+  const weeklyXp = useGameStore((s) => s.weeklyXp)
+  const weekStartDate = useGameStore((s) => s.weekStartDate)
+  const userState = useGameStore((s) => s.userState)
   const [pendingMicroSkill, setPendingMicroSkill] = useState<SkillId | null>(null)
   const hasSeenOnboarding = useGameStore((s) => s.hasSeenOnboarding)
   const hasCompletedSetup = useGameStore((s) => s.hasCompletedSetup)
@@ -87,7 +121,23 @@ export default function App() {
     Promise.all([loadContent(), loadFeedback()])
       .then(() => setContentReady(true))
       .catch((e) => setContentError(e instanceof Error ? e.message : 'Failed to load content'))
+    void registerServiceWorker()
   }, [])
+
+  useEffect(() => {
+    if (!storeHydrated || !notificationPreferences.enabled) return
+    const { members, userRank } = buildOfflineLeaderboard(weeklyXp, weekStartDate)
+    scheduleRetentionNotifications(notificationPreferences, {
+      streak: userState.streak,
+      dailyGoalProgress: userState.dailyGoalProgress,
+      dailyGoalTarget: userState.dailyGoalTarget,
+      dueMistakes: getDueCount(mistakeQueue),
+      leagueRank: userRank,
+      xpBehindNext: xpToNextRank(members, userRank),
+      streakRiskHour: getStreakRiskHour(experiments),
+      lastActiveDate: userState.lastActiveDate,
+    })
+  }, [storeHydrated, notificationPreferences, userState, mistakeQueue, weeklyXp, weekStartDate, experiments])
 
   useEffect(() => {
     if (contentReady) initGame()
@@ -238,6 +288,7 @@ export default function App() {
         activeView={activeView}
         onNavigate={handleNavigate}
         onOpenSettings={() => setShowSettings(true)}
+        onOpenStreakHub={() => setShowStreakHub(true)}
         inPracticeSession={activeView === 'practice' && !!item}
       >
         <main className="flex-1 flex flex-col min-h-0">
@@ -298,6 +349,9 @@ export default function App() {
                 onOpenSkills={() => setActiveView('skills')}
                 onStartPlacement={() => { void handleStartPlacementFromHome() }}
                 onStartReview={() => { void handleStartReview() }}
+                onOpenAchievements={() => setShowAchievements(true)}
+                onOpenUnitMap={() => setShowUnitMap(true)}
+                onShareStreak={() => setShowShareStreak(true)}
                 showPlacementBanner={showPlacementBanner && !hasCompletedSetup}
               />
             )
@@ -322,16 +376,14 @@ export default function App() {
       )}
 
       {showSessionSummary && !showFeedback && (
-        <SessionSummary
-          onContinue={() => continueSession()}
-          onDone={dismissSessionSummary}
-        />
+        <SessionSummary onDone={dismissSessionSummary} />
       )}
 
       {showSettings && (
         <SettingsPanel
           onClose={() => setShowSettings(false)}
           onShowOnboarding={() => { setShowSettings(false); setShowOnboarding(true) }}
+          onShowAchievements={() => setShowAchievements(true)}
         />
       )}
 
@@ -340,7 +392,59 @@ export default function App() {
           onDone={handleOnboardingDone}
           onStartPlacement={() => { void handleOnboardingStartPlacement() }}
           onSkip={handleOnboardingSkip}
+          onRequestNotifications={async () => {
+            const ok = await requestNotificationPermission()
+            if (ok) {
+              useGameStore.getState().setNotificationPreferences({ enabled: true })
+            }
+          }}
         />
+      )}
+
+      {pendingAchievementUnlocks[0] && !showSessionSummary && (
+        <AchievementUnlockModal
+          achievementId={pendingAchievementUnlocks[0]}
+          onDismiss={dismissAchievementUnlock}
+        />
+      )}
+
+      {pendingBonusChest && (
+        <BonusChestToast
+          gems={pendingBonusChest.gems}
+          goldenCombo={pendingBonusChest.goldenCombo}
+          onDismiss={dismissBonusChest}
+        />
+      )}
+
+      {showLeagueSummary && (
+        <LeagueSummaryModal onDismiss={dismissLeagueSummary} />
+      )}
+
+      {showWelcomeBack && activeView === 'practice' && !item && (
+        <WelcomeBackScreen
+          onStart={() => {
+            dismissWelcomeBack()
+            useGameStore.getState().setSessionMode('quick')
+            void continueSession(true)
+          }}
+          onDismiss={dismissWelcomeBack}
+        />
+      )}
+
+      {showAchievements && (
+        <AchievementsGallery onClose={() => setShowAchievements(false)} />
+      )}
+
+      {showStreakHub && (
+        <StreakHub onClose={() => setShowStreakHub(false)} />
+      )}
+
+      {showUnitMap && (
+        <UnitMap onClose={() => setShowUnitMap(false)} />
+      )}
+
+      {showShareStreak && (
+        <ShareStreakCard onClose={() => setShowShareStreak(false)} />
       )}
     </>
   )
